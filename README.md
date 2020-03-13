@@ -3,15 +3,15 @@
 ## Resources
 
 ### Links
-**Basic Stuff**  
-https://en.wikipedia.org/wiki/Core_War\
-https://en.wikipedia.org/wiki/Assembly_language\
+**Basic Stuff**</br>
+https://en.wikipedia.org/wiki/Core_War</br>
+https://en.wikipedia.org/wiki/Assembly_language</br>
 
-**Core War Insider**\
-http://inversed.ru/CoreWar/CoreOps_02.txt\
+**Core War Insider**</br>
+http://inversed.ru/CoreWar/CoreOps_02.txt</br>
 
-**Core War Emulator**\
-https://www.youtube.com/watch?v=1uKBlslviTM\
+**Core War Emulator**</br>
+https://www.youtube.com/watch?v=1uKBlslviTM</br>
 
 
 ### Files
