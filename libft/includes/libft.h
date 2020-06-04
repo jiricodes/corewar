@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 22:39:15 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/01/21 13:21:52 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/04 12:24:43 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 int					ft_isspace(char c);
 void				ft_strset(char *str, char c, size_t n);
+int					ft_strendwith(const char *src, const char *suffix);
 
 /*
 ** Output functions

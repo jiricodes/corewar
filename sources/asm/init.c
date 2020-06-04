@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 12:48:57 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 12:19:04 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/04 11:40:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "asm.h"
 
-/*
-** Lexicographical comparison between s1 and s2. If the 2
-** strings are identical the function returns 1, or 0 otherwise.
-*/
-
-int		ft_strequ(char const *s1, char const *s2)
+t_asm	*intialize_asm(char *filename)
 {
-	while (s1[0] != '\0' && !(*(s1) ^ *(s2)))
-	{
-		s1++;
-		s2++;
-	}
-	return (!(*(s1) ^ *(s2)));
+	t_asm	*core;
+
+	core = (t_asm *)malloc(sizeof(t_asm));
+	if (!core)
+		ft_error_exit("Malloc at initialize_asm", NULL, NULL);
+	core->source_fd = open(filename, O_RDONLY);
+	if (core->source_fd < 0)
+		ft_error_exit("Failed to open given source file", core, clear_t_asm);
+
 }

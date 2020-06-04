@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jnovotny < jnovotny@student.hive.fi>       +#+  +:+       +#+         #
+#    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:44:22 by jnovotny          #+#    #+#              #
-#    Updated: 2019/12/27 18:24:52 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/04 12:23:26 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ LIB_FTS = ft_atoi.c \
 		ft_strcpy.c \
 		ft_strdel.c \
 		ft_strdup.c \
+		ft_strendwith.c \
 		ft_strequ.c \
 		ft_striter.c \
 		ft_striteri.c \

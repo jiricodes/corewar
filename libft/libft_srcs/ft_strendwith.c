@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   ft_strendwith.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 12:48:57 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 12:19:04 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/04 12:16:33 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/04 12:23:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** Lexicographical comparison between s1 and s2. If the 2
-** strings are identical the function returns 1, or 0 otherwise.
+** Check whether given string src ends with the suffix
 */
 
-int		ft_strequ(char const *s1, char const *s2)
+int		ft_strendwith(const char *src, const char *suffix)
 {
-	while (s1[0] != '\0' && !(*(s1) ^ *(s2)))
-	{
-		s1++;
-		s2++;
-	}
-	return (!(*(s1) ^ *(s2)));
+	size_t src_l;
+	size_t suf_l;
+
+	src_l = ft_strlen(src);
+	suf_l = ft_strlen(suffix);
+	return (suf_l <= src_l && ft_strequ(src + src_l - suf_l, suffix));
 }
