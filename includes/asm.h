@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 12:38:24 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/04 13:08:47 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "op.h"
 # include "libft.h"
 # include "ft_error.h"
+
+# define SRC_TYPE ".s"
+# define TRGT_TYPE ".cor"
 
 typedef struct	s_asm
 {
@@ -30,5 +33,6 @@ typedef struct	s_asm
 void	clear_t_asm(t_asm *object);
 char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
+t_asm	*intialize_asm(char *filename);
 
 #endif
