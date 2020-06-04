@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 11:26:00 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/04 12:38:24 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,7 @@ typedef struct	s_asm
 */
 
 void	clear_t_asm(t_asm *object);
+char	*filename_pars(const char *source, const char *src_type,\
+		const char *target_type);
+
 #endif

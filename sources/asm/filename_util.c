@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:29:13 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 11:40:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/04 12:37:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 ** If true, returns ".cor" file name. Else returns NULL
 */
 
-char	*filename_pars(const char *source, const char *src_type, const char *target_type)
+char	*filename_pars(const char *source, const char *src_type,\
+		const char *target_type)
 {
 	char	*target;
-	size_t	l;
+	char	*basename;
 
 	target = NULL;
-	l = ft_strlen(source);
-	if (l > 2)
+	if (ft_strendwith(source, src_type))
 	{
-		if (source[l - 2] == '.' && source[l - 1] == 's')
-		{
-			target = ft_strjoin(ft_strsub(source, 0, l - 2), ".cor")
-		}
+		basename = ft_strsub(source, 0, ft_strlen(source) - ft_strlen(src_type));
+		target = ft_strjoin(basename, target_type);
+		free(basename);
 	}
+	return (target);
 }
