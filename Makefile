@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/08 20:58:05 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/08 21:30:31 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ ASM_FILES =	asm.c \
 			cleanup.c \
 			encoding.c \
 			filename_util.c \
-			init.c
+			init.c \
+			print_debug.c
+
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 
 # CoreWar Sources

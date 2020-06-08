@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   print_debug.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 10:51:34 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/08 21:28:58 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/08 21:23:59 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/08 21:28:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int main(int argc, char **argv)
+void	print_asmcore(t_asm *core)
 {
-	t_asm	*core;
-
-	if (argc == 2)
-	{
-		core = intialize_asm(argv[1]);
-		ft_printf("{GREEN} Initialization done!{EOC}");
-		read_file(core, core->source_fd);
-		print_asmcore(core);
-	}
-	else
-		ft_printf("./asm <filename.s>");
-	return (0);
+	ft_printf("{U}ASM Core{EOC}\n");
+	ft_printf("Source FD: %d\n", core->source_fd);
+	ft_printf("Target FD: %d\n", core->core_fd);
+	ft_printf("Champ's Name: %s\n", core->champ_name);
+	ft_printf("Champ's Comment: %s\n", core->champ_comment);
 }
