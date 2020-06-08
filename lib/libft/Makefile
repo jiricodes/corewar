@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:44:22 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/08 15:25:12 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/08 18:34:02 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,6 +146,8 @@ C_RES = \033[0m
 # Tools and Utils
 LOGO = yes
 COMP = yes
+STATUS = yes
+PROGRESS_CHAR = "*"
 
 .PHONY: all clean fclean re
 
@@ -171,19 +173,25 @@ $(TARGET_DIRS): logo
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(CFLAGS) $(INCLUDES_DIR) -o $@ -c $<
-	@echo "*\c"
+	@echo $(PROGRESS_CHAR)"\c"
 
 $(NAME): $(TARGET_DIRS) $(OBJS)
 	@ar rcs $@ $(OBJS)
 	@ranlib $@
+ifeq (yes, $(STATUS))
 	@echo "$(C_GREEN)\n[Library Created!]$(C_RES)"
+endif
 
 clean: logo
 	@/bin/rm -rf $(OBJ_DIR)
+ifeq (yes, $(STATUS))
 	@echo "$(C_RED)[Objects deleted!]$(C_RES)"
+endif
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+ifeq (yes, $(STATUS))
 	@echo "$(C_RED)[Removed $(NAME)]$(C_RES)"
+endif
 
 re: fclean all
