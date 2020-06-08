@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/04 20:20:10 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:00:44 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,44 @@ void	check_string(char *str, char *type)
 
 // extracting champs name from line
 
-void	save_champ_name(t_asm *core, char *line)
+void	save_champ_name(int source_fd, t_asm *core, char *line)
 {
-	int x;
-	int y;
-	char *new;
+	char	*ret;
+	int		cnt;
+	int		pos_start;
+	char	*cntd;
 
-	x = ft_strlen(NAME_CMD_STRING);
-	y = ft_strlen(line);
-	while (line[x] != '\"')
+	pos_start = 0;
+	cnt = ft_strlen(NAME_CMD_STRING);
+	// while (1)
+	// {
+	while (line[cnt] != '\"')
+		cnt += 1;
+	pos_start = cnt;
+	cnt += 1;
+	while (line[cnt] != '\0' && line[cnt] != '\"')
+		cnt += 1;
+	if (line[cnt] == '\0')
 	{
-		if (line[x] == '\0')
-			exit(0);
-		x += 1;
+		ret = &line[pos_start];
+		while(get_next_line(source_fd, &cntd) > 0)
+		{
+			if (ft_strchr(cntd, '\"'))
+			{
+				ret = ft_strcat(ret, "\n");
+				ret = ft_strcat(ret, cntd);
+				break ;
+			}
+			else if (!ft_strchr(cntd, '\"'))
+			{
+				ret = ft_strcat(ret, "\n");
+				ret = ft_strcat(ret, cntd);
+			}
+		}
 	}
-	while (line[y] != '\"')
-	{
-		if (y <= ft_strlen(NAME_CMD_STRING))
-			exit(0);
-		y -= 1;
-	}
-	if (y <= x)
-		exit(0);
-	new = ft_strndup(line + x + 1, y - x - 1);
-	check_string(new, "name");
-	core->champ_name = new;
+	else if (line[cnt] == '\"')
+		ret = &line[pos_start];
+	printf("%s\n", ret);
 }
 
 // extracting champs comment from line
@@ -123,10 +136,10 @@ void	read_file(t_asm *core, int source_fd)
 	while (get_next_line(source_fd, &line) > 0)
 		
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-			save_champ_name(core, line);
-		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-			save_champ_comment(core, line);
+			save_champ_name(source_fd, core, line);
+		// else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		// 	save_champ_comment(core, line);
 		free(line);
-	printf("%s\n", core->champ_name);
-	printf("%s\n", core->champ_comment);
+	// printf("%s\n", core->champ_name);
+	// printf("%s\n", core->champ_comment);
 }
