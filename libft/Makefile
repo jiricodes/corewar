@@ -6,23 +6,15 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:44:22 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/04 12:23:26 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/08 15:25:12 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-C_RED = \033[1;31m
-C_GREEN = \033[1;32m
-C_L_GREEN = \033[1;32m
-C_BLUE = \033[1;34m
-C_L_BLUE = \033[1;34m
-C_WHITE = \033[1;37m
-C_RES = \033[0m
-
+# Name
 NAME = libft.a
 
-LIB = libft_srcs/
-
-FTS =	datafeed.c \
+# Source Files
+PRINTF_FTS =	datafeed.c \
 		ft_printf.c \
 		parsing.c \
 		error.c \
@@ -119,41 +111,75 @@ LIB_FTS = ft_atoi.c \
 
 ERROR_FTS =	ft_error_exit.c
 
-FTO = $(FTS:.c=.o)
-LIB_FTO = $(LIB_FTS:.c=.o)
-ERROR_FTO = $(ERROR_FTS:.c=.o)
-E_DIR = error_srcs/
-S_DIR = pf_srcs/
-O_DIR = ./objs/
-I_DIR = -I./includes
+# Folders
+SRC_DIR = sources/
+LIB_DIR = libft_srcs/
+ERROR_DIR = error_srcs/
+PRINTF_DIR = pf_srcs/
+OBJ_DIR = ./object_files/
+INCLUDES_DIR = -I./includes
+TARGET_DIRS = $(OBJ_DIR)
+TARGET_DIRS += $(addprefix $(OBJ_DIR), $(LIB_DIR) $(ERROR_DIR) $(PRINTF_DIR))
 
-SRCS = $(addprefix $(S_DIR), $(FTS))
-SRCS += $(addprefix $(LIB), $(LIB_FTS))
-SRCS += $(addprefix $(E_DIR), $(ERROR_FTS))
-OBJS = $(addprefix $(O_DIR), $(FTO))
-OBJS += $(addprefix $(O_DIR), $(LIB_FTO))
-OBJS += $(addprefix $(O_DIR), $(ERROR_FTO))
+# Pathing
+PRINTF_SRCS = $(addprefix $(PRINTF_DIR), $(PRINTF_FTS))
+LIB_SRCS = $(addprefix $(LIB_DIR), $(LIB_FTS))
+ERROR_SRCS = $(addprefix $(ERROR_DIR), $(ERROR_FTS))
+
+PRINTF_FTO = $(PRINTF_SRCS:.c=.o)
+LIB_FTO = $(LIB_SRCS:.c=.o)
+ERROR_FTO = $(ERROR_SRCS:.c=.o)
+
+OBJS = $(addprefix $(OBJ_DIR), $(PRINTF_FTO) $(LIB_FTO) $(ERROR_FTO))
 
 CFLAGS = -Wall -Werror -Wextra
+
+# Colors
+C_RED = \033[1;31m
+C_GREEN = \033[1;32m
+C_L_GREEN = \033[1;32m
+C_BLUE = \033[1;34m
+C_L_BLUE = \033[1;34m
+C_WHITE = \033[1;37m
+C_RES = \033[0m
+
+# Tools and Utils
+LOGO = yes
+COMP = yes
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(OBJS):
-	@/bin/mkdir -p $(O_DIR)
-	@gcc $(CFLAGS) $(I_DIR) -c $(SRCS)
-	@mv $(FTO) $(O_DIR)
-	@mv $(LIB_FTO) $(O_DIR)
-	@mv $(ERROR_FTO) $(O_DIR)
+logo:
+ifeq (yes, $(LOGO))
+	@echo "$(C_BLUE) _     _ _    ______ _____ $(C_RES)"
+	@echo "$(C_BLUE)| |   (_) |   |  ___|_   _|$(C_RES)"
+	@echo "$(C_BLUE)| |    _| |__ | |_    | |  $(C_RES)"
+	@echo "$(C_BLUE)| |   | | '_ \|  _|   | |  $(C_RES)"
+	@echo "$(C_BLUE)| |___| | |_) | |     | |  $(C_RES)"
+	@echo "$(C_BLUE)\_____/_|_.__/\_|     \_/  $(C_RES)"
+	@echo "\n"
+LOGO = no
+endif
 
-$(NAME): $(OBJS)
-	@ar rcs $@ $^
+$(TARGET_DIRS): logo
+	@/bin/mkdir -p $(OBJ_DIR)
+	@/bin/mkdir -p $(OBJ_DIR)$(LIB_DIR)
+	@/bin/mkdir -p $(OBJ_DIR)$(ERROR_DIR)
+	@/bin/mkdir -p $(OBJ_DIR)$(PRINTF_DIR)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@gcc $(CFLAGS) $(INCLUDES_DIR) -o $@ -c $<
+	@echo "*\c"
+
+$(NAME): $(TARGET_DIRS) $(OBJS)
+	@ar rcs $@ $(OBJS)
 	@ranlib $@
-	@echo "$(C_GREEN)[Library Created!]$(C_RES)"
+	@echo "$(C_GREEN)\n[Library Created!]$(C_RES)"
 
-clean:
-	@/bin/rm -rf $(O_DIR)
+clean: logo
+	@/bin/rm -rf $(OBJ_DIR)
 	@echo "$(C_RED)[Objects deleted!]$(C_RES)"
 
 fclean: clean
