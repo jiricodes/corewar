@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   chaps.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 11:20:45 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 11:03:43 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/09 11:01:30 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "vm.h"
 
-void	clear_t_asm(void *object)
+t_champ		*init_champ(char	*filename)
 {
-	if (((t_asm*)object)->source_fd > 2)
-		if (close(((t_asm*)object)->source_fd) < 0)
-			ft_error_exit("Failed to close source file", NULL, NULL);
-	if (((t_asm*)object)->core_fd > 2)
-		if (close(((t_asm*)object)->core_fd) < 0)
-			ft_error_exit("Failed to close target file", NULL, NULL);
-	free(object);
+	t_champ		*champ;
+
+	if (!ft_strendwith(filename, ".cor"))
+	{
+		ft_printf("Incorrect file type: %s\n", filename);
+		ft_error_exit("Must be .cor type. Terminating", NULL, NULL);
+	}
+	champ = (t_champ*)ft_memalloc(sizeof(t_champ));
+	if (!champ)
+		ft_error_exit("Malloc at init_champ", NULL, NULL);
 }

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 11:20:45 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 11:03:43 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/09 10:51:21 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef VM_H
+# define VM_H
 
-void	clear_t_asm(void *object)
+# include "libft.h"
+# include "ft_error.h"
+
+typedef struct s_champ
 {
-	if (((t_asm*)object)->source_fd > 2)
-		if (close(((t_asm*)object)->source_fd) < 0)
-			ft_error_exit("Failed to close source file", NULL, NULL);
-	if (((t_asm*)object)->core_fd > 2)
-		if (close(((t_asm*)object)->core_fd) < 0)
-			ft_error_exit("Failed to close target file", NULL, NULL);
-	free(object);
-}
+	int			fd;
+	char		*name;
+}				t_champ;
+
+typedef struct	s_vm
+{
+	t_champ		*champ;
+}				t_vm;
+#endif
