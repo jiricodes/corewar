@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   vm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 11:20:45 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 11:03:43 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/09 10:45:19 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "vm.h"
 
-void	clear_t_asm(void *object)
+int main(int argc, char **argv)
 {
-	if (((t_asm*)object)->source_fd > 2)
-		if (close(((t_asm*)object)->source_fd) < 0)
-			ft_error_exit("Failed to close source file", NULL, NULL);
-	if (((t_asm*)object)->core_fd > 2)
-		if (close(((t_asm*)object)->core_fd) < 0)
-			ft_error_exit("Failed to close target file", NULL, NULL);
-	free(object);
+	t_vm	*core;
+
+	if (argc == 2)
+	{
+		
+	}
 }
