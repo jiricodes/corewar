@@ -1,6 +1,8 @@
 #include "asm.h"
 
-void test_print(char *line, int start, int end)
+//Copies label/operation/instruction from start pos to end pos and returns it
+
+char *split_instru(char *line, int start, int end)
 {
 	char *op;
 	int i;
@@ -14,9 +16,11 @@ void test_print(char *line, int start, int end)
 		start = start + 1;
 	}
 	op[i] = '\0';
-	ft_printf("%s, ", op);
-	free(op);
+	ft_printf("%s,", op); //just a testprint
+	return(op);
 }
+
+//Finds positions where labels/operations/instructions should be split
 
 int analysis(t_asm *core, char *line)
 {
@@ -29,21 +33,26 @@ int analysis(t_asm *core, char *line)
 	end = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '#')
+		if (line[i] == '#' || line[i] == ';')
 			line[i] = '\0';
-		if (((line[i] == ' ' || line[i] == '\t' || line[i] == ',') || i == 0) && 
+		if (((line[i] == ' ' || line[i] == '\t' || line[i] == ',') || i == 0) &&
 			(line[i + 1] != ' ' && line[i + 1] != '\t' && line[i + 1] != ','))
-			{
-				(i == 0) ? (start = 0) :
-				(start = i + 1);
-			}
+		{
+			(i == 0 && (line[i] != ' ' && line[i] != '\t' && line[i] != ',')) ? (start = 0) :
+			(start = i + 1);
+		}
 		if (line[i] != '\0')
 			i = i + 1;
-		if ((line[i] == ' ' || line[i] == '\t' || line[i] == ',' || line[i] == '\0') && 
+		if ((line[i] == ' ' || line[i] == '\t' || line[i] == ',' || line[i] == '\0') &&
 			(line[i - 1] != ' ' && line[i - 1] != '\t' && line[i - 1] != ','))
 			end = i - 1;
 		if (start < end && end == i - 1)
-			test_print(line, start, end);
+			split_instru(line, start, end);
+		/*
+		** Maybe something along the lines of?:
+		if (start < end && end == i - 1)
+			ERROR_CHECK(split_instru(line, start, end));
+		*/
 	}
 	return (1);
 }
