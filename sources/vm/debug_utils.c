@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 12:03:16 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/10 11:50:06 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int main(int argc, char **argv)
+void	print_champ_header(t_champ *champ)
 {
-	t_champ *champ;
-
-	if (argc == 2)
-	{
-		champ = init_champ(argv[1]);
-		ft_printf("Champ initialized\n");
-		load_champ(champ);
-	}
-	return (0);
+	ft_printf("Magic: %#x\n", champ->header->magic);
+	ft_printf("Name: %s\n", champ->header->prog_name);
 }

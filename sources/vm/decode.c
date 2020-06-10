@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   decode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 12:03:16 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/10 10:47:50 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/10 10:50:01 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int main(int argc, char **argv)
+int32_t		decode(const uint8_t *source, size_t size)
 {
-	t_champ *champ;
+	int32_t result;
+	uint8_t sign;
+	size_t i;
 
-	if (argc == 2)
+	if (source[0] & 128)
+		sign = 255;
+	else
+		sign = 0;
+	result = 0;
+	i = 0;
+	while (i < size)
 	{
-		champ = init_champ(argv[1]);
-		ft_printf("Champ initialized\n");
-		load_champ(champ);
+		result += (source[size - (i + 1)] ^ sign) << (i * 8);
+		i++;
 	}
-	return (0);
+	if (sign)
+		result = ~result;
+	return (result);
 }
+

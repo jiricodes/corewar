@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/08 21:30:31 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/10 11:55:47 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,12 @@ ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 
 # CoreWar Sources
 VM_DIR = vm/
+VM_FILES =	champs.c \
+			debug_utils.c \
+			decode.c \
+			vm.c
+
+VM_SRC = $(addprefix $(VM_DIR), $(VM_FILES))
 
 # Libraries
 LIBS_DIR = lib/
@@ -52,6 +58,9 @@ TARGET_DIR += $(addprefix $(OBJ_DIR), $(ASM_DIR) $(VM_DIR))
 
 ASM_FTO = $(ASM_SRC:.c=.o)
 ASM_OBJ = $(addprefix $(OBJ_DIR), $(ASM_FTO))
+
+VM_FTO = $(VM_SRC:.c=.o)
+VM_OBJ = $(addprefix $(OBJ_DIR), $(VM_FTO))
 
 # Colors
 C_RED = \033[1;31m
@@ -109,8 +118,11 @@ $(ASM_EXEC): $(TARGET_DIR) $(LIBFT) $(ASM_OBJ)
 	@$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -o $@ $(ASM_OBJ)
 	@echo "[Done]"
 
-$(VM_EXEC): $(TARGET_DIR)
-	@echo "\n[VM rules not created yet!]"
+$(VM_EXEC): $(TARGET_DIR) $(LIBFT) $(VM_OBJ)
+	@echo "\n[VM Object files ready]"
+	@echo "[Linking Virtul Machine executable]"
+	@$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -o $@ $(VM_OBJ)
+	@echo "[Done]"
 
 clean: logo
 	@make clean -C $(LIBFT_DIR) $(LFT_ARG)
