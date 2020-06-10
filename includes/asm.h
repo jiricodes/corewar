@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2020/06/08 23:35:03 by asolopov         ###   ########.fr       */
+=======
 /*   Updated: 2020/06/09 11:04:46 by jnovotny         ###   ########.fr       */
+>>>>>>> 475a0fb39b2fe8582527a5c4ac63d78e60d0b4f5
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +30,7 @@ typedef struct	s_asm
 	int		core_fd;
 	char	*champ_name;
 	char	*champ_comment;
+	int		flag;
 }				t_asm;
 
 
@@ -38,6 +43,7 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
+int		analysis(t_asm *core, char *line);
 
 /*
 ** ASM File reading

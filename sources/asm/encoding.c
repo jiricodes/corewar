@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/08 23:24:41 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/10 11:50:53 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ char	*save_champ_head(char *target, int source_fd, char *line)
 		{
 			if (ft_strchr(cntd, '\"'))
 			{
-				ret = ft_strcat(ret, "\n"); // need to write memory-friendly function not to have leaks
-				ret = ft_strcat(ret, cntd);
+				ret = ft_strjoin(ret, "\n"); // need to write memory-friendly function not to have leaks
+				ret = ft_strjoin(ret, cntd);
 				break ;
 			}
 			else if (!ft_strchr(cntd, '\"'))
 			{
-				ret = ft_strcat(ret, "\n");
-				ret = ft_strcat(ret, cntd);
+				ret = ft_strjoin(ret, "\n");
+				ret = ft_strjoin(ret, cntd);
 			}
 		}
 	}
@@ -62,11 +62,19 @@ void	read_file(t_asm *core, int source_fd)
 	while (get_next_line(source_fd, &line) > 0)
 		
 		// only .name & .comment allowed. others .(...) should be marked as error
-		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING))) // flag breaks this
+		{
 			core->champ_name = save_champ_head(NAME_CMD_STRING, source_fd, line);
-		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+			core->flag = 1;
+		}
+		else if (core->flag < 10 && ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		{
 			core->champ_comment = save_champ_head(COMMENT_CMD_STRING, source_fd, line);
+			core->flag = 10;
+		}
+		else if (core->flag >= 10)
+			analysis(core, line);
 		free(line);
-	printf("%s\n", core->champ_name);
+	printf("\n%s\n", core->champ_name);
 	printf("%s\n", core->champ_comment);
 }
