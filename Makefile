@@ -27,7 +27,8 @@ ASM_FILES =	asm.c \
 			encoding.c \
 			filename_util.c \
 			init.c \
-			print_debug.c
+			print_debug.c \
+			analysis.c
 
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 
