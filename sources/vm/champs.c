@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 12:05:23 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/10 12:32:00 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char		*load_string(t_champ *champ, size_t size)
 	if (ret != size)
 		ft_error_exit("load_string error, cannot read given size", NULL, NULL);
 	buffer[ret] = '\0';
+	ft_printf("Read: %s\n", buffer);
 	return (buffer);
 }
 
@@ -77,13 +78,13 @@ void		load_header(t_champ *champ)
 	char *tmp;
 
 	magic_check(champ);
-	if (nullbytes_check(champ, 4))
-		ft_error_exit("First NULL spacing error", NULL, NULL);
 	tmp = load_string(champ, PROG_NAME_LENGTH);
 	ft_strcpy(champ->header->prog_name, tmp);
 	free(tmp);
 	if (nullbytes_check(champ, 4))
-		ft_error_exit("Second NULL spacing error", NULL, NULL);
+		ft_error_exit("First NULL spacing error", NULL, NULL);
+	// if (nullbytes_check(champ, 4))
+	// 	ft_error_exit("Second NULL spacing error", NULL, NULL);
 }
 
 void		load_champ(t_champ *champ)
