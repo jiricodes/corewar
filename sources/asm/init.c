@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 11:06:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/09 11:20:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_asm	*intialize_asm(char *filename)
 	target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
 	if (!target_file)
 		ft_error_exit("Given file is of incorrect type", (void *)core, clear_t_asm);
-	ft_printf("Attempting to open  source file %s\n", filename);
 	core->source_fd = open(filename, O_RDONLY);
 	if (core->source_fd < 0)
 		ft_error_exit("Failed to open given source file", (void *)core, clear_t_asm);
