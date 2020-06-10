@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:51:34 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 10:38:54 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/09 11:14:31 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int main(int argc, char **argv)
 		ft_printf("{GREEN} Initialization done!{EOC}\n");
 		read_file(core, core->source_fd);
 		print_asmcore(core);
+		clear_t_asm((void *)core);
 	}
 	else
 		ft_printf("./asm <filename.s>");
+	// while(1);
 	return (0);
 }

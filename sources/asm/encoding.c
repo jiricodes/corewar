@@ -62,11 +62,19 @@ void	read_file(t_asm *core, int source_fd)
 	while (get_next_line(source_fd, &line) > 0)
 		
 		// only .name & .comment allowed. others .(...) should be marked as error
-		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		if (core->flag == 0 && ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		{
 			core->champ_name = save_champ_head(NAME_CMD_STRING, source_fd, line);
-		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+			core->flag = 1;
+		}
+		else if (core->flag < 10 && ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		{
 			core->champ_comment = save_champ_head(COMMENT_CMD_STRING, source_fd, line);
+			core->flag = 10;
+		}
+		else if (core->flag >= 10)
+			analysis(core, line);
 		free(line);
-	printf("%s\n", core->champ_name);
+	printf("\n%s\n", core->champ_name);
 	printf("%s\n", core->champ_comment);
 }
