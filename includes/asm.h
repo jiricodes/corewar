@@ -26,6 +26,7 @@ typedef struct	s_asm
 	int		core_fd;
 	char	*champ_name;
 	char	*champ_comment;
+	int		flag;
 }				t_asm;
 
 
@@ -38,6 +39,7 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
+int		analysis(t_asm *core, char *line);
 
 /*
 ** ASM File reading

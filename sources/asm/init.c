@@ -29,5 +29,6 @@ t_asm	*intialize_asm(char *filename)
 	core->core_fd = open(target_file, O_RDWR | O_CREAT, 0600);
 	if (core->core_fd < 0)
 		ft_error_exit("Failed to open given target file", (void *)core, clear_t_asm);
+	core->flag = 0;
 	return (core);
 }
