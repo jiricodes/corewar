@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 13:22:07 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 15:16:39 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ void	show_arena(t_vm *core)
 	size_t	i;
 
 	core->vfx = init_visual_settings(core->champ->header->prog_name);
+	vfx_colors();
 	y = 1;
 	x = 1;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
+		wattron(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		mvwprintw(core->vfx->win, y, x, "%02x", core->arena[i]);
+		wattroff(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
+		wrefresh(core->vfx->win);
 		i++;
 		x += 2;
 		if (x >= core->vfx->width - 1)
@@ -51,7 +55,6 @@ void	show_arena(t_vm *core)
 			y++;
 		}
 	}
-	wrefresh(core->vfx->win);
 	getch();
 	endwin();
 }

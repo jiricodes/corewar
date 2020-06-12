@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 12:23:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 14:41:37 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_champ		*init_champ(char	*filename)
 	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
 	if (!(champ->header))
 		ft_error_exit("Malloc header in init_champ", NULL, NULL);
+	champ->id = 1; //tmp id
 	return (champ);
 }
 
@@ -114,5 +115,5 @@ void		load_champ(t_champ *champ)
 	ft_printf("Header loaded\n");
 	load_code(champ);
 	print_champ_header(champ);
-	print_code(champ);
+	// print_code(champ);
 }

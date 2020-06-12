@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 13:07:41 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 15:10:30 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_champ
 {
-	uint		id;
+	uint8_t		id;
 	int			fd;
 	header_t	*header;
 	uint8_t		*raw;
@@ -39,6 +39,7 @@ typedef struct	s_vm
 {
 	t_champ		*champ;
 	uint8_t		*arena;
+	uint8_t		*byte_owner;
 	t_vs		*vfx;
 }				t_vm;
 
@@ -52,7 +53,7 @@ int32_t		decode(const uint8_t *source, size_t size);
 void		print_champ_header(t_champ *champ);
 void		print_code(t_champ *champ);
 void		init_arena(t_vm	*core);
-void		insert_champ_to_arena(uint8_t *arena, t_champ *champ, ssize_t position);
+void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
 
 /*
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
@@ -60,4 +61,5 @@ void		insert_champ_to_arena(uint8_t *arena, t_champ *champ, ssize_t position);
 
 t_vs		*init_visual_settings(char *title);
 void		show_arena(t_vm *core);
+void		vfx_colors();
 #endif
