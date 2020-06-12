@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 12:50:58 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 10:07:01 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/06/12 14:57:21 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/06/12 15:53:51 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "vm.h"
 
-int main(int argc, char **argv)
+void	vfx_colors()
 {
-	if (argc == 2)
-	{
-		uint8_t num = (uint8_t)atoi(argv[1]);
-		uint8_t sign = num & 128;
-		printf("%d\n", sign);
-	}
+	start_color();
+	init_pair(1, COLOR_RED, 0);
+	init_pair(2, COLOR_BLUE, 0);
+	init_pair(3, COLOR_GREEN, 0);
+	init_pair(4, COLOR_YELLOW, 0);
+	init_pair(5, COLOR_MAGENTA, 0);
+	init_pair(6, COLOR_CYAN, 0);
 }
