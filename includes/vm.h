@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 15:10:30 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 15:57:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct	s_visual_settings
 
 typedef struct	s_vm
 {
-	t_champ		*champ;
+	int			n_players;
+	t_champ		**champ;
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
 	t_vs		*vfx;
@@ -47,7 +48,7 @@ typedef struct	s_vm
 ** Champion Utilities
 */
 
-t_champ		*init_champ(char	*filename);
+t_champ		*init_champ(char	*filename, int id);
 void		load_champ(t_champ *champ);
 int32_t		decode(const uint8_t *source, size_t size);
 void		print_champ_header(t_champ *champ);

@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 14:41:37 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 15:56:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_champ		*init_champ(char	*filename)
+t_champ		*init_champ(char	*filename, int id)
 {
 	t_champ		*champ;
 
@@ -29,7 +29,7 @@ t_champ		*init_champ(char	*filename)
 	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
 	if (!(champ->header))
 		ft_error_exit("Malloc header in init_champ", NULL, NULL);
-	champ->id = 1; //tmp id
+	champ->id = (uint8_t)id;
 	return (champ);
 }
 
