@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 13:48:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 12:23:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ void		load_champ(t_champ *champ)
 	ft_printf("Header loaded\n");
 	load_code(champ);
 	print_champ_header(champ);
+	print_code(champ);
 }
