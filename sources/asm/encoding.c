@@ -54,8 +54,9 @@ char	*save_champ_head(char *target, int source_fd, char *line)
 }
 
 // trying to read name and comment using gnl
+//now takes t_operation as argument for analysis
 
-void	read_file(t_asm *core, int source_fd)
+void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
 
@@ -73,7 +74,7 @@ void	read_file(t_asm *core, int source_fd)
 			core->flag = 10;
 		}
 		else if (core->flag >= 10)
-			analysis(core, line);
+			analysis(core, line, list);
 		free(line);
 	printf("\n%s\n", core->champ_name);
 	printf("%s\n", core->champ_comment);
