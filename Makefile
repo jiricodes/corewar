@@ -6,7 +6,7 @@
 #    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/11 14:39:39 by asolopov         ###   ########.fr        #
+#    Updated: 2020/06/22 15:31:12 by asolopov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,12 @@ ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 
 # CoreWar Sources
 VM_DIR = vm/
-VM_FILES =	champs.c \
+VM_FILES =	arena.c \
+			champs.c \
 			debug_utils.c \
 			decode.c \
+			init_colors.c \
+			visual.c \
 			vm.c
 
 VM_SRC = $(addprefix $(VM_DIR), $(VM_FILES))
@@ -123,7 +126,7 @@ $(ASM_EXEC): $(TARGET_DIR) $(LIBFT) $(ASM_OBJ)
 $(VM_EXEC): $(TARGET_DIR) $(LIBFT) $(VM_OBJ)
 	@echo "\n[VM Object files ready]"
 	@echo "[Linking Virtul Machine executable]"
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -o $@ $(VM_OBJ)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -lncurses $(INCLUDES) -o $@ $(VM_OBJ)
 	@echo "[Done]"
 
 clean: logo

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/18 16:57:55 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/22 15:31:03 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ typedef struct	s_asm
 	int		flag;
 }				t_asm;
 
-typedef struct s_ops
+//linked list struct
+//we are not currently saving op_size and t_dir size
+typedef struct s_operation
 {
-	char			*label;
-	char			*opname;
-	char			*args[3];
-	int				t_dir_size;
-	int				opsize;
-	struct s_ops	*next;
-}				t_op;
+    char    *label;
+    char    *operation;
+    char    *arg1;
+    char    *arg2;
+    char    *arg3;
+    int     *op_size;
+    int     t_dir_size;
+    struct s_operation *next;
+}               t_operation;
 
 
 /*
@@ -50,11 +54,17 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
-int		analysis(t_asm *core, char *line);
+int		analysis(t_asm *core, char *line, t_operation **list);
 
 /*
 ** ASM File reading
 */
-void	read_file(t_asm *core, int source_fd);
+void	read_file(t_asm *core, int source_fd, t_operation **list);
+
+/*
+** ASM List functions
+*/
+int     list_append(t_operation **head);
+void    print_list(t_operation *list);
 
 #endif

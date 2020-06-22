@@ -1,6 +1,6 @@
 .vscode/
 .DS_Store
-.tests/
+tests/
 libft/objs/
 libft/libft.a
 a.out

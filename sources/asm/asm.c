@@ -12,16 +12,21 @@
 
 #include "asm.h"
 
+//Maybe we'll move the t_operation pointer inside t_asm pointer at some point?
 int main(int argc, char **argv)
 {
-	t_asm	*core;
+	t_asm		*core;
+	t_operation	*list;
 
 	if (argc == 2)
 	{
 		core = intialize_asm(argv[1]);
+		list = NULL;
 		ft_printf("{GREEN} Initialization done!{EOC}\n");
-		read_file(core, core->source_fd);
+		read_file(core, core->source_fd, &list);
 		print_asmcore(core);
+		//test printer to see linked list contents
+		print_list(list);
 		clear_t_asm((void *)core);
 	}
 	else

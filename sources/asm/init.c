@@ -32,3 +32,47 @@ t_asm	*intialize_asm(char *filename)
 	core->flag = 0;
 	return (core);
 }
+
+/*
+** Function to add a node to the linked list struct.
+** Allocates memory and initializes all values to null.
+*/
+
+t_operation	*newnode(void)
+{
+	t_operation *new;
+
+	new = (t_operation*)ft_memalloc(sizeof(t_operation));
+	if (!new)
+		ft_error_exit("Malloc at newnode", NULL, NULL);
+	new->label = NULL;
+	new->operation = NULL;
+	new->arg1 = NULL;
+	new->arg2 = NULL;
+	new->arg3 = NULL;
+	new->next = NULL;
+	new->op_size = NULL;
+	new->t_dir_size = 0;
+	return (new);
+}
+
+/*
+** Function to append a new link to the end of the list
+** Goes through the list and calls for newnode to allocate and initialize the new node.
+*/
+
+int	list_append(t_operation **head)
+{
+	t_operation *last;
+
+	last = *head;
+	if (*head == NULL)
+	{
+		*head = newnode();
+		return (1);
+	}
+	while (last->next != NULL)
+		last = last->next;
+	last->next = newnode();
+	return (1);
+}

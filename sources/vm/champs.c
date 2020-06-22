@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 12:32:00 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/12 15:56:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_champ		*init_champ(char	*filename)
+t_champ		*init_champ(char	*filename, int id)
 {
 	t_champ		*champ;
 
@@ -29,12 +29,13 @@ t_champ		*init_champ(char	*filename)
 	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
 	if (!(champ->header))
 		ft_error_exit("Malloc header in init_champ", NULL, NULL);
+	champ->id = (uint8_t)id;
 	return (champ);
 }
 
 void		magic_check(t_champ *champ)
 {
-	size_t	ret;
+	ssize_t	ret;
 	uint8_t buffer[4];
 
 	ret = read(champ->fd, buffer, 4);
@@ -46,21 +47,21 @@ void		magic_check(t_champ *champ)
 	return;
 }
 
-uint8_t		nullbytes_check(t_champ *champ, size_t size)
+int32_t		decode_bytes(t_champ *champ, size_t size)
 {
-	size_t	ret;
+	ssize_t	ret;
 	uint8_t buffer[size];
 
 	ret = read(champ->fd, buffer, size);
 	if (ret < size)
-		ft_error_exit("Null byte check - file read error or too short", NULL, NULL);
-	return (decode(buffer, size) == 0 ? 1 : 0);
+		ft_error_exit("decode_bytes - file read error or too short", NULL, NULL);
+	return (decode(buffer, size));
 }
 
 char		*load_string(t_champ *champ, size_t size)
 {
 	char	*buffer;
-	size_t	ret;
+	ssize_t	ret;
 
 	buffer = ft_strnew(size + 1);
 	if (!buffer)
@@ -81,15 +82,38 @@ void		load_header(t_champ *champ)
 	tmp = load_string(champ, PROG_NAME_LENGTH);
 	ft_strcpy(champ->header->prog_name, tmp);
 	free(tmp);
-	if (nullbytes_check(champ, 4))
+	if (decode_bytes(champ, 4) != 0)
 		ft_error_exit("First NULL spacing error", NULL, NULL);
-	// if (nullbytes_check(champ, 4))
-	// 	ft_error_exit("Second NULL spacing error", NULL, NULL);
+	champ->header->prog_size = decode_bytes(champ, 4);
+	if (champ->header->prog_size > CHAMP_MAX_SIZE || champ->header->prog_size < 0)
+		ft_error_exit("Champion size too big or smaller than 0", NULL, NULL);
+	tmp = load_string(champ, COMMENT_LENGTH);
+	ft_strcpy(champ->header->comment, tmp);
+	free(tmp);
+	if (decode_bytes(champ, 4) != 0)
+		ft_error_exit("Second NULL spacing error", NULL, NULL);
+}
+
+void		load_code(t_champ *champ)
+{
+	uint8_t *code;
+	ssize_t ret;
+
+	code = (uint8_t *)ft_memalloc(champ->header->prog_size);
+	if (!code)
+		ft_error_exit("Malloc at load_code", NULL, NULL);
+	ret = read(champ->fd, code, champ->header->prog_size);
+	if (ret != champ->header->prog_size)
+		ft_error_exit("Champions code's lenght doesn't correspond to header", NULL, NULL);
+	// check for EOF!
+	champ->raw = code;
 }
 
 void		load_champ(t_champ *champ)
 {
 	load_header(champ);
 	ft_printf("Header loaded\n");
+	load_code(champ);
 	print_champ_header(champ);
+	// print_code(champ);
 }
