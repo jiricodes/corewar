@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/10 11:50:53 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/11 14:52:15 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,5 @@ void	read_file(t_asm *core, int source_fd)
 		else if (core->flag >= 10)
 			analysis(core, line);
 		free(line);
-	printf("\n%s\n", core->champ_name);
-	printf("%s\n", core->champ_comment);
+	create_op();
 }

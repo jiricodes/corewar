@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 12:11:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/18 16:57:55 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 
 # include "op.h"
+# include "oplist.h"
 # include "libft.h"
 # include "ft_error.h"
 
@@ -28,6 +29,16 @@ typedef struct	s_asm
 	char	*champ_comment;
 	int		flag;
 }				t_asm;
+
+typedef struct s_ops
+{
+	char			*label;
+	char			*opname;
+	char			*args[3];
+	int				t_dir_size;
+	int				opsize;
+	struct s_ops	*next;
+}				t_op;
 
 
 /*
