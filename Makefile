@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
+#    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/10 11:55:47 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/06/11 14:39:39 by asolopov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ ASM_DIR = asm/
 ASM_FILES =	asm.c \
 			cleanup.c \
 			encoding.c \
+			check_operations.c \
 			filename_util.c \
 			init.c \
 			print_debug.c \
