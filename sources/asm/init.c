@@ -47,9 +47,9 @@ t_operation	*newnode(void)
 		ft_error_exit("Malloc at newnode", NULL, NULL);
 	new->label = NULL;
 	new->operation = NULL;
-	new->arg1 = NULL;
-	new->arg2 = NULL;
-	new->arg3 = NULL;
+	new->arg[0] = NULL;
+	new->arg[1] = NULL;
+	new->arg[2] = NULL;
 	new->next = NULL;
 	new->op_size = NULL;
 	new->t_dir_size = 0;

@@ -10,13 +10,33 @@ void print_list(t_operation *list)
 	{
 		ft_printf("\nlabel: %s\n", list->label);
 		ft_printf("operation: %s\n", list->operation);
-		ft_printf("arg1: %s\n", list->arg1);
-		ft_printf("arg2: %s\n", list->arg2);
-		ft_printf("arg3: %s\n", list->arg3);
-		ft_printf("op_size: %s\n", list->op_size);
-		ft_printf("t_dir_size: %s\n", list->t_dir_size);
+		ft_printf("arg1: %s\n", list->arg[0]);
+		ft_printf("arg2: %s\n", list->arg[1]);
+		ft_printf("arg3: %s\n", list->arg[2]);
+		ft_printf("op_size: %d\n", list->op_size);
+		ft_printf("t_dir_size: %d\n", list->t_dir_size);
 		list = list->next;
 	}
+}
+
+//Currently determines which is the t_dir_size, will call function to calculate
+//argument type code and calculate size of link in bytes
+int get_size_type(t_operation **list)
+{
+	t_operation *temp;
+
+	temp = *list;
+	while (temp->next != NULL)
+		temp = temp->next;
+	if (temp->operation == NULL)
+		return (0);
+	if (!ft_strcmp(temp->operation, "zjmp") || !ft_strcmp(temp->operation, "ldi") ||
+		!ft_strcmp(temp->operation, "sti") || !ft_strcmp(temp->operation, "fork") ||
+		!ft_strcmp(temp->operation, "lldi") || !ft_strcmp(temp->operation, "lfork"))
+		temp->t_dir_size = 2;
+	else
+		temp->t_dir_size = 4;
+	return (0);
 }
 
 //Copies label/operation/instruction from start pos to end pos and returns it
@@ -32,12 +52,12 @@ void	save_instru(t_operation **list, char *op)
 		temp->label = ft_strdup(op);
 	else if (temp->operation == NULL)
 		temp->operation = ft_strdup(op);
-	else if (temp->arg1 == NULL)
-		temp->arg1 = ft_strdup(op);
-	else if (temp->arg2 == NULL)
-		temp->arg2 = ft_strdup(op);
-	else if (temp->arg3 == NULL)
-		temp->arg3 = ft_strdup(op);
+	else if (temp->arg[0] == NULL)
+		temp->arg[0] = ft_strdup(op);
+	else if (temp->arg[1] == NULL)
+		temp->arg[1] = ft_strdup(op);
+	else if (temp->arg[2] == NULL)
+		temp->arg[2] = ft_strdup(op);
 	free(op);
 }
 
@@ -99,5 +119,7 @@ int		analysis(t_asm *core, char *line, t_operation **list)
 			save_instru(list, split_instru(line, start, end));
 		}
 	}
+	if (flag)
+		get_size_type(list);
 	return (1);
 }

@@ -36,11 +36,12 @@ typedef struct s_operation
 {
     char    *label;
     char    *operation;
-    char    *arg1;
-    char    *arg2;
-    char    *arg3;
+    char    *arg[3];
+    //char    *arg2;
+    //char    *arg3;
     int     *op_size;
     int     t_dir_size;
+    int     type_code;
     struct s_operation *next;
 }               t_operation;
 
