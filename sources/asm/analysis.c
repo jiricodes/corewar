@@ -17,6 +17,7 @@ void print_list(t_operation *list)
 		ft_printf("t_dir_size: %d\n", list->t_dir_size);
 		list = list->next;
 	}
+	ft_printf("\n");
 }
 
 //Currently determines which is the t_dir_size, will call function to calculate
@@ -49,7 +50,11 @@ void	save_instru(t_operation **list, char *op)
 	while (temp->next != NULL)
 		temp = temp->next;
 	if ((op[ft_strlen(op) - 1] == ':') && temp->label == NULL)
+	{
+		//dumb quickfix to get artems error check working for testing
+		op[ft_strlen(op) - 1] = '\0';
 		temp->label = ft_strdup(op);
+	}
 	else if (temp->operation == NULL)
 		temp->operation = ft_strdup(op);
 	else if (temp->arg[0] == NULL)

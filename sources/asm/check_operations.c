@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static int	check_label(char *label, t_op *oplist)
+static int	check_label(char *label, t_operation *oplist)
 {
 	while (oplist)
 	{
@@ -39,7 +39,7 @@ int	check_t_reg(char *argum)
 		return 1;
 }
 
-int	check_t_ind(char *argum, t_op *oplist)
+int	check_t_ind(char *argum, t_operation *oplist)
 {
 	int cnt;
 
@@ -51,11 +51,11 @@ int	check_t_ind(char *argum, t_op *oplist)
 		else
 			return 0;
 	}
-	else if (isdigit(argum[0]))
+	else if (ft_isdigit(argum[0]))
 	{
 		while (argum[cnt] != '\0')
 		{
-			if (!isdigit(argum[cnt]))
+			if (!ft_isdigit(argum[cnt]))
 				return 0;
 			cnt += 1;
 		}
@@ -63,7 +63,7 @@ int	check_t_ind(char *argum, t_op *oplist)
 	}
 }
 
-int		check_t_dir(char *argum, t_op *oplist)
+int		check_t_dir(char *argum, t_operation *oplist)
 {
 	int cnt;
 
@@ -77,13 +77,13 @@ int		check_t_dir(char *argum, t_op *oplist)
 		else
 			return 0;
 	}
-	else if (isdigit(argum[1]))
+	else if (ft_isdigit(argum[1]))
 	{
 		while (argum[cnt] != '\0')
 		{
-			if (!isdigit(argum[cnt]))
+			if (!ft_isdigit(argum[cnt]))
 			{
-				printf("%c\n", argum[cnt]);
+				ft_printf("%c\n", argum[cnt]);
 				return 0;
 			}
 			cnt += 1;
@@ -92,7 +92,7 @@ int		check_t_dir(char *argum, t_op *oplist)
 	}
 }
 
-int	check_argument(char *argum, t_op *oplist)
+int	check_argument(char *argum, t_operation *oplist)
 {
 	if (check_t_reg(argum) == 1)
 		return T_REG;
@@ -102,13 +102,13 @@ int	check_argument(char *argum, t_op *oplist)
 		return T_DIR;
 	else
 	{
-		printf("SUKA, ARGUMENT NO CORRECTO\n");
+		ft_printf("SUKA, ARGUMENT NO CORRECTO\n");
 		return 0;
 	}
 
 }
 
-void	check_further(t_op *operation, t_oplist reference, t_op *head)
+void	check_further(t_operation *operation, t_oplist reference, t_operation *head)
 {
 	int	cnt;
 	int	ret;
@@ -117,27 +117,38 @@ void	check_further(t_op *operation, t_oplist reference, t_op *head)
 	// check length of the op->args list!!!
 	while (cnt < reference.arg_cnt)
 	{
-		printf("Checking arg: %s\n", operation->args[cnt]);
-		ret = check_argument(operation->args[cnt], head);
-		printf("\tret value: %d\n", ret);
+		ft_printf("Checking arg: %s\n", operation->arg[cnt]);
+		ret = check_argument(operation->arg[cnt], head);
+		ft_printf("\tret value: %d\n", ret);
 		if ((ret | reference.arg_type[cnt]) == reference.arg_type[cnt] && ret != 0)
-			printf("hehe boy\n");
+			ft_printf("hehe boy\n");
 		else
-			printf("you're dead bitch\n");
+			ft_printf("you're dead bitch\n");
 		cnt += 1;
 	}
 }
 
-void	check_operation(t_op *operation, t_op *head)
+//some issues if the last link has only label but nothing else
+//for example Backward.s gives invalid argument since the last link is:
+/*
+label: l2
+operation: (null)
+arg1: (null)
+arg2: (null)
+arg3: (null)
+op_size: 0
+t_dir_size: 0
+*/
+void	check_operation(t_operation *operation, t_operation *head)
 {
 	int cnt;
 
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (ft_strequ(operation->opname, oplist[cnt].opname)) // also check number of args
+		if (ft_strequ(operation->operation, oplist[cnt].opname)) // also check number of args
 		{
-			printf("OPERATION: %s\n", operation->opname);
+			ft_printf("OPERATION: %s\n", operation->operation);
 			check_further(operation, oplist[cnt], head);
 			break ;
 		}
@@ -147,37 +158,38 @@ void	check_operation(t_op *operation, t_op *head)
 		ft_error_exit("No operation found!\n", 0, 0);
 }
 
+/*
 void	create_op(void)
 {
-	t_op *op_1;
-	t_op *op_2;
-	t_op *op_3;
-	t_op *cpy;
-	t_op *head;
+	t_operation *op_1;
+	t_operation *op_2;
+	t_operation *op_3;
+	t_operation *cpy;
+	t_operation *head;
 
-	op_1 = (t_op *)malloc(sizeof(t_op));
-	op_2 = (t_op *)malloc(sizeof(t_op));
-	op_3 = (t_op *)malloc(sizeof(t_op));
+	op_1 = (t_operation *)malloc(sizeof(t_operation));
+	op_2 = (t_operation *)malloc(sizeof(t_operation));
+	op_3 = (t_operation *)malloc(sizeof(t_operation));
 
-	op_1->opname = "ld";
+	op_1->operation = "ld";
 	op_1->label = "kaput";
-	op_1->args[0] = "3";
-	op_1->args[1] = "r5";
-	op_1->args[2] = 0;
+	op_1->arg[0] = "3";
+	op_1->arg[1] = "r5";
+	op_1->arg[2] = 0;
 	op_1->next = op_2;
 
-	op_2->opname = "st";
+	op_2->operation = "st";
 	op_2->label = 0;
-	op_2->args[0] = "r1";
-	op_2->args[1] = "5";
-	op_2->args[2] = 0;
+	op_2->arg[0] = "r1";
+	op_2->arg[1] = "5";
+	op_2->arg[2] = 0;
 	op_2->next = op_3;
 	
-	op_3->opname = "zjmp";
+	op_3->operation = "zjmp";
 	op_3->label = 0;
-	op_3->args[0] = "%10";
-	op_3->args[1] = 0;
-	op_3->args[2] = 0;
+	op_3->arg[0] = "%10";
+	op_3->arg[1] = 0;
+	op_3->arg[2] = 0;
 	op_3->next = 0;
 
 	cpy = op_1;
@@ -187,4 +199,4 @@ void	create_op(void)
 		check_operation(cpy, head);
 		cpy = cpy->next;
 	}
-}
+}*/

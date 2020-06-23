@@ -76,5 +76,6 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 		else if (core->flag >= 10)
 			analysis(core, line, list);
 		free(line);
+	
 	//create_op();
 }

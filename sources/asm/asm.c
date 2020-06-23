@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 {
 	t_asm		*core;
 	t_operation	*list;
+	t_operation *cpy;
 
 	if (argc == 2)
 	{
@@ -27,6 +28,13 @@ int main(int argc, char **argv)
 		print_asmcore(core);
 		//test printer to see linked list contents
 		print_list(list);
+		//putting it here was easiest for me, prolly move it elsewhere later
+		cpy = list;
+		while (cpy)
+		{
+			check_operation(cpy, list);
+			cpy = cpy->next;
+		}
 		clear_t_asm((void *)core);
 	}
 	else

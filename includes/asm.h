@@ -68,4 +68,7 @@ void	read_file(t_asm *core, int source_fd, t_operation **list);
 int     list_append(t_operation **head);
 void    print_list(t_operation *list);
 
+
+void	check_operation(t_operation *operation, t_operation *head);
+
 #endif
