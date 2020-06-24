@@ -17,6 +17,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <stdarg.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 

@@ -14,7 +14,7 @@
 
 void	print_asmcore(t_asm *core)
 {
-	ft_printf("{U}ASM Core{EOC}\n");
+	ft_printf("%{UNDERLINE}ASM Core%{EOC}\n");
 	ft_printf("Source FD: %d\n", core->source_fd);
 	ft_printf("Target FD: %d\n", core->core_fd);
 	ft_printf("Champ's Name: %s\n", core->champ_name);

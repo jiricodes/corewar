@@ -3,204 +3,126 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 17:29:51 by jnovotny          #+#    #+#             */
-/*   Updated: 2019/11/19 17:45:34 by jnovotny         ###   ########.fr       */
+/*   Created: 2020/02/01 19:03:28 by jmakela           #+#    #+#             */
+/*   Updated: 2020/06/24 13:11:30 by jmakela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-
 # include "libft.h"
-# include "my_strform.h"
-# include <stdio.h>
-# include <stdarg.h>
-# include <wchar.h>
+# include "color.h"
 
-# define FLAG_STR "0#+- *"
-# define F_HASH_ERR "bdiucsCSpnm"
-# define F_ZERO_ERR "csCSpnm"
-# define F_ZERO_NUM "bdiouxX"
-# define C_STR "bcdifopsuxX"
-# define PF_STR "0123456789.#+- hlLqjzt*"
-# define PF_LEN "hlLjz"
-# define PF_SKIP "qt"
-# define FIL format[f->i + len]
-
-/*
-** Flag management struct
-*/
-
-typedef struct	s_flag
+typedef struct				s_printf
 {
-	char	zero;
-	char	hash;
-	char	plus;
-	char	minus;
-	char	space;
-	char	sign;
-}				t_flag;
+	va_list					args;
+	char					*fmt_copy;
+	char					*temp;
+	char					*final;
+
+	char					*flag_mask;
+	char					*length_mask;
+	char					*type_mask;
+	int						init_check;
+
+	size_t					pos;
+	size_t					i;
+
+	int						neg;
+
+	int						minus;
+	int						plus;
+	int						space;
+	int						zero;
+	int						hash;
+
+	int						w_aste;
+	int						p_aste;
+
+	long int				width;
+	long int				precision;
+	int						prec_true;
+	char					length[3];
+	char					type;
+
+	char					c;
+	char					*str;
+	void					*ptr;
+	long long int			nbr;
+	unsigned long long int	unbr;
+	long double				f_nbr;
+	char					*whole;
+	char					*rounded;
+	size_t					total;
+
+	int						nbrlen;
+	int						base;
+}							t_printf;
 
 /*
-** Lenght modifier struct
+** Different printf functions.
 */
 
-typedef enum	e_lmod
-{
-	nomod = 0,
-	hh,
-	h,
-	L,
-	l,
-	ll,
-	z,
-	j
-}				t_lmod;
+int							ft_printf(const char *format, ...);
+int							ft_dprintf(int fd, const char *format, ...);
+int							ft_sprintf(char *buffer, const char *format, ...);
 
 /*
-** Core format struct
+** Parsing functions.
 */
 
-typedef struct	s_format
-{
-	va_list list;
-	char	*out_str;
-	size_t	out_len;
-	size_t	i;
-	t_flag	flag;
-	int		width;
-	int		precision;
-	t_lmod	len_mod;
-	int		caps;
-}				t_format;
+t_printf					*parser(t_printf *pf);
+t_printf					*parse_flags(t_printf *pf);
+t_printf					*parse_width(t_printf *pf);
+t_printf					*parse_preci(t_printf *pf);
+t_printf					*parse_length(t_printf *pf);
+t_printf					*parse_type(t_printf *pf);
+t_printf					*parse_color(t_printf *pf, char *str);
 
 /*
-** Core Logistics
+** Operations for various types.
 */
 
-int				ft_printf(const char *format, ...);
-void			ft_dump(t_format *f, const char *format);
-void			ft_parse(t_format *f, const char *format);
-void			ft_getinfo(t_format *f, const char *format);
-void			ft_reset_pf(t_format *f);
-void			ft_error(t_format *f);
+t_printf					*c_op(t_printf *pf);
+t_printf					*str_op(t_printf *pf);
+t_printf					*p_op(t_printf *pf);
+t_printf					*di_op(t_printf *pf);
+t_printf					*uox_op(t_printf *pf);
+t_printf					*float_op(t_printf *pf);
+t_printf					*percent_op(t_printf *pf);
+t_printf					*get_asterisk(t_printf *pf);
 
 /*
-**	Information fetching
+** String converters.
 */
 
-void			ft_getflag(t_format *f, const char *format);
-void			ft_getwidth(t_format *f, const char *format);
-void			ft_getprecision(t_format *f, const char *format);
-void			ft_getlmod(t_format *f, const char *format);
+char						*convert(t_printf *pf);
+char						*u_convert(t_printf *pf);
 
 /*
-**	Output generators
+** Functions for saving various strings
+** to the final string.
 */
 
-void			ft_create_out(t_format *f, const char *format);
+t_printf					*append_substr(t_printf *pf, char *str, size_t len);
+int							append_subfmt(t_printf *pf);
+t_printf					*str_maker(t_printf *pf, char c, int count);
 
 /*
-** Flags
+** String handling functions.
 */
 
-void			ft_runflags(t_format *f, const char *format);
-void			flag_hash(t_format *f, const char *format);
-void			flag_zero(t_format *f, const char *format);
-void			flag_plus(t_format *f);
-void			flag_minus(t_format *f);
-void			flag_space(t_format *f, const char *format);
+char						*pf_strjoin(
+							char const *s1, char const *s2, int i, int j);
+char						*pf_strcpy(char *dest, const char *src, size_t j);
 
 /*
-** Conversions
+** Utilities.
 */
 
-void			ft_process_di(t_format *f);
-void			ft_process_xx(t_format *f, const char *format);
-void			ft_process_o(t_format *f);
-void			ft_process_b(t_format *f);
-void			ft_process_u(t_format *f, const char *format);
-void			ft_process_f(t_format *f);
-void			ft_process_c(t_format *f);
-void			ft_process_s(t_format *f);
-void			ft_process_p(t_format *f);
-void			ft_process_no_convers(t_format *f, const char *format);
-
-/*
-**	Printers
-*/
-
-void			ft_print_di(t_format *f);
-void			ft_print_xx(t_format *f, const char *format);
-void			ft_print_o(t_format *f);
-void			ft_print_b(t_format *f);
-void			ft_print_u(t_format *f);
-void			ft_print_f(t_format *f);
-void			ft_print_c(t_format *f);
-void			ft_print_s(t_format *f);
-void			ft_print_p(t_format *f);
-void			ft_print_no_convers(t_format *f);
-
-/*
-**	di - tools
-*/
-
-void			ft_prec_di(t_format *f);
-void			ft_sign(t_format *f);
-void			ft_add_sign(t_format *f);
-
-/*
-** xX - tools
-*/
-
-void			ft_prec_xx(t_format *f);
-void			ft_hash_xx(t_format *f, const char *format);
-int				ft_isstrzero(t_format *f);
-
-/*
-** o - tools
-*/
-
-void			ft_prec_o(t_format *f);
-void			ft_hash_o(t_format *f);
-
-/*
-** b - tools
-*/
-
-void			ft_prec_b(t_format *f);
-
-/*
-** u - tools
-*/
-
-void			ft_prec_u(t_format *f);
-
-/*
-** p - tools
-*/
-
-void			ft_hash_p(t_format *f);
-void			ft_prec_p(t_format *f);
-
-/*
-** f - tools
-*/
-
-void			ft_sign_f(t_format *f);
-void			ft_add_sign_f(t_format *f);
-void			ft_hash_f(t_format *f);
-
-/*
-** Text Format
-*/
-
-void			ft_settings(t_format *f, const char *format);
-void			ft_setcolor(t_format *f, const char *format);
-void			ft_setcolor2(t_format *f, const char *format);
-void			ft_setfont(t_format *f, const char *format);
-void			ft_setfont2(t_format *f, const char *format);
-
+t_printf					*get_parts(t_printf *pf);
+t_printf					*init_pf(t_printf *pf);
+void						check_help(const char *format);
 #endif

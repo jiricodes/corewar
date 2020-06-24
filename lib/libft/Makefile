@@ -14,23 +14,21 @@
 NAME = libft.a
 
 # Source Files
-PRINTF_FTS =	datafeed.c \
-		ft_printf.c \
-		parsing.c \
-		error.c \
-		creator_hub.c \
-		process_di.c \
-		process_xx.c \
-		process_o.c \
-		process_b.c \
-		process_u.c \
-		process_f.c \
-		process_c.c \
-		process_s.c \
-		process_p.c \
-		flags_basic.c \
-		no_convers.c \
-		colors.c
+PRINTF_FTS =	ft_printf.c \
+		converts.c \
+		help.c \
+		parse_color.c \
+		parse_funcs.c \
+		parser.c \
+		str_maker.c \
+		utils.c \
+		make_float.c \
+		c_op.c \
+		di_op.c \
+		f_op.c \
+		p_op.c \
+		str_op.c \
+		uox_op.c 
 
 LIB_FTS = ft_atoi.c \
 		ft_latoi.c \
@@ -115,7 +113,7 @@ ERROR_FTS =	ft_error_exit.c
 SRC_DIR = sources/
 LIB_DIR = libft_srcs/
 ERROR_DIR = error_srcs/
-PRINTF_DIR = pf_srcs/
+PRINTF_DIR = jani_pf_srcs/
 OBJ_DIR = ./object_files/
 INCLUDES_DIR = -I./includes
 TARGET_DIRS = $(OBJ_DIR)
