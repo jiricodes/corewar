@@ -6,11 +6,21 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 15:46:05 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 16:11:42 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int	negative_to_hex(int	orig)
+{
+	int new;
+
+	new = 0;
+	new += (orig * -1);
+	new = ~new + 1;
+	printf("%02x\n", new);
+}
 
 int	get_arg_code(t_operation *operation)
 {
@@ -76,5 +86,5 @@ void	test_operation(t_operation *op)
 		printf("\n");
 		cpy = cpy->next;
 	}
-
+	negative_to_hex(-19);
 }
