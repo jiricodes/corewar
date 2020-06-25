@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 		print_asmcore(core);
 		//moved print here to error check
 		print_list(list);
+		ft_printf("Total size in bytes: %d\n", core->byte_size);
 		cpy = list;
 		while (cpy)
 		{

@@ -12,6 +12,9 @@
 
 #include "asm.h"
 
+//void find_labels(t_operation **list)
+
+
 // a function to extract name & comment from the file using gnl
 
 char	*save_champ_head(char *target, int source_fd, char *line)
@@ -59,7 +62,9 @@ char	*save_champ_head(char *target, int source_fd, char *line)
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
+	int		total;
 
+	total = 0;
 	while (get_next_line(source_fd, &line) > 0)
 		
 		// only .name & .comment allowed. others .(...) should be marked as error
@@ -74,8 +79,10 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 			core->flag = 10;
 		}
 		else if (core->flag >= 10)
-			analysis(core, line, list);
+			total = analysis(core, line, list, total);
 		free(line);
 	
+	core->byte_size = total;
+	//find_labels(list);
 	//create_op();
 }

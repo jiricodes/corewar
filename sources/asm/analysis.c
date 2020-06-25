@@ -8,7 +8,7 @@ void print_list(t_operation *list)
 {
 	while (list != NULL)
 	{
-		ft_printf("\nlabel: %s\n", list->label);
+		ft_printf("\nlabel: %s, position: %d\n", list->label, list->label_pos);
 		ft_printf("operation: %s\n", list->op_name);
 		ft_printf("arg1: %s\n", list->arg[0]);
 		ft_printf("arg2: %s\n", list->arg[1]);
@@ -24,6 +24,7 @@ void print_list(t_operation *list)
 	ft_printf("\n");
 }
 
+//counts the size of one link
 int count_bytes(t_operation *temp, int cnt)
 {
 	int bytes;
@@ -48,7 +49,7 @@ int count_bytes(t_operation *temp, int cnt)
 
 //Currently determines which is the t_dir_size, will call function to calculate
 //argument type code and calculate size of link in bytes
-int get_size_type(t_operation **list)
+int get_size_type(t_operation **list, int total)
 {
 	int cnt;
 
@@ -58,19 +59,23 @@ int get_size_type(t_operation **list)
 	temp = *list;
 	while (temp->next != NULL)
 		temp = temp->next;
-	if (temp->op_name == NULL)
-		return (0);
-	while (cnt < 16)
+	if (temp->op_name)
 	{
-		if (ft_strequ(temp->op_name, oplist[cnt].opname))
+		while (cnt < 16)
 		{
-			temp->t_dir_size = oplist[cnt].t_dir_size;
-			break ;
+			if (ft_strequ(temp->op_name, oplist[cnt].opname))
+			{
+				temp->t_dir_size = oplist[cnt].t_dir_size;
+				break ;
+			}
+			cnt += 1;
 		}
-		cnt += 1;
-	}
-	temp->op_size = count_bytes(temp, cnt);
-	return (0);
+		temp->op_size = count_bytes(temp, cnt);
+	}		
+	if (temp->label)
+		temp->label_pos = total;
+	total = total + temp->op_size;
+	return (total);
 }
 
 //Copies label/operation/instruction from start pos to end pos and returns it
@@ -123,7 +128,7 @@ char		*split_instru(char *line, int start, int end)
 //Finds positions where labels/operations/instructions should be split
 //Going to shorten and rework later, maybe with char mask and do something about the damn flag lol, it's a mess
 
-int		analysis(t_asm *core, char *line, t_operation **list)
+int		analysis(t_asm *core, char *line, t_operation **list, int total)
 {
 	int i;
 	int start;
@@ -158,6 +163,6 @@ int		analysis(t_asm *core, char *line, t_operation **list)
 		}
 	}
 	if (flag)
-		get_size_type(list);
-	return (1);
+		total = get_size_type(list, total);
+	return (total);
 }

@@ -30,6 +30,7 @@ t_asm	*intialize_asm(char *filename)
 	if (core->core_fd < 0)
 		ft_error_exit("Failed to open given target file", (void *)core, clear_t_asm);
 	core->flag = 0;
+	core->byte_size = 0;
 	return (core);
 }
 
@@ -57,6 +58,7 @@ t_operation	*newnode(void)
 	new->op_size = 0;
 	new->t_dir_size = 0;
 	new->op_code = 0;
+	new->label_pos = 0;
 	return (new);
 }
 

@@ -27,11 +27,12 @@ typedef struct	s_asm
 	int		core_fd;
 	char	*champ_name;
 	char	*champ_comment;
+	int		byte_size;
 	int		flag;
 }				t_asm;
 
 //linked list struct
-//we are not currently saving op_size and t_dir size
+//next is finding label positions when they are used as arguments
 typedef struct s_operation
 {
     char    *label;
@@ -41,9 +42,12 @@ typedef struct s_operation
     char    *arg[3];
 	int		argtypes[3];
 	
+	//this links total size in bytes
     int     op_size;
     int     t_dir_size;
 	int		arg_type_code;
+	//position in the bytecode if link has label
+	int		label_pos;
     struct s_operation *next;
 }               t_operation;
 
@@ -57,7 +61,7 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
-int		analysis(t_asm *core, char *line, t_operation **list);
+int		analysis(t_asm *core, char *line, t_operation **list, int total);
 
 /*
 ** ASM File reading
