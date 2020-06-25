@@ -41,7 +41,7 @@ typedef struct s_operation
     char    *arg[3];
 	int		argtypes[3];
 	
-    int     *op_size;
+    int     op_size;
     int     t_dir_size;
 	int		arg_type_code;
     struct s_operation *next;
@@ -72,5 +72,6 @@ void    print_list(t_operation *list);
 
 
 void	check_operation(t_operation *operation, t_operation *head);
+void	test_operation(t_operation *op);
 
 #endif

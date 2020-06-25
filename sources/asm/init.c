@@ -54,7 +54,7 @@ t_operation	*newnode(void)
 	new->argtypes[1] = 0;
 	new->argtypes[2] = 0;
 	new->next = NULL;
-	new->op_size = NULL;
+	new->op_size = 0;
 	new->t_dir_size = 0;
 	new->op_code = 0;
 	return (new);

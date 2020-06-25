@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "asm.h"
+#include <stdio.h>
 
 int	negative_to_hex(int	orig)
 {

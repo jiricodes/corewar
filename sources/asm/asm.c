@@ -26,13 +26,14 @@ int main(int argc, char **argv)
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
 		print_asmcore(core);
+		//moved print here to error check
+		print_list(list);
 		cpy = list;
 		while (cpy)
 		{
 			check_operation(cpy, list);
 			cpy = cpy->next;
 		}
-		print_list(list);
 		test_operation(list);
 		// clear_t_asm((void *)core);
 	}

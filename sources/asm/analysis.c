@@ -24,10 +24,35 @@ void print_list(t_operation *list)
 	ft_printf("\n");
 }
 
+int count_bytes(t_operation *temp, int cnt)
+{
+	int bytes;
+	int i;
+
+	i = 0;
+	bytes = 1;
+	while (temp->arg[i] != NULL)
+	{
+		if (temp->arg[i][0] == 'r')
+			bytes = bytes + 1;
+		else if (temp->arg[i][0] == DIRECT_CHAR)
+			bytes = bytes + oplist[cnt].t_dir_size;
+		else
+			bytes = bytes + 2;
+		i = i + 1;
+	}
+	if (oplist[cnt].arg_type_code)
+		bytes = bytes + 1;
+	return (bytes);
+}
+
 //Currently determines which is the t_dir_size, will call function to calculate
 //argument type code and calculate size of link in bytes
 int get_size_type(t_operation **list)
 {
+	int cnt;
+
+	cnt = 0;
 	t_operation *temp;
 
 	temp = *list;
@@ -35,12 +60,16 @@ int get_size_type(t_operation **list)
 		temp = temp->next;
 	if (temp->op_name == NULL)
 		return (0);
-	if (!ft_strcmp(temp->op_name, "zjmp") || !ft_strcmp(temp->op_name, "ldi") ||
-		!ft_strcmp(temp->op_name, "sti") || !ft_strcmp(temp->op_name, "fork") ||
-		!ft_strcmp(temp->op_name, "lldi") || !ft_strcmp(temp->op_name, "lfork"))
-		temp->t_dir_size = 2;
-	else
-		temp->t_dir_size = 4;
+	while (cnt < 16)
+	{
+		if (ft_strequ(temp->op_name, oplist[cnt].opname))
+		{
+			temp->t_dir_size = oplist[cnt].t_dir_size;
+			break ;
+		}
+		cnt += 1;
+	}
+	temp->op_size = count_bytes(temp, cnt);
 	return (0);
 }
 
