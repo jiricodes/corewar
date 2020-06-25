@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/22 15:31:03 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 12:41:36 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ typedef struct	s_asm
 typedef struct s_operation
 {
     char    *label;
-    char    *operation;
+    char    *op_name;
+	
     char    *arg[3];
-    //char    *arg2;
-    //char    *arg3;
+	int		argtypes[3];
+	
     int     *op_size;
     int     t_dir_size;
-    int     type_code;
+	int		arg_type_code;
     struct s_operation *next;
 }               t_operation;
 

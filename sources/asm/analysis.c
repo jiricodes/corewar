@@ -9,12 +9,16 @@ void print_list(t_operation *list)
 	while (list != NULL)
 	{
 		ft_printf("\nlabel: %s\n", list->label);
-		ft_printf("operation: %s\n", list->operation);
+		ft_printf("operation: %s\n", list->op_name);
 		ft_printf("arg1: %s\n", list->arg[0]);
 		ft_printf("arg2: %s\n", list->arg[1]);
 		ft_printf("arg3: %s\n", list->arg[2]);
 		ft_printf("op_size: %d\n", list->op_size);
 		ft_printf("t_dir_size: %d\n", list->t_dir_size);
+		ft_printf("arg1 TYPE: %d\n", list->argtypes[0]);
+		ft_printf("arg2 TYPE: %d\n", list->argtypes[1]);
+		ft_printf("arg3 TYPE: %d\n", list->argtypes[2]);
+		ft_printf("has arg type code?: %d\n", list->arg_type_code);
 		list = list->next;
 	}
 	ft_printf("\n");
@@ -29,11 +33,11 @@ int get_size_type(t_operation **list)
 	temp = *list;
 	while (temp->next != NULL)
 		temp = temp->next;
-	if (temp->operation == NULL)
+	if (temp->op_name == NULL)
 		return (0);
-	if (!ft_strcmp(temp->operation, "zjmp") || !ft_strcmp(temp->operation, "ldi") ||
-		!ft_strcmp(temp->operation, "sti") || !ft_strcmp(temp->operation, "fork") ||
-		!ft_strcmp(temp->operation, "lldi") || !ft_strcmp(temp->operation, "lfork"))
+	if (!ft_strcmp(temp->op_name, "zjmp") || !ft_strcmp(temp->op_name, "ldi") ||
+		!ft_strcmp(temp->op_name, "sti") || !ft_strcmp(temp->op_name, "fork") ||
+		!ft_strcmp(temp->op_name, "lldi") || !ft_strcmp(temp->op_name, "lfork"))
 		temp->t_dir_size = 2;
 	else
 		temp->t_dir_size = 4;
@@ -55,8 +59,8 @@ void	save_instru(t_operation **list, char *op)
 		op[ft_strlen(op) - 1] = '\0';
 		temp->label = ft_strdup(op);
 	}
-	else if (temp->operation == NULL)
-		temp->operation = ft_strdup(op);
+	else if (temp->op_name == NULL)
+		temp->op_name = ft_strdup(op);
 	else if (temp->arg[0] == NULL)
 		temp->arg[0] = ft_strdup(op);
 	else if (temp->arg[1] == NULL)

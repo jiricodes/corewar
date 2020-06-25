@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:16:57 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/18 17:29:43 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 12:52:50 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	check_label(char *label, t_operation *oplist)
 		if (oplist->label)
 		{
 			if (ft_strequ(label, oplist->label))
-				return 1;
+				return (1);
 		}
 		oplist = oplist->next;
 	}
-	return 0;
+	return (0);
 }
 
 int	check_t_reg(char *argum)
@@ -31,12 +31,12 @@ int	check_t_reg(char *argum)
 	int	reg_num;
 
 	if (argum[0] != 'r')
-		return 0;
+		return (0);
 	reg_num = ft_atoi(argum + 1);
 	if (reg_num > REG_NUMBER || reg_num < 1)
-		return 0;
+		return (0);
 	else
-		return 1;
+		return (1);
 }
 
 int	check_t_ind(char *argum, t_operation *oplist)
@@ -47,19 +47,19 @@ int	check_t_ind(char *argum, t_operation *oplist)
 	if (argum[0] == LABEL_CHAR)
 	{
 		if (check_label(argum + 1, oplist) == 1)
-			return 1;
+			return (1);
 		else
-			return 0;
+			return (0);
 	}
 	else if (ft_isdigit(argum[0]))
 	{
 		while (argum[cnt] != '\0')
 		{
 			if (!ft_isdigit(argum[cnt]))
-				return 0;
+				return (0);
 			cnt += 1;
 		}
-		return 1;
+		return (1);
 	}
 }
 
@@ -69,63 +69,61 @@ int		check_t_dir(char *argum, t_operation *oplist)
 
 	cnt = 1;
 	if (argum[0] != DIRECT_CHAR)
-		return 0;
+		return (0);
 	if (argum[1] == LABEL_CHAR)
 	{
 		if (check_label(argum + 2, oplist) == 1)
-			return 1;
+			return (1);
 		else
-			return 0;
+			return (0);
 	}
 	else if (ft_isdigit(argum[1]))
 	{
 		while (argum[cnt] != '\0')
 		{
 			if (!ft_isdigit(argum[cnt]))
-			{
-				ft_printf("%c\n", argum[cnt]);
-				return 0;
-			}
+				return (0);
 			cnt += 1;
 		}
-		return 1;
+		return (1);
 	}
 }
 
 int	check_argument(char *argum, t_operation *oplist)
 {
 	if (check_t_reg(argum) == 1)
-		return T_REG;
+		return (T_REG);
 	else if (check_t_ind(argum, oplist) == 1)
-		return T_IND;
+		return (T_IND);
 	else if (check_t_dir(argum, oplist) == 1)
-		return T_DIR;
+		return (T_DIR);
 	else
 	{
-		ft_printf("SUKA, ARGUMENT NO CORRECTO\n");
-		return 0;
+		ft_error_exit("check_argument error", 0, 0);
+		return (0);
 	}
 
 }
 
-void	check_further(t_operation *operation, t_oplist reference, t_operation *head)
+void	check_further(t_operation *operation, t_oplist ref, t_operation *head)
 {
 	int	cnt;
 	int	ret;
 
 	cnt = 0;
 	// check length of the op->args list!!!
-	while (cnt < reference.arg_cnt)
+	while (cnt < ref.arg_cnt)
 	{
-		ft_printf("Checking arg: %s\n", operation->arg[cnt]);
 		ret = check_argument(operation->arg[cnt], head);
-		ft_printf("\tret value: %d\n", ret);
-		if ((ret | reference.arg_type[cnt]) == reference.arg_type[cnt] && ret != 0)
-			ft_printf("hehe boy\n");
+		if ((ret | ref.arg_type[cnt]) == ref.arg_type[cnt] && ret != 0)
+		{
+			operation->argtypes[cnt] = ret;
+		}
 		else
-			ft_printf("you're dead bitch\n");
+			ft_error_exit("No operation found (check_further)", 0, 0);
 		cnt += 1;
 	}
+	operation->arg_type_code = ref.arg_type_code;
 }
 
 //some issues if the last link has only label but nothing else
@@ -146,9 +144,8 @@ void	check_operation(t_operation *operation, t_operation *head)
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (ft_strequ(operation->operation, oplist[cnt].opname)) // also check number of args
+		if (ft_strequ(operation->op_name, oplist[cnt].opname)) // also check number of args
 		{
-			ft_printf("OPERATION: %s\n", operation->operation);
 			check_further(operation, oplist[cnt], head);
 			break ;
 		}

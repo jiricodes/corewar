@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/09 11:20:34 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/25 12:44:51 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ t_operation	*newnode(void)
 	if (!new)
 		ft_error_exit("Malloc at newnode", NULL, NULL);
 	new->label = NULL;
-	new->operation = NULL;
+	new->op_name = NULL;
 	new->arg[0] = NULL;
 	new->arg[1] = NULL;
 	new->arg[2] = NULL;
+	new->argtypes[0] = 0;
+	new->argtypes[1] = 0;
+	new->argtypes[2] = 0;
 	new->next = NULL;
 	new->op_size = NULL;
 	new->t_dir_size = 0;
