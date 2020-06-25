@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 12:41:36 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:16:59 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_operation
 {
     char    *label;
     char    *op_name;
+	int		op_code;
 	
     char    *arg[3];
 	int		argtypes[3];

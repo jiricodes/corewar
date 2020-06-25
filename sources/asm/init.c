@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 12:44:51 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:17:08 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_operation	*newnode(void)
 	new->next = NULL;
 	new->op_size = NULL;
 	new->t_dir_size = 0;
+	new->op_code = 0;
 	return (new);
 }
 

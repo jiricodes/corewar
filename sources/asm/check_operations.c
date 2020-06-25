@@ -6,22 +6,25 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:16:57 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 12:52:50 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:17:57 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	check_label(char *label, t_operation *oplist)
+static int	check_label(char *label, t_operation *head)
 {
-	while (oplist)
+	t_operation *cpy;
+
+	cpy = head;
+	while (cpy)
 	{
-		if (oplist->label)
+		if (cpy->label)
 		{
-			if (ft_strequ(label, oplist->label))
+			if (ft_strequ(label, cpy->label))
 				return (1);
 		}
-		oplist = oplist->next;
+		cpy = cpy->next;
 	}
 	return (0);
 }
@@ -124,6 +127,7 @@ void	check_further(t_operation *operation, t_oplist ref, t_operation *head)
 		cnt += 1;
 	}
 	operation->arg_type_code = ref.arg_type_code;
+	operation->op_code = ref.opcode;
 }
 
 //some issues if the last link has only label but nothing else
@@ -154,46 +158,3 @@ void	check_operation(t_operation *operation, t_operation *head)
 	if (cnt == 16)
 		ft_error_exit("No operation found!\n", 0, 0);
 }
-
-/*
-void	create_op(void)
-{
-	t_operation *op_1;
-	t_operation *op_2;
-	t_operation *op_3;
-	t_operation *cpy;
-	t_operation *head;
-
-	op_1 = (t_operation *)malloc(sizeof(t_operation));
-	op_2 = (t_operation *)malloc(sizeof(t_operation));
-	op_3 = (t_operation *)malloc(sizeof(t_operation));
-
-	op_1->operation = "ld";
-	op_1->label = "kaput";
-	op_1->arg[0] = "3";
-	op_1->arg[1] = "r5";
-	op_1->arg[2] = 0;
-	op_1->next = op_2;
-
-	op_2->operation = "st";
-	op_2->label = 0;
-	op_2->arg[0] = "r1";
-	op_2->arg[1] = "5";
-	op_2->arg[2] = 0;
-	op_2->next = op_3;
-	
-	op_3->operation = "zjmp";
-	op_3->label = 0;
-	op_3->arg[0] = "%10";
-	op_3->arg[1] = 0;
-	op_3->arg[2] = 0;
-	op_3->next = 0;
-
-	cpy = op_1;
-	head = op_1;
-	while (cpy)
-	{
-		check_operation(cpy, head);
-		cpy = cpy->next;
-	}
-}*/

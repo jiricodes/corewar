@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 12:37:02 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:20:11 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_oplist
 
 static const	t_oplist	oplist[16] = {
 	{
-		.opcode = 1,
+		.opcode = 0x01,
 		.opname = "live",
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
@@ -43,7 +43,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 0
 	},
 	{
-		.opcode = 2,
+		.opcode = 0x02,
 		.opname = "ld",
 		.arg_cnt = 2,
 		.arg_type = {T_DIR | T_IND, T_REG, 0},
@@ -51,7 +51,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 3,
+		.opcode = 0x03,
 		.opname = "st",
 		.arg_cnt = 2,
 		.arg_type = {T_REG, T_IND | T_REG, 0},
@@ -59,7 +59,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 4,
+		.opcode = 0x04,
 		.opname = "add",
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG, T_REG},
@@ -67,7 +67,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 5,
+		.opcode = 0x05,
 		.opname = "sub",
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG, T_REG},
@@ -75,7 +75,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 6,
+		.opcode = 0x06,
 		.opname = "and",
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},
@@ -83,7 +83,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 7,
+		.opcode = 0x07,
 		.opname = "or",
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
@@ -91,7 +91,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 8,
+		.opcode = 0x08,
 		.opname = "xor",
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
@@ -99,7 +99,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 	{
-		.opcode = 9,
+		.opcode = 0x09,
 		.opname = "zjmp",
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
@@ -107,7 +107,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 0
 	},
 	{
-		.opcode = 10,
+		.opcode = 0x0a,
 		.opname = "ldi",
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
@@ -115,7 +115,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 		{
-		.opcode = 11,
+		.opcode = 0x0b,
 		.opname = "sti",
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
@@ -123,7 +123,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 		{
-		.opcode = 12,
+		.opcode = 0x0c,
 		.opname = "fork",
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
@@ -131,7 +131,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 0
 	},
 		{
-		.opcode = 13,
+		.opcode = 0x0d,
 		.opname = "lld",
 		.arg_cnt = 3,
 		.arg_type = {T_DIR | T_IND, T_REG},
@@ -139,7 +139,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 		{
-		.opcode = 14,
+		.opcode = 0x0e,
 		.opname = "lldi",
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
@@ -147,7 +147,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 1
 	},
 		{
-		.opcode = 15,
+		.opcode = 0x0f,
 		.opname = "lfork",
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
@@ -155,7 +155,7 @@ static const	t_oplist	oplist[16] = {
 		.arg_type_code = 0
 	},
 	{
-		.opcode = 16,
+		.opcode = 0x10,
 		.opname = "aff",
 		.arg_cnt = 1,
 		.arg_type = {T_REG, 0, 0},

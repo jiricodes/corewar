@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 12:47:13 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:46:05 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,46 @@ int	get_arg_code(t_operation *operation)
 	return ret;
 }
 
+void	args_to_bytecode(t_operation *op)
+{
+	int cnt;
+	int	temp;
 
-test_operation(t_operation *op)
+	cnt = 0;
+	while (cnt < 3)
+	{
+		if (op->argtypes[cnt] == T_REG)
+		{
+			temp = ft_atoi(op->arg[cnt] + 1);
+			printf("\tARG %d: %#04x\n", cnt, temp);
+		}
+		else if (op->argtypes[cnt] == T_DIR)
+		{
+			temp = ft_atoi(op->arg[cnt] + 1);
+			printf("\tARG %d: %#06x\n", cnt, temp);
+		}
+		cnt += 1;
+	}
+}
+
+void	test_operation(t_operation *op)
 {
 	int ret;
+	t_operation *cpy;
 
-	while (op->next)
+	cpy = op;
+	while (cpy)
 	{
-		if (op->arg_type_code)
-			ret = get_arg_code(op);
-		printf("\n\n\n%d\n", ret);
-		op = op->next;
+		printf("OPNAME: %s\n", cpy->op_name);
+		printf("OPCODE:\t\t%02x\n", cpy->op_code);
+		if (cpy->arg_type_code)
+		{
+			ret = get_arg_code(cpy);
+			printf("ARG_CODE:\t%2x\n", ret);
+		}
+		args_to_bytecode(cpy);
+		printf("\n");
+		cpy = cpy->next;
 	}
 
 }
