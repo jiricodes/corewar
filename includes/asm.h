@@ -46,8 +46,12 @@ typedef struct s_operation
     int     op_size;
     int     t_dir_size;
 	int		arg_type_code;
-	//position in the bytecode if link has label
-	int		label_pos;
+	//start position of current link in bytecode
+	int		position;
+	//if argument has label, position where label points to is recorded here
+	//example: arg[2] has :live, then label_pos[2] will have the bytecount to that label
+	//if position is positive, it means label is after link, if negative, before link
+	int		label_pos[3];
     struct s_operation *next;
 }               t_operation;
 
@@ -77,5 +81,6 @@ void    print_list(t_operation *list);
 
 void	check_operation(t_operation *operation, t_operation *head);
 void	test_operation(t_operation *op);
+int		ft_chrpos(char *str, char c);
 
 #endif

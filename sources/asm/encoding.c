@@ -12,7 +12,52 @@
 
 #include "asm.h"
 
-//void find_labels(t_operation **list)
+//When label is found in argument, goes through the list again to find the position
+//where argument label is pointing to and calculates how many bytes you must go
+//forwards or backwards, if the label is not found at all calls error exit
+void	find_position(t_operation **list, t_operation *temp, char *arg, int i)
+{
+	t_operation *find;
+
+	find = *list;
+	while (find)
+	{
+		if (ft_strequ(find->label, arg))
+		{
+			temp->label_pos[i] = (find->position - temp->position);
+			break ;
+		}
+		find = find->next;
+	}
+	if (!find)
+		ft_error_exit("Label not found!\n", 0, 0);
+}
+
+//goes through the linked list attempting to find labels in arguments
+void	find_labels(t_operation **list)
+{
+	t_operation *temp;
+	int i;
+	int pos;
+
+	temp = *list;
+	while (temp)
+	{
+		i = 0;
+		pos = 0;
+		if (temp->op_name)
+		{
+			while (temp->arg[i] && i < 3)
+			{
+				//had some issue with strchr, so I wrote char position finder helper function
+				if (pos = ft_chrpos(temp->arg[i], LABEL_CHAR) >= 0)
+					find_position(list, temp, temp->arg[i] + pos + 1, i);
+				i = i + 1;
+			}
+		}
+		temp = temp->next;
+	}
+}
 
 
 // a function to extract name & comment from the file using gnl
@@ -83,6 +128,5 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 		free(line);
 	
 	core->byte_size = total;
-	//find_labels(list);
-	//create_op();
+	find_labels(list);
 }

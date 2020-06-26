@@ -8,11 +8,14 @@ void print_list(t_operation *list)
 {
 	while (list != NULL)
 	{
-		ft_printf("\nlabel: %s, position: %d\n", list->label, list->label_pos);
+		ft_printf("\nlabel: %s, position: %d\n", list->label, list->position);
 		ft_printf("operation: %s\n", list->op_name);
 		ft_printf("arg1: %s\n", list->arg[0]);
 		ft_printf("arg2: %s\n", list->arg[1]);
 		ft_printf("arg3: %s\n", list->arg[2]);
+		ft_printf("labelpos1: %d\n", list->label_pos[0]);
+		ft_printf("labelpos2: %d\n", list->label_pos[1]);
+		ft_printf("labelpos3: %d\n", list->label_pos[2]);
 		ft_printf("op_size: %d\n", list->op_size);
 		ft_printf("t_dir_size: %d\n", list->t_dir_size);
 		ft_printf("arg1 TYPE: %d\n", list->argtypes[0]);
@@ -72,8 +75,7 @@ int get_size_type(t_operation **list, int total)
 		}
 		temp->op_size = count_bytes(temp, cnt);
 	}		
-	if (temp->label)
-		temp->label_pos = total;
+	temp->position = total;
 	total = total + temp->op_size;
 	return (total);
 }

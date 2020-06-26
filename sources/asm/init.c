@@ -58,7 +58,10 @@ t_operation	*newnode(void)
 	new->op_size = 0;
 	new->t_dir_size = 0;
 	new->op_code = 0;
-	new->label_pos = 0;
+	new->position = 0;
+	new->label_pos[0] = 0;
+	new->label_pos[1] = 0;
+	new->label_pos[2] = 0;
 	return (new);
 }
 
@@ -81,4 +84,20 @@ int	list_append(t_operation **head)
 		last = last->next;
 	last->next = newnode();
 	return (1);
+}
+
+int ft_chrpos(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i = i + 1;
+	}
+	return (-1);
 }
