@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encoding.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 12:12:34 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/29 01:52:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	find_labels(t_operation **list)
 			while (temp->arg[i] && i < 3)
 			{
 				//had some issue with strchr, so I wrote char position finder helper function
-				if (pos = ft_chrpos(temp->arg[i], LABEL_CHAR) >= 0)
+				if ((pos = ft_chrpos(temp->arg[i], LABEL_CHAR)) >= 0)
 					find_position(list, temp, temp->arg[i] + pos + 1, i);
 				i = i + 1;
 			}
