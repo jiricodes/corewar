@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
+#    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/22 15:31:12 by asolopov         ###   ########.fr        #
+#    Updated: 2020/06/29 02:13:44 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ ASM_FILES =	asm.c \
 			filename_util.c \
 			init.c \
 			print_debug.c \
-			analysis.c
+			analysis.c \
+			to_bytecode.c
 
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 
