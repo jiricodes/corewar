@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_bytecode.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 16:11:42 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/29 02:15:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	negative_to_hex(int	orig)
 	new += (orig * -1);
 	new = ~new + 1;
 	printf("%02x\n", new);
+	return(new);
 }
 
 int	get_arg_code(t_operation *operation)
