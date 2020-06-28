@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:16:57 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 15:17:57 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/29 01:53:48 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	check_t_ind(char *argum, t_operation *oplist)
 		}
 		return (1);
 	}
+	return (0);
 }
 
 int		check_t_dir(char *argum, t_operation *oplist)
@@ -90,6 +91,7 @@ int		check_t_dir(char *argum, t_operation *oplist)
 		}
 		return (1);
 	}
+	return (0);
 }
 
 int	check_argument(char *argum, t_operation *oplist)
