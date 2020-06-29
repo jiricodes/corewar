@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   to_bytecode.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/29 02:15:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/06/29 14:58:18 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include <stdio.h>
+
+int	swap_int16(int val)
+{
+	return ((val & 0x00FF) << 8 | (val & 0xFF00) >> 8);
+}
+
+int	swap_int32(int val)
+{
+	return ((val & 0xFF000000) >> 24 | (val & 0x00FF0000) >> 8 |
+	(val & 0x0000FF00) << 8 | (val & 0x000000FF) << 24);
+}
 
 int	negative_to_hex(int	orig)
 {
@@ -20,8 +31,7 @@ int	negative_to_hex(int	orig)
 	new = 0;
 	new += (orig * -1);
 	new = ~new + 1;
-	printf("%02x\n", new);
-	return(new);
+	return (new);
 }
 
 int	get_arg_code(t_operation *operation)
@@ -44,10 +54,10 @@ int	get_arg_code(t_operation *operation)
 		shift -= 2;
 		cnt += 1;
 	}
-	return ret;
+	return (ret);
 }
 
-void	args_to_bytecode(t_operation *op)
+int	write_args_to_bytecode(t_operation *op, int fd)
 {
 	int cnt;
 	int	temp;
@@ -58,12 +68,44 @@ void	args_to_bytecode(t_operation *op)
 		if (op->argtypes[cnt] == T_REG)
 		{
 			temp = ft_atoi(op->arg[cnt] + 1);
-			printf("\tARG %d: %#04x\n", cnt, temp);
+			write(fd, &temp, 1);
 		}
 		else if (op->argtypes[cnt] == T_DIR)
 		{
-			temp = ft_atoi(op->arg[cnt] + 1);
-			printf("\tARG %d: %#06x\n", cnt, temp);
+			if (op->arg[cnt][1] == ':')
+			{
+				temp = op->label_pos[cnt];
+				if (op->t_dir_size == 2)
+				{
+					temp = swap_int16(temp);
+					write(fd, &temp, 2);
+				}
+				else if (op->t_dir_size == 4)
+				{
+					temp = swap_int32(temp);
+					write(fd, &temp, 4);
+				}
+			}
+			else
+			{
+				temp = ft_atoi(op->arg[cnt] + 1);
+				if (op->t_dir_size == 2)
+				{
+					temp = swap_int16(temp);
+					write(fd, &temp, 2);
+				}
+				else if (op->t_dir_size == 4)
+				{
+					temp = swap_int32(temp);
+					write(fd, &temp, 4);
+				}
+			}
+		}
+		else if (op->argtypes[cnt] == T_IND)
+		{
+			temp = ft_atoi(op->arg[cnt]);
+			temp = swap_int16(temp);
+			write(fd, &temp, 2);
 		}
 		cnt += 1;
 	}
@@ -72,21 +114,25 @@ void	args_to_bytecode(t_operation *op)
 void	test_operation(t_operation *op)
 {
 	int ret;
+	int fd;
+	int	arg_code;
+	int cnt;
+	int temp;
 	t_operation *cpy;
 
 	cpy = op;
+	fd = open("test.cor", O_RDWR);
 	while (cpy)
 	{
-		printf("OPNAME: %s\n", cpy->op_name);
-		printf("OPCODE:\t\t%02x\n", cpy->op_code);
-		if (cpy->arg_type_code)
+		cnt = 0;
+		if (cpy->op_code != 0)
 		{
-			ret = get_arg_code(cpy);
-			printf("ARG_CODE:\t%2x\n", ret);
+			write(fd, &cpy->op_code, 1);
+			arg_code = get_arg_code(cpy);
+			if (cpy->arg_type_code)
+				write(fd, &arg_code, 1);
+			write_args_to_bytecode(cpy, fd);
 		}
-		args_to_bytecode(cpy);
-		printf("\n");
 		cpy = cpy->next;
 	}
-	negative_to_hex(-19);
 }

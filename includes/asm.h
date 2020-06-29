@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 15:16:59 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/29 14:17:38 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "oplist.h"
 # include "libft.h"
 # include "ft_error.h"
+
+#include <unistd.h>
+#include <fcntl.h>
 
 # define SRC_TYPE ".s"
 # define TRGT_TYPE ".cor"
