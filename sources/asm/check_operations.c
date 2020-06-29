@@ -36,6 +36,8 @@ int	check_t_reg(char *argum)
 	if (argum[0] != 'r')
 		return (0);
 	reg_num = ft_atoi(argum + 1);
+	//corewar cookbook states that assembler should translate
+	//everything between 0-99, even though over 16 are wrong
 	if (reg_num > REG_NUMBER || reg_num < 1)
 		return (0);
 	else
@@ -54,8 +56,12 @@ int	check_t_ind(char *argum, t_operation *oplist)
 		else
 			return (0);
 	}
-	else if (ft_isdigit(argum[0]))
+	//negative arguments caused error, example -24 (helltrain.s)
+	//added it to check if first digit is minus followed by number
+	else if (ft_isdigit(argum[0]) || (argum[0] == '-' && ft_isdigit(argum[1])))
 	{
+		if (argum[0] == '-')
+			cnt = cnt + 1;
 		while (argum[cnt] != '\0')
 		{
 			if (!ft_isdigit(argum[cnt]))
@@ -81,8 +87,11 @@ int		check_t_dir(char *argum, t_operation *oplist)
 		else
 			return (0);
 	}
-	else if (ft_isdigit(argum[1]))
+	//Same addition as in t_ind above. Still issue with leeloo.s, it has arguments like %0x08F40370.
+	else if (ft_isdigit(argum[1]) || (argum[1] == '-' && ft_isdigit(argum[2])))
 	{
+		if (argum[1] == '-')
+			cnt = cnt + 1;
 		while (argum[cnt] != '\0')
 		{
 			if (!ft_isdigit(argum[cnt]))
@@ -104,6 +113,7 @@ int	check_argument(char *argum, t_operation *oplist)
 		return (T_DIR);
 	else
 	{
+		ft_printf("error was in argument: %s\n", argum);
 		ft_error_exit("check_argument error", 0, 0);
 		return (0);
 	}
@@ -157,6 +167,9 @@ void	check_operation(t_operation *operation, t_operation *head)
 		}
 		cnt += 1;
 	}
-	if (cnt == 16)
-		ft_error_exit("No operation found!\n", 0, 0);
+	//Added operation->label == NULL, so when there is no operation or args but label
+	//it won't give error, maybe need to check there isn't anything else on the link?
+	//need to figure out .extend (Backward.s)
+	if (cnt == 16 && operation->label == NULL)
+		ft_error_exit("No operation/label found!\n", 0, 0);
 }

@@ -156,7 +156,7 @@ int		analysis(t_asm *core, char *line, t_operation **list, int total)
 		if ((line[i] == ' ' || line[i] == '\t' || line[i] == ',' || line[i] == '\0') &&
 			(line[i - 1] != ' ' && line[i - 1] != '\t' && line[i - 1] != ','))
 			end = i - 1;
-		if (start < end && end == i - 1)
+		if (start <= end && end == i - 1 && end > 0)
 		{
 			flag = flag + 1;
 			if (flag == 1)

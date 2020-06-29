@@ -30,7 +30,12 @@ void	find_position(t_operation **list, t_operation *temp, char *arg, int i)
 		find = find->next;
 	}
 	if (!find)
+	{
+		//issue with special labels (example: :l1+1 in Backward.s, l1 is the label but
+		//the argument tells it to move +1 further from label positrion.)
+		ft_printf("special label, needs fixing = %s\n", arg);
 		ft_error_exit("Label not found!\n", 0, 0);
+	}
 }
 
 //goes through the linked list attempting to find labels in arguments
@@ -123,6 +128,7 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 			core->champ_comment = save_champ_head(COMMENT_CMD_STRING, source_fd, line);
 			core->flag = 10;
 		}
+		//need to change core->flag, didn't take into account that comment is not necessary (lde.s)
 		else if (core->flag >= 10)
 			total = analysis(core, line, list, total);
 		free(line);
