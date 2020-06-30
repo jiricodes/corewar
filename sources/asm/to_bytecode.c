@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/30 14:14:34 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/30 14:35:17 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,11 @@ void	write_null(int fd)
 
 void	write_exec_size(t_asm *core, int fd)
 {
-	return ;
+	int x;
+
+	x = core->byte_size;
+	x = swap_int32(x);
+	write(fd, &x, 4);
 }
 
 void	write_name_comment(t_asm *core, int fd)
@@ -153,7 +157,7 @@ void	write_name_comment(t_asm *core, int fd)
 		cnt += 1;
 	}
 	write_null(fd);
-	printf("\n");
+	write_exec_size(core, fd);
 	cnt = 0;
 	str = core->champ_comment;
 	while (str[cnt] != '\0' && cnt < COMMENT_LENGTH)
@@ -167,6 +171,7 @@ void	write_name_comment(t_asm *core, int fd)
 		write(fd, &zero, 1);
 		cnt += 1;
 	}
+	write_null(fd);
 }
 
 void	test_operation(t_asm *core, t_operation *op)
