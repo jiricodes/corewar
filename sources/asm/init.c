@@ -29,7 +29,6 @@ t_asm	*intialize_asm(char *filename)
 	core->core_fd = open(target_file, O_RDWR | O_CREAT, 0600);
 	if (core->core_fd < 0)
 		ft_error_exit("Failed to open given target file", (void *)core, clear_t_asm);
-	core->flag = 0;
 	core->byte_size = 0;
 	return (core);
 }
@@ -100,4 +99,70 @@ int ft_chrpos(char *str, char c)
 		i = i + 1;
 	}
 	return (-1);
+}
+
+int				is_hex(char *argum)
+{
+	int i;
+	char hexmask[] = "0123456789abcdefABCDEF";
+
+	i = 3;
+	if (argum[1] == '0' && (argum[2] == 'x' || argum[2] == 'X'))
+	{
+		while (argum[i] != '\0')
+		{
+			if (ft_chrpos(hexmask, argum[i]) < 0)
+				return (0);
+			i = i + 1;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+unsigned long			ft_pow(int number, int power)
+{
+	unsigned long total;
+
+	total = number;
+	if (!power)
+		return (1);
+	else if (power == 1)
+		return (number);
+	else
+	{
+		while (power > 1)
+		{
+			total = total * number;
+			power = power - 1;
+		}
+	}
+	return (total);
+}
+
+char			*x_to_deci(char *argum)
+{
+	unsigned long hex;
+	int len;
+	int val;
+	int i;
+
+	hex = 0;
+	len = ft_strlen(argum);
+	len = len - 4;
+	val = 0;
+	i = 3;
+	while (argum[i] != '\0')
+	{
+		if (argum[i] >= '0' && argum[i] <= '9')
+			val = argum[i] - 48;
+		else if (argum[i] >= 'a' && argum[i] <= 'f')
+			val = argum[i] - 97 + 10;
+		else if (argum[i] >= 'A' && argum[i] <= 'F')
+			val = argum[i] - 65 + 10;
+		hex = hex + (val * ft_pow(16, len));
+		len = len - 1;
+		i = i + 1;
+	}
+	return(ft_ultoa(hex));
 }
