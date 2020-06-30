@@ -31,7 +31,6 @@ typedef struct	s_asm
 	char	*champ_name;
 	char	*champ_comment;
 	int		byte_size;
-	int		flag;
 }				t_asm;
 
 //linked list struct
@@ -85,5 +84,7 @@ void    print_list(t_operation *list);
 void	check_operation(t_operation *operation, t_operation *head);
 void	test_operation(t_operation *op);
 int		ft_chrpos(char *str, char c);
+int		is_hex(char *argum);
+char	*x_to_deci(char *argum);
 
 #endif

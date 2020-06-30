@@ -56,7 +56,10 @@ void	find_labels(t_operation **list)
 			{
 				//had some issue with strchr, so I wrote char position finder helper function
 				if ((pos = ft_chrpos(temp->arg[i], LABEL_CHAR)) >= 0)
+				{
+					//still need to deal with labels with increments (leeloo.s, st1+1)
 					find_position(list, temp, temp->arg[i] + pos + 1, i);
+				}
 				i = i + 1;
 			}
 		}
@@ -118,18 +121,11 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 	while (get_next_line(source_fd, &line) > 0)
 		
 		// only .name & .comment allowed. others .(...) should be marked as error
-		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING))) // flag breaks this
-		{
+		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 			core->champ_name = save_champ_head(NAME_CMD_STRING, source_fd, line);
-			core->flag = 1;
-		}
-		else if (core->flag < 10 && ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-		{
+		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 			core->champ_comment = save_champ_head(COMMENT_CMD_STRING, source_fd, line);
-			core->flag = 10;
-		}
-		//need to change core->flag, didn't take into account that comment is not necessary (lde.s)
-		else if (core->flag >= 10)
+		else
 			total = analysis(core, line, list, total);
 		free(line);
 	

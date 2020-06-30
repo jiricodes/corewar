@@ -38,7 +38,10 @@ int	check_t_reg(char *argum)
 	reg_num = ft_atoi(argum + 1);
 	//corewar cookbook states that assembler should translate
 	//everything between 0-99, even though over 16 are wrong
-	if (reg_num > REG_NUMBER || reg_num < 1)
+	//and it's arena's job to decide if it is correct or not?
+	//if (reg_num > REG_NUMBER || reg_num < 1)
+	//	return (0);
+	if (reg_num > 99 || reg_num < 0)
 		return (0);
 	else
 		return (1);
@@ -56,8 +59,6 @@ int	check_t_ind(char *argum, t_operation *oplist)
 		else
 			return (0);
 	}
-	//negative arguments caused error, example -24 (helltrain.s)
-	//added it to check if first digit is minus followed by number
 	else if (ft_isdigit(argum[0]) || (argum[0] == '-' && ft_isdigit(argum[1])))
 	{
 		if (argum[0] == '-')
@@ -87,8 +88,7 @@ int		check_t_dir(char *argum, t_operation *oplist)
 		else
 			return (0);
 	}
-	//Same addition as in t_ind above. Still issue with leeloo.s, it has arguments like %0x08F40370.
-	else if (ft_isdigit(argum[1]) || (argum[1] == '-' && ft_isdigit(argum[2])))
+	else if ((ft_isdigit(argum[1]) || (argum[1] == '-' && ft_isdigit(argum[2]))) && (argum[2] != 'x' && argum[2] != 'X'))
 	{
 		if (argum[1] == '-')
 			cnt = cnt + 1;

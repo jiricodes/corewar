@@ -113,6 +113,7 @@ void	save_instru(t_operation **list, char *op)
 char		*split_instru(char *line, int start, int end)
 {
 	char *op;
+	char *hex;
 	int i;
 
 	i = 0;
@@ -124,6 +125,12 @@ char		*split_instru(char *line, int start, int end)
 		start = start + 1;
 	}
 	op[i] = '\0';
+	if (is_hex(op))
+	{
+		hex = x_to_deci(op);
+		free(op);
+		return(hex);
+	}
 	return(op);
 }
 
@@ -143,7 +150,7 @@ int		analysis(t_asm *core, char *line, t_operation **list, int total)
 	flag = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '#' || line[i] == ';')
+		if (line[i] == '#' || line[i] == ';' || line[i] == '.')
 			line[i] = '\0';
 		if (((line[i] == ' ' || line[i] == '\t' || line[i] == ',') || i == 0) &&
 			(line[i + 1] != ' ' && line[i + 1] != '\t' && line[i + 1] != ','))
