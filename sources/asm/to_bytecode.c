@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/30 13:58:40 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/30 14:14:34 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,66 @@ void	write_magic(int fd)
 	write(fd, &magic, 4);
 }
 
+void	write_null(int fd)
+{
+	int x;
+
+	x = 0;
+	write(fd, &x, 4);
+}
+
+void	write_exec_size(t_asm *core, int fd)
+{
+	return ;
+}
+
+void	write_name_comment(t_asm *core, int fd)
+{
+	int 	cnt;
+	int		zero = 0;
+	char	*str;
+
+	cnt = 0;
+	str = core->champ_name;
+	while (str[cnt] != '\0' && cnt < PROG_NAME_LENGTH)
+	{
+		printf("%x ", str[cnt]);
+		write(fd, &str[cnt], 1);
+		cnt += 1;
+	}
+	while (cnt < PROG_NAME_LENGTH)
+	{
+		write(fd, &zero, 1);
+		cnt += 1;
+	}
+	write_null(fd);
+	printf("\n");
+	cnt = 0;
+	str = core->champ_comment;
+	while (str[cnt] != '\0' && cnt < COMMENT_LENGTH)
+	{
+		printf("%x ", str[cnt]);
+		write(fd, &str[cnt], 1);
+		cnt += 1;
+	}
+	while (cnt < COMMENT_LENGTH)
+	{
+		write(fd, &zero, 1);
+		cnt += 1;
+	}
+}
+
 void	test_operation(t_asm *core, t_operation *op)
 {
-	int ret;
 	int fd;
 	int	arg_code;
 	int cnt;
-	int temp;
 	t_operation *cpy;
 
 	cpy = op;
 	fd = core->core_fd;
 	write_magic(fd);
+	write_name_comment(core, fd);
 	while (cpy)
 	{
 		cnt = 0;
