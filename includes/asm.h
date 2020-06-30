@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/29 14:17:38 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/30 13:57:18 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void    print_list(t_operation *list);
 
 
 void	check_operation(t_operation *operation, t_operation *head);
-void	test_operation(t_operation *op);
+void	test_operation(t_asm *core, t_operation *op);
 int		ft_chrpos(char *str, char c);
 int		is_hex(char *argum);
 char	*x_to_deci(char *argum);

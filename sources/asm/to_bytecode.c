@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 12:05:11 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/29 14:58:18 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/30 13:58:40 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,16 @@ int	write_args_to_bytecode(t_operation *op, int fd)
 	}
 }
 
-void	test_operation(t_operation *op)
+void	write_magic(int fd)
+{
+	int magic;
+
+	magic = COREWAR_EXEC_MAGIC;
+	magic = swap_int32(magic);
+	write(fd, &magic, 4);
+}
+
+void	test_operation(t_asm *core, t_operation *op)
 {
 	int ret;
 	int fd;
@@ -121,7 +130,8 @@ void	test_operation(t_operation *op)
 	t_operation *cpy;
 
 	cpy = op;
-	fd = open("test.cor", O_RDWR);
+	fd = core->core_fd;
+	write_magic(fd);
 	while (cpy)
 	{
 		cnt = 0;

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:51:34 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 15:09:31 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/06/30 13:57:27 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 			check_operation(cpy, list);
 			cpy = cpy->next;
 		}
-		test_operation(list);
+		test_operation(core, list);
 		// clear_t_asm((void *)core);
 	}
 	else
