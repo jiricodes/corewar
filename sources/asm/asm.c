@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:51:34 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/30 21:14:15 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/01 12:38:56 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int main(int argc, char **argv)
 		list = NULL;
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
-		print_asmcore(core);
+		// print_asmcore(core);
 		//moved print here to error check
-		print_list(list);
+		// print_list(list);
 		ft_printf("Total size in bytes: %d\n", core->byte_size);
 		cpy = list;
 		while (cpy)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encoding.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/29 01:52:04 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/01 13:37:38 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,45 +67,87 @@ void	find_labels(t_operation **list)
 	}
 }
 
+char	*strjoin_first(char *s1, char *s2)
+{
+	char	*temp;
+	char	*ret;
 
+	temp = ft_strdup(s1);
+	free(s1);
+	ret = ft_strjoin(temp, s2);
+	free(temp);
+	return (ret);
+}
+
+char	*continue_reading(int source_fd)
+{
+	char	*line;
+	char	*ret;
+
+	ret = ft_strnew(10);
+	while(get_next_line(source_fd, &line) > 0)
+	{
+		if (ft_strchr(line, '\"'))
+		{
+			ret = strjoin_first(ret, "\n");
+			ret = strjoin_first(ret, line);
+			free(line);
+			break ;			
+		}
+		else if (!ft_strchr(line, '\"'))
+		{
+			ret = strjoin_first(ret, "\n");
+			ret = strjoin_first(ret, line);
+		}
+		free(line);
+	}
+	return (ret);
+}
+
+char	*remove_trailing_spaces(char *src)
+{
+	int		cnt;
+	char	*temp;
+	char	*ret;
+
+	temp = ft_strdup(src);
+	free(src);
+	cnt = ft_strlen(temp) - 1;
+	while (cnt > 0 && ft_isspace(temp[cnt]))
+		cnt -= 1;
+	ret = ft_strncpy(ft_strnew(cnt), temp, cnt);
+	free(temp);
+	return (ret);	
+}
 // a function to extract name & comment from the file using gnl
 
-char	*save_champ_head(char *target, int source_fd, char *line)
+char	*save_name_comment(char *target, int source_fd, char *line)
 {
 	char	*ret;
 	int		cnt;
 	int		pos_start;
 	char	*cntd;
 
-	pos_start = 0;
-	cnt = ft_strlen(target);
-	while (line[cnt] != '\0' && line[cnt] != '\"')
+	while (line[cnt] != '\"')
+	{
+		if (line[cnt] == '\0')
+			ft_error_exit("No name or comment present", 0, 0);
 		cnt += 1;
+	}
+	pos_start = cnt + 1;
 	cnt += 1;
-	pos_start = cnt;
 	while (line[cnt] != '\0' && line[cnt] != '\"')
 		cnt += 1;
 	if (line[cnt] == '\0')
 	{
-		ret = &line[pos_start];
-		while(get_next_line(source_fd, &cntd) > 0)
-		{
-			if (ft_strchr(cntd, '\"'))
-			{
-				ret = ft_strjoin(ret, "\n"); // need to write memory-friendly function not to have leaks
-				ret = ft_strjoin(ret, cntd);
-				break ;
-			}
-			else if (!ft_strchr(cntd, '\"'))
-			{
-				ret = ft_strjoin(ret, "\n");
-				ret = ft_strjoin(ret, cntd);
-			}
-		}
+		ret = ft_strdup(&line[pos_start]);
+		cntd = continue_reading(source_fd);
+		ret = strjoin_first(ret, cntd);
+		free(cntd);
 	}
 	else if (line[cnt] == '\"')
-		ret = &line[pos_start];
-	ret = ft_strsub(ret, 0, ft_strlen(ret) - 1); // there has to be another way to remove last quote marks, cause assembly language can have spaces all around
+		ret = ft_strdup(&line[pos_start]);
+	ret = remove_trailing_spaces(ret);
 	return (ret);
 }
 
@@ -119,16 +161,20 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 
 	total = 0;
 	while (get_next_line(source_fd, &line) > 0)
-		
+	{
 		// only .name & .comment allowed. others .(...) should be marked as error
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-			core->champ_name = save_champ_head(NAME_CMD_STRING, source_fd, line);
+			core->champ_name = save_name_comment(NAME_CMD_STRING, source_fd, line);
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-			core->champ_comment = save_champ_head(COMMENT_CMD_STRING, source_fd, line);
+			core->champ_comment = save_name_comment(COMMENT_CMD_STRING, source_fd, line);
+		else if (ft_strnstr(line, ".extend", ft_strlen(".extend")))
+			continue ;
 		else
 			total = analysis(core, line, list, total);
 		free(line);
-	
+	}
+	while (1)
+	{}
 	core->byte_size = total;
-	find_labels(list);
+	// find_labels(list);
 }
