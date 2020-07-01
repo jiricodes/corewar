@@ -30,6 +30,7 @@ t_asm	*intialize_asm(char *filename)
 	if (core->core_fd < 0)
 		ft_error_exit("Failed to open given target file", (void *)core, clear_t_asm);
 	core->byte_size = 0;
+	core->line_cnt = 0;
 	return (core);
 }
 

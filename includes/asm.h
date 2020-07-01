@@ -31,6 +31,7 @@ typedef struct	s_asm
 	char	*champ_name;
 	char	*champ_comment;
 	int		byte_size;
+	int		line_cnt;
 }				t_asm;
 
 //linked list struct
@@ -67,7 +68,9 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
-int		analysis(t_asm *core, char *line, t_operation **list, int total);
+int		analysis(t_asm *core, char *line, t_operation **list);
+int		get_size_type(t_operation **list, t_asm *core);
+void	match_labels(t_operation **head);
 
 /*
 ** ASM File reading
@@ -78,10 +81,10 @@ void	read_file(t_asm *core, int source_fd, t_operation **list);
 ** ASM List functions
 */
 int     list_append(t_operation **head);
-void    print_list(t_operation *list);
+void    print_list(t_operation *list, t_asm *core);
 
 
-void	check_operation(t_operation *operation, t_operation *head);
+void	check_operation( t_operation *operation, t_asm *core);
 int		ft_chrpos(char *str, char c);
 int		is_hex(char *argum);
 char	*x_to_deci(char *argum);

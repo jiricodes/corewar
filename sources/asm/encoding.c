@@ -128,6 +128,7 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 	int		pos_start;
 	char	*cntd;
 
+	cnt = 0;
 	while (line[cnt] != '\"')
 	{
 		if (line[cnt] == '\0')
@@ -157,12 +158,11 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
-	int		total;
 
-	total = 0;
 	while (get_next_line(source_fd, &line) > 0)
 	{
 		// only .name & .comment allowed. others .(...) should be marked as error
+		core->line_cnt += 1;
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 			core->champ_name = save_name_comment(NAME_CMD_STRING, source_fd, line);
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
@@ -170,11 +170,12 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 		else if (ft_strnstr(line, ".extend", ft_strlen(".extend")))
 			continue ;
 		else
-			total = analysis(core, line, list, total);
+			analysis(core, line, list);
 		free(line);
 	}
-	while (1)
-	{}
-	core->byte_size = total;
-	// find_labels(list);
+	match_labels(list);
+	get_size_type(list, core);
+	//while (1)
+	//{}
+	find_labels(list);
 }

@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 {
 	t_asm		*core;
 	t_operation	*list;
-	t_operation *cpy;
 
 	if (argc == 2)
 	{
@@ -25,16 +24,9 @@ int main(int argc, char **argv)
 		list = NULL;
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
-		// print_asmcore(core);
+		print_asmcore(core);
 		//moved print here to error check
-		// print_list(list);
-		ft_printf("Total size in bytes: %d\n", core->byte_size);
-		cpy = list;
-		while (cpy)
-		{
-			check_operation(cpy, list);
-			cpy = cpy->next;
-		}
+		print_list(list, core);
 		write_champion(core, list);
 		// clear_t_asm((void *)core);
 	}
