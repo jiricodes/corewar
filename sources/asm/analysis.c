@@ -4,7 +4,7 @@
 ** Test printer to see the contents of the linked list.
 */
 
-void print_list(t_operation *list)
+void print_list(t_operation *list, t_asm *core)
 {
 	while (list != NULL)
 	{
@@ -24,6 +24,7 @@ void print_list(t_operation *list)
 		ft_printf("has arg type code?: %d\n", list->arg_type_code);
 		list = list->next;
 	}
+	ft_printf("Total size in bytes: %d\n", core->byte_size);
 	ft_printf("\n");
 }
 
@@ -35,7 +36,7 @@ int count_bytes(t_operation *temp, int cnt)
 
 	i = 0;
 	bytes = 1;
-	while (temp->arg[i] != NULL)
+	while (temp->arg[i] != NULL && i < 3)
 	{
 		if (temp->arg[i][0] == 'r')
 			bytes = bytes + 1;
@@ -50,48 +51,50 @@ int count_bytes(t_operation *temp, int cnt)
 	return (bytes);
 }
 
-//Currently determines which is the t_dir_size, will call function to calculate
-//argument type code and calculate size of link in bytes
-int get_size_type(t_operation **list, int total)
+int get_size_type(t_operation **list, t_asm *core)
 {
 	int cnt;
-
-	cnt = 0;
 	t_operation *temp;
 
 	temp = *list;
-	while (temp->next != NULL)
-		temp = temp->next;
-	if (temp->op_name)
+	while (temp)
 	{
-		while (cnt < 16)
+		if (temp->op_name)
 		{
-			if (ft_strequ(temp->op_name, oplist[cnt].opname))
+			cnt = 0;
+			while (cnt < 16)
 			{
-				temp->t_dir_size = oplist[cnt].t_dir_size;
-				break ;
+				if (ft_strequ(temp->op_name, oplist[cnt].opname))
+				{
+					temp->t_dir_size = oplist[cnt].t_dir_size;
+					break ;
+				}
+				cnt += 1;
 			}
-			cnt += 1;
-		}
-		temp->op_size = count_bytes(temp, cnt);
-	}		
-	temp->position = total;
-	total = total + temp->op_size;
-	return (total);
+			temp->op_size = count_bytes(temp, cnt);
+		}	
+		temp->position = core->byte_size;
+		core->byte_size = core->byte_size + temp->op_size;
+		temp = temp->next;
+	}
+	return (0);
 }
 
-//Copies label/operation/instruction from start pos to end pos and returns it
-//Doesn't work with multiple labels on the same row, need to fix (ex. live: live2: ...)
-void	save_instru(t_operation **list, char *op)
+t_operation		*save_instru(t_operation **list, char *op, t_asm *core)
 {
 	t_operation *temp;
 
 	temp = *list;
 	while (temp->next != NULL)
 		temp = temp->next;
-	if ((op[ft_strlen(op) - 1] == ':') && temp->label == NULL)
+	if (op[ft_strlen(op) - 1] == ':')
 	{
 		//dumb quickfix to get artems error check working for testing
+		if (temp->label != NULL)
+		{
+			list_append(list);
+			temp = temp->next;
+		}
 		op[ft_strlen(op) - 1] = '\0';
 		temp->label = ft_strdup(op);
 	}
@@ -103,7 +106,13 @@ void	save_instru(t_operation **list, char *op)
 		temp->arg[1] = ft_strdup(op);
 	else if (temp->arg[2] == NULL)
 		temp->arg[2] = ft_strdup(op);
+	else
+	{
+		ft_printf("Too many instructions on row: %d\n", core->line_cnt);
+		ft_error_exit("check_argument error", 0, 0);
+	}
 	free(op);
+	return (temp);
 }
 
 /*
@@ -137,21 +146,23 @@ char		*split_instru(char *line, int start, int end)
 //Finds positions where labels/operations/instructions should be split
 //Going to shorten and rework later, maybe with char mask and do something about the damn flag lol, it's a mess
 
-int		analysis(t_asm *core, char *line, t_operation **list, int total)
+int		analysis(t_asm *core, char *line, t_operation **list)
 {
 	int i;
 	int start;
 	int end;
 	int flag;
+	t_operation *new;
 
 	i = 0;
 	start = 0;
 	end = 0;
 	flag = 0;
+	new = NULL;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '#' || line[i] == ';' || line[i] == '.')
-			line[i] = '\0';
+		if (line[i] == '#' || line[i] == ';')
+			break ;
 		if (((line[i] == ' ' || line[i] == '\t' || line[i] == ',') || i == 0) &&
 			(line[i + 1] != ' ' && line[i + 1] != '\t' && line[i + 1] != ','))
 		{
@@ -168,10 +179,10 @@ int		analysis(t_asm *core, char *line, t_operation **list, int total)
 			flag = flag + 1;
 			if (flag == 1)
 				list_append(list);
-			save_instru(list, split_instru(line, start, end));
+			new = save_instru(list, split_instru(line, start, end), core);
 		}
 	}
-	if (flag)
-		total = get_size_type(list, total);
-	return (total);
+	if (new && new->op_name)
+		check_operation(new, core);
+	return (0);
 }
