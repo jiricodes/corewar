@@ -1,188 +1,152 @@
 #include "asm.h"
 
-/*
-** Test printer to see the contents of the linked list.
-*/
-
-void print_list(t_operation *list, t_asm *core)
+//extracts arguments from reformatted string
+//using separator char arguments are found and copied
+//if hex is found, it is converted to decimal string
+void get_args(t_asm *core, t_operation *new, char *line)
 {
-	while (list != NULL)
-	{
-		ft_printf("\nlabel: %s, position: %d\n", list->label, list->position);
-		ft_printf("operation: %s\n", list->op_name);
-		ft_printf("arg1: %s\n", list->arg[0]);
-		ft_printf("arg2: %s\n", list->arg[1]);
-		ft_printf("arg3: %s\n", list->arg[2]);
-		ft_printf("labelpos1: %d\n", list->label_pos[0]);
-		ft_printf("labelpos2: %d\n", list->label_pos[1]);
-		ft_printf("labelpos3: %d\n", list->label_pos[2]);
-		ft_printf("op_size: %d\n", list->op_size);
-		ft_printf("t_dir_size: %d\n", list->t_dir_size);
-		ft_printf("arg1 TYPE: %d\n", list->argtypes[0]);
-		ft_printf("arg2 TYPE: %d\n", list->argtypes[1]);
-		ft_printf("arg3 TYPE: %d\n", list->argtypes[2]);
-		ft_printf("has arg type code?: %d\n", list->arg_type_code);
-		list = list->next;
-	}
-	ft_printf("Total size in bytes: %d\n", core->byte_size);
-	ft_printf("\n");
-}
-
-//counts the size of one link
-int count_bytes(t_operation *temp, int cnt)
-{
-	int bytes;
 	int i;
-
-	i = 0;
-	bytes = 1;
-	while (temp->arg[i] != NULL && i < 3)
-	{
-		if (temp->arg[i][0] == 'r')
-			bytes = bytes + 1;
-		else if (temp->arg[i][0] == DIRECT_CHAR)
-			bytes = bytes + oplist[cnt].t_dir_size;
-		else
-			bytes = bytes + 2;
-		i = i + 1;
-	}
-	if (oplist[cnt].arg_type_code)
-		bytes = bytes + 1;
-	return (bytes);
-}
-
-int get_size_type(t_operation **list, t_asm *core)
-{
 	int cnt;
-	t_operation *temp;
-
-	temp = *list;
-	while (temp)
-	{
-		if (temp->op_name)
-		{
-			cnt = 0;
-			while (cnt < 16)
-			{
-				if (ft_strequ(temp->op_name, oplist[cnt].opname))
-				{
-					temp->t_dir_size = oplist[cnt].t_dir_size;
-					break ;
-				}
-				cnt += 1;
-			}
-			temp->op_size = count_bytes(temp, cnt);
-		}	
-		temp->position = core->byte_size;
-		core->byte_size = core->byte_size + temp->op_size;
-		temp = temp->next;
-	}
-	return (0);
-}
-
-t_operation		*save_instru(t_operation **list, char *op, t_asm *core)
-{
-	t_operation *temp;
-
-	temp = *list;
-	while (temp->next != NULL)
-		temp = temp->next;
-	if (op[ft_strlen(op) - 1] == ':')
-	{
-		//dumb quickfix to get artems error check working for testing
-		if (temp->label != NULL)
-		{
-			list_append(list);
-			temp = temp->next;
-		}
-		op[ft_strlen(op) - 1] = '\0';
-		temp->label = ft_strdup(op);
-	}
-	else if (temp->op_name == NULL)
-		temp->op_name = ft_strdup(op);
-	else if (temp->arg[0] == NULL)
-		temp->arg[0] = ft_strdup(op);
-	else if (temp->arg[1] == NULL)
-		temp->arg[1] = ft_strdup(op);
-	else if (temp->arg[2] == NULL)
-		temp->arg[2] = ft_strdup(op);
-	else
-	{
-		ft_printf("Too many instructions on row: %d\n", core->line_cnt);
-		ft_error_exit("check_argument error", 0, 0);
-	}
-	free(op);
-	return (temp);
-}
-
-/*
-** Splits the instructions and returns them.
-*/
-
-char		*split_instru(char *line, int start, int end)
-{
-	char *op;
 	char *hex;
-	int i;
+	char *temp;
 
 	i = 0;
-	op = (char*)malloc(sizeof(char) * (end - start + 1));
-	while (start <= end)
+	cnt = 0;
+	while (line[i])
 	{
-		op[i] = line[start];
-		i = i + 1;
-		start = start + 1;
-	}
-	op[i] = '\0';
-	if (is_hex(op))
-	{
-		hex = x_to_deci(op);
-		free(op);
-		return(hex);
-	}
-	return(op);
-}
-
-//Finds positions where labels/operations/instructions should be split
-//Going to shorten and rework later, maybe with char mask and do something about the damn flag lol, it's a mess
-
-int		analysis(t_asm *core, char *line, t_operation **list)
-{
-	int i;
-	int start;
-	int end;
-	int flag;
-	t_operation *new;
-
-	i = 0;
-	start = 0;
-	end = 0;
-	flag = 0;
-	new = NULL;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '#' || line[i] == ';')
-			break ;
-		if (((line[i] == ' ' || line[i] == '\t' || line[i] == ',') || i == 0) &&
-			(line[i + 1] != ' ' && line[i + 1] != '\t' && line[i + 1] != ','))
+		if (line[i] == SEPARATOR_CHAR)
 		{
-			(i == 0 && (line[i] != ' ' && line[i] != '\t' && line[i] != ',')) ? (start = 0) :
-			(start = i + 1);
+			if (cnt > 2)
+			{
+				ft_printf("Too many instructions on row: %d\n", core->line_cnt);
+				ft_error_exit("check_argument error", 0, 0);
+			}
+			line[i] = '\0';
+			if (is_hex(line))
+			{
+				temp = x_to_deci(line);
+				hex = put_percent(temp);
+				new->arg[cnt] = ft_strdup(hex);
+				free(temp);
+				free(hex);
+			}
+			else
+				new->arg[cnt] = ft_strdup(line);
+			line = line + i + 1;
+			i = 0;
+			cnt = cnt + 1;
 		}
 		if (line[i] != '\0')
 			i = i + 1;
-		if ((line[i] == ' ' || line[i] == '\t' || line[i] == ',' || line[i] == '\0') &&
-			(line[i - 1] != ' ' && line[i - 1] != '\t' && line[i - 1] != ','))
-			end = i - 1;
-		if (start <= end && end == i - 1 && end > 0)
-		{
-			flag = flag + 1;
-			if (flag == 1)
-				list_append(list);
-			new = save_instru(list, split_instru(line, start, end), core);
-		}
 	}
-	if (new && new->op_name)
+}
+
+//extracts possible labels and operation from reformatted string
+//based on separators and labels chars, finds the positions of labels and operation
+//creates new links if there are multiple labels
+//calls get_args to finalize the link and check_operation to make sure link has no errors
+void get_label_op(t_asm *core, t_operation **list, char *line)
+{
+	int i;
+	int pos;
+	t_operation *new;
+
+	i = 0;
+	new = *list;
+	while (new->next)
+		new = new->next;
+	while (line[i])
+	{
+		if (line[i] == SEPARATOR_CHAR && line[i - 1] == LABEL_CHAR)
+		{
+			line[i - 1] = '\0';
+			if (new->label != NULL)
+			{
+				list_append(list);
+				new = new->next;
+			}
+			new->label = ft_strdup(line);
+			line = line + i + 1;
+			i = 0;
+		}
+		else if (line[i] == SEPARATOR_CHAR && line[i - 1] != LABEL_CHAR)
+		{
+			line[i] = '\0';
+			new->op_name = ft_strdup(line);
+			line = line + i + 1;
+			break;
+		}
+		if (line[i] != '\0')
+			i = i + 1;
+	}
+	if (new->op_name)
+	{
+		get_args(core, new, line);
 		check_operation(new, core);
-	return (0);
+	}
+}
+
+//reformat removes all whitespace and replaces it with separator chars as needed
+//skips comments, copies all chars that are not space/tab and skips spaces
+//special cases are space after label, which is replaced by separator to make things easier
+//and space after operation, which too is replaced by separator
+char *reformat(char *line)
+{
+	int i;
+	int pos;
+	char *reformat;
+	char *copy;
+	int comma;
+
+	i = 0;
+	pos = 0;
+	comma = 0;
+	copy = (char*)malloc(sizeof(char) * ft_strlen(line) + 2);
+	while (line[i])
+	{
+		if (line[i] == COMMENT_CHAR || line[i] == ALT_COMMENT_CHAR)
+			break ;
+		else if (line[i] != ' ' && line[i] != '\t')
+		{
+			copy[pos] = line[i];
+			pos = pos + 1;
+		}
+		else 
+		{
+			if (line[i - 1] == LABEL_CHAR || (ft_isalpha(line[i - 1]) && !comma))
+			{
+				if (ft_isalpha(line[i - 1]))
+					comma = 1;
+				copy[pos] = SEPARATOR_CHAR;
+				pos = pos + 1;
+			}
+			while (line[i] == ' ' || line[i] == '\t')
+				i = i + 1;
+			i = i - 1;
+		}
+		i = i + 1;
+	}
+	copy[pos] = SEPARATOR_CHAR;
+	copy[pos + 1] = '\0';
+	reformat = (char*)realloc(copy, sizeof(char) * pos + 2);
+	return (reformat);
+}
+
+//new parser
+//error checks the line a little bit at first and ignores comments and .stuff
+//calls reformat to alter the line, then makes new link and gets labels and operations
+int lex_parser(t_asm *core, t_operation **list, char *line)
+{
+	char *reformed;
+
+	if (!line || line[0] == '\0' || line[0] == '\n')
+		return (0);
+	while (*line == ' ' || *line == '\t' || *line == '\n')
+		line = line + 1;
+	if (*line == '\0' || *line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR || *line == '.')
+		return (0);
+	reformed = reformat(line);
+	list_append(list);
+	get_label_op(core, list, reformed);
+	return (1);
 }
