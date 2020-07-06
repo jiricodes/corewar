@@ -68,9 +68,11 @@ char	*filename_pars(const char *source, const char *src_type,\
 		const char *target_type);
 t_asm	*intialize_asm(char *filename);
 void	print_asmcore(t_asm *core);
-int		analysis(t_asm *core, char *line, t_operation **list);
-int		get_size_type(t_operation **list, t_asm *core);
-void	match_labels(t_operation **head);
+int		ft_chrpos(char *str, char c);
+int		is_hex(char *argum);
+char	*x_to_deci(char *argum);
+char	*put_percent(char *str);
+int		is_special(char *argum, int func);
 
 /*
 ** ASM File reading
@@ -78,16 +80,26 @@ void	match_labels(t_operation **head);
 void	read_file(t_asm *core, int source_fd, t_operation **list);
 
 /*
+** ASM Parsing
+*/
+int		lex_parser(t_asm *core, t_operation **list, char *line);
+int		get_size_type(t_operation **list, t_asm *core);
+int		find_position(t_operation **list, t_operation *temp, char *arg);
+void	special_arg_finder(t_operation **head);
+int		arg_math(char *label, t_operation **head, t_operation *cur, int cnt);
+
+/*
+** ASM Error checking
+*/
+void	check_operation( t_operation *operation, t_asm *core);
+void	match_labels(t_operation **head);
+int		check_label(char *label, t_operation **head);
+
+/*
 ** ASM List functions
 */
 int     list_append(t_operation **head);
 void    print_list(t_operation *list, t_asm *core);
-
-
-void	check_operation( t_operation *operation, t_asm *core);
-int		ft_chrpos(char *str, char c);
-int		is_hex(char *argum);
-char	*x_to_deci(char *argum);
 
 /*
 ** ASM Bytecode write functions
