@@ -12,23 +12,6 @@
 
 #include "asm.h"
 
-static int	check_label(char *label, t_operation **head)
-{
-	t_operation *cpy;
-
-	cpy = *head;
-	while (cpy)
-	{
-		if (cpy->label)
-		{
-			if (ft_strequ(label, cpy->label))
-				return (1);
-		}
-		cpy = cpy->next;
-	}
-	return (0);
-}
-
 int	check_t_reg(char *argum)
 {
 	int	reg_num;
@@ -47,7 +30,9 @@ int	check_t_ind(char *argum)
 	int cnt;
 
 	cnt = 0;
-	if (argum[0] == LABEL_CHAR)
+	if (argum[0] == DIRECT_CHAR)
+		return (0);
+	if (is_special(argum, 0))
 		return (1);
 	else if (ft_isdigit(argum[0]) || (argum[0] == '-' && ft_isdigit(argum[1])))
 	{
@@ -71,7 +56,7 @@ int		check_t_dir(char *argum)
 	cnt = 1;
 	if (argum[0] != DIRECT_CHAR)
 		return (0);
-	if (argum[1] == LABEL_CHAR)
+	if (is_special(argum, 1))
 		return (1);
 	else if ((ft_isdigit(argum[1]) || (argum[1] == '-' && ft_isdigit(argum[2]))) && (argum[2] != 'x' && argum[2] != 'X'))
 	{
@@ -116,7 +101,6 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 	int	ret;
 
 	cnt = 0;
-	// check length of the op->args list!!!
 	while (cnt < ref.arg_cnt)
 	{
 		ret = check_argument(operation->arg[cnt], core);
@@ -125,7 +109,10 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 			operation->argtypes[cnt] = ret;
 		}
 		else
+		{
+			ft_printf("argument error: %s\n", operation->arg[cnt]);
 			ft_error_exit("No operation found (check_further)", 0, 0);
+		}
 		cnt += 1;
 	}
 	if (cnt < 3 && operation->arg[cnt])
@@ -135,33 +122,6 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 	}
 	operation->arg_type_code = ref.arg_type_code;
 	operation->op_code = ref.opcode;
-}
-
-void	match_labels(t_operation **head)
-{
-	t_operation *finder;
-	int cnt;
-
-	finder = *head;
-	while (finder)
-	{
-		cnt = 0;
-		while (finder->arg[cnt] && cnt < 3)
-		{
-			if (finder->arg[cnt][0] == LABEL_CHAR)
-			{
-				if (!check_label(finder->arg[cnt] + 1, head))
-					ft_error_exit("Label was not found.\n", 0, 0);
-			}
-			else if (finder->arg[cnt][1] == LABEL_CHAR)
-			{
-				if (!check_label(finder->arg[cnt] + 2, head))
-					ft_error_exit("Label was not found.\n", 0, 0);
-			}
-			cnt += 1;
-		}
-		finder = finder->next;
-	}
 }
 
 void	check_operation(t_operation *operation, t_asm *core)
