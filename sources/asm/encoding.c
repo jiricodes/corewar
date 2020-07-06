@@ -15,7 +15,7 @@
 //When label is found in argument, goes through the list again to find the position
 //where argument label is pointing to and calculates how many bytes you must go
 //forwards or backwards, if the label is not found at all calls error exit
-void	find_position(t_operation **list, t_operation *temp, char *arg, int i)
+int	find_position(t_operation **list, t_operation *temp, char *arg)
 {
 	t_operation *find;
 
@@ -23,20 +23,13 @@ void	find_position(t_operation **list, t_operation *temp, char *arg, int i)
 	while (find)
 	{
 		if (ft_strequ(find->label, arg))
-		{
-			temp->label_pos[i] = (find->position - temp->position);
-			break ;
-		}
+			return (find->position - temp->position);
 		find = find->next;
 	}
-	if (!find)
-	{
-		//issue with special labels (example: :l1+1 in Backward.s, l1 is the label but
-		//the argument tells it to move +1 further from label positrion.)
-		ft_printf("special label, needs fixing = %s\n", arg);
-		ft_error_exit("Label not found!\n", 0, 0);
-	}
+	return (0);
 }
+
+
 
 //goes through the linked list attempting to find labels in arguments
 void	find_labels(t_operation **list)
@@ -54,12 +47,8 @@ void	find_labels(t_operation **list)
 		{
 			while (temp->arg[i] && i < 3)
 			{
-				//had some issue with strchr, so I wrote char position finder helper function
 				if ((pos = ft_chrpos(temp->arg[i], LABEL_CHAR)) >= 0)
-				{
-					//still need to deal with labels with increments (leeloo.s, st1+1)
-					find_position(list, temp, temp->arg[i] + pos + 1, i);
-				}
+						temp->label_pos[i] = find_position(list, temp, temp->arg[i] + pos + 1);
 				i = i + 1;
 			}
 		}
@@ -152,9 +141,9 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 	return (ret);
 }
 
-// trying to read name and comment using gnl
-//now takes t_operation as argument for analysis
-
+//removed the part that continued after .extend and made lex_parser to
+//ignore lines .(insert_text) there were also stuff like .code etc
+//now calls special arg finder to deal with special arguments
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
@@ -167,15 +156,14 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 			core->champ_name = save_name_comment(NAME_CMD_STRING, source_fd, line);
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 			core->champ_comment = save_name_comment(COMMENT_CMD_STRING, source_fd, line);
-		else if (ft_strnstr(line, ".extend", ft_strlen(".extend")))
-			continue ;
 		else
-			analysis(core, line, list);
+			lex_parser(core, list, line);
 		free(line);
 	}
 	match_labels(list);
 	get_size_type(list, core);
+	find_labels(list);
+	special_arg_finder(list);
 	//while (1)
 	//{}
-	find_labels(list);
 }
