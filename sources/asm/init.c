@@ -86,6 +86,9 @@ int	list_append(t_operation **head)
 	return (1);
 }
 
+//finds first occurrence of c in str
+//so basically strchr, but returns -1 instead of null
+//made it easier for me to check positions
 int ft_chrpos(char *str, char c)
 {
 	int i;
@@ -102,13 +105,19 @@ int ft_chrpos(char *str, char c)
 	return (-1);
 }
 
+//determines if argum string is hex
+//each char has to be part of hexmask string
+//else not hex
 int				is_hex(char *argum)
 {
 	int i;
 	char hexmask[] = "0123456789abcdefABCDEF";
 
-	i = 3;
-	if (argum[1] == '0' && (argum[2] == 'x' || argum[2] == 'X'))
+	if (argum[0] == DIRECT_CHAR)
+		i = 3;
+	else
+		i = 2;
+	if (argum[i - 2] == '0' && (argum[i-1] == 'x' || argum[i-1] == 'X'))
 	{
 		while (argum[i] != '\0')
 		{
@@ -121,6 +130,8 @@ int				is_hex(char *argum)
 	return (0);
 }
 
+//rises number to the power
+//it is being used to convert hex to decimal
 unsigned long			ft_pow(int number, int power)
 {
 	unsigned long total;
@@ -141,6 +152,28 @@ unsigned long			ft_pow(int number, int power)
 	return (total);
 }
 
+//appends % sign in front of the string
+//needed it for hex conversions of direct arguments
+char 		*put_percent(char *str)
+{
+	int i;
+	int len;
+	char *final;
+
+	i = 0;
+	len = ft_strlen(str);
+	final = (char*)malloc(sizeof(char*) * len + 2);
+	final[0] = DIRECT_CHAR;
+	while(str[i])
+	{
+		final[i+1] = str[i];
+		i = i + 1;
+	}
+	final[i + 1] = '\0';
+	return (final);
+}
+
+//converts hex to decimal.
 char			*x_to_deci(char *argum)
 {
 	unsigned long hex;
@@ -150,9 +183,17 @@ char			*x_to_deci(char *argum)
 
 	hex = 0;
 	len = ft_strlen(argum);
-	len = len - 4;
 	val = 0;
-	i = 3;
+	if (argum[0] == DIRECT_CHAR)
+	{
+		len = len - 4;
+		i = 3;
+	}
+	else
+	{
+		len = len - 3;
+		i = 2;
+	}
 	while (argum[i] != '\0')
 	{
 		if (argum[i] >= '0' && argum[i] <= '9')
@@ -166,4 +207,32 @@ char			*x_to_deci(char *argum)
 		i = i + 1;
 	}
 	return(ft_ultoa(hex));
+}
+
+/*
+** Test printer to see the contents of the linked list.
+*/
+
+void print_list(t_operation *list, t_asm *core)
+{
+	while (list != NULL)
+	{
+		ft_printf("\nlabel: %s, position: %d\n", list->label, list->position);
+		ft_printf("operation: %s\n", list->op_name);
+		ft_printf("arg1: %s\n", list->arg[0]);
+		ft_printf("arg2: %s\n", list->arg[1]);
+		ft_printf("arg3: %s\n", list->arg[2]);
+		ft_printf("labelpos1: %d\n", list->label_pos[0]);
+		ft_printf("labelpos2: %d\n", list->label_pos[1]);
+		ft_printf("labelpos3: %d\n", list->label_pos[2]);
+		ft_printf("op_size: %d\n", list->op_size);
+		ft_printf("t_dir_size: %d\n", list->t_dir_size);
+		ft_printf("arg1 TYPE: %d\n", list->argtypes[0]);
+		ft_printf("arg2 TYPE: %d\n", list->argtypes[1]);
+		ft_printf("arg3 TYPE: %d\n", list->argtypes[2]);
+		ft_printf("has arg type code?: %d\n", list->arg_type_code);
+		list = list->next;
+	}
+	ft_printf("Total size in bytes: %d\n", core->byte_size);
+	ft_printf("\n");
 }
