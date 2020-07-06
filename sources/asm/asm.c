@@ -25,8 +25,7 @@ int main(int argc, char **argv)
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
 		print_asmcore(core);
-		//moved print here to error check
-		print_list(list, core);
+		//print_list(list, core);
 		write_champion(core, list);
 		// clear_t_asm((void *)core);
 	}
