@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 19:36:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 19:39:20 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,11 @@ t_operation	*init_op(t_operation *op)
 	new->arg[0] = 0;
 	new->arg[1] = 0;
 	new->arg[2] = 0;
+	new->arg[3] = 0;
 	new->argtypes[0] = 0;
 	new->argtypes[1] = 0;
 	new->argtypes[2] = 0;
+	new->argtypes[3] = 0;
 	return (new);
 }
 
