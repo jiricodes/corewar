@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 15:17:08 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 13:38:23 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_asm	*intialize_asm(char *filename)
+t_asm			*intialize_asm(char *filename)
 {
 	t_asm	*core;
 	char	*target_file;
@@ -20,15 +20,12 @@ t_asm	*intialize_asm(char *filename)
 	core = (t_asm *)ft_memalloc(sizeof(t_asm));
 	if (!core)
 		ft_error_exit("Malloc at initialize_asm", NULL, NULL);
-	target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
-	if (!target_file)
-		ft_error_exit("Given file is of incorrect type", (void *)core, clear_t_asm);
+	core->target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
+	if (!core->target_file)
+		ft_error_exit("Incorrect file type", (void *)core, clear_t_asm);
 	core->source_fd = open(filename, O_RDONLY);
 	if (core->source_fd < 0)
-		ft_error_exit("Failed to open given source file", (void *)core, clear_t_asm);
-	core->core_fd = open(target_file, O_RDWR | O_CREAT, 0600);
-	if (core->core_fd < 0)
-		ft_error_exit("Failed to open given target file", (void *)core, clear_t_asm);
+		ft_error_exit("Open Error on source file", (void *)core, clear_t_asm);
 	core->byte_size = 0;
 	core->line_cnt = 0;
 	return (core);
@@ -39,7 +36,7 @@ t_asm	*intialize_asm(char *filename)
 ** Allocates memory and initializes all values to null.
 */
 
-t_operation	*newnode(void)
+t_operation		*newnode(void)
 {
 	t_operation *new;
 
@@ -67,10 +64,11 @@ t_operation	*newnode(void)
 
 /*
 ** Function to append a new link to the end of the list
-** Goes through the list and calls for newnode to allocate and initialize the new node.
+** Goes through the list and calls for newnode to allocate
+** and initialize the new node.
 */
 
-int	list_append(t_operation **head)
+int				list_append(t_operation **head)
 {
 	t_operation *last;
 
@@ -86,10 +84,13 @@ int	list_append(t_operation **head)
 	return (1);
 }
 
-//finds first occurrence of c in str
-//so basically strchr, but returns -1 instead of null
-//made it easier for me to check positions
-int ft_chrpos(char *str, char c)
+/*
+** finds first occurrence of c in str
+** so basically strchr, but returns -1 instead of null
+** made it easier for me to check positions
+*/
+
+int				ft_chrpos(char *str, char c)
 {
 	int i;
 
@@ -105,19 +106,23 @@ int ft_chrpos(char *str, char c)
 	return (-1);
 }
 
-//determines if argum string is hex
-//each char has to be part of hexmask string
-//else not hex
+/*
+** determines if argum string is hex
+** each char has to be part of hexmask string
+** else not hex
+*/
+
 int				is_hex(char *argum)
 {
-	int i;
-	char hexmask[] = "0123456789abcdefABCDEF";
+	int		i;
+	char	*hexmask;
 
+	hexmask = "0123456789abcdefABCDEF";
 	if (argum[0] == DIRECT_CHAR)
 		i = 3;
 	else
 		i = 2;
-	if (argum[i - 2] == '0' && (argum[i-1] == 'x' || argum[i-1] == 'X'))
+	if (argum[i - 2] == '0' && (argum[i - 1] == 'x' || argum[i - 1] == 'X'))
 	{
 		while (argum[i] != '\0')
 		{
@@ -130,9 +135,12 @@ int				is_hex(char *argum)
 	return (0);
 }
 
-//rises number to the power
-//it is being used to convert hex to decimal
-unsigned long			ft_pow(int number, int power)
+/*
+** rises number to the power
+** it is being used to convert hex to decimal
+*/
+
+unsigned long	ft_pow(int number, int power)
 {
 	unsigned long total;
 
@@ -152,48 +160,59 @@ unsigned long			ft_pow(int number, int power)
 	return (total);
 }
 
-//appends % sign in front of the string
-//needed it for hex conversions of direct arguments
-char 		*put_percent(char *str)
+/*
+** appends % sign in front of the string
+** needed it for hex conversions of direct arguments
+*/
+
+char			*put_percent(char *str)
 {
-	int i;
-	int len;
-	char *final;
+	int		i;
+	int		len;
+	char	*final;
 
 	i = 0;
 	len = ft_strlen(str);
 	final = (char*)malloc(sizeof(char*) * len + 2);
 	final[0] = DIRECT_CHAR;
-	while(str[i])
+	while (str[i])
 	{
-		final[i+1] = str[i];
+		final[i + 1] = str[i];
 		i = i + 1;
 	}
 	final[i + 1] = '\0';
 	return (final);
 }
 
-//converts hex to decimal.
-char			*x_to_deci(char *argum)
-{
-	unsigned long hex;
-	int len;
-	int val;
-	int i;
+/*
+** converts hex to decimal.
+*/
 
-	hex = 0;
-	len = ft_strlen(argum);
-	val = 0;
+static void		argum_len(char *argum, int *len, int *i)
+{
 	if (argum[0] == DIRECT_CHAR)
 	{
-		len = len - 4;
-		i = 3;
+		*len = ft_strlen(argum) - 4;
+		*i = 3;
 	}
 	else
 	{
-		len = len - 3;
-		i = 2;
+		*len = ft_strlen(argum) - 3;
+		*i = 2;
 	}
+}
+
+char			*x_to_deci(char *argum)
+{
+	unsigned long	hex;
+	int				len;
+	int				val;
+	int				i;
+
+	hex = 0;
+	val = 0;
+	argum_len(argum, &len, &i);
+	ft_printf("X to D: len = %d, i = %d\n", len, i);
 	while (argum[i] != '\0')
 	{
 		if (argum[i] >= '0' && argum[i] <= '9')
@@ -206,14 +225,14 @@ char			*x_to_deci(char *argum)
 		len = len - 1;
 		i = i + 1;
 	}
-	return(ft_ultoa(hex));
+	return (ft_ultoa(hex));
 }
 
 /*
 ** Test printer to see the contents of the linked list.
 */
 
-void print_list(t_operation *list, t_asm *core)
+void			print_list(t_operation *list, t_asm *core)
 {
 	while (list != NULL)
 	{

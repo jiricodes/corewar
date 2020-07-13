@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 20:43:59 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/30 20:51:44 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 12:14:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
