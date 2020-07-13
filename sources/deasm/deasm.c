@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:42:40 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 17:22:07 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 18:49:07 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int	main(int argc, char **argv)
 		core = initialize_deasm(argv[1]);
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd);
-		printf("CHAMP NAME: %s\n", core->champ_name);
-		printf("CHAMP COMMENT: %s\n", core->champ_comment);
-		printf("CHAMP exec size: %x\n", core->exec_code_size);
 		decode_exec_code(core, core->raw_code);
 	}
 	else
