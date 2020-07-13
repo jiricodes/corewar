@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 19:34:12 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 19:36:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	write_clear_op(int target_fd, t_operation *op)
 	free(op);
 }
 
-void	write_line(int target_fd, char *src)
+void	write_name(int target_fd, char *src)
 {
 	char	*temp1;
 	char	*temp2;
@@ -126,10 +126,24 @@ void	write_line(int target_fd, char *src)
 	free(temp2);
 }
 
+void	write_comment(int target_fd, char *src)
+{
+	char	*temp1;
+	char	*temp2;
+
+	temp1 = ft_strjoin("\"", src);
+	temp2 = ft_strjoin(temp1, "\"\n");
+	free(temp1);
+	temp1 = ft_strjoin(".comment ", temp2);
+	write(target_fd, temp1, ft_strlen(temp1));
+	free(temp1);
+	free(temp2);
+}
+
 void	write_header(int target_fd, t_deasm *core)
 {
-	write_line(target_fd, core->champ_name);
-	write_line(target_fd, core->champ_comment);
+	write_name(target_fd, core->champ_name);
+	write_comment(target_fd, core->champ_comment);
 	write(target_fd, "\n", 1);
 }
 
