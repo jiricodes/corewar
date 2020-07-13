@@ -6,13 +6,14 @@
 #    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/06/30 21:14:54 by asolopov         ###   ########.fr        #
+#    Updated: 2020/07/13 12:54:33 by asolopov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Targets
 ASM_EXEC = asm
 VM_EXEC = corewar
+DEASM_EXEC = deasm
 
 # GCC Settings
 CC = gcc
@@ -38,6 +39,12 @@ ASM_FILES =	asm.c \
 			special_args.c
 
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
+
+# DEASM Sources
+DEASM_DIR = deasm/
+DEASM_FILES = deasm.c
+
+DEASM_SRC = $(addprefix $(DEASM_DIR), $(DEASM_FILES))
 
 # CoreWar Sources
 VM_DIR = vm/
@@ -65,13 +72,16 @@ SRC_DIR = sources/
 OBJ_DIR = objects/
 
 TARGET_DIR = $(OBJ_DIR)
-TARGET_DIR += $(addprefix $(OBJ_DIR), $(ASM_DIR) $(VM_DIR))
+TARGET_DIR += $(addprefix $(OBJ_DIR), $(ASM_DIR) $(VM_DIR) $(DEASM_DIR))
 
 ASM_FTO = $(ASM_SRC:.c=.o)
 ASM_OBJ = $(addprefix $(OBJ_DIR), $(ASM_FTO))
 
 VM_FTO = $(VM_SRC:.c=.o)
 VM_OBJ = $(addprefix $(OBJ_DIR), $(VM_FTO))
+
+DEASM_FTO = $(DEASM_SRC:.c=.o)
+DEASM_OBJ = $(addprefix $(OBJ_DIR), $(DEASM_FTO))
 
 # Colors
 C_RED = \033[1;31m
@@ -91,7 +101,7 @@ FIRST = yes
 
 .PHONY: all clean fclean re
 
-all: $(ASM_EXEC) $(VM_EXEC)
+all: $(ASM_EXEC) $(VM_EXEC) $(DEASM_EXEC)
 	@echo "\n$(C_GREEN)Finished compiling! Enjoy the bloodbath!$(C_EOC)"
 
 logo:
@@ -134,6 +144,12 @@ $(VM_EXEC): $(TARGET_DIR) $(LIBFT) $(VM_OBJ)
 	@echo "[Linking Virtul Machine executable]"
 	@$(CC) $(CFLAGS) $(LDFLAGS) -lncurses $(INCLUDES) -o $@ $(VM_OBJ)
 	@echo "[Done]"
+	
+$(DEASM_EXEC): $(TARGET_DIR) $(LIBFT) $(DEASM_OBJ)
+	@echo "\n[DEASM Object files ready]"
+	@echo "[Linking DeAssembler executable]"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -lncurses $(INCLUDES) -o $@ $(DEASM_OBJ)
+	@echo "[Done]"
 
 clean: logo
 	@make clean -C $(LIBFT_DIR) $(LFT_ARG)
@@ -144,6 +160,7 @@ fclean: clean
 	@make fclean -C $(LIBFT_DIR) $(LFT_ARG)
 	@/bin/rm -rf $(ASM_EXEC)
 	@/bin/rm -rf $(VM_EXEC)
-	@echo "$(C_RED)[Executables $(ASM_EXEC) and $(VM_EXEC) have been utterly vaporized!]$(C_EOC)"
+	@/bin/rm -rf $(DEASM_EXEC)
+	@echo "$(C_RED)[Executables $(ASM_EXEC), $(DEASM_EXEC) and $(VM_EXEC) have been utterly vaporized!]$(C_EOC)"
 
 re: fclean all
