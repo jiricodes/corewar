@@ -111,7 +111,7 @@ int get_next_number(char *label)
 //hexes get converted to decimals and everything is counted together
 //
 //needs a lot of shortening, gonna do it later, fucking tired
-int arg_math(char *label, t_operation **head, t_operation *cur, int cnt)
+void arg_math(char *label, t_operation **head, t_operation *cur, int cnt)
 {
 	int i;
 	long long int total;

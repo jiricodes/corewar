@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/30 21:15:28 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 10:40:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		lex_parser(t_asm *core, t_operation **list, char *line);
 int		get_size_type(t_operation **list, t_asm *core);
 int		find_position(t_operation **list, t_operation *temp, char *arg);
 void	special_arg_finder(t_operation **head);
-int		arg_math(char *label, t_operation **head, t_operation *cur, int cnt);
+void	arg_math(char *label, t_operation **head, t_operation *cur, int cnt);
 
 /*
 ** ASM Error checking
