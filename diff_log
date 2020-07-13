@@ -46,9 +46,10 @@ Difference for resources/champs/Death.s /n
 Original ASM failed to create resources/champs/Torpille.cor
 Lexical error at [3:1]
 
-Difference for resources/champs/Torpille.s /n
-1d0
-< Fake
+Our ASM failed to create resources/champs/Torpille.cor
+[32mInitialization done![0m
+erroneous argument = %:t2
+[31m[1mUSER ERROR MESSAGE[0m: Argument error.
 
 Original ASM failed to create resources/champs/lde.cor
 Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"

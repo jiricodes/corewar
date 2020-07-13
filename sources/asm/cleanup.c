@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:20:45 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/25 12:40:44 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 13:38:19 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ void	clear_t_asm(void *object)
 		free(((t_asm*)object)->champ_name);
 	if (((t_asm*)object)->champ_comment)
 		free(((t_asm*)object)->champ_comment);
+	if (((t_asm*)object)->target_file)
+		free(((t_asm*)object)->target_file);
 	free(object);
 }

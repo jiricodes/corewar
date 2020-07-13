@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:57:41 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/13 12:59:44 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/13 13:38:23 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ t_asm			*intialize_asm(char *filename)
 	core = (t_asm *)ft_memalloc(sizeof(t_asm));
 	if (!core)
 		ft_error_exit("Malloc at initialize_asm", NULL, NULL);
-	target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
-	if (!target_file)
+	core->target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
+	if (!core->target_file)
 		ft_error_exit("Incorrect file type", (void *)core, clear_t_asm);
 	core->source_fd = open(filename, O_RDONLY);
 	if (core->source_fd < 0)
 		ft_error_exit("Open Error on source file", (void *)core, clear_t_asm);
-	core->core_fd = open(target_file, O_RDWR | O_CREAT, 0600);
-	if (core->core_fd < 0)
-		ft_error_exit("Open Error on target file", (void *)core, clear_t_asm);
 	core->byte_size = 0;
 	core->line_cnt = 0;
 	return (core);
