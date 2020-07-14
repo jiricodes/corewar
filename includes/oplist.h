@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/25 15:20:11 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:15:40 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_oplist
 	int		arg_type_code;
 }				t_oplist;
 
-static const	t_oplist	oplist[16] = {
+static const	t_oplist	g_oplist[16] = {
 	{
 		.opcode = 0x01,
 		.opname = "live",

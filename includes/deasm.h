@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 17:15:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:56:19 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct	s_operation
 	int		arg_type_code;
 	int		t_dir_size;
 	
-	char	*arg[3];
-	int		argtypes[3];
+	char	*arg[4];
+	int		argtypes[4];
 }				t_operation;
 
 typedef struct	s_deasm
@@ -42,12 +42,42 @@ typedef struct	s_deasm
 	int8_t	*raw_code;
 }				t_deasm;
 
-void	read_file(t_deasm *core, int source_fd);
+/*
+** DEASM Reading
+*/
 
-void	clear_t_deasm(void *object);
+void			read_file(t_deasm *core, int source_fd);
 
-char	*filename_pars(const char *source, const char *src_type,\
-		const char *target_type);
-int32_t		decode(const uint8_t *source, size_t size);
+/*
+** DEASM Init & Clean
+*/
+
+t_operation		*init_op(t_operation *op);
+t_deasm			*initialize_deasm(char *filename);
+void			clear_t_deasm(void *object);
+
+/*
+** DEASM Decode Executable Code
+*/
+
+void			decode_exec(t_deasm *core, int8_t *rawcode);
+int				decode_arg(t_operation *op, int cnt, int8_t *rawcode, int move);
+
+/*
+** DEASM Write
+*/
+
+void			write_header(int target_fd, t_deasm *core);
+void			write_op(int target_fd, t_operation *op);
+
+/*
+** DEASM Utils
+*/
+
+char			*filename_pars(const char *source, const char *src_type,\
+				const char *target_type);
+
+int32_t			decode(const uint8_t *source, size_t size);
+void			clear_t_deasm(void *object);
 
 #endif

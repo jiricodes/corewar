@@ -13,17 +13,17 @@ int count_bytes(t_operation *temp, int cnt)
 		if (temp->arg[i][0] == 'r')
 			bytes = bytes + 1;
 		else if (temp->arg[i][0] == DIRECT_CHAR)
-			bytes = bytes + oplist[cnt].t_dir_size;
+			bytes = bytes + g_oplist[cnt].t_dir_size;
 		else
 			bytes = bytes + 2;
 		i = i + 1;
 	}
-	if (oplist[cnt].arg_type_code)
+	if (g_oplist[cnt].arg_type_code)
 		bytes = bytes + 1;
 	return (bytes);
 }
 
-//Finds out t_dir_sizes from oplist and counts positions and total size
+//Finds out t_dir_sizes from g_oplist and counts positions and total size
 int get_size_type(t_operation **list, t_asm *core)
 {
 	int cnt;
@@ -37,9 +37,9 @@ int get_size_type(t_operation **list, t_asm *core)
 			cnt = 0;
 			while (cnt < 16)
 			{
-				if (ft_strequ(temp->op_name, oplist[cnt].opname))
+				if (ft_strequ(temp->op_name, g_oplist[cnt].opname))
 				{
-					temp->t_dir_size = oplist[cnt].t_dir_size;
+					temp->t_dir_size = g_oplist[cnt].t_dir_size;
 					break ;
 				}
 				cnt += 1;
