@@ -18,7 +18,7 @@ Difference for resources/champs/Backward.s /n
 > 00008c4
 
 Original ASM failed to create resources/champs/Death.cor
-Lexical error at [3:1]
+Lexical error at [4:12]
 
 Difference for resources/champs/Death.s /n
 1c1,18

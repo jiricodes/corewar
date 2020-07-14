@@ -1,0 +1,27 @@
+Number of players: 1
+Arena initialized
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Exited visual window
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Exited visual window
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Exited visual window
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Exited visual window
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Exited visual window

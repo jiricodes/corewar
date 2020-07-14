@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 15:57:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/14 10:37:45 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # include <stdint.h>
 # include "op.h"
 # include <ncurses.h>
+
+/*
+** Logging options:
+** 0 - no log
+** 1 - in file log
+** 2 - in file and on stdout
+*/
+
+# define LOG 2
+# define LOG_FILE "cw_log.txt"
 
 typedef struct s_champ
 {
@@ -63,4 +73,11 @@ void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
 t_vs		*init_visual_settings(char *title);
 void		show_arena(t_vm *core);
 void		vfx_colors();
+
+/*
+** VM utilities
+*/
+
+void		vm_log(char *message, ...);
+
 #endif
