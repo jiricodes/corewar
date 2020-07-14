@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:56:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:16:30 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void			write_op(int target_fd, t_operation *op);
 
 char			*filename_pars(const char *source, const char *src_type,\
 				const char *target_type);
-
 int32_t			decode(const uint8_t *source, size_t size);
-void			clear_t_deasm(void *object);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:16:18 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:56:41 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:33:32 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ char	*filename_pars(const char *source, const char *src_type,\
 	return (target);
 }
 
-void	clear_t_deasm(void *object)
-{
-	free(object);
-}
+/*
+** decode arguments into string, knowing their sizes and type
+*/
 
 int		decode_arg(t_operation *op, int cnt, int8_t *rawcode, int move)
 {
