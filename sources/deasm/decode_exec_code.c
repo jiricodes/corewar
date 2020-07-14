@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 19:39:20 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:07:28 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,10 @@ void	write_clear_op(int target_fd, t_operation *op)
 		{
 			if (op->argtypes[cnt] == T_REG_CODE)
 				temp = ft_strjoin("r", op->arg[cnt]);
-			else if (op->argtypes[cnt] == T_IND_CODE || op->argtypes[cnt] == T_DIR_CODE)
+			else if (op->argtypes[cnt] == T_DIR_CODE)
 				temp = ft_strjoin("%", op->arg[cnt]);
+			else if (op->argtypes[cnt] == T_IND_CODE)
+				temp = op->arg[cnt];
 			write(target_fd, temp, ft_strlen(temp));
 			if (op->arg[cnt + 1])
 				write(target_fd, ", ", 2);
