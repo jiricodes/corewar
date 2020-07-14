@@ -6,7 +6,7 @@
 #    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/13 16:18:19 by asolopov         ###   ########.fr        #
+#    Updated: 2020/07/14 12:38:35 by asolopov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,11 @@ ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 # DEASM Sources
 DEASM_DIR = deasm/
 DEASM_FILES =	deasm.c \
-				decode_exec_code.c \
+				decode.c \
 				read.c \
-				utils.c
+				init_clean.c \
+				utils.c \
+				write.c
 
 DEASM_SRC = $(addprefix $(DEASM_DIR), $(DEASM_FILES))
 

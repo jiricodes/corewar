@@ -6,13 +6,13 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:15 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 16:24:47 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:21:19 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deasm.h"
 
-void	read_magic(int source_fd)
+static void		read_magic(int source_fd)
 {
 	int		ret;
 	uint8_t	buffer[4];
@@ -26,7 +26,7 @@ void	read_magic(int source_fd)
 		ft_error_exit("Magic is incorrect", 0, 0);
 }
 
-int32_t	read_bytes(int source_fd, int size)
+static int32_t	read_bytes(int source_fd, int size)
 {
 	int		ret;
 	uint8_t	buffer[size];
@@ -37,7 +37,7 @@ int32_t	read_bytes(int source_fd, int size)
 	return (decode(buffer, size));
 }
 
-char	*read_str(int source_fd, int size)
+static char		*read_str(int source_fd, int size)
 {
 	char	*buffer;
 	int		ret;
@@ -51,7 +51,7 @@ char	*read_str(int source_fd, int size)
 	return (buffer);
 }
 
-int8_t	*read_exec_code(int source_fd, int size)
+static int8_t	*read_exec_code(int source_fd, int size)
 {
 	int8_t	*code;
 	int		ret;
@@ -65,7 +65,7 @@ int8_t	*read_exec_code(int source_fd, int size)
 	return (code);
 }
 
-void	read_file(t_deasm *core, int source_fd)
+void			read_file(t_deasm *core, int source_fd)
 {
 	read_magic(source_fd);
 	core->champ_name = read_str(source_fd, PROG_NAME_LENGTH);
