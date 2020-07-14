@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:07:28 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:16:12 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	read_opcode(int8_t byte, t_operation *op)
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (byte == oplist[cnt].opcode)
+		if (byte == g_oplist[cnt].opcode)
 		{
-			op->opname = oplist[cnt].opname;
-			op->arg_type_code = oplist[cnt].arg_type_code;
-			op->t_dir_size = oplist[cnt].t_dir_size;
+			op->opname = g_oplist[cnt].opname;
+			op->arg_type_code = g_oplist[cnt].arg_type_code;
+			op->t_dir_size = g_oplist[cnt].t_dir_size;
 		}
 		cnt += 1;
 	}
@@ -43,11 +43,11 @@ void	get_arg_type_code(t_operation *op)
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (op->opname == oplist[cnt].opname)
+		if (op->opname == g_oplist[cnt].opname)
 		{
-			op->argtypes[0] = oplist[cnt].arg_type[0];
-			op->argtypes[1] = oplist[cnt].arg_type[1];
-			op->argtypes[2] = oplist[cnt].arg_type[2];
+			op->argtypes[0] = g_oplist[cnt].arg_type[0];
+			op->argtypes[1] = g_oplist[cnt].arg_type[1];
+			op->argtypes[2] = g_oplist[cnt].arg_type[2];
 		}
 		cnt += 1;
 	}

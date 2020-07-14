@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/13 17:15:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/13 19:38:45 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct	s_operation
 	int		arg_type_code;
 	int		t_dir_size;
 	
-	char	*arg[3];
-	int		argtypes[3];
+	char	*arg[4];
+	int		argtypes[4];
 }				t_operation;
 
 typedef struct	s_deasm

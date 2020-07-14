@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:16:57 by asolopov          #+#    #+#             */
-/*   Updated: 2020/06/29 01:53:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/14 12:17:09 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ void	check_operation(t_operation *operation, t_asm *core)
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (ft_strequ(operation->op_name, oplist[cnt].opname)) // also check number of args
+		if (ft_strequ(operation->op_name, g_oplist[cnt].opname)) // also check number of args
 		{
-			check_further(operation, oplist[cnt], core);
+			check_further(operation, g_oplist[cnt], core);
 			break ;
 		}
 		cnt += 1;
