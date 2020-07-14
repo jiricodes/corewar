@@ -6,11 +6,15 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:21:48 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:56:52 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:34:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deasm.h"
+
+/*
+** inits operation struct
+*/
 
 t_operation	*init_op(t_operation *op)
 {
@@ -31,6 +35,10 @@ t_operation	*init_op(t_operation *op)
 	return (new);
 }
 
+/*
+** inits core struct
+*/
+
 t_deasm		*initialize_deasm(char *filename)
 {
 	t_deasm	*core;
@@ -48,5 +56,18 @@ t_deasm		*initialize_deasm(char *filename)
 	core->target_fd = open(target_file, O_RDWR | O_CREAT, 0600);
 	if (core->target_fd < 0)
 		ft_error_exit("Couldn't open target", (void *)core, clear_t_deasm);
+	free(target_file);
 	return (core);
+}
+
+/*
+** clears core struct
+*/
+
+void		clear_t_deasm(void *object)
+{
+	free(((t_deasm*)object)->champ_name);
+	free(((t_deasm*)object)->champ_comment);
+	free(((t_deasm*)object)->raw_code);
+	free(object);
 }

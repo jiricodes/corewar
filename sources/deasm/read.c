@@ -6,11 +6,15 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:15 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:21:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:25:39 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deasm.h"
+
+/*
+** reads 4 bytes and decodes to get magic header
+*/
 
 static void		read_magic(int source_fd)
 {
@@ -26,6 +30,10 @@ static void		read_magic(int source_fd)
 		ft_error_exit("Magic is incorrect", 0, 0);
 }
 
+/*
+** reads and decodes n bytes
+*/
+
 static int32_t	read_bytes(int source_fd, int size)
 {
 	int		ret;
@@ -36,6 +44,10 @@ static int32_t	read_bytes(int source_fd, int size)
 		ft_error_exit("file read error", 0, 0);
 	return (decode(buffer, size));
 }
+
+/*
+** reads n bytes and returns str
+*/
 
 static char		*read_str(int source_fd, int size)
 {
@@ -51,6 +63,10 @@ static char		*read_str(int source_fd, int size)
 	return (buffer);
 }
 
+/*
+** reads n bytes of exec code and returns int array
+*/
+
 static int8_t	*read_exec_code(int source_fd, int size)
 {
 	int8_t	*code;
@@ -64,6 +80,10 @@ static int8_t	*read_exec_code(int source_fd, int size)
 		ft_error_exit("incorrect champ size or exec code", 0, 0);
 	return (code);
 }
+
+/*
+** func to read contents of .cor file
+*/
 
 void			read_file(t_deasm *core, int source_fd)
 {

@@ -6,11 +6,15 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:55:04 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:32:12 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deasm.h"
+
+/*
+** get operation code from g_oplist
+*/
 
 static void	read_opcode(int8_t byte, t_operation *op)
 {
@@ -27,7 +31,13 @@ static void	read_opcode(int8_t byte, t_operation *op)
 		}
 		cnt += 1;
 	}
+	if (cnt == 16)
+		ft_error_exit("no matching op found, exit", 0, 0);
 }
+
+/*
+** decode arg_type_code to get arg codes
+*/
 
 static void	read_arg_type(int8_t byte, t_operation *op)
 {
@@ -35,6 +45,10 @@ static void	read_arg_type(int8_t byte, t_operation *op)
 	op->argtypes[1] = (byte & 0b00110000) >> 4;
 	op->argtypes[2] = (byte & 0b00001100) >> 2;
 }
+
+/*
+** if no arg_type_code in op, get them from g_oplist
+*/
 
 static void	get_arg_type(t_operation *op)
 {
@@ -56,6 +70,10 @@ static void	get_arg_type(t_operation *op)
 		ft_error_exit("no matching op found, exit", 0, 0);
 }
 
+/*
+** func to retrieve arguments from opcode
+*/
+
 static int	read_arguments(int8_t *rawcode, t_operation *op)
 {
 	int move;
@@ -75,6 +93,15 @@ static int	read_arguments(int8_t *rawcode, t_operation *op)
 	}
 	return (move);
 }
+
+/*
+** func to decode opcode and write header and opcode to .s
+** cnt passes through int array:
+**			reading opcode
+**			getting argtype (from code or oplist)
+**			reading arguments from int array
+** when single operation data in struct: writes to target_fd
+*/
 
 void		decode_exec(t_deasm *core, int8_t *rawcode)
 {
