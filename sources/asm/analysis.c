@@ -1,8 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   analysis.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/14 17:45:58 by jnovotny          #+#    #+#             */
+/*   Updated: 2020/07/14 17:53:24 by jnovotny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-//extracts arguments from reformatted string
-//using separator char arguments are found and copied
-//if hex is found, it is converted to decimal string
+/*
+** extracts arguments from reformatted string
+** using separator char arguments are found and copied
+** if hex is found, it is converted to decimal string
+*/
+
 void get_args(t_asm *core, t_operation *new, char *line)
 {
 	int i;
@@ -41,10 +56,13 @@ void get_args(t_asm *core, t_operation *new, char *line)
 	}
 }
 
-//extracts possible labels and operation from reformatted string
-//based on separators and labels chars, finds the positions of labels and operation
-//creates new links if there are multiple labels
-//calls get_args to finalize the link and check_operation to make sure link has no errors
+/*
+** extracts possible labels and operation from reformatted string
+** based on separators and labels chars, finds the positions of labels and operation
+** creates new links if there are multiple labels
+** calls get_args to finalize the link and check_operation to make sure link has no errors
+*/
+
 void get_label_op(t_asm *core, t_operation **list, char *line)
 {
 	int i;
@@ -86,10 +104,13 @@ void get_label_op(t_asm *core, t_operation **list, char *line)
 	}
 }
 
-//reformat removes all whitespace and replaces it with separator chars as needed
-//skips comments, copies all chars that are not space/tab and skips spaces
-//special cases are space after label, which is replaced by separator to make things easier
-//and space after operation, which too is replaced by separator
+/*
+** reformat removes all whitespace and replaces it with separator chars as needed
+** skips comments, copies all chars that are not space/tab and skips spaces
+** special cases are space after label, which is replaced by separator to make things easier
+** and space after operation, which too is replaced by separator
+*/
+
 char *reformat(char *line)
 {
 	int i;
@@ -132,9 +153,12 @@ char *reformat(char *line)
 	return (reformat);
 }
 
-//new parser
-//error checks the line a little bit at first and ignores comments and .stuff
-//calls reformat to alter the line, then makes new link and gets labels and operations
+/*
+** new parser
+** error checks the line a little bit at first and ignores comments and .stuff
+** calls reformat to alter the line, then makes new link and gets labels and operations
+*/
+
 int lex_parser(t_asm *core, t_operation **list, char *line)
 {
 	char *reformed;

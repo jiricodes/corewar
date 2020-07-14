@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/14 10:37:45 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:00:59 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ typedef struct	s_vm
 	uint8_t		*byte_owner;
 	t_vs		*vfx;
 }				t_vm;
+
+typedef struct	s_ptr
+{
+	t_ptr		*next;
+}				t_ptr;
 
 /*
 ** Champion Utilities
