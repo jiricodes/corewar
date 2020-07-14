@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:21:48 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 15:26:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/14 15:34:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_deasm		*initialize_deasm(char *filename)
 ** clears core struct
 */
 
-void	clear_t_deasm(void *object)
+void		clear_t_deasm(void *object)
 {
 	free(((t_deasm*)object)->champ_name);
 	free(((t_deasm*)object)->champ_comment);
