@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 17:59:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 18:14:12 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,24 @@ void	engine(t_vm *core)
 {
 	t_car	*current;
 
-	while (core->car_list)
+	while (core->car_list && core->cycle < 4000)
 	{
+		printf("Cycle %zu\n", core->cycle);
 		current = core->car_list;
 		while (current)
 		{
 			process_car(core, current);
-			show_arena(core);
-			core->cycle++;
-			core->check_cd--;
-			if (core->check_cd == 0)
-			{
-				// check if they called live
-				if (core->live_cnt >= 21)
-					core->cycles_to_die -= CYCLE_DELTA;
-				// core->check_cd = core->cycles_to_die;
-			}
+			current = current->next;
+			// show_arena(core);
+		}
+		core->cycle++;
+		core->check_cd--;
+		if (core->check_cd == 0)
+		{
+			// check if they called live
+			if (core->live_cnt >= 21)
+				core->cycles_to_die -= CYCLE_DELTA;
+			// core->check_cd = core->cycles_to_die;
 		}
 	}
 }

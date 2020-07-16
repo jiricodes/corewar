@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 17:22:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 18:10:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int main(int argc, char **argv)
 			core->car_id++;
 			i++;
 		}
+		engine(core);
 		
 	}
 	// while(1);
