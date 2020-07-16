@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/14 17:00:59 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:34:21 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,22 @@ typedef struct	s_vm
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
 	t_vs		*vfx;
+	int			last_player_to_report_live;
+	size_t		cycles_to_die;
 }				t_vm;
 
-typedef struct	s_ptr
+typedef struct	s_carriage
 {
-	t_ptr		*next;
-}				t_ptr;
+	size_t		id;
+	int32_t		reg[REG_NUMBER];
+	int			carry;
+	ssize_t		pos;
+	ssize_t		step;
+	int			opcode;
+	size_t		cooldown;
+	size_t		last_live;
+	struct s_carriage	*next;
+}				t_car;
 
 /*
 ** Champion Utilities
