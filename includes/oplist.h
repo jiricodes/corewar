@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:15:40 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:51:37 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	s_oplist
 	int		arg_type[3];
 	int		t_dir_size;
 	int		arg_type_code;
+	int		carry_change;
+	int		exec_cycles;
 }				t_oplist;
 
 static const	t_oplist	g_oplist[16] = {
@@ -40,7 +42,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 0
+		.arg_type_code = 0,
+		.carry_change = 0,
+		.exec_cycles = 10
 	},
 	{
 		.opcode = 0x02,
@@ -48,7 +52,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 2,
 		.arg_type = {T_DIR | T_IND, T_REG, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 5
 	},
 	{
 		.opcode = 0x03,
@@ -56,7 +62,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 2,
 		.arg_type = {T_REG, T_IND | T_REG, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 0,
+		.exec_cycles = 5
 	},
 	{
 		.opcode = 0x04,
@@ -64,7 +72,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 10
 	},
 	{
 		.opcode = 0x05,
@@ -72,7 +82,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 10
 	},
 	{
 		.opcode = 0x06,
@@ -80,7 +92,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 6
 	},
 	{
 		.opcode = 0x07,
@@ -88,7 +102,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 6
 	},
 	{
 		.opcode = 0x08,
@@ -96,7 +112,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 6
 	},
 	{
 		.opcode = 0x09,
@@ -104,7 +122,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
 		.t_dir_size = 2,
-		.arg_type_code = 0
+		.arg_type_code = 0,
+		.carry_change = 0,
+		.exec_cycles = 20
 	},
 	{
 		.opcode = 0x0a,
@@ -112,7 +132,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
 		.t_dir_size = 2,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 0,
+		.exec_cycles = 25
 	},
 		{
 		.opcode = 0x0b,
@@ -120,7 +142,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
 		.t_dir_size = 2,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 0,
+		.exec_cycles = 25
 	},
 		{
 		.opcode = 0x0c,
@@ -128,7 +152,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
 		.t_dir_size = 2,
-		.arg_type_code = 0
+		.arg_type_code = 0,
+		.carry_change = 0,
+		.exec_cycles = 800
 	},
 		{
 		.opcode = 0x0d,
@@ -136,7 +162,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_DIR | T_IND, T_REG},
 		.t_dir_size = 4,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 10
 	},
 		{
 		.opcode = 0x0e,
@@ -144,7 +172,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 3,
 		.arg_type = {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
 		.t_dir_size = 2,
-		.arg_type_code = 1
+		.arg_type_code = 1,
+		.carry_change = 1,
+		.exec_cycles = 50
 	},
 		{
 		.opcode = 0x0f,
@@ -152,7 +182,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_DIR, 0, 0},
 		.t_dir_size = 2,
-		.arg_type_code = 0
+		.arg_type_code = 0,
+		.carry_change = 0,
+		.exec_cycles = 1000
 	},
 	{
 		.opcode = 0x10,
@@ -160,7 +192,9 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_REG, 0, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 0
+		.arg_type_code = 0,
+		.carry_change = 0,
+		.exec_cycles = 2
 	}
 };
 
