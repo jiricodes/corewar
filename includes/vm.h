@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 17:33:33 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 17:53:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdint.h>
 # include "op.h"
 # include <ncurses.h>
+# include "oplist.h"
 
 /*
 ** Logging options:
@@ -59,7 +60,7 @@ typedef struct	s_carriage
 	int			carry;
 	ssize_t		pc;
 	ssize_t		step;
-	int			opcode;
+	int			op_index;
 	size_t		cooldown;
 	size_t		last_live;
 	t_args		*args;

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:08:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 17:38:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 17:52:39 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_car	*create_carriage(size_t id, ssize_t	pc, uint8_t player_id)
 	car->carry = 0;
 	car->pc = pc;
 	car->step = 1;
-	car->opcode = 0;
+	car->op_index = -1;
 	car->cooldown = 0;
 	car->last_live = 0;
 	car->args = init_args();
