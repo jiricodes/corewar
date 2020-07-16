@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/14 10:45:33 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 18:39:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ void		vm_log(char *message, ...)
 	}
 	va_end(args);
 	fclose(log_file);
+}
+
+void		log_carriage(t_car *node)
+{
+	vm_log("Carriage [%zu]\nPC\t%zd\nOP\t%d\nCD\t%zu\n\n", node->id, node->pc, node->op_index, node->cooldown);
 }

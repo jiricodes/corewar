@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 17:53:34 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 18:35:03 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_car		*prepend_carriage(t_car *head, t_car *node);
 t_car		*append_carriage(t_car *head, t_car *node);
 t_car		*delete_carriage(t_car *head, size_t id);
 void		delete_car_list(t_car *head);
+void		log_carriage(t_car *node);
 
 /*
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 18:10:22 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 19:08:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_vm	*init_vm(int	n_players)
 		ft_error_exit("Malloc at init_vm [champ]", NULL, NULL);
 	core->car_list = NULL;
 	core->cycles_to_die = CYCLE_TO_DIE;
+	core->check_cd = core->cycles_to_die;
 	return (core);
 }
 
