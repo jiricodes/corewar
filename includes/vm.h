@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:10:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:18:49 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_error.h"
 # include <stdint.h>
 # include "op.h"
+# include "oplist.h"
 # include <ncurses.h>
 # include "oplist.h"
 # include <time.h>
@@ -94,6 +95,15 @@ typedef struct	s_vm
 	int			live_cnt;
 }				t_vm;
 
+
+typedef struct	s_args
+{
+	int			opcount;
+	int			arg_code;
+	int			arg_types[3];
+	int			arg[3];
+	int			t_dir_size;
+}				t_args;
 
 /*
 ** Champion Utilities

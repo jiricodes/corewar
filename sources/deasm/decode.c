@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 15:32:12 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/16 17:59:29 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,20 @@ static void	read_opcode(int8_t byte, t_operation *op)
 	int cnt;
 
 	cnt = 0;
+	printf("%d\n", byte);
 	while (cnt < 16)
 	{
+		printf("%d ", g_oplist[cnt].opcode);
 		if (byte == g_oplist[cnt].opcode)
 		{
 			op->opname = g_oplist[cnt].opname;
 			op->arg_type_code = g_oplist[cnt].arg_type_code;
 			op->t_dir_size = g_oplist[cnt].t_dir_size;
+			return ;
 		}
 		cnt += 1;
 	}
-	if (cnt == 16)
-		ft_error_exit("no matching op found, exit", 0, 0);
+	ft_error_exit("no matching op found, exit", 0, 0);
 }
 
 /*
