@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:57:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/17 13:04:11 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:06:00 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	op_add(int8_t *rawcode, t_car *car)
 	t_args	*args;
 	int8_t	*code;
 
+	args = init_args("ld");
+	code = rawcode;
 	if (!read_arg_type(args, (code + OP_BYTE)[0]))
 	{
 		get_jump(car, args);
