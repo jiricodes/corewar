@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/16 15:51:37 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:01:53 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 #define T_REG_CODE	0b00000001
 #define T_DIR_CODE	0b00000010
 #define	T_IND_CODE	0b00000011
+
+#define	OP_BYTE 1
+#define ARGTYPE_BYTE 1
+#define TREG_BYTE 1
+#define TIND_BYTE 2
+#define REGSIZE 4
 
 typedef struct	s_oplist
 {
