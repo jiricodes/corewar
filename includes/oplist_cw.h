@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/17 16:29:47 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 18:13:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	op_lld(t_vm *core, t_car *car);
 void	op_lldi(t_vm *core, t_car *car);
 void	op_lfork(t_vm *core, t_car *car);
 void	op_aff(t_vm *core, t_car *car);
+
+/*
+** Utilities
+*/
+
 
 typedef struct	s_oplist
 {
