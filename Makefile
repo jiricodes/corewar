@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/16 17:10:02 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/17 17:51:04 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,23 @@ VM_FILES =	arena.c \
 			init_colors.c \
 			log.c \
 			visual.c \
-			vm.c
+			vm.c \
+			op/op12_fork.c \
+			op/op16_aff.c \
+			op/op14.lldi.c \
+			op/op13_lld.c \
+			op/op15_lfork.c \
+			op/op05_sub.c \
+			op/op06_and.c \
+			op/op08_xor.c \
+			op/op02_ld.c \
+			op/op07_or.c \
+			op/op10_ldi.c \
+			op/op11_sti.c \
+			op/op04_add.c \
+			op/op03_st.c \
+			op/op09_zjmp.c \
+			op/op01_live.c
 
 VM_SRC = $(addprefix $(VM_DIR), $(VM_FILES))
 
@@ -80,7 +96,7 @@ SRC_DIR = sources/
 OBJ_DIR = objects/
 
 TARGET_DIR = $(OBJ_DIR)
-TARGET_DIR += $(addprefix $(OBJ_DIR), $(ASM_DIR) $(VM_DIR) $(DEASM_DIR))
+TARGET_DIR += $(addprefix $(OBJ_DIR), $(ASM_DIR) $(VM_DIR) $(DEASM_DIR) $(VM_DIR)/op)
 
 ASM_FTO = $(ASM_SRC:.c=.o)
 ASM_OBJ = $(addprefix $(OBJ_DIR), $(ASM_FTO))

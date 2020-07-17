@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   oplist.h                                           :+:      :+:    :+:   */
+/*   oplist_cw.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/17 13:18:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 16:29:47 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef OPLIST_H
 
 # define OPLIST_H
+
+# include "vm.h"
 
 #define T_REG		1
 #define T_DIR		2
@@ -29,6 +31,27 @@
 #define TIND_BYTE 2
 #define REGSIZE 4
 
+/*
+** Operations
+*/
+
+void	op_live(t_vm *core, t_car *car);
+void	op_ld(t_vm *core, t_car *car);
+void	op_st(t_vm *core, t_car *car);
+void	op_add(t_vm *core, t_car *car);
+void	op_sub(t_vm *core, t_car *car);
+void	op_and(t_vm *core, t_car *car);
+void	op_or(t_vm *core, t_car *car);
+void	op_xor(t_vm *core, t_car *car);
+void	op_zjmp(t_vm *core, t_car *car);
+void	op_ldi(t_vm *core, t_car *car);
+void	op_sti(t_vm *core, t_car *car);
+void	op_fork(t_vm *core, t_car *car);
+void	op_lld(t_vm *core, t_car *car);
+void	op_lldi(t_vm *core, t_car *car);
+void	op_lfork(t_vm *core, t_car *car);
+void	op_aff(t_vm *core, t_car *car);
+
 typedef struct	s_oplist
 {
 	int		opcode;
@@ -39,6 +62,7 @@ typedef struct	s_oplist
 	int		arg_type_code;
 	int		carry_change;
 	int		exec_cycles;
+	void	(*op)(t_vm *, t_car *);
 }				t_oplist;
 
 static const	t_oplist	g_oplist[16] = {
@@ -50,7 +74,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 0,
 		.carry_change = 0,
-		.exec_cycles = 10
+		.exec_cycles = 10,
+		.op = &op_live
 	},
 	{
 		.opcode = 0x02,
@@ -60,7 +85,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 5
+		.exec_cycles = 5,
+		.op = &op_ld
 	},
 	{
 		.opcode = 0x03,
@@ -70,7 +96,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 0,
-		.exec_cycles = 5
+		.exec_cycles = 5,
+		.op = &op_st
 	},
 	{
 		.opcode = 0x04,
@@ -80,7 +107,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 10
+		.exec_cycles = 10,
+		.op = &op_add
 	},
 	{
 		.opcode = 0x05,
@@ -90,7 +118,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 10
+		.exec_cycles = 10,
+		.op = &op_sub
 	},
 	{
 		.opcode = 0x06,
@@ -100,7 +129,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 6
+		.exec_cycles = 6,
+		.op = &op_and
 	},
 	{
 		.opcode = 0x07,
@@ -110,7 +140,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 6
+		.exec_cycles = 6,
+		.op = &op_or
 	},
 	{
 		.opcode = 0x08,
@@ -120,7 +151,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 6
+		.exec_cycles = 6,
+		.op = &op_xor
 	},
 	{
 		.opcode = 0x09,
@@ -130,7 +162,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 0,
 		.carry_change = 0,
-		.exec_cycles = 20
+		.exec_cycles = 20,
+		.op = &op_zjmp
 	},
 	{
 		.opcode = 0x0a,
@@ -140,7 +173,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 1,
 		.carry_change = 0,
-		.exec_cycles = 25
+		.exec_cycles = 25,
+		.op = &op_ldi
 	},
 		{
 		.opcode = 0x0b,
@@ -150,7 +184,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 1,
 		.carry_change = 0,
-		.exec_cycles = 25
+		.exec_cycles = 25,
+		.op = &op_sti
 	},
 		{
 		.opcode = 0x0c,
@@ -160,7 +195,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 0,
 		.carry_change = 0,
-		.exec_cycles = 800
+		.exec_cycles = 800,
+		.op = &op_fork
 	},
 		{
 		.opcode = 0x0d,
@@ -170,7 +206,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 10
+		.exec_cycles = 10,
+		.op = &op_lld
 	},
 		{
 		.opcode = 0x0e,
@@ -180,7 +217,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 1,
 		.carry_change = 1,
-		.exec_cycles = 50
+		.exec_cycles = 50,
+		.op = &op_lldi
 	},
 		{
 		.opcode = 0x0f,
@@ -190,7 +228,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 2,
 		.arg_type_code = 0,
 		.carry_change = 0,
-		.exec_cycles = 1000
+		.exec_cycles = 1000,
+		.op = &op_lfork
 	},
 	{
 		.opcode = 0x10,
@@ -200,7 +239,8 @@ static const	t_oplist	g_oplist[16] = {
 		.t_dir_size = 4,
 		.arg_type_code = 0,
 		.carry_change = 0,
-		.exec_cycles = 2
+		.exec_cycles = 2,
+		.op = &op_aff
 	}
 };
 

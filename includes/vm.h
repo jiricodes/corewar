@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:38:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 18:03:49 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include "ft_error.h"
 # include <stdint.h>
 # include "op.h"
-# include "oplist.h"
+// # include "oplist_cw.h"
 # include <ncurses.h>
-# include "oplist.h"
 # include <time.h>
 
 /*
@@ -29,14 +28,14 @@
 ** 2 - in file and on stdout
 */
 
-# define LOG 0
+# define LOG 2
 # define LOG_FILE "cw_log.txt"
 
 /*
 ** VFX settings
 */
 
-# define VFX 1
+# define VFX 0
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
 
@@ -137,7 +136,4 @@ void		vm_log(char *message, ...);
 void		engine(t_vm *core);
 void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte);
 
-/*
-** Operations
-*/
 #endif

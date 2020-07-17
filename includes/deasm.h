@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   deasm.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 15:16:30 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/17 17:51:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEASM_H
 # define DEASM_H
 
-# include "oplist.h"
+# include "oplist_asm.h"
 # include "libft.h"
 # include "ft_error.h"
 # include "op.h"

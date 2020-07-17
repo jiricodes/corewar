@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/13 13:35:13 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 16:18:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ASM_H
 
 # include "op.h"
-# include "oplist.h"
+# include "oplist_asm.h"
 # include "libft.h"
 # include "ft_error.h"
 

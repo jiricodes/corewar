@@ -6,11 +6,12 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:16:19 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 18:03:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "oplist_cw.h"
 int	if_op(int8_t byte)
 {
 	int cnt;
@@ -45,6 +46,7 @@ void	process_car(t_vm *core, t_car *car)
 		{
 			if (LOG)
 				vm_log("[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
+			g_oplist[car->op_index].op(core, car);
 			car->op_index = -1;
 			// change car->step
 		}

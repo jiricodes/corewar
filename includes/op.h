@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
+/*   Updated: 2020/07/17 16:08:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef OP_H
+# define OP_H
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
@@ -76,3 +78,5 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+#endif
