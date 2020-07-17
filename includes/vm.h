@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:18:49 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:20:53 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@
 # define VFX 1
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
-
-typedef struct	s_args
-{
-	int			arg_step;
-	int			arg_code;
-	int			arg_types[3];
-	int			args[3];
-}				t_args;
 
 typedef struct s_champ
 {
