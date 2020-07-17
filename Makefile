@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/14 16:51:48 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/16 17:10:02 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,9 +54,11 @@ DEASM_SRC = $(addprefix $(DEASM_DIR), $(DEASM_FILES))
 # CoreWar Sources
 VM_DIR = vm/
 VM_FILES =	arena.c \
+			carriage.c \
 			champs.c \
 			debug_utils.c \
 			decode.c \
+			engine.c \
 			init_colors.c \
 			log.c \
 			visual.c \

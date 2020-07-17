@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/14 10:37:23 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/16 19:08:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static t_vm	*init_vm(int	n_players)
 	core->champ = (t_champ **)ft_memalloc(sizeof(t_champ) * n_players);
 	if (!(core->champ))
 		ft_error_exit("Malloc at init_vm [champ]", NULL, NULL);
+	core->car_list = NULL;
+	core->cycles_to_die = CYCLE_TO_DIE;
+	core->check_cd = core->cycles_to_die;
 	return (core);
 }
 
@@ -30,6 +33,7 @@ int main(int argc, char **argv)
 {
 	t_vm *core;
 	int	i;
+	ssize_t position;
 
 	if (argc > 1 && argc < 8)
 	{
@@ -43,12 +47,15 @@ int main(int argc, char **argv)
 			core->champ[i] = init_champ(argv[i + 1], i + 1);
 			load_champ(core->champ[i]);
 			vm_log("Champ [%d] initialized and loaded\n", i + 1);
-			insert_champ_to_arena(core, core->champ[i], i * MEM_SIZE / core->n_players);
+			position = i * MEM_SIZE / core->n_players;
+			insert_champ_to_arena(core, core->champ[i], position);
 			vm_log("Champ [%d] inserted to arena\n", i + 1);
+			core->car_list = prepend_carriage(core->car_list, create_carriage(core->car_id, position, (uint8_t)i));
+			core->car_id++;
 			i++;
 		}
-		show_arena(core);
-		vm_log("Exited visual window\n");
+		engine(core);
+		
 	}
 	// while(1);
 	return (0);
