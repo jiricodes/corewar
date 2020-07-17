@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 15:07:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:37:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ void	insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position)
 		if (position + i == MEM_SIZE)
 			position = -1 * i;
 	}
+}
+
+/*
+** Writes a byte to arena and adjusts an owner in byte_owner array
+** position index is adjusted to fit within MEM_SIZE always
+*/
+
+void	write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte)
+{
+	position %= MEM_SIZE;
+	core->arena[position] = byte;
+	core->byte_owner[position] = core->byte_owner[origin_pc];
 }

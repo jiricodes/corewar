@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:24:46 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:38:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,9 @@ void		vfx_colors();
 
 void		vm_log(char *message, ...);
 void		engine(t_vm *core);
+void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte);
 
+/*
+** Operations
+*/
 #endif
