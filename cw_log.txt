@@ -36097,3 +36097,93 @@ Champ [2] initialized and loaded
 Champ [2] inserted to arena
 Champ [3] initialized and loaded
 Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena
+[5]: Carriage[1] should execute "st"
+[10]: Carriage[2] should execute "add"
+[10]: Carriage[0] should execute "lld"
+[17]: Carriage[2] should execute "ld"
+[18]: Carriage[0] should execute "st"
+[21]: Carriage[1] should execute "add"
+[30]: Carriage[2] should execute "add"
+[34]: Carriage[0] should execute "add"
+[38]: Carriage[2] should execute "or"
+[40]: Carriage[0] should execute "ld"
+[46]: Carriage[2] should execute "st"
+[47]: Carriage[1] should execute "ldi"
+[55]: Carriage[2] should execute "ld"
+[55]: Carriage[0] should execute "lld"
+[61]: Carriage[2] should execute "st"
+[63]: Carriage[0] should execute "st"
+[73]: Carriage[2] should execute "xor"
+[75]: Carriage[1] should execute "ldi"
+Number of players: 3
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Champ [2] initialized and loaded
+Champ [2] inserted to arena
+Champ [3] initialized and loaded
+Champ [3] inserted to arena

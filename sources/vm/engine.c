@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 19:04:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:16:19 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	process_car(t_vm *core, t_car *car)
 	{
 		if (car->op_index != -1)
 		{
-			printf("[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
+			if (LOG)
+				vm_log("[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
 			car->op_index = -1;
 			// change car->step
 		}
@@ -66,7 +67,8 @@ void	check_live_calls(t_vm *core)
 	{
 		if (tmp->last_live < limit)
 		{
-			printf("[%zu]: Carriage[%zu] failed to report live\n", core->cycle, tmp->id);
+			if (LOG)
+				vm_log("[%zu]: Carriage[%zu] failed to report live\n", core->cycle, tmp->id);
 			core->car_list = delete_carriage(core->car_list, tmp->id);
 			tmp = core->car_list;
 		}
@@ -80,6 +82,8 @@ void	engine(t_vm *core)
 	int		checks;
 
 	checks = 0;
+	if (VFX)
+		init_vfx_arena(core);
 	while (core->car_list && core->cycles_to_die > 0)
 	{
 		// printf("Cycle %zu\n", core->cycle);
@@ -103,5 +107,15 @@ void	engine(t_vm *core)
 			}
 			core->check_cd = core->cycles_to_die;
 		}
+		if (VFX)
+		{
+			draw_arena(core);
+			nanosleep(&(core->vfx->time), NULL);
+		}
+	}
+	if (VFX)
+	{
+		getch();
+		endwin();
 	}
 }

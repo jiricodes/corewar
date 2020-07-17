@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 15:54:56 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:11:11 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_vs	*init_visual_settings(char *title)
 		ft_error_exit("Malloc at init_visual_settings", NULL, NULL);
 	settings->height = 66;
 	settings->width = 64 * 2 + 2;
+	settings->time.tv_sec = VFX_SLEEP_S;
+	settings->time.tv_nsec = VFX_SLEEP_N;
 	initscr();
 	cbreak();
 	mvprintw(0,20, title);
@@ -30,23 +32,36 @@ t_vs	*init_visual_settings(char *title)
 	return (settings);
 }
 
-void	show_arena(t_vm *core)
+int		check_carriage(t_car *head, ssize_t pos)
+{
+	while (head)
+	{
+		if (head->pc == pos)
+			return (1);
+		head = head->next;
+	}
+	return (0);
+}
+void	draw_arena(t_vm *core)
 {
 	int	y;
 	int	x;
-	size_t	i;
+	ssize_t	i;
+	int	hgl;
 
-	core->vfx = init_visual_settings("COREWAR");
-	vfx_colors();
+	werase(core->vfx->win);
 	y = 1;
 	x = 1;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
+		if ((hgl = check_carriage(core->car_list, i)))
+			wattron(core->vfx->win, A_STANDOUT);
 		wattron(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		mvwprintw(core->vfx->win, y, x, "%02x", core->arena[i]);
 		wattroff(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
-		wrefresh(core->vfx->win);
+		if (hgl)
+			wattroff(core->vfx->win, A_STANDOUT);
 		i++;
 		x += 2;
 		if (x >= core->vfx->width - 1)
@@ -55,6 +70,11 @@ void	show_arena(t_vm *core)
 			y++;
 		}
 	}
-	getch();
-	endwin();
+	wrefresh(core->vfx->win);
+}
+
+void	init_vfx_arena(t_vm *core)
+{
+	core->vfx = init_visual_settings("COREWAR");
+	vfx_colors();
 }

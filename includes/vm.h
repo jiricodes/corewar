@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 18:35:03 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:10:11 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "op.h"
 # include <ncurses.h>
 # include "oplist.h"
+# include <time.h>
 
 /*
 ** Logging options:
@@ -27,8 +28,16 @@
 ** 2 - in file and on stdout
 */
 
-# define LOG 2
+# define LOG 0
 # define LOG_FILE "cw_log.txt"
+
+/*
+** VFX settings
+*/
+
+# define VFX 1
+# define VFX_SLEEP_S 0
+# define VFX_SLEEP_N 250000000
 
 typedef struct	s_args
 {
@@ -51,6 +60,8 @@ typedef struct	s_visual_settings
 	int			width;
 	int			height;
 	WINDOW		*win;
+	int			play;
+	struct timespec time;
 }				t_vs;
 
 typedef struct	s_carriage
@@ -113,7 +124,8 @@ void		log_carriage(t_car *node);
 */
 
 t_vs		*init_visual_settings(char *title);
-void		show_arena(t_vm *core);
+void		init_vfx_arena(t_vm *core);
+void		draw_arena(t_vm *core);
 void		vfx_colors();
 
 /*
