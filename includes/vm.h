@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 15:34:21 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/17 12:51:02 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_error.h"
 # include <stdint.h>
 # include "op.h"
+# include "oplist.h"
 # include <ncurses.h>
 
 /*
@@ -68,6 +69,15 @@ typedef struct	s_carriage
 	size_t		last_live;
 	struct s_carriage	*next;
 }				t_car;
+
+typedef struct	s_args
+{
+	int			opcount;
+	int			arg_code;
+	int			arg_types[3];
+	int			arg[3];
+	int			t_dir_size;
+}				t_args;
 
 /*
 ** Champion Utilities
