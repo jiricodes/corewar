@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:20:53 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:24:46 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ typedef struct	s_visual_settings
 	struct timespec time;
 }				t_vs;
 
+typedef struct	s_args
+{
+	int			opcount;
+	int			arg_code;
+	int			arg_types[3];
+	int			arg[3];
+	int			t_dir_size;
+}				t_args;
+
 typedef struct	s_carriage
 {
 	size_t		id;
@@ -86,16 +95,6 @@ typedef struct	s_vm
 	size_t		cycle;
 	int			live_cnt;
 }				t_vm;
-
-
-typedef struct	s_args
-{
-	int			opcount;
-	int			arg_code;
-	int			arg_types[3];
-	int			arg[3];
-	int			t_dir_size;
-}				t_args;
 
 /*
 ** Champion Utilities
