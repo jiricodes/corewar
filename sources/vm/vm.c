@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 19:08:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 15:18:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 	int	i;
 	ssize_t position;
 
-	if (argc > 1 && argc < 8)
+	if (argc > 1 && argc <= MAX_PLAYERS + 1)
 	{
 		core = init_vm(argc - 1);
 		vm_log("Number of players: %d\n", core->n_players);

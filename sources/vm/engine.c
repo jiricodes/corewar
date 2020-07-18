@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 18:03:22 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 15:58:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,5 @@ void	engine(t_vm *core)
 		getch();
 		endwin();
 	}
+	ft_printf("Player (%d) %s won\n", core->last_player_to_report_live, core->champ[core->last_player_to_report_live]);
 }
