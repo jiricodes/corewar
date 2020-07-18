@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 15:58:09 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 16:09:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	check_live_calls(t_vm *core)
 			tmp = tmp->next;
 	}
 }
+
 void	engine(t_vm *core)
 {
 	t_car	*current;
@@ -120,5 +121,8 @@ void	engine(t_vm *core)
 		getch();
 		endwin();
 	}
-	ft_printf("Player (%d) %s won\n", core->last_player_to_report_live, core->champ[core->last_player_to_report_live]);
+	if (core->last_to_live)
+		ft_printf("Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
+	else
+		ft_printf("Everyone is dead, total clusterfuck\n");
 }

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 15:18:09 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 16:07:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_vm	*init_vm(int	n_players)
 	core->car_list = NULL;
 	core->cycles_to_die = CYCLE_TO_DIE;
 	core->check_cd = core->cycles_to_die;
+	core->last_to_live = NULL;
 	return (core);
 }
 

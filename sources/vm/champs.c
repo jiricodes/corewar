@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 15:22:53 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 16:02:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,5 @@ void		load_champ(t_champ *champ)
 	ft_printf("Header loaded\n");
 	load_code(champ);
 	print_champ_header(champ);
-	if (champ->header->prog_size > CHAMP_MAX_SIZE)
-	{
-		ft_printf("Champion [%d] \"%s\" is too big\n", champ->id, champ->header->prog_name);
-		ft_error_exit("That's what she said", NULL, NULL);
-	}
 	// print_code(champ);
 }

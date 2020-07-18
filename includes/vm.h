@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 18:03:49 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/18 16:07:48 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct	s_vm
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
 	t_vs		*vfx;
-	uint8_t		last_player_to_report_live;
+	t_champ		*last_to_live;
 	size_t		cycles_to_die;
 	size_t		check_cd;
 	size_t		cycle;
