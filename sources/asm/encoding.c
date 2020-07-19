@@ -150,16 +150,14 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 	return (remove_trailing_spaces(ret));
 }
 
-int		check_lastline(int source_fd, int lastline)
+int		check_lastline(int source_fd)
 {
 	char temp[1];
 
-	if (!lastline)
-		ft_error_exit("File ends with newline", 0, 0);
 	lseek(source_fd, -1, SEEK_END);
 	read(source_fd, &temp, 1);
-	if (temp[0] == '\n')
-		ft_error_exit("File ends with newline", 0, 0);
+	if (temp[0] != '\n')
+		ft_error_exit("File does not end with newline", 0, 0);
 	return (1);
 }
 
@@ -169,7 +167,6 @@ int		check_lastline(int source_fd, int lastline)
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
-	int		lastline;
 
 	while (get_next_line(source_fd, &line) > 0)
 	{
@@ -179,10 +176,10 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 			core->champ_comment = save_name_comment(COMMENT_CMD_STRING, source_fd, line);
 		else
-			lastline = lex_parser(core, list, line);
+			lex_parser(core, list, line);
 		free(line);
 	}
-	check_lastline(source_fd, lastline);
+	check_lastline(source_fd);
 	match_labels(list, 0, 0, 1);
 	get_size_type(list, core);
 	find_labels(list);
