@@ -101,15 +101,26 @@ char	*remove_trailing_spaces(char *src)
 
 	temp = ft_strdup(src);
 	free(src);
-	cnt = ft_strlen(temp) - 1;
-	while (cnt > 0 && ft_isspace(temp[cnt]))
-		cnt -= 1;
+	cnt = 0;
+	while (temp[cnt] != '\"')
+		cnt += 1;
 	ret = ft_strncpy(ft_strnew(cnt), temp, cnt);
+	cnt += 1;
+	while (temp[cnt] != '\0')
+	{
+		if (!ft_isspace(temp[cnt]))
+		{
+			if (temp[cnt] == COMMENT_CHAR || temp[cnt] == ALT_COMMENT_CHAR)
+				break ;
+			else
+				ft_error_exit("Invalid char following name/comment", 0, 0);
+		}
+		cnt += 1;
+	}
 	free(temp);
-	return (ret);	
+	return (ret);
 }
 // a function to extract name & comment from the file using gnl
-
 char	*save_name_comment(char *target, int source_fd, char *line)
 {
 	char	*ret;
@@ -120,8 +131,7 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 	cnt = 0;
 	while (line[cnt] != '\"')
 	{
-		if (line[cnt] == '\0')
-			ft_error_exit("No name or comment present", 0, 0);
+		(line[cnt] == '\0') ? ft_error_exit("No name or comment present", 0, 0) : 0;
 		cnt += 1;
 	}
 	pos_start = cnt + 1;
@@ -137,8 +147,20 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 	}
 	else if (line[cnt] == '\"')
 		ret = ft_strdup(&line[pos_start]);
-	ret = remove_trailing_spaces(ret);
-	return (ret);
+	return (remove_trailing_spaces(ret));
+}
+
+int		check_lastline(int source_fd, int lastline)
+{
+	char temp[1];
+
+	if (!lastline)
+		ft_error_exit("File ends with newline", 0, 0);
+	lseek(source_fd, -1, SEEK_END);
+	read(source_fd, &temp, 1);
+	if (temp[0] == '\n')
+		ft_error_exit("File ends with newline", 0, 0);
+	return (1);
 }
 
 //removed the part that continued after .extend and made lex_parser to
@@ -147,23 +169,22 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
+	int		lastline;
 
 	while (get_next_line(source_fd, &line) > 0)
 	{
-		// only .name & .comment allowed. others .(...) should be marked as error
 		core->line_cnt += 1;
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 			core->champ_name = save_name_comment(NAME_CMD_STRING, source_fd, line);
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 			core->champ_comment = save_name_comment(COMMENT_CMD_STRING, source_fd, line);
 		else
-			lex_parser(core, list, line);
+			lastline = lex_parser(core, list, line);
 		free(line);
 	}
-	match_labels(list);
+	check_lastline(source_fd, lastline);
+	match_labels(list, 0, 0, 1);
 	get_size_type(list, core);
 	find_labels(list);
 	special_arg_finder(list);
-	//while (1)
-	//{}
 }

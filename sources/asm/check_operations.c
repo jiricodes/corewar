@@ -105,9 +105,7 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 	{
 		ret = check_argument(operation->arg[cnt], core);
 		if ((ret | ref.arg_type[cnt]) == ref.arg_type[cnt] && ret != 0)
-		{
 			operation->argtypes[cnt] = ret;
-		}
 		else
 		{
 			ft_printf("argument error: %s\n", operation->arg[cnt]);

@@ -72,7 +72,6 @@ void	print_asmcore(t_asm *core);
 int		ft_chrpos(char *str, char c);
 int		is_hex(char *argum);
 char	*x_to_deci(char *argum);
-char	*put_percent(char *str);
 int		is_special(char *argum, int func);
 
 /*
@@ -87,13 +86,13 @@ int		lex_parser(t_asm *core, t_operation **list, char *line);
 int		get_size_type(t_operation **list, t_asm *core);
 int		find_position(t_operation **list, t_operation *temp, char *arg);
 void	special_arg_finder(t_operation **head);
-void	arg_math(char *label, t_operation **head, t_operation *cur, int cnt);
+int		arg_math(t_operation **head, t_operation *cur, char *label, int cnt);
 
 /*
 ** ASM Error checking
 */
 void	check_operation( t_operation *operation, t_asm *core);
-void	match_labels(t_operation **head);
+void	match_labels(t_operation **head, int cnt, int pos, int test);
 int		check_label(char *label, t_operation **head);
 
 /*

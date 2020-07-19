@@ -1,6 +1,8 @@
 #include "asm.h"
 
-//counts the size of one link
+/*
+** Counts the size of one link.
+*/
 int count_bytes(t_operation *temp, int cnt)
 {
 	int bytes;
@@ -22,8 +24,9 @@ int count_bytes(t_operation *temp, int cnt)
 		bytes = bytes + 1;
 	return (bytes);
 }
-
-//Finds out t_dir_sizes from g_oplist and counts positions and total size
+/*
+** Finds out t_dir_sizes from g_oplist and counts positions and total size.
+*/
 int get_size_type(t_operation **list, t_asm *core)
 {
 	int cnt;
@@ -53,7 +56,9 @@ int get_size_type(t_operation **list, t_asm *core)
 	return (0);
 }
 
-//finds label ending position in argument and checks the byte position
+/*
+** Finds label ending position in argument and checks the byte position.
+*/
 int get_next_label(char *label, t_operation **head, t_operation *cur, int pos)
 {
 	int i;
@@ -70,16 +75,12 @@ int get_next_label(char *label, t_operation **head, t_operation *cur, int pos)
 	return (total);
 }
 
-//checks whether label has base or base 16 number
-//transforms it from ascii to integer and returns it
-int get_next_number(char *label)
+int get_next_number(char *label, int i)
 {
-	int i;
 	int num;
 	char c;
 	char hexmask[] = "0123456789abcdefABCDEF";
 
-	i = 0;
 	if (label[0] == '0' && (label[1] == 'x' || label[1] == 'X'))
 	{
 		i = 2;
@@ -109,60 +110,26 @@ int get_next_number(char *label)
 //then checks the first argument and loops until it finds no more arguments
 //based on label chars we either find out label positions or digits/hexes
 //hexes get converted to decimals and everything is counted together
-//
-//needs a lot of shortening, gonna do it later, fucking tired
-void arg_math(char *label, t_operation **head, t_operation *cur, int cnt)
+int arg_math(t_operation **head, t_operation *cur, char *label, int cnt)
 {
 	int i;
+	int sign;
 	long long int total;
-	int percent;
-	int format;
 	char *temp;
 
 	i = 0;
-	percent = 0;
+	sign = 1;
 	total = 0;
-	if (label[0] == DIRECT_CHAR)
-	{
-		percent = 1;
-		label = label + percent;
-	}
-	if (label[0] == LABEL_CHAR)
-	{
-		total = total + get_next_label(label, head, cur, 1);
-		format = 1;
-	}
-	else
-	{
-		total = total + get_next_number(label);
-		format = 2;
-	}
+	(label[0] == DIRECT_CHAR) ? (label += 1) : 0;
+	(label[0] == LABEL_CHAR) ? (total += get_next_label(label, head, cur, 1)) :
+	(total += get_next_number(label, 0));
 	while (label[i])
 	{
-		if (label[i] == '+')
-		{
-			if (label[i + 1] == LABEL_CHAR)
-				total = total + get_next_label(label, head, cur, i + 2);
-			else
-				total = total + get_next_number(label + i + 1);
-		}
-		else if (label[i] == '-')
-		{
-			if (label[i + 1] == LABEL_CHAR)
-				total = total - get_next_label(label, head, cur, i + 2);
-			else
-				total = total - get_next_number(label + i + 1);
-		}
-		i = i + 1;
+		(label[i] == '-') ? (sign = -1) : 0;
+		(label[i + 1] == LABEL_CHAR) ? (total += (sign * get_next_label(label, head, cur, i + 2))) :
+		(total += (sign * get_next_number(label + i + 1, 0)));
+		sign = 1;
+		i += 1;
 	}
-	if (format)
-		cur->label_pos[cnt] = total;
-	else
-	{
-		free(cur->arg[cnt]);
-		if (percent)
-			cur->arg[cnt] = put_percent(ft_ultoa(total));
-		else
-			cur->arg[cnt] = ft_ultoa(total);
-	}
+	return (total);
 }

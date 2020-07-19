@@ -161,30 +161,6 @@ unsigned long	ft_pow(int number, int power)
 }
 
 /*
-** appends % sign in front of the string
-** needed it for hex conversions of direct arguments
-*/
-
-char			*put_percent(char *str)
-{
-	int		i;
-	int		len;
-	char	*final;
-
-	i = 0;
-	len = ft_strlen(str);
-	final = (char*)malloc(sizeof(char*) * len + 2);
-	final[0] = DIRECT_CHAR;
-	while (str[i])
-	{
-		final[i + 1] = str[i];
-		i = i + 1;
-	}
-	final[i + 1] = '\0';
-	return (final);
-}
-
-/*
 ** converts hex to decimal.
 */
 
@@ -212,7 +188,6 @@ char			*x_to_deci(char *argum)
 	hex = 0;
 	val = 0;
 	argum_len(argum, &len, &i);
-	ft_printf("X to D: len = %d, i = %d\n", len, i);
 	while (argum[i] != '\0')
 	{
 		if (argum[i] >= '0' && argum[i] <= '9')
