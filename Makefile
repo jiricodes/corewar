@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/17 17:51:04 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/20 16:28:59 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ VM_FILES =	arena.c \
 			log.c \
 			visual.c \
 			vm.c \
+			vm_args.c \
 			op/op12_fork.c \
 			op/op16_aff.c \
 			op/op14.lldi.c \

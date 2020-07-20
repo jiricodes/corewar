@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 13:48:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:16:47 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_champ		*init_champ(char	*filename, int id)
+t_champ		*init_champ(char	*filename, uint8_t id)
 {
 	t_champ		*champ;
 
@@ -29,17 +29,21 @@ t_champ		*init_champ(char	*filename, int id)
 	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
 	if (!(champ->header))
 		ft_error_exit("Malloc header in init_champ", NULL, NULL);
-	champ->id = (uint8_t)id;
+	champ->id = id;
 	return (champ);
 }
 
 void		delete_champs(t_champ **champs, int n)
 {
 	int i;
+	int	stat;
 
 	i = 0;
 	while (i < n)
 	{
+		stat = close(champs[i]->fd);
+		if (stat == -1)
+			ft_error_exit("Failed to close a champs file", NULL, NULL);
 		free(champs[i]->raw);
 		free(champs[i]->header);
 		free(champs[i]);

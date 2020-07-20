@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 13:40:41 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:00:05 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // # include "oplist_cw.h"
 # include <ncurses.h>
 # include <time.h>
+# include "vm_error.h"
 
 /*
 ** Logging options:
@@ -28,7 +29,7 @@
 ** 2 - in file and on stdout
 */
 
-# define LOG 2
+# define LOG 0
 # define LOG_FILE "cw_log.txt"
 
 /*
@@ -87,6 +88,9 @@ typedef struct	s_vm
 	size_t		car_id;
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
+	ssize_t		dump_cycle;
+	int			dump_size;
+	int			vfx_on;
 	t_vs		*vfx;
 	t_champ		*last_to_live;
 	size_t		cycles_to_die;
@@ -96,15 +100,16 @@ typedef struct	s_vm
 }				t_vm;
 
 /*
-** Champion Utilities
+** Champions and Arena Utilities
 */
 
-t_champ		*init_champ(char	*filename, int id);
+t_champ		*init_champ(char	*filename, uint8_t id);
 void		load_champ(t_champ *champ);
 int32_t		decode(const uint8_t *source, size_t size);
 void		print_champ_header(t_champ *champ);
 void		print_code(t_champ *champ);
 void		init_arena(t_vm	*core);
+void		print_arena(uint8_t *arena, int	size);
 void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
 void		delete_champs(t_champ **champs, int n);
 
@@ -136,5 +141,6 @@ void		vfx_colors();
 void		vm_log(char *message, ...);
 void		engine(t_vm *core);
 void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte);
+void		process_vm_args(t_vm *core, char **argv, int argc);
 
 #endif
