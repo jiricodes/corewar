@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:17:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:14:47 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,11 @@ void		process_vm_args(t_vm *core, char **argv, int argc);
 ** OP funcs
 */
 
-void	fill_args(char *opname, t_args *args);
-int	check_types(int *types, const int *reference);
-int	read_arg_type(t_args *args, int8_t byte);
-void	get_jump(t_car *car, t_args *args);
+void		fill_args(char *opname, t_args *args);
+int			check_types(int *types, const int *reference);
+int			read_arg_type(t_args *args, int8_t byte);
+void		get_jump(t_car *car, t_args *args);
+void		write_bytes(uint8_t *start, int size, int val);
+void		read_args(int8_t *rawcode, t_args *args);
 
 #endif
