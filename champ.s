@@ -3,10 +3,4 @@
 
 # paskuda tvar
 
-loop:sti r1, %:live, %1
-live:
-        live %0
-        ld %0, r2
-        zjmp %:loop
-
-bongo:
+sub r1, r2, r3

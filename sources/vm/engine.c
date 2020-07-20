@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 16:09:04 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:01:36 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	if_op(int8_t byte)
 	while (cnt < 16)
 	{
 		if (byte == g_oplist[cnt].opcode)
-			return (g_oplist[cnt].opcode);
+			return (g_oplist[cnt].opcode - 1);
 		cnt += 1;
 	}
 	return (-1);

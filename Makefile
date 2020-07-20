@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
+#    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/17 17:51:04 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/20 14:58:51 by asolopov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,8 @@ VM_FILES =	arena.c \
 			op/op04_add.c \
 			op/op03_st.c \
 			op/op09_zjmp.c \
-			op/op01_live.c
+			op/op01_live.c \
+			op/op_utils.c
 
 VM_SRC = $(addprefix $(VM_DIR), $(VM_FILES))
 
