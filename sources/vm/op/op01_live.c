@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/07/20 20:20:05 by asolopov         ###   ########.fr       */
-=======
-/*   Updated: 2020/07/20 17:57:51 by jnovotny         ###   ########.fr       */
->>>>>>> 3fe4e40baecf6d46d4f6aaff07cbc3d2a7ab5f1a
+/*   Updated: 2020/07/20 20:24:34 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
