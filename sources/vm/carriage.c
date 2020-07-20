@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:08:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 19:06:52 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:10:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static t_args	*init_args(void)
+static t_args	*car_init_args(void)
 {
 	int		cnt;
 	t_args	*new;
@@ -39,7 +39,7 @@ t_car	*create_carriage(size_t id, ssize_t	pc, uint8_t player_id)
 	car->op_index = -1;
 	car->cooldown = 0;
 	car->last_live = 1;
-	car->args = init_args();
+	car->args = car_init_args();
 	car->next = NULL;
 	return (car);
 }

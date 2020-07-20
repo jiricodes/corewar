@@ -6,12 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:04:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:09:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "oplist_cw.h"
+
 int	if_op(int8_t byte)
 {
 	int cnt;
