@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:20:07 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:57:51 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	op_live(t_vm *core, t_car *car)
 	tdir = car->args->t_dir_size;
 	val = decode((uint8_t *)code + OP_BYTE, tdir);
 	printf("\t%d\n", val);
-	last_to_live(core, val);
+	last_to_live(core, (uint8_t)val);
 	get_jump(car, car->args);
 }
