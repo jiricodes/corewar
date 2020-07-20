@@ -6,34 +6,30 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/20 16:59:21 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:18:56 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-t_args	*init_args(char *opname)
+void	fill_args(char *opname, t_args *args)
 {
-	t_args	*new;
 	int		cnt;
 
-	new = (t_args *)ft_memalloc(sizeof(t_args));
 	cnt = 0;
 	while (cnt < 16)
 	{
 		if (opname == g_oplist[cnt].opname)
 		{
-			new->opcount = cnt;
-			new->arg_code = g_oplist[cnt].arg_type_code;
-			new->t_dir_size = g_oplist[cnt].t_dir_size;
-			new->arg_types[0] = g_oplist[cnt].arg_type[0];
-			new->arg_types[1] = g_oplist[cnt].arg_type[1];
-			new->arg_types[2] = g_oplist[cnt].arg_type[2];
-			return (new);
+			args->opcount = cnt;
+			args->arg_code = g_oplist[cnt].arg_type_code;
+			args->t_dir_size = g_oplist[cnt].t_dir_size;
+			args->arg_types[0] = g_oplist[cnt].arg_type[0];
+			args->arg_types[1] = g_oplist[cnt].arg_type[1];
+			args->arg_types[2] = g_oplist[cnt].arg_type[2];
 		}
 		cnt += 1;
 	}
-	return (0);
 }
 
 int	check_types(int *types, const int *reference)
