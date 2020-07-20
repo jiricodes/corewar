@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:00:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:04:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,14 @@ void		vm_log(char *message, ...);
 void		engine(t_vm *core);
 void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte);
 void		process_vm_args(t_vm *core, char **argv, int argc);
+
+/*
+** OP funcs
+*/
+
+t_args	*init_args(char *opname);
+int	check_types(int *types, const int *reference);
+int	read_arg_type(t_args *args, int8_t byte);
+void	get_jump(t_car *car, t_args *args);
 
 #endif

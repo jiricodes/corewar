@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/20 16:28:59 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/20 17:04:32 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,8 @@ VM_FILES =	arena.c \
 			op/op04_add.c \
 			op/op03_st.c \
 			op/op09_zjmp.c \
-			op/op01_live.c
+			op/op01_live.c \
+			op/op_utils.c
 
 VM_SRC = $(addprefix $(VM_DIR), $(VM_FILES))
 
