@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/20 20:22:06 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:28:37 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ void	get_jump(t_car *car, t_args *args)
 	car->step = val;
 }
 
-void	read_args(int8_t *rawcode, t_args *args)
+void	read_args(uint8_t *rawcode, t_args *args)
 {
-	int	cnt;
-	int	step;
-	int	temp;
-	int	code;
+	int		cnt;
+	int		step;
+	int		temp;
+	uint8_t	*code;
 
 	cnt = 0;
 	step = 0;
