@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 16:07:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 13:45:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ static t_vm	*init_vm(int	n_players)
 	core->check_cd = core->cycles_to_die;
 	core->last_to_live = NULL;
 	return (core);
+}
+
+static void		clear_vm(t_vm *core)
+{
+	delete_champs(core->champ, core->n_players);
+	delete_car_list(core->car_list);
+	free(core->arena);
+	free(core->byte_owner);
+	if (VFX)
+		free(core->vfx);
+	free(core);
 }
 
 int main(int argc, char **argv)
@@ -58,6 +69,7 @@ int main(int argc, char **argv)
 		engine(core);
 		
 	}
-	// while(1);
+	clear_vm(core);
+	while(1);
 	return (0);
 }

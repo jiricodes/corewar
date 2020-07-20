@@ -37844,3 +37844,61 @@ Carriage[2] - operation "st"
 [3072]: Carriage[2] failed to report live
 [3072]: Carriage[1] failed to report live
 [3072]: Carriage[0] failed to report live
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+[5]: Carriage[0] should execute "st"
+Carriage[0] - operation "st"
+[21]: Carriage[0] should execute "add"
+Carriage[0] - operation "add"
+[47]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[75]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[83]: Carriage[0] should execute "ld"
+Carriage[0] - operation "ld"
+[888]: Carriage[0] should execute "fork"
+Carriage[0] - operation "fork"
+[892]: Carriage[0] should execute "aff"
+Carriage[0] - operation "aff"
+[1895]: Carriage[0] should execute "lfork"
+Carriage[0] - operation "lfork"
+[1921]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[1929]: Carriage[0] should execute "ld"
+Carriage[0] - operation "ld"
+[2734]: Carriage[0] should execute "fork"
+Carriage[0] - operation "fork"
+[2738]: Carriage[0] should execute "aff"
+Carriage[0] - operation "aff"
+[3072]: Carriage[0] failed to report live
+Number of players: 1
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+[5]: Carriage[0] should execute "st"
+Carriage[0] - operation "st"
+[21]: Carriage[0] should execute "add"
+Carriage[0] - operation "add"
+[47]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[75]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[83]: Carriage[0] should execute "ld"
+Carriage[0] - operation "ld"
+[888]: Carriage[0] should execute "fork"
+Carriage[0] - operation "fork"
+[892]: Carriage[0] should execute "aff"
+Carriage[0] - operation "aff"
+[1895]: Carriage[0] should execute "lfork"
+Carriage[0] - operation "lfork"
+[1921]: Carriage[0] should execute "ldi"
+Carriage[0] - operation "ldi"
+[1929]: Carriage[0] should execute "ld"
+Carriage[0] - operation "ld"
+[2734]: Carriage[0] should execute "fork"
+Carriage[0] - operation "fork"
+[2738]: Carriage[0] should execute "aff"
+Carriage[0] - operation "aff"
+[3072]: Carriage[0] failed to report live

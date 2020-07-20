@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 16:02:40 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 13:48:05 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ t_champ		*init_champ(char	*filename, int id)
 		ft_error_exit("Malloc header in init_champ", NULL, NULL);
 	champ->id = (uint8_t)id;
 	return (champ);
+}
+
+void		delete_champs(t_champ **champs, int n)
+{
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		free(champs[i]->raw);
+		free(champs[i]->header);
+		free(champs[i]);
+		i++;
+	}
+	free(champs);
 }
 
 void		magic_check(t_champ *champ)

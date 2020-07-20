@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/18 16:07:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 13:40:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void		print_champ_header(t_champ *champ);
 void		print_code(t_champ *champ);
 void		init_arena(t_vm	*core);
 void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
+void		delete_champs(t_champ **champs, int n);
 
 
 /*
