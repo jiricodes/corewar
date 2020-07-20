@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 15:01:36 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:04:31 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	engine(t_vm *core)
 	int		checks;
 
 	checks = 0;
-	if (VFX)
+	if (core->vfx_on)
 		init_vfx_arena(core);
 	while (core->car_list && core->cycles_to_die > 0)
 	{
@@ -110,13 +110,18 @@ void	engine(t_vm *core)
 			}
 			core->check_cd = core->cycles_to_die;
 		}
-		if (VFX)
+		if (core->vfx_on)
 		{
 			draw_arena(core);
 			nanosleep(&(core->vfx->time), NULL);
 		}
+		if (core->cycle == core->dump_cycle)
+		{
+			print_arena(core->arena, core->dump_size);
+			return ;
+		}
 	}
-	if (VFX)
+	if (core->vfx_on)
 	{
 		getch();
 		endwin();

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 13:37:52 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:16:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ void	write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t b
 	position %= MEM_SIZE;
 	core->arena[position] = byte;
 	core->byte_owner[position] = core->byte_owner[origin_pc];
+}
+
+void	print_arena(uint8_t *arena, int	size)
+{
+	int	i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i != 0 && i % size == 0)
+			ft_printf("\n");
+		if (i % size == 0)
+			ft_printf("%#06x :", i);
+		else
+			ft_printf(" %02x", arena[i]);
+		i++;
+	}
+	ft_printf("\n");
 }

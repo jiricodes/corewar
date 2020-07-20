@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+         #
+#    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/20 14:58:51 by asolopov         ###   ########.fr        #
+#    Updated: 2020/07/20 17:04:32 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ VM_FILES =	arena.c \
 			log.c \
 			visual.c \
 			vm.c \
+			vm_args.c \
 			op/op12_fork.c \
 			op/op16_aff.c \
 			op/op14.lldi.c \
