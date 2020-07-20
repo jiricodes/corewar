@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:20:35 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:20:13 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	op_sub(t_vm *core, t_car *car)
 	cnt = 0;
 	while (cnt < 4)
 	{
-		car->args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
+		car->args->arg[cnt] = decode(code, TREG_BYTE);
 		code += TREG_BYTE;
 		cnt += 1;
 	}

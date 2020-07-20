@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 17:20:07 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:20:05 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	op_live(t_vm *core, t_car *car)
 	fill_args("live", car->args);
 	code = core->arena + car->op_index;
 	tdir = car->args->t_dir_size;
-	val = decode((uint8_t *)code + OP_BYTE, tdir);
-	printf("\t%d\n", val);
+	val = decode(code + OP_BYTE, tdir);
 	last_to_live(core, val);
 	get_jump(car, car->args);
 }

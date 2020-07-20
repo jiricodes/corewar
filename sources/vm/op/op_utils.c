@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/20 17:22:45 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:14:32 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	fill_args(char *opname, t_args *args)
 			args->arg_types[2] = g_oplist[cnt].arg_type[2];
 		}
 		cnt += 1;
+	}
+}
+
+void	write_bytes(uint8_t *start, int size, int val)
+{
+	int	x;
+
+	x = 0;
+	while (size)
+	{
+		start[size - 1] = (uint8_t)(val >> x) & 0xFF;
+		x += 8;
+		size -= 1;
 	}
 }
 
@@ -91,4 +104,37 @@ void	get_jump(t_car *car, t_args *args)
 		cnt += 1;
 	}
 	car->step = val;
+}
+
+void	read_args(int8_t *rawcode, t_args *args)
+{
+	int	cnt;
+	int	step;
+	int	temp;
+	int	code;
+
+	cnt = 0;
+	step = 0;
+	code = rawcode;
+	while (cnt < 4)
+	{
+		if (args->arg_types[cnt] == T_REG)
+		{
+			args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
+			step = TREG_BYTE;
+		}
+		else if (args->arg_types[cnt] == T_DIR)
+		{
+			args->arg[cnt] = decode((uint8_t *)code, args->t_dir_size);
+			step = args->t_dir_size;
+		}
+		else if (args->arg_types[cnt] == T_IND)
+		{
+			temp = decode((uint8_t *)code, TIND_BYTE);
+			args->arg[cnt] = decode((uint8_t *)(rawcode + temp), REGSIZE) % IDX_MOD;
+			step = TIND_BYTE;
+		}
+		cnt += 1;
+		code += step;
+	}
 }
