@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 15:09:12 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:58:40 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ void	op_sub(t_vm *core, t_car *car)
 	car->carry = (car->reg[args->arg[1]]) ? 0 : 1;
 	get_jump(car, args);
 	free(args);
-	printf("\tcarry %d\n", car->carry);
 }

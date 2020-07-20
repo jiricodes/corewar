@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/20 15:08:32 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:59:21 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ void	get_jump(t_car *car, t_args *args)
 	cnt = 0;
 	val = OP_BYTE;
 	if (args->arg_code)
-	{
 		val += ARGTYPE_BYTE;
-		printf("woop");
-	}
 	while (cnt < 4)
 	{
 		if (args->arg_types[cnt] == T_REG)
@@ -98,5 +95,4 @@ void	get_jump(t_car *car, t_args *args)
 		cnt += 1;
 	}
 	car->step = val;
-	printf("\t%d\n", car->step);
 }
