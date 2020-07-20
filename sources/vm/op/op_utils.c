@@ -6,7 +6,11 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/07/20 17:14:16 by jnovotny         ###   ########.fr       */
+=======
+/*   Updated: 2020/07/20 16:59:21 by asolopov         ###   ########.fr       */
+>>>>>>> c3439fc17e1758243bc6d36799f90551e314f3ef
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +87,7 @@ void	get_jump(t_car *car, t_args *args)
 	cnt = 0;
 	val = OP_BYTE;
 	if (args->arg_code)
-	{
 		val += ARGTYPE_BYTE;
-		printf("woop");
-	}
 	while (cnt < 4)
 	{
 		if (args->arg_types[cnt] == T_REG)
