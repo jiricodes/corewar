@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 15:30:03 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:24:32 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,21 @@ void	read_args(int8_t *rawcode, t_args *args)
 
 void	op_and(t_vm *core, t_car *car)
 {
-
-	t_args	*args;
 	int8_t	*code;
 
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
-	args = init_args("and");
+	fill_args("and", car->args);
 	code = core->arena + car->op_index;
-	if (!read_arg_type(args, (code + OP_BYTE)[0]))
+	if (!read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		get_jump(car, args);
+		get_jump(car, car->args);
 		return ;
 	}
 	code = code + OP_BYTE + ARGTYPE_BYTE;
-	read_args(code, args);
-	car->reg[args->arg[2]] = args->arg[0] & args->arg[1];
-	car->carry = (car->reg[args->arg[2]]) ? 0 : 1;
-	get_jump(car, args);
-	free(args);
+	read_args(code, car->args);
+	car->reg[car->args->arg[2]] = car->args->arg[0] & car->args->arg[1];
+	car->carry = (car->reg[car->args->arg[2]]) ? 0 : 1;
+	get_jump(car, car->args);
+	free(car->args);
 }
