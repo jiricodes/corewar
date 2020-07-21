@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/21 14:40:37 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:13:08 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_types(int *types, const int *reference)
 	int cnt;
 
 	cnt = 0;
-	while (cnt < 4)
+	while (cnt < 3)
 	{
 		if ((types[cnt] | reference[cnt]) != reference[cnt])
 			return (0);
@@ -69,7 +69,7 @@ int	read_arg_type(t_args *args, int8_t byte)
 	temp[0] = (byte & 0b11000000) >> 6;
 	temp[1] = (byte & 0b00110000) >> 4;
 	temp[2] = (byte & 0b00001100) >> 2;
-	while (cnt < 4)
+	while (cnt < 3)
 	{
 		if (temp[cnt] == T_REG_CODE)
 			args->arg_types[cnt] = T_REG;
@@ -94,7 +94,7 @@ void	get_jump(t_car *car, t_args *args)
 	val = OP_BYTE;
 	if (args->arg_code)
 		val += ARGTYPE_BYTE;
-	while (cnt < args->arg_cnt)
+	while (cnt < 3)
 	{
 		if (args->arg_types[cnt] == T_REG)
 			val += TREG_BYTE;
@@ -117,7 +117,7 @@ void	read_args(uint8_t *rawcode, t_args *args)
 	cnt = 0;
 	step = 0;
 	code = rawcode;
-	while (cnt < 4)
+	while (cnt < 3)
 	{
 		if (args->arg_types[cnt] == T_REG)
 		{

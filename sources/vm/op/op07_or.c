@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:09:51 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:48:07 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	op_or(t_vm *core, t_car *car)
 	car->reg[car->args->arg[2]] = car->args->arg[0] | car->args->arg[1];
 	car->carry = (car->reg[car->args->arg[2]]) ? 0 : 1;
 	get_jump(car, car->args);
+	printf("or\n");
 }

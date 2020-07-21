@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:59:46 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:48:28 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,6 @@ void		op_ldi(t_vm *core, t_car *car)
 		process_tind(car, car->args, code, start);
 	else if (car->args->arg_types[0] == T_REG)
 		process_treg(car, car->args, code, start);
+	get_jump(car, car->args);
+	printf("ldi\n");
 }

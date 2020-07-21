@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:09:44 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:47:56 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	op_sub(t_vm *core, t_car *car)
 	car->reg[car->args->arg[2]] = car->reg[car->args->arg[0]] - car->reg[car->args->arg[1]];
 	car->carry = (car->reg[car->args->arg[1]]) ? 0 : 1;
 	get_jump(car, car->args);
+	printf("sub\n");
 }

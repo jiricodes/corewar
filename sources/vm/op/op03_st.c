@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:09:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:47:46 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void		op_st(t_vm *core, t_car *car)
 	else if (car->args->arg_types[1] == T_IND)
 		process_tind(car, code + TREG_BYTE, start, car->args->arg[0]);
 	get_jump(car, car->args);
+	printf("st\n");
 }
