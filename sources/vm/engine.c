@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 18:06:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:38:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,47 +84,69 @@ void	engine(t_vm *core)
 {
 	t_car	*current;
 	int		checks;
+	size_t	loop;
 
+	loop = 0;
 	checks = 0;
 	if (core->vfx_on)
+	{
 		init_vfx_arena(core);
+		mvprintw(0,0, "Cycle: %zu", core->cycle);
+		draw_arena(core);
+	}
 	while (core->car_list && core->cycles_to_die > 0)
 	{
 		// printf("Cycle %zu\n", core->cycle);
-		current = core->car_list;
-		while (current)
-		{
-			// log_carriage(current);
-			process_car(core, current);
-			current = current->next;
-			// show_arena(core);
-		}
-		core->cycle++;
-		core->check_cd--;
-		if (core->check_cd == 0)
-		{
-			check_live_calls(core);
-			if (core->live_cnt >= 21 || checks == MAX_CHECKS)
-			{
-				core->cycles_to_die -= CYCLE_DELTA;
-				checks = 0;
-			}
-			core->check_cd = core->cycles_to_die;
-		}
+		if (core->vfx_on && (core->vfx->key = getch()) != ERR)
+			vfx_key(core->vfx);
 		if (core->vfx_on)
+			mvprintw(0,35, "Frequency %zu", core->vfx->freq);
+		if (!core->vfx_on || (core->vfx->play && loop % core->vfx->freq == 0))
 		{
-			draw_arena(core);
-			nanosleep(&(core->vfx->time), NULL);
+			loop = 0;
+			current = core->car_list;
+			while (current)
+			{
+				// log_carriage(current);
+				process_car(core, current);
+				current = current->next;
+				// show_arena(core);
+			}
+			core->cycle++;
+			core->check_cd--;
+			if (core->check_cd == 0)
+			{
+				check_live_calls(core);
+				if (core->live_cnt >= 21 || checks == MAX_CHECKS)
+				{
+					core->cycles_to_die -= CYCLE_DELTA;
+					checks = 0;
+				}
+				core->check_cd = core->cycles_to_die;
+			}
+			if (core->vfx_on)
+			{
+				mvprintw(0,0, "Cycle: %zu", core->cycle);
+				draw_arena(core);
+				// nanosleep(&(core->vfx->time), NULL);
+			}
+			if (core->cycle == core->dump_cycle)
+			{
+				print_arena(core->arena, core->dump_size);
+				return ;
+			}
 		}
-		if (core->cycle == core->dump_cycle)
-		{
-			print_arena(core->arena, core->dump_size);
-			return ;
-		}
+		loop++;
 	}
 	if (core->vfx_on)
 	{
-		getch();
+		wattron(stdscr, A_STANDOUT);
+		wattron(stdscr, COLOR_PAIR(3));
+		if (core->last_to_live)
+			mvprintw(0, 55, "Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
+		else
+			mvprintw(0, 55, "Everyone is dead, total clusterfuck\n");
+		while (getch() != 27);
 		endwin();
 	}
 	if (core->last_to_live)

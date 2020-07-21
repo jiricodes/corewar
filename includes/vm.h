@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:40:10 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:01:55 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define VFX 0
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
+# define VFX_SPEED_DELTA 500
+# define VFX_INIT_SPEED 5000
 
 typedef struct s_champ
 {
@@ -54,6 +56,8 @@ typedef struct	s_visual_settings
 	int			height;
 	WINDOW		*win;
 	int			play;
+	int			key;
+	size_t		freq;
 	struct timespec time;
 }				t_vs;
 
@@ -134,6 +138,7 @@ t_vs		*init_visual_settings(char *title);
 void		init_vfx_arena(t_vm *core);
 void		draw_arena(t_vm *core);
 void		vfx_colors();
+void		vfx_key(t_vs *vfx);
 
 /*
 ** VM utilities

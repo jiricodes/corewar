@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/16 18:39:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/21 13:43:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,12 @@ void		vm_log(char *message, ...)
 
 void		log_carriage(t_car *node)
 {
-	vm_log("Carriage [%zu]\nPC\t%zd\nOP\t%d\nCD\t%zu\n\n", node->id, node->pc, node->op_index, node->cooldown);
+	int i;
+
+	i = 0;
+	vm_log("Carriage [%zu]\nPC\t%zd\nOP\t%d\nCD\t%zu\n", node->id, node->pc, node->op_index, node->cooldown);
+	vm_log("REG: ");
+	while (i++ < REG_NUMBER)
+		vm_log(" %d |", node->reg[i - 1]);
+	vm_log("\n\n");
 }
