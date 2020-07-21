@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/20 20:28:37 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:40:37 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	fill_args(char *opname, t_args *args)
 		if (opname == g_oplist[cnt].opname)
 		{
 			args->opcount = cnt;
+			args->arg_cnt = g_oplist[cnt].arg_cnt;
 			args->arg_code = g_oplist[cnt].arg_type_code;
 			args->t_dir_size = g_oplist[cnt].t_dir_size;
 			args->arg_types[0] = g_oplist[cnt].arg_type[0];
@@ -93,7 +94,7 @@ void	get_jump(t_car *car, t_args *args)
 	val = OP_BYTE;
 	if (args->arg_code)
 		val += ARGTYPE_BYTE;
-	while (cnt < 4)
+	while (cnt < args->arg_cnt)
 	{
 		if (args->arg_types[cnt] == T_REG)
 			val += TREG_BYTE;
