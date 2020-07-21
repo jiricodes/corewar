@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 20:24:34 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 13:36:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	op_live(t_vm *core, t_car *car)
 	code = core->arena + car->op_index;
 	tdir = car->args->t_dir_size;
 	val = decode(code + OP_BYTE, tdir);
+	if (LOG)
+		vm_log("Performed live with argument: %d\n", val);
 	last_to_live(core, (uint8_t)val);
 	get_jump(car, car->args);
 }

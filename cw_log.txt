@@ -70091,3 +70091,49 @@ Arena initialized
 Champ [1] initialized and loaded
 Champ [1] inserted to arena
 Carriage[0] - operation "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+[25]: Carriage[0] should execute "sti"
+Carriage[0] - operation "sti"
+[37]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[44]: Carriage[0] should execute "and"
+Carriage[0] - operation "and"
+[59]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[70]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[3072]: Carriage[0] failed to report live
+Arena initialized
+Champ [1] initialized and loaded
+Champ [1] inserted to arena
+Carriage [0]
+PC	0
+OP	-1
+CD	0
+REG:  -1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+[25]: Carriage[0] should execute "sti"
+Carriage[0] - operation "sti"
+[37]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[44]: Carriage[0] should execute "and"
+Carriage[0] - operation "and"
+[59]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[70]: Carriage[0] should execute "live"
+Carriage[0] - operation "live"
+Performed live with argument: 1744896015
+[3072]: Carriage[0] failed to report live

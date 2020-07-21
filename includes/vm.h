@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 20:23:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:25:48 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define VFX 0
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
+# define VFX_SPEED_DELTA 500
+# define VFX_INIT_SPEED 5000
 
 typedef struct s_champ
 {
@@ -54,6 +56,8 @@ typedef struct	s_visual_settings
 	int			height;
 	WINDOW		*win;
 	int			play;
+	int			key;
+	size_t		freq;
 	struct timespec time;
 }				t_vs;
 
@@ -133,6 +137,7 @@ t_vs		*init_visual_settings(char *title);
 void		init_vfx_arena(t_vm *core);
 void		draw_arena(t_vm *core);
 void		vfx_colors();
+void		vfx_key(t_vs *vfx);
 
 /*
 ** VM utilities
@@ -152,6 +157,6 @@ int			check_types(int *types, const int *reference);
 int			read_arg_type(t_args *args, int8_t byte);
 void		get_jump(t_car *car, t_args *args);
 void		write_bytes(uint8_t *start, int size, int val);
-void		read_args(int8_t *rawcode, t_args *args);
+void		read_args(uint8_t *rawcode, t_args *args);
 
 #endif
