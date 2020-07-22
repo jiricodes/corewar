@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/21 21:13:08 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:37:09 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,13 @@ void	get_jump(t_car *car, t_args *args)
 	car->step = val;
 }
 
-void	read_args(uint8_t *rawcode, t_args *args)
+void		read_args(uint8_t *code, t_args *args)
 {
 	int		cnt;
 	int		step;
-	int		temp;
-	uint8_t	*code;
 
 	cnt = 0;
 	step = 0;
-	code = rawcode;
 	while (cnt < 3)
 	{
 		if (args->arg_types[cnt] == T_REG)
@@ -131,11 +128,18 @@ void	read_args(uint8_t *rawcode, t_args *args)
 		}
 		else if (args->arg_types[cnt] == T_IND)
 		{
-			temp = decode((uint8_t *)code, TIND_BYTE);
-			args->arg[cnt] = decode((uint8_t *)(rawcode + temp), REGSIZE) % IDX_MOD;
+			args->arg[cnt] = decode((uint8_t *)code, TIND_BYTE);
 			step = TIND_BYTE;
 		}
 		cnt += 1;
 		code += step;
 	}
+}
+
+int			get_tind(int argval, uint8_t *code)
+{
+	int ret;
+	
+	ret = decode(code + argval % IDX_MOD, REGSIZE);
+	return (ret);
 }

@@ -6,53 +6,45 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:47:46 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:15:43 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	process_tind(t_car *car, uint8_t *code, uint8_t *start, int arg1)
+static void	do_st(t_args *args, uint8_t *code, t_car *car)
 {
-	int		arg2;
-	uint8_t	*address;
+	int	val[2];
+	int	temp;
 
-	arg2 = decode(code, TIND_BYTE);
-	arg2 = arg2 % IDX_MOD;
-	address = start + arg2 % IDX_MOD;
-	write_bytes(address, 4, arg1);
-
+	val[0] = car->reg[args->arg[0]] - 1;
+	if (args->arg_types[1] == T_IND)
+	{
+		val[1] = args->arg_types[1] % IDX_MOD;
+		write_bytes(code + val[1] % IDX_MOD, REGSIZE, val[0]);
+	}
+	else if (args->arg_types[1] == T_REG)
+	{
+		val[1] = args->arg_types[1] - 1;
+		car->reg[val[1]] = val[0];
+	}
 }
 
-static void	process_treg(t_car *car, uint8_t *code, int source)
-{
-	int	target;
-
-	target = decode(code, TREG_BYTE);
-	car->reg[target] = car->reg[source];
-}
 
 void		op_st(t_vm *core, t_car *car)
 {
 	uint8_t *code;
-	uint8_t	*start;
 	
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("st", car->args);
 	code = core->arena + car->pc;
-	start = code;
-	if (!read_arg_type(car->args, (code + OP_BYTE)[0]))
+	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		get_jump(car, car->args);
-		return ;
+		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
+		do_st(car->args, code, car);
 	}
-	code = code + OP_BYTE + ARGTYPE_BYTE;
-	car->args->arg[0] = decode(code, TREG_BYTE);
-	if (car->args->arg_types[1] == T_REG)
-		process_treg(car, code + TREG_BYTE, car->args->arg[0]);
-	else if (car->args->arg_types[1] == T_IND)
-		process_tind(car, code + TREG_BYTE, start, car->args->arg[0]);
 	get_jump(car, car->args);
 	printf("st\n");
+
 }

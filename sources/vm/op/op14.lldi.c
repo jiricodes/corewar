@@ -6,84 +6,44 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:48:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/22 13:07:11 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	process_treg(t_car *car, t_args *args, uint8_t *code, uint8_t *start)
+static void	do_lldi(t_args *args, uint8_t *code, t_car *car)
 {
-	args->arg[0] = decode(code, TREG_BYTE);
-	if (args->arg_types[1] == T_REG)
-	{
-		args->arg[1] = decode(code + TREG_BYTE, TREG_BYTE);
-		args->arg[2] = decode(code + TREG_BYTE + TREG_BYTE, TREG_BYTE);
-	}
-	else if (args->arg_types[1] == T_DIR)
-	{
-		args->arg[1] = decode(code + TREG_BYTE, args->t_dir_size);
-		args->arg[2] = decode(code + TREG_BYTE + args->t_dir_size, TREG_BYTE);
-	}
-	car->reg[args->arg[2]] = decode(start + (args->arg[0] + args->arg[1]) % IDX_MOD, REGSIZE);
+	int	val[3];
 
-}
-
-static void	process_tdir(t_car *car, t_args *args, uint8_t *code, uint8_t *start)
-{
-	args->arg[0] = decode(code, args->t_dir_size);
+	if (args->arg_types[0] == T_IND)
+		val[0] = get_tind(args->arg[0], code);
+	else if (args->arg_types[0] == T_DIR)
+		val[0] = args->arg[0];
+	else if (args->arg_types[0] == T_REG)
+		val[0] = car->reg[args->arg[0] - 1];
 	if (args->arg_types[1] == T_REG)
-	{
-		args->arg[1] = decode(code + args->t_dir_size, TREG_BYTE);
-		args->arg[2] = decode(code + args->t_dir_size + TREG_BYTE, TREG_BYTE);
-	}
+		val[1] = car->reg[args->arg[1] - 1];
 	else if (args->arg_types[1] == T_DIR)
-	{
-		args->arg[1] = decode(code + args->t_dir_size, args->t_dir_size);
-		args->arg[2] = decode(code + args->t_dir_size + args->t_dir_size, TREG_BYTE);
-	}
-	car->reg[args->arg[2]] = decode(start + args->arg[0] + args->arg[1], REGSIZE);
-}
-
-static void	process_tind(t_car *car, t_args *args, uint8_t *code, uint8_t *start)
-{
-	args->arg[0] = decode(code, TIND_BYTE);
-	args->arg[0] = decode(code + args->arg[0] % IDX_MOD, REGSIZE);
-	if (args->arg_types[1] == T_REG)
-	{
-		args->arg[1] = decode(code + TIND_BYTE, TREG_BYTE);
-		args->arg[2] = decode(code + TIND_BYTE + TREG_BYTE, TREG_BYTE);
-	}
-	else if (args->arg_types[1] == T_DIR)
-	{
-		args->arg[1] = decode(code + TIND_BYTE, args->t_dir_size);
-		args->arg[2] = decode(code + TIND_BYTE + args->t_dir_size, TREG_BYTE);
-	}
-	car->reg[args->arg[2]] = decode(start + args->arg[0] + args->arg[1], REGSIZE);
+		val[1] = args->arg[1];
+	val[2] = args->arg[2] - 1;
+	car->reg[val[2]] = decode(code + val[0] + val[1], REGSIZE);
+	car->carry = (car->reg[val[2]]) ? 0 : 1;
 }
 
 void		op_lldi(t_vm *core, t_car *car)
 {
 	uint8_t	*code;
-	uint8_t	*start;
 	
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("lldi", car->args);
 	code = core->arena + car->pc;
-	start = code;
-	if (!read_arg_type(car->args, (code + OP_BYTE)[0]))
+	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		get_jump(car, car->args);
-		return ;
+		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
+		do_lldi(car->args, code, car);
 	}
-	code = code + OP_BYTE + ARGTYPE_BYTE;
-	if (car->args->arg_types[0] == T_DIR)
-		process_tdir(car, car->args, code, start);
-	else if (car->args->arg_types[0] == T_IND)
-		process_tind(car, car->args, code, start);
-	else if (car->args->arg_types[0] == T_REG)
-		process_treg(car, car->args, code, start);
 	get_jump(car, car->args);
 	printf("lldi\n");
 }
