@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 19:08:44 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:21:07 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	copy_carriage(t_vm *core, t_car *car, int addr)
 	prepend_carriage(new, core->car_list);
 }
 
-void		op_fork(t_vm *core, t_car *car)
+void		op_lfork(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 	int		val;
