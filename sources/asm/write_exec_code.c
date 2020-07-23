@@ -12,7 +12,9 @@
 
 #include "asm.h"
 
-// Write T_REG argument to .cor
+/*
+** Write T_REG argument to .cor
+*/
 
 static void	write_t_reg(char *arg, int fd)
 {
@@ -22,7 +24,9 @@ static void	write_t_reg(char *arg, int fd)
 	write(fd, &val, 1);
 }
 
-// Write T_DIR argument to .cor
+/*
+** Write T_DIR argument to .cor
+*/
 
 static void	write_t_dir(char *arg, int dir_size, int label_pos, int fd)
 {
@@ -39,7 +43,9 @@ static void	write_t_dir(char *arg, int dir_size, int label_pos, int fd)
 	write(fd, &val, dir_size);
 }
 
-// Write T_IND argument to .cor
+/*
+** Write T_IND argument to .cor
+*/
 
 static void	write_t_ind(char *arg, int label_pos, int fd)
 {
@@ -53,7 +59,9 @@ static void	write_t_ind(char *arg, int label_pos, int fd)
 	write(fd, &val, 2);
 }
 
-// Cycle through arguments and write them to .cor
+/*
+** Cycle through arguments and write them to .cor
+*/
 
 static void	write_args_to_bytecode(t_operation *op, int fd)
 {
@@ -72,11 +80,12 @@ static void	write_args_to_bytecode(t_operation *op, int fd)
 	}
 }
 
-// Write champs exec code to .cor
+/*
+** Write champs exec code to .cor
+*/
 
-void	write_exec_code(t_asm *core, t_operation *op)
+void		write_exec_code(t_asm *core, t_operation *op)
 {
-
 	t_operation	*cpy;
 	int			arg_code;
 	int			fd;

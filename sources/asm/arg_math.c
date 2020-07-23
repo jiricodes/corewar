@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_math.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 15:20:12 by jmakela           #+#    #+#             */
+/*   Updated: 2020/07/23 15:20:17 by jmakela          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 /*
 ** Counts the size of one link.
 */
-int count_bytes(t_operation *temp, int cnt)
+
+int	count_bytes(t_operation *temp, int cnt)
 {
 	int bytes;
 	int i;
@@ -24,13 +37,15 @@ int count_bytes(t_operation *temp, int cnt)
 		bytes = bytes + 1;
 	return (bytes);
 }
+
 /*
 ** Finds out t_dir_sizes from g_oplist and counts positions and total size.
 */
-int get_size_type(t_operation **list, t_asm *core)
+
+int	get_size_type(t_operation **list, t_asm *core)
 {
-	int cnt;
-	t_operation *temp;
+	int			cnt;
+	t_operation	*temp;
 
 	temp = *list;
 	while (temp)
@@ -48,7 +63,7 @@ int get_size_type(t_operation **list, t_asm *core)
 				cnt += 1;
 			}
 			temp->op_size = count_bytes(temp, cnt);
-		}	
+		}
 		temp->position = core->byte_size;
 		core->byte_size = core->byte_size + temp->op_size;
 		temp = temp->next;
@@ -59,11 +74,12 @@ int get_size_type(t_operation **list, t_asm *core)
 /*
 ** Finds label ending position in argument and checks the byte position.
 */
-int get_next_label(char *label, t_operation **head, t_operation *cur, int pos)
+
+int	get_next_label(char *label, t_operation **head, t_operation *cur, int pos)
 {
-	int i;
-	int total;
-	char *temp;
+	int		i;
+	int		total;
+	char	*temp;
 
 	total = 0;
 	i = pos;
@@ -75,11 +91,11 @@ int get_next_label(char *label, t_operation **head, t_operation *cur, int pos)
 	return (total);
 }
 
-int get_next_number(char *label, int i)
+int	get_next_number(char *label, int i)
 {
-	int num;
-	char c;
-	char hexmask[] = "0123456789abcdefABCDEF";
+	int			num;
+	char		c;
+	static char	hexmask[] = "0123456789abcdefABCDEF";
 
 	if (label[0] == '0' && (label[1] == 'x' || label[1] == 'X'))
 	{
@@ -103,19 +119,17 @@ int get_next_number(char *label, int i)
 	return (num);
 }
 
-//bane of my existence and a massive piece of garbo
-//arg_math determines what kind of arguments need to be added/substracted
-//and does the math on them.
-//basically we first check if we are dealing with direct or indirect
-//then checks the first argument and loops until it finds no more arguments
-//based on label chars we either find out label positions or digits/hexes
-//hexes get converted to decimals and everything is counted together
-int arg_math(t_operation **head, t_operation *cur, char *label, int cnt)
+/*
+** Determines the types of arguments that need math.
+** Check if direct or indirect, keep looping args.
+*/
+
+int	arg_math(t_operation **head, t_operation *cur, char *label, int cnt)
 {
-	int i;
-	int sign;
-	long long int total;
-	char *temp;
+	int				i;
+	int				sign;
+	long long int	total;
+	char			*temp;
 
 	i = 0;
 	sign = 1;
@@ -126,7 +140,8 @@ int arg_math(t_operation **head, t_operation *cur, char *label, int cnt)
 	while (label[i])
 	{
 		(label[i] == '-') ? (sign = -1) : 0;
-		(label[i + 1] == LABEL_CHAR) ? (total += (sign * get_next_label(label, head, cur, i + 2))) :
+		(label[i + 1] == LABEL_CHAR) ? (total +=
+		(sign * get_next_label(label, head, cur, i + 2))) :
 		(total += (sign * get_next_number(label + i + 1, 0)));
 		sign = 1;
 		i += 1;

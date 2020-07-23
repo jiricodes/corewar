@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-#include <stdio.h>
 
 void	write_champion(t_asm *core, t_operation *op)
 {

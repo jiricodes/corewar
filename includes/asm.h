@@ -87,6 +87,11 @@ int		get_size_type(t_operation **list, t_asm *core);
 int		find_position(t_operation **list, t_operation *temp, char *arg);
 void	special_arg_finder(t_operation **head);
 int		arg_math(t_operation **head, t_operation *cur, char *label, int cnt);
+void	get_label_op(t_asm *core, t_operation **list, char *line);
+char	*strjoin_first(char *s1, char *s2);
+char	*remove_trailing_spaces(char *src);
+int		check_lastline(int source_fd);
+int		special_arg_check(char *label, t_operation **head);
 
 /*
 ** ASM Error checking
@@ -94,6 +99,8 @@ int		arg_math(t_operation **head, t_operation *cur, char *label, int cnt);
 void	check_operation( t_operation *operation, t_asm *core);
 void	match_labels(t_operation **head, int cnt, int pos, int test);
 int		check_label(char *label, t_operation **head);
+int		check_argument(char *argum, t_asm *core);
+
 
 /*
 ** ASM List functions

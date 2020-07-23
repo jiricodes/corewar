@@ -36,7 +36,12 @@ ASM_FILES =	asm.c \
 			write_helper.c \
 			write_exec_code.c \
 			arg_math.c \
-			special_args.c
+			special_args.c \
+			analysis_utils.c \
+			argument_checks.c \
+			encoding_utils.c \
+			special_arg_utils.c \
+			utils.c
 
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 

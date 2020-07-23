@@ -12,8 +12,7 @@
 
 #include "asm.h"
 
-//Maybe we'll move the t_operation pointer inside t_asm pointer at some point?
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_asm		*core;
 	t_operation	*list;
@@ -25,9 +24,8 @@ int main(int argc, char **argv)
 		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
 		print_asmcore(core);
-		//print_list(list, core);
 		write_champion(core, list);
-		// clear_t_asm((void *)core);
+		clear_t_asm((void *)core);
 	}
 	else
 		ft_printf("./asm <filename.s>");
