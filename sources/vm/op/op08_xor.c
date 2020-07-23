@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/22 12:44:53 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:16:00 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	do_xor(t_args *args, uint8_t *code, t_car *car)
 	{
 		if (args->arg_types[cnt] == T_REG)
 			val[cnt] = car->reg[args->arg[cnt] - 1];
-		else if (args->arg_types[0] == T_IND)
+		else if (args->arg_types[cnt] == T_IND)
 			val[cnt] = get_tind(args->arg[cnt], code);
-		else if (args->arg_types[0] == T_DIR)
-			val[cnt] = args->arg[0];
+		else if (args->arg_types[cnt] == T_DIR)
+			val[cnt] = args->arg[cnt];
 		cnt += 1;
 	}
-	val[2] = args->arg[2] - 1;
-	car->reg[val[2]] = val[0] ^ val[1];
-	car->carry = car->reg[val[2]] ? 0 : 1;
+	val[2] = args->arg[2];
+	car->reg[val[2] - 1] = val[0] ^ val[1];
+	car->carry = car->reg[val[2] - 1] ? 0 : 1;
 }
 
 void	op_xor(t_vm *core, t_car *car)

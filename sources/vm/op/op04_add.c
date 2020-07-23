@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/22 12:21:33 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:03:30 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	do_add(t_args *args, uint8_t *code, t_car *car)
 void	op_add(t_vm *core, t_car *car)
 {
 	uint8_t	*code;
-	
+
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("add", car->args);

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/22 12:37:09 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:26:04 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void		read_args(uint8_t *code, t_args *args)
 		if (args->arg_types[cnt] == T_REG)
 		{
 			args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
+			// if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
+			// 	ft_error_exit("too big reg!\n", 0, 0);
 			step = TREG_BYTE;
 		}
 		else if (args->arg_types[cnt] == T_DIR)
@@ -139,7 +141,7 @@ void		read_args(uint8_t *code, t_args *args)
 int			get_tind(int argval, uint8_t *code)
 {
 	int ret;
-	
+
 	ret = decode(code + argval % IDX_MOD, REGSIZE);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:48:17 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:33:45 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	op_zjmp(t_vm *core, t_car *car)
 	code = core->arena + car->pc;
 	val = decode(code + OP_BYTE, car->args->t_dir_size);
 	if (car->carry)
-		car->pc = car->pc + val % IDX_MOD;
+		car->step = val % IDX_MOD;
 	printf("zjmp\n");
 }
