@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 13:58:46 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:36:25 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 ** 2 - in file and on stdout
 */
 
-# define LOG 0
+# define LOG 2
 # define LOG_FILE "cw_log.txt"
 
 /*

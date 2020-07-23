@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:32:10 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:35:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,15 @@ void	engine(t_vm *core)
 			if (core->check_cd <= 0)
 			{
 				check_live_calls(core);
+				checks++;
 				if (core->live_cnt >= 21 || checks == MAX_CHECKS)
 				{
-					core->cycles_to_die -= CYCLE_DELTA;
+					if (core->cycles_to_die >= CYCLE_DELTA)
+						core->cycles_to_die -= CYCLE_DELTA;
+					else
+						core->cycles_to_die = 0;
 					checks = 0;
+					core->live_cnt = 0;
 				}
 				core->check_cd = core->cycles_to_die;
 			}
@@ -151,6 +156,7 @@ void	engine(t_vm *core)
 				return ;
 			}
 		}
+		ft_printf("Cycle to die: %zu\n", core->cycles_to_die);
 		loop++;
 	}
 	if (core->vfx_on)
