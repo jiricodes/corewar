@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:47:33 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 13:04:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void	op_live(t_vm *core, t_car *car)
 		vm_log("Performed live with argument: %d\n", val);
 	last_to_live(core, (uint8_t)val);
 	get_jump(car, car->args);
+	core->live_cnt++;
+	car->last_live = core->cycle;
 	printf("live\n");
 }
