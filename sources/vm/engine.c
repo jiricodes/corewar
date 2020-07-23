@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 12:37:38 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:32:10 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	engine(t_vm *core)
 			{
 				// log_carriage(current);
 				process_car(core, current);
-				// print_reg(current);
+				print_reg(current);
 				current = current->next;
 				// show_arena(core);
 			}
