@@ -6,18 +6,18 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:06:55 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:04:36 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	do_lldi(t_args *args, uint8_t *code, t_car *car)
+static void	do_lldi(uint8_t *arena, t_args *args, t_car *car)
 {
 	int	val[3];
 
 	if (args->arg_types[0] == T_IND)
-		val[0] = get_tind(args->arg[0], code);
+		val[0] = read_arena(arena, car->pc, args->arg[0] % IDX_MOD, REG_SIZE);
 	else if (args->arg_types[0] == T_DIR)
 		val[0] = args->arg[0];
 	else if (args->arg_types[0] == T_REG)
@@ -26,24 +26,23 @@ static void	do_lldi(t_args *args, uint8_t *code, t_car *car)
 		val[1] = car->reg[args->arg[1] - 1];
 	else if (args->arg_types[1] == T_DIR)
 		val[1] = args->arg[1];
-	val[2] = args->arg[2] - 1;
-	car->reg[val[2]] = decode(code + val[0] + val[1], REGSIZE);
-	car->carry = (car->reg[val[2]]) ? 0 : 1;
+	val[2] = args->arg[2];
+	car->reg[val[2] - 1] = read_arena(arena, car->pc, val[0] + val[1], REG_SIZE);
 }
 
 void		op_lldi(t_vm *core, t_car *car)
 {
-	uint8_t	*code;
-	
+	ssize_t	start;
+
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("lldi", car->args);
-	code = core->arena + car->pc;
-	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
+	start = car->pc + OP_SIZE;
+	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))
 	{
-		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
-		do_lldi(car->args, code, car);
+		start += ARG_SIZE;
+		if (read_args(core->arena, car->args, start % MEM_SIZE))
+			do_lldi(core->arena, car->args, car);
 	}
 	get_step(car, car->args);
-	printf("lldi\n");
 }

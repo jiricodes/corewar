@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:06:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:12:00 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	op_aff(t_vm *core, t_car *car)
 {
-	uint8_t	*code;
+	ssize_t	index;
 	int		val;
-	
+
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("aff", car->args);
-	code = core->arena + car->pc;
-	car->args->arg[0] = decode(code + OP_BYTE, TREG_BYTE);
-	val = (char)(car->reg[car->args->arg[0]]);
-	// if flag a
-	ft_putchar(val);
+	index = car->pc + OP_SIZE;
+	if (read_args(core->arena, car->args, index % MEM_SIZE))
+	{
+		val = (char)(car->reg[car->args->arg[0] - 1]);
+		// if flag a
+		ft_putchar(val);
+	}
 	get_step(car, car->args);
-	printf("aff\n");
 }

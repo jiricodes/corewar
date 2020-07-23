@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/23 14:31:52 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:00:07 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	fill_args(char *opname, t_args *args)
 
 void	write_bytes(size_t index, int val, t_car *car, t_vm *core)
 {
-	int size = 4;
-	int	x;
+	int		x;
+	int		size;
 	uint8_t	byte;
 
 	x = 0;
-	
+	size = 4;
 	while (size)
 	{
 		byte = (uint8_t)(val >> x) & 0xFF;
@@ -65,22 +65,24 @@ int	check_types(int *types, const int *reference)
 	return (1);
 }
 
-int	read_arg_type(t_args *args, int8_t byte)
+int	read_arg_type(uint8_t *arena, t_args *args, ssize_t index)
 {
+	int byte;
 	int cnt;
 	int	temp[3];
 
+	byte = arena[index];
 	cnt = 0;
 	temp[0] = (byte & 0b11000000) >> 6;
 	temp[1] = (byte & 0b00110000) >> 4;
 	temp[2] = (byte & 0b00001100) >> 2;
 	while (cnt < 3)
 	{
-		if (temp[cnt] == T_REG_CODE)
+		if (temp[cnt] == TREG_CODE)
 			args->arg_types[cnt] = T_REG;
-		if (temp[cnt] == T_IND_CODE)
+		if (temp[cnt] == TIND_CODE)
 			args->arg_types[cnt] = T_IND;
-		if (temp[cnt] == T_DIR_CODE)
+		if (temp[cnt] == TDIR_CODE)
 			args->arg_types[cnt] = T_DIR;
 		cnt += 1;
 	}
@@ -96,15 +98,15 @@ void	get_step(t_car *car, t_args *args)
 	int cnt;
 
 	cnt = 0;
-	val = OP_BYTE;
+	val = OP_SIZE;
 	if (args->arg_code)
-		val += ARGTYPE_BYTE;
+		val += ARG_SIZE;
 	while (cnt < 3)
 	{
 		if (args->arg_types[cnt] == T_REG)
-			val += TREG_BYTE;
+			val += TREG_SIZE;
 		if (args->arg_types[cnt] == T_IND)
-			val += TIND_BYTE;
+			val += IND_SIZE;
 		if (args->arg_types[cnt] == T_DIR)
 			val += args->t_dir_size;
 		cnt += 1;
@@ -112,42 +114,47 @@ void	get_step(t_car *car, t_args *args)
 	car->step = val;
 }
 
-int		read_args(uint8_t *code, t_args *args)
+int		read_args(uint8_t *arena, t_args *args, ssize_t index)
 {
 	int		cnt;
-	int		step;
 
 	cnt = 0;
-	step = 0;
 	while (cnt < 3)
 	{
 		if (args->arg_types[cnt] == T_REG)
 		{
-			args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
+			args->arg[cnt] = read_arena(arena, index, 0, TREG_SIZE);
 			if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
 				return (0);
-			step = TREG_BYTE;
+			index += TREG_SIZE;
 		}
 		else if (args->arg_types[cnt] == T_DIR)
 		{
-			args->arg[cnt] = decode((uint8_t *)code, args->t_dir_size);
-			step = args->t_dir_size;
+			args->arg[cnt] = read_arena(arena, index, 0, args->t_dir_size);
+			index += args->t_dir_size;
 		}
 		else if (args->arg_types[cnt] == T_IND)
 		{
-			args->arg[cnt] = decode((uint8_t *)code, TIND_BYTE);
-			step = TIND_BYTE;
+			args->arg[cnt] = read_arena(arena, index, 0, 2);
+			index += 2;
 		}
 		cnt += 1;
-		code += step;
 	}
 	return (1);
 }
 
-int			get_tind(int argval, uint8_t *code)
+int			read_arena(uint8_t *arena, int start, int argval, int size)
 {
-	int ret;
+	int		ret;
+	uint8_t	code[size];
+	int		cnt;
 
-	ret = decode(code + argval % IDX_MOD, REGSIZE);
+	cnt = 0;
+	while (cnt < size)
+	{
+		code[cnt] = arena[(start + argval + cnt) % MEM_SIZE];
+		cnt += 1;
+	}
+	ret = decode(code, size);
 	return (ret);
 }

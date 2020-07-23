@@ -6,13 +6,13 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:21:57 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 18:54:27 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	do_st(t_args *args, uint8_t *code, t_car *car, t_vm *core)
+static void	do_st(t_args *args, t_car *car, t_vm *core)
 {
 	int	val[2];
 	int	temp;
@@ -21,7 +21,6 @@ static void	do_st(t_args *args, uint8_t *code, t_car *car, t_vm *core)
 	if (args->arg_types[1] == T_IND)
 	{
 		val[1] = args->arg[1];
-		printf("%d\n", val[0]);
 		write_bytes(car->pc + val[1] % IDX_MOD, val[0], car, core);
 	}
 	else if (args->arg_types[1] == T_REG)
@@ -33,17 +32,17 @@ static void	do_st(t_args *args, uint8_t *code, t_car *car, t_vm *core)
 
 void		op_st(t_vm *core, t_car *car)
 {
-	uint8_t *code;
+	ssize_t	index;
 
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("st", car->args);
-	code = core->arena + car->pc;
-	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
+	index = car->pc + OP_SIZE;
+	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{
-		if (read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args))
-			do_st(car->args, code, car, core);
+		index += ARG_SIZE;
+		if (read_args(core->arena, car->args, index % MEM_SIZE))
+			do_st(car->args, car, core);
 	}
 	get_step(car, car->args);
 }
-

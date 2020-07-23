@@ -6,13 +6,13 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:07:14 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 18:35:23 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	do_or(t_args *args, uint8_t *code, t_car *car)
+static void	do_or(uint8_t *arena, t_args *args, t_car *car)
 {
 	int	val[3];
 	int cnt;
@@ -23,7 +23,7 @@ static void	do_or(t_args *args, uint8_t *code, t_car *car)
 		if (args->arg_types[cnt] == T_REG)
 			val[cnt] = car->reg[args->arg[cnt] - 1];
 		else if (args->arg_types[cnt] == T_IND)
-			val[cnt] = get_tind(args->arg[cnt], code);
+			val[cnt] = read_arena(arena, car->pc, args->arg[cnt], REG_SIZE);
 		else if (args->arg_types[cnt] == T_DIR)
 			val[cnt] = args->arg[cnt];
 		cnt += 1;
@@ -35,17 +35,17 @@ static void	do_or(t_args *args, uint8_t *code, t_car *car)
 
 void	op_or(t_vm *core, t_car *car)
 {
-	uint8_t	*code;
+	ssize_t	start;
 
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("or", car->args);
-	code = core->arena + car->pc;
-	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
+	start = car->pc + OP_SIZE;
+	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))
 	{
-		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
-		do_or(car->args, code, car);
+		start += ARG_SIZE;
+		if (read_args(core->arena, car->args, start % MEM_SIZE))
+			do_or(core->arena, car->args, car);
 	}
 	get_step(car, car->args);
-	printf("or\n");
 }

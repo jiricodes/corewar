@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   oplist_cw.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/17 18:13:41 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/23 16:49:20 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@
 
 # include "vm.h"
 
-#define T_REG		1
-#define T_DIR		2
-#define T_IND		4
-#define T_LAB		8
+#define TREG_CODE	0b00000001
+#define TDIR_CODE	0b00000010
+#define	TIND_CODE	0b00000011
 
-#define T_REG_CODE	0b00000001
-#define T_DIR_CODE	0b00000010
-#define	T_IND_CODE	0b00000011
-
-#define	OP_BYTE 1
-#define ARGTYPE_BYTE 1
-#define TREG_BYTE 1
-#define TIND_BYTE 2
-#define REGSIZE 4
+#define	OP_SIZE		1
+#define ARG_SIZE 	1
+#define TREG_SIZE	1
 
 /*
 ** Operations
