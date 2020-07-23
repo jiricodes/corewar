@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:25:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:41:56 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 ** 2 - in file and on stdout
 */
 
-# define LOG 0
+# define LOG 2
 # define LOG_FILE "cw_log.txt"
 
 /*
