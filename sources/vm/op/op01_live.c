@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 13:36:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:47:33 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	op_live(t_vm *core, t_car *car)
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("live", car->args);
-	code = core->arena + car->op_index;
+	code = core->arena + car->pc;
 	tdir = car->args->t_dir_size;
 	val = decode(code + OP_BYTE, tdir);
 	if (LOG)
 		vm_log("Performed live with argument: %d\n", val);
 	last_to_live(core, (uint8_t)val);
 	get_jump(car, car->args);
+	printf("live\n");
 }

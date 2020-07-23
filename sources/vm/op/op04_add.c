@@ -6,35 +6,36 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 20:13:35 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:21:33 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
+static void	do_add(t_args *args, uint8_t *code, t_car *car)
+{
+	int	val[3];
+
+	val[0] = car->reg[args->arg[0] - 1];
+	val[1] = car->reg[args->arg[1] - 1];
+	car->reg[args->arg[2] - 1] = val[0] + val[1];
+	car->carry = car->reg[args->arg[2] - 1] ? 0 : 1;
+}
+
+
 void	op_add(t_vm *core, t_car *car)
 {
-	int		cnt;
 	uint8_t	*code;
 	
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("add", car->args);
-	code = core->arena + car->op_index;
-	if (!read_arg_type(car->args, (code + OP_BYTE)[0]))
+	code = core->arena + car->pc;
+	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		get_jump(car, car->args);
-		return ;
+		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
+		do_add(car->args, code, car);
 	}
-	code = code + OP_BYTE + ARGTYPE_BYTE;
-	cnt = 0;
-	while (cnt < 4)
-	{
-		car->args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
-		code += TREG_BYTE;
-		cnt += 1;
-	}
-	car->reg[car->args->arg[2]] = car->reg[car->args->arg[0]] + car->reg[car->args->arg[1]];
-	car->carry = (car->reg[car->args->arg[1]]) ? 0 : 1;
 	get_jump(car, car->args);
+	printf("add\n");
 }

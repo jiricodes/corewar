@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:41:56 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:25:49 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_visual_settings
 typedef struct	s_args
 {
 	int			opcount;
+	int			arg_cnt;
 	int			arg_code;
 	int			arg_types[3];
 	int			arg[3];
@@ -157,6 +158,7 @@ int			check_types(int *types, const int *reference);
 int			read_arg_type(t_args *args, int8_t byte);
 void		get_jump(t_car *car, t_args *args);
 void		write_bytes(uint8_t *start, int size, int val);
-void		read_args(uint8_t *rawcode, t_args *args);
+void		read_args(uint8_t *code, t_args *args);
+int			get_tind(int argval, uint8_t *code);
 
 #endif

@@ -6,47 +6,38 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/20 20:19:58 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:58:22 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	process_tdir(t_car *car, t_args *args, uint8_t *code, uint8_t *start)
+static void	do_ld(t_args *args, uint8_t *code, t_car *car)
 {
-	args->arg[0] = decode(code, args->t_dir_size);
-	args->arg[1] = decode(code + args->t_dir_size, TREG_BYTE);
-	car->reg[args->arg[1]] = decode(start + args->arg[0], REGSIZE);
-	car->carry = (car->reg[args->arg[1]]) ? 0 : 1;
-}
+	int	val[2];
 
-static void	process_tind(t_car *car, t_args *args, uint8_t *code, uint8_t *start)
-{
-	args->arg[0] = decode(code, TIND_BYTE);
-	args->arg[1] = decode(code + TIND_BYTE, TREG_BYTE);
-	car->reg[args->arg[1]] = decode(start + args->arg[0], REGSIZE) % IDX_MOD;
-	car->carry = (car->reg[args->arg[1]]) ? 0 : 1;
+	if (args->arg_types[0] == T_DIR)
+		val[0] = args->arg[0];
+	else if (args->arg_types[0] == T_IND)
+		get_tind(args->arg[0], code);
+	val[1] = args->arg[1] - 1;
+	car->reg[val[1]] = val[0];
+	car->carry = (car->reg[val[1]]) ? 0 : 1;
 }
 
 void		op_ld(t_vm *core, t_car *car)
 {
 	uint8_t	*code;
-	uint8_t	*start;
 
 	if (LOG)
 		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("ld", car->args);
-	code = core->arena + car->op_index;
-	start = core->arena + car->op_index;
-	if (!read_arg_type(car->args, (code + OP_BYTE)[0]))
+	code = core->arena + car->pc;
+	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		get_jump(car, car->args);
-		return ;
+		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
+		do_ld(car->args, code, car);
 	}
-	code = code + OP_BYTE + ARGTYPE_BYTE;
-	if (car->args->arg_types[0] == T_DIR)
-		process_tdir(car, car->args, code, start);
-	else if (car->args->arg_types[0] == T_IND)
-		process_tind(car, car->args, code, start);
 	get_jump(car, car->args);
+	printf("ld\n");
 }
