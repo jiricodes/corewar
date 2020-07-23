@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:38:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:37:38 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,20 @@ void	check_live_calls(t_vm *core)
 	}
 }
 
+void	print_reg(t_car *car)
+{
+	int cnt;
+
+	cnt = 0;
+	printf("REG %d\n", car->id);
+	printf("\tcarry: %d\n", car->carry);
+	while (cnt < 16)
+	{
+		printf("\tn %d:\t%d\n", cnt + 1, car->reg[cnt]);
+		cnt += 1;
+	}
+}
+
 void	engine(t_vm *core)
 {
 	t_car	*current;
@@ -109,12 +123,13 @@ void	engine(t_vm *core)
 			{
 				// log_carriage(current);
 				process_car(core, current);
+				// print_reg(current);
 				current = current->next;
 				// show_arena(core);
 			}
 			core->cycle++;
 			core->check_cd--;
-			if (core->check_cd == 0)
+			if (core->check_cd <= 0)
 			{
 				check_live_calls(core);
 				if (core->live_cnt >= 21 || checks == MAX_CHECKS)

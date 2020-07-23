@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/22 12:57:13 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:38:43 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	do_ldi(t_args *args, uint8_t *code, t_car *car)
 		val[1] = car->reg[args->arg[1] - 1];
 	else if (args->arg_types[1] == T_DIR)
 		val[1] = args->arg[1];
-	val[2] = args->arg[2] - 1;
-	car->reg[val[2]] = decode(code + (val[0] + val[1]) % IDX_MOD, REGSIZE);
+	val[2] = args->arg[2];
+	car->reg[val[2] - 1] = decode(code + (val[0] + val[1]) % IDX_MOD, REGSIZE);
 }
 
 void		op_ldi(t_vm *core, t_car *car)

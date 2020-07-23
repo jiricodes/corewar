@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/22 12:58:22 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 11:40:37 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	do_ld(t_args *args, uint8_t *code, t_car *car)
 	if (args->arg_types[0] == T_DIR)
 		val[0] = args->arg[0];
 	else if (args->arg_types[0] == T_IND)
-		get_tind(args->arg[0], code);
-	val[1] = args->arg[1] - 1;
-	car->reg[val[1]] = val[0];
-	car->carry = (car->reg[val[1]]) ? 0 : 1;
+		val[0] = decode(code + (args->arg[0] % IDX_MOD), REGSIZE);
+	val[1] = args->arg[1];
+	car->reg[val[1] - 1] = val[0];
+	car->carry = (car->reg[val[1] - 1]) ? 0 : 1;
 }
 
 void		op_ld(t_vm *core, t_car *car)
