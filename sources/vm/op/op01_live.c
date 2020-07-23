@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:47:33 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:07:31 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		last_to_live(t_vm *core, uint8_t live_arg)
 			core->last_to_live = core->champ[i];
 			ft_printf("A process shows that player %d (%s) is alive\n",\
 				core->champ[i]->id, core->champ[i]->header->prog_name);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -41,10 +41,10 @@ void	op_live(t_vm *core, t_car *car)
 	fill_args("live", car->args);
 	code = core->arena + car->pc;
 	tdir = car->args->t_dir_size;
-	val = decode(code + OP_BYTE, tdir);
+	val = decode(code + OP_BYTE, tdir) * -1;
 	if (LOG)
 		vm_log("Performed live with argument: %d\n", val);
 	last_to_live(core, (uint8_t)val);
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("live\n");
 }

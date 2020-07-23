@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:48:58 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:06:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	op_aff(t_vm *core, t_car *car)
 	val = (char)(car->reg[car->args->arg[0]]);
 	// if flag a
 	ft_putchar(val);
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("aff\n");
 }

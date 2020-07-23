@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 20:48:54 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:06:53 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void		op_lfork(t_vm *core, t_car *car)
 	code = core->arena + car->pc + OP_BYTE;
 	val = decode(code, car->args->t_dir_size);
 	copy_carriage(core, car, val);
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("lfork\n");
 }

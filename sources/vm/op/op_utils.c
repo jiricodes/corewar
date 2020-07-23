@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/23 12:26:04 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:31:52 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,19 @@ void	fill_args(char *opname, t_args *args)
 	}
 }
 
-void	write_bytes(uint8_t *start, int size, int val)
+void	write_bytes(size_t index, int val, t_car *car, t_vm *core)
 {
+	int size = 4;
 	int	x;
+	uint8_t	byte;
 
 	x = 0;
+	
 	while (size)
 	{
-		start[size - 1] = (uint8_t)(val >> x) & 0xFF;
+		byte = (uint8_t)(val >> x) & 0xFF;
+		core->arena[(index + size - 1) % MEM_SIZE] = byte;
+		core->byte_owner[(index + size - 1) % MEM_SIZE] = core->byte_owner[car->pc];
 		x += 8;
 		size -= 1;
 	}
@@ -85,7 +90,7 @@ int	read_arg_type(t_args *args, int8_t byte)
 		return (1);
 }
 
-void	get_jump(t_car *car, t_args *args)
+void	get_step(t_car *car, t_args *args)
 {
 	int val;
 	int cnt;
@@ -107,7 +112,7 @@ void	get_jump(t_car *car, t_args *args)
 	car->step = val;
 }
 
-void		read_args(uint8_t *code, t_args *args)
+int		read_args(uint8_t *code, t_args *args)
 {
 	int		cnt;
 	int		step;
@@ -119,8 +124,8 @@ void		read_args(uint8_t *code, t_args *args)
 		if (args->arg_types[cnt] == T_REG)
 		{
 			args->arg[cnt] = decode((uint8_t *)code, TREG_BYTE);
-			// if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
-			// 	ft_error_exit("too big reg!\n", 0, 0);
+			if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
+				return (0);
 			step = TREG_BYTE;
 		}
 		else if (args->arg_types[cnt] == T_DIR)
@@ -136,6 +141,7 @@ void		read_args(uint8_t *code, t_args *args)
 		cnt += 1;
 		code += step;
 	}
+	return (1);
 }
 
 int			get_tind(int argval, uint8_t *code)

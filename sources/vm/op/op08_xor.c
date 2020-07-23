@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 12:16:00 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:07:11 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	op_xor(t_vm *core, t_car *car)
 		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
 		do_xor(car->args, code, car);
 	}
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("xor\n");
 }

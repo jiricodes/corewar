@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 11:40:37 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:07:29 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void		op_ld(t_vm *core, t_car *car)
 	code = core->arena + car->pc;
 	if (read_arg_type(car->args, (code + OP_BYTE)[0]))
 	{
-		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
-		do_ld(car->args, code, car);
+		if (read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args))
+			do_ld(car->args, code, car);
 	}
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("ld\n");
 }

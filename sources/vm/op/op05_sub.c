@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/22 12:22:13 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:07:19 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	op_sub(t_vm *core, t_car *car)
 		read_args(code + OP_BYTE + ARGTYPE_BYTE, car->args);
 		do_sub(car->args, code, car);
 	}
-	get_jump(car, car->args);
+	get_step(car, car->args);
 	printf("sub\n");
 }
