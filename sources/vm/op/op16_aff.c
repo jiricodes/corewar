@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:37:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:47:36 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	op_aff(t_vm *core, t_car *car)
 	ssize_t	index;
 	int		val;
 
-	if (LOG)
-		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
+	if (F_LOG)
+		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("aff", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_args(core->arena, car->args, index % MEM_SIZE))

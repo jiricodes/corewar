@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:43:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:52:18 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ char		*load_string(t_champ *champ, size_t size)
 		vm_error(buf, LOG);
 	}
 	buffer[ret] = '\0';
-	ft_printf("Read: %s\n", buffer);
 	return (buffer);
 }
 

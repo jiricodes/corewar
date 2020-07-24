@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:34:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:51:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	introduce_champs(t_vm *core)
 	}
 	ids = sort_ids(ids, core->n_players);
 	i = 0;
+	ft_printf("Introducing contestants...\n");
 	while (i < core->n_players)
 	{
 		intro_champ(core, ids[i]);

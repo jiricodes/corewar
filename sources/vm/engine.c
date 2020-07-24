@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:42:38 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:49:36 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	print_reg(t_car *car)
 	int cnt;
 
 	cnt = 0;
-	printf("REG %d\n", car->id);
+	printf("REG %zu\n", car->id);
 	printf("\tcarry: %d\n", car->carry);
 	while (cnt < 16)
 	{
@@ -123,7 +123,8 @@ void	engine(t_vm *core)
 			{
 				// log_carriage(current);
 				process_car(core, current);
-				print_reg(current);
+				if (F_LOG)
+					print_reg(current);
 				current = current->next;
 				// show_arena(core);
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 18:10:38 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:45:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void		last_to_live(t_vm *core, uint8_t live_arg)
 		if (core->champ[i]->id == live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			ft_printf("A process shows that player %d (%s) is alive\n",\
+			if (!core->flags->vfx)
+				ft_printf("A process shows that player %d (%s) is alive\n",\
 				core->champ[i]->id, core->champ[i]->header->prog_name);
 			break ;
 		}
@@ -35,8 +36,8 @@ void	op_live(t_vm *core, t_car *car)
 	ssize_t	index;
 	int		val;
 
-	if (LOG)
-		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
+	if (F_LOG)
+		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
 	fill_args("live", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_args(core->arena, car->args, index % MEM_SIZE))
