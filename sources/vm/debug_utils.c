@@ -6,28 +6,71 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/12 12:24:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:34:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	print_champ_header(t_champ *champ)
+static size_t	*sort_ids(size_t *ids, size_t lenght)
 {
-	ft_printf("Magic: %#x\n", champ->header->magic);
-	ft_printf("Name: %s\n", champ->header->prog_name);
-	ft_printf("Champ weight: %d\n", champ->header->prog_size);
-	ft_printf("Comment: %s\n", champ->header->comment);
+	size_t	tmp;
+	size_t	i;
+	size_t	k;
+	size_t *result;
+
+	if (lenght == 1)
+		return (ids);
+	i = 1;
+	while (i < lenght)
+	{
+		if (ids[i - 1] > ids[i])
+		{
+			k = 0;
+			while (ids[i] > ids[k])
+				k++;
+			while (k < i)
+			{
+				tmp = ids[k];
+				ids[k] = ids[i];
+				ids[i] = tmp;
+				k++;
+			}
+		}
+		i++;
+	}
+	return (ids);
 }
 
-void	print_code(t_champ *champ)
+static void	intro_champ(t_vm *core, size_t id)
 {
-	size_t i;
+	int i;
 
 	i = 0;
-	while (i < champ->header->prog_size)
+	while (core->champ[i]->id != id)
+		i++;
+	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\")\n", core->champ[i]->id, core->champ[i]->header->prog_size, core->champ[i]->header->prog_name, core->champ[i]->header->comment);
+}
+
+void	introduce_champs(t_vm *core)
+{
+	size_t	*ids;
+	int	i;
+
+	ids = (size_t *)ft_memalloc(sizeof(size_t) * core->n_players);
+	if (!ids)
+		vm_error("Malloc at introduce_champs", core->flags->log);
+	i = 0;
+	while (i < core->n_players)
 	{
-		ft_printf("%02x\n", champ->raw[i]);
+		ids[i] = core->champ[i]->id;
+		i++;
+	}
+	ids = sort_ids(ids, core->n_players);
+	i = 0;
+	while (i < core->n_players)
+	{
+		intro_champ(core, ids[i]);
 		i++;
 	}
 }

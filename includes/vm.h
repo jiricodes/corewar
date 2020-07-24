@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 16:34:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:34:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@
 ** VM Settings
 */
 
-# define PLAYER_N_MIN 0
 # define PLAYER_N_MAX 255
 
 typedef struct s_champ
 {
-	uint8_t		id;
+	size_t		id;
 	uint8_t		usr_id;
 	int			fd;
 	header_t	*header;
@@ -132,8 +131,6 @@ typedef struct	s_vm
 t_champ		*init_champ(char	*filename, uint8_t id);
 void		load_champ(t_champ *champ);
 int32_t		decode(const uint8_t *source, size_t size);
-void		print_champ_header(t_champ *champ);
-void		print_code(t_champ *champ);
 void		init_arena(t_vm	*core);
 void		print_arena(uint8_t *arena, int	size);
 void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
@@ -172,6 +169,7 @@ size_t		check_player_id(t_vm *core, size_t number, int8_t mod);
 void		clear_vm(t_vm *core);
 void		vm_error(char *usr_msg, uint8_t log);
 void		print_usage(void);
+void		introduce_champs(t_vm *core);
 
 /*
 ** OP funcs

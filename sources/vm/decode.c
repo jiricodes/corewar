@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 10:47:50 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/10 10:50:01 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:34:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ int32_t		decode(const uint8_t *source, size_t size)
 		result = ~result;
 	return (result);
 }
-
