@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/21 14:26:18 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 13:20:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_vs	*init_visual_settings(char *title)
 	initscr();
 	keypad(stdscr, true);
 	nodelay(stdscr, true);
+	curs_set(0);
 	cbreak();
 	noecho();
 	mvprintw(0,20, title);

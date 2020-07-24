@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 18:40:53 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/24 16:34:57 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,44 @@
 // # include "oplist_cw.h"
 # include <ncurses.h>
 # include <time.h>
-# include "vm_error.h"
 
 /*
 ** Logging options:
 ** 0 - no log
-** 1 - in file log
-** 2 - in file and on stdout
+** 1 - dev log (more details than -log flag)
 */
 
-# define LOG 2
+# define LOG 0
 # define LOG_FILE "cw_log.txt"
 
 /*
 ** VFX settings
 */
 
-# define VFX 0
+# define VFX core->flags->vfx
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
 # define VFX_SPEED_DELTA 500
 # define VFX_INIT_SPEED 5000
 
+/*
+** FLAGS Preset
+*/
+
+# define F_LOG_STR "12"
+# define F_LOG core->flags->log
+
+/*
+** VM Settings
+*/
+
+# define PLAYER_N_MIN 0
+# define PLAYER_N_MAX 255
+
 typedef struct s_champ
 {
 	uint8_t		id;
+	uint8_t		usr_id;
 	int			fd;
 	header_t	*header;
 	uint8_t		*raw;
@@ -85,6 +98,16 @@ typedef struct	s_carriage
 	struct s_carriage	*next;
 }				t_car;
 
+typedef struct	s_flags
+{
+	uint8_t		vfx;
+	uint8_t		aff;
+	uint8_t		log;
+	uint8_t		large;
+	uint8_t		dump_size;
+	size_t		dump_cycle;
+}				t_flg;
+
 typedef struct	s_vm
 {
 	int			n_players;
@@ -93,9 +116,7 @@ typedef struct	s_vm
 	size_t		car_id;
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
-	ssize_t		dump_cycle;
-	int			dump_size;
-	int			vfx_on;
+	t_flg		*flags;
 	t_vs		*vfx;
 	t_champ		*last_to_live;
 	size_t		cycles_to_die;
@@ -128,7 +149,7 @@ t_car		*prepend_carriage(t_car *head, t_car *node);
 t_car		*append_carriage(t_car *head, t_car *node);
 t_car		*delete_carriage(t_car *head, size_t id);
 void		delete_car_list(t_car *head);
-void		log_carriage(t_car *node);
+void		log_carriage(t_car *node, uint8_t log_lvl);
 
 /*
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
@@ -144,10 +165,13 @@ void		vfx_key(t_vs *vfx);
 ** VM utilities
 */
 
-void		vm_log(char *message, ...);
+void		vm_log(uint8_t lvl, char *message, ...);
 void		engine(t_vm *core);
-void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t byte);
 void		process_vm_args(t_vm *core, char **argv, int argc);
+size_t		check_player_id(t_vm *core, size_t number, int8_t mod);
+void		clear_vm(t_vm *core);
+void		vm_error(char *usr_msg, uint8_t log);
+void		print_usage(void);
 
 /*
 ** OP funcs
