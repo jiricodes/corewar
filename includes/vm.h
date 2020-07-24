@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:39:30 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:17:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@
 
 # define F_LOG_STR "12"
 # define F_LOG core->flags->log
-# define F_VFX core->flags->vfx
 
 /*
 ** VM Settings
@@ -137,7 +136,6 @@ void		print_arena(uint8_t *arena, int	size);
 void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
 void		delete_champs(t_champ **champs, int n);
 
-
 /*
 ** Carriage Utils
 */
@@ -173,14 +171,15 @@ void		print_usage(void);
 void		introduce_champs(t_vm *core);
 
 /*
-** OP funcs
+** OP read and utils
 */
 
 void		fill_args(char *opname, t_args *args);
-int			check_types(int *types, const int *reference);
-int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 void		get_step(t_car *car, t_args *args);
 void		write_bytes(size_t index, int val, t_car *car, t_vm *core);
+void		copy_carriage(t_vm *core, t_car *car, int addr);
+
+int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 int			read_args(uint8_t *arena, t_args *args, ssize_t index);
 int			read_arena(uint8_t *arena, int start, int argval, int size);
 

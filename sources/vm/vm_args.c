@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 16:55:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:08:18 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ size_t		check_player_id(t_vm *core, size_t number, int8_t mod)
 	while (i < core->n_players)
 	{
 		if (core->champ[i]->id == number)
+		{
 			if (core->champ[i]->usr_id == 0 && mod)
 			{
 				tmp = find_player_nb(core, 1);
@@ -62,6 +63,7 @@ size_t		check_player_id(t_vm *core, size_t number, int8_t mod)
 			}
 			else
 				return (0);
+		}
 		i++;
 	}
 	return (number);

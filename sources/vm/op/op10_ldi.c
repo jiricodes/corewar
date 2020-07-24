@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:47:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:05:20 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void		op_ldi(t_vm *core, t_car *car)
 	ssize_t	start;
 
 	if (F_LOG)
-		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
+		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n", car->id,\
+			g_oplist[car->op_index].opname);
 	fill_args("ldi", car->args);
 	start = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))

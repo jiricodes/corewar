@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 17:10:53 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:17:18 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position)
 	uint8_t chi;
 
 	i = 0;
-	chi = champ_index(core, champ->id);
+	chi = champ_index(core, champ->id) + 1;
 	while (i < champ->header->prog_size)
 	{
 		if (core->arena[position + i])

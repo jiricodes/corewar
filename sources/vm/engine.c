@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:49:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:29:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	engine(t_vm *core)
 			{
 				// log_carriage(current);
 				process_car(core, current);
-				if (F_LOG)
-					print_reg(current);
+				// if (F_LOG == 2)
+				// 	print_reg(current);
 				current = current->next;
 				// show_arena(core);
 			}

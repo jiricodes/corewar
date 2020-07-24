@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:33:29 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:07:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		clear_vm(t_vm *core)
 	delete_car_list(core->car_list);
 	if (core->arena)
 		free(core->arena);
-	if (core->byte_owner);
+	if (core->byte_owner)
 		free(core->byte_owner);
 	if (core->flags)
 		free(core->flags);
