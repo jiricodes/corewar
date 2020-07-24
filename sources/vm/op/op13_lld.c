@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 19:02:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/24 17:22:32 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void		op_lld(t_vm *core, t_car *car)
 	ssize_t	start;
 
 	if (LOG)
-		vm_log("Carriage[%zu] - operation \"%s\"\n", car->id, g_oplist[car->op_index].opname);
+		vm_log("Carriage[%zu] - operation \"%s\"\n", \
+			car->id, g_oplist[car->op_index].opname);
 	fill_args("lld", car->args);
 	start = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))

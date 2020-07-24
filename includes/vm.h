@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 18:40:53 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/24 17:28:45 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,14 +150,15 @@ void		write_byte_arena(t_vm *core, ssize_t origin_pc, ssize_t position, uint8_t 
 void		process_vm_args(t_vm *core, char **argv, int argc);
 
 /*
-** OP funcs
+** OP read and utils
 */
 
 void		fill_args(char *opname, t_args *args);
-int			check_types(int *types, const int *reference);
-int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 void		get_step(t_car *car, t_args *args);
 void		write_bytes(size_t index, int val, t_car *car, t_vm *core);
+void		copy_carriage(t_vm *core, t_car *car, int addr);
+
+int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 int			read_args(uint8_t *arena, t_args *args, ssize_t index);
 int			read_arena(uint8_t *arena, int start, int argval, int size);
 
