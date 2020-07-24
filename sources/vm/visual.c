@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 13:20:29 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:41:18 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vs	*init_visual_settings(char *title)
 
 	settings = (t_vs *)ft_memalloc(sizeof(t_vs));
 	if (!settings)
-		ft_error_exit("Malloc at init_visual_settings", NULL, NULL);
+		vm_error("Malloc at init_visual_settings", LOG);
 	settings->height = 66;
 	settings->width = 64 * 2 + 2;
 	settings->time.tv_sec = VFX_SLEEP_S;

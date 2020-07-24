@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:34:04 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:39:30 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 
 # define F_LOG_STR "12"
 # define F_LOG core->flags->log
+# define F_VFX core->flags->vfx
 
 /*
 ** VM Settings

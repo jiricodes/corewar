@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 18:13:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:43:11 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		load_header(t_champ *champ)
 	ft_strcpy(champ->header->comment, tmp);
 	free(tmp);
 	if (decode_bytes(champ, 4) != 0)
+	{
 		ft_sprintf(buf, "Player %zu Second NULL error", champ->id);
 		vm_error(buf, LOG);
 	}

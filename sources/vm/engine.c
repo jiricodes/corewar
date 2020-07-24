@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/23 14:35:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:42:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	process_car(t_vm *core, t_car *car)
 	{
 		if (car->op_index != -1)
 		{
-			if (LOG)
-				vm_log("[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
+			if (F_LOG)
+				vm_log(F_LOG, "[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
 			g_oplist[car->op_index].op(core, car);
 			car->op_index = -1;
 			// change car->step
@@ -70,8 +70,8 @@ void	check_live_calls(t_vm *core)
 	{
 		if (tmp->last_live < limit)
 		{
-			if (LOG)
-				vm_log("[%zu]: Carriage[%zu] failed to report live\n", core->cycle, tmp->id);
+			if (F_LOG)
+				vm_log(F_LOG, "[%zu]: Carriage[%zu] failed to report live\n", core->cycle, tmp->id);
 			core->car_list = delete_carriage(core->car_list, tmp->id);
 			tmp = core->car_list;
 		}
@@ -102,7 +102,7 @@ void	engine(t_vm *core)
 
 	loop = 0;
 	checks = 0;
-	if (core->vfx_on)
+	if (VFX)
 	{
 		init_vfx_arena(core);
 		mvprintw(0,0, "Cycle: %zu", core->cycle);
@@ -111,11 +111,11 @@ void	engine(t_vm *core)
 	while (core->car_list && core->cycles_to_die > 0)
 	{
 		// printf("Cycle %zu\n", core->cycle);
-		if (core->vfx_on && (core->vfx->key = getch()) != ERR)
+		if (VFX && (core->vfx->key = getch()) != ERR)
 			vfx_key(core->vfx);
-		if (core->vfx_on)
+		if (VFX)
 			mvprintw(0,35, "Frequency %zu", core->vfx->freq);
-		if (!core->vfx_on || (core->vfx->play && loop % core->vfx->freq == 0))
+		if (!VFX || (core->vfx->play && loop % core->vfx->freq == 0))
 		{
 			loop = 0;
 			current = core->car_list;
@@ -144,22 +144,22 @@ void	engine(t_vm *core)
 				}
 				core->check_cd = core->cycles_to_die;
 			}
-			if (core->vfx_on)
+			if (VFX)
 			{
 				mvprintw(0,0, "Cycle: %zu", core->cycle);
 				draw_arena(core);
 				// nanosleep(&(core->vfx->time), NULL);
 			}
-			if (core->cycle == core->dump_cycle)
+			if (core->cycle == core->flags->dump_cycle)
 			{
-				print_arena(core->arena, core->dump_size);
+				print_arena(core->arena, core->flags->dump_size);
 				return ;
 			}
 		}
-		ft_printf("Cycle to die: %zu\n", core->cycles_to_die);
+		// ft_printf("Cycle to die: %zu\n", core->cycles_to_die);
 		loop++;
 	}
-	if (core->vfx_on)
+	if (VFX)
 	{
 		wattron(stdscr, A_STANDOUT);
 		wattron(stdscr, COLOR_PAIR(3));
