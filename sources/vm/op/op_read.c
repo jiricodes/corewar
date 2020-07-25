@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/25 20:26:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/25 21:09:39 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,20 @@ int		read_args(uint8_t *arena, t_args *args, ssize_t index)
 	{
 		if (args->arg_types[cnt] == T_REG)
 		{
-			args->arg[cnt] = read_arena(arena, index, 0, TREG_SIZE);
+			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, TREG_SIZE);
 			if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
 				return (0);
-			index += TREG_SIZE % MEM_SIZE;
+			index += TREG_SIZE;
 		}
 		else if (args->arg_types[cnt] == T_DIR)
 		{
-			args->arg[cnt] = read_arena(arena, index, 0, args->t_dir_size);
-			index += args->t_dir_size % MEM_SIZE;
+			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, args->t_dir_size);
+			index += args->t_dir_size;
 		}
 		else if (args->arg_types[cnt] == T_IND)
 		{
-			args->arg[cnt] = read_arena(arena, index, 0, 2);
-			index += 2 % MEM_SIZE;
+			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, 2);
+			index += 2;
 		}
 		cnt += 1;
 	}
