@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/24 17:26:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/25 15:36:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	fill_args(char *opname, t_args *args)
 	cnt = 0;
 	while (cnt < 16)
 	{
-		if (opname == g_oplist[cnt].opname)
+		if (ft_strequ(opname, g_oplist[cnt].opname))
 		{
 			args->opcount = cnt;
 			args->arg_cnt = g_oplist[cnt].arg_cnt;
@@ -88,5 +88,5 @@ void	copy_carriage(t_vm *core, t_car *car, int addr)
 	}
 	new->carry = car->carry;
 	new->last_live = car->last_live;
-	prepend_carriage(new, core->car_list);
+	core->car_list = prepend_carriage(core->car_list, new);
 }

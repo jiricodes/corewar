@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:28:07 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 15:08:35 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,20 @@ void	op_live(t_vm *core, t_car *car)
 	int		val;
 
 	if (F_LOG)
-		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n", car->id,\
-			g_oplist[car->op_index].opname);
+		vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\" ", core->cycle,\
+			car->id, g_oplist[car->op_index].opname);
 	fill_args("live", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_args(core->arena, car->args, index % MEM_SIZE))
 	{
 		val = car->args->arg[0] * -1;
 		if (F_LOG)
-			ft_printf("Live arg = %d\n", val);
+			vm_log(F_LOG, "arg = %d\n", val);
 		last_to_live(core, val);
 		car->last_live = core->cycle;
 		core->live_cnt++;
 	}
+	else if (F_LOG)
+		vm_log(F_LOG, "arg = failed to load\n");
 	get_step(car, car->args);
 }

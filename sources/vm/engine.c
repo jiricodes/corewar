@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:29:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 15:28:49 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void check_operation(t_vm *core, t_car *car)
 {
 	car->op_index = if_op(core->arena[car->pc]);
 	if (car->op_index != -1)
+	{
 		car->cooldown = g_oplist[car->op_index].exec_cycles;
+		ft_bzero(car->args, sizeof(t_args));
+	}
 	else
 		car->step = 1;
 }
@@ -45,11 +48,8 @@ void	process_car(t_vm *core, t_car *car)
 	{
 		if (car->op_index != -1)
 		{
-			if (F_LOG)
-				vm_log(F_LOG, "[%zu]: Carriage[%zu] should execute \"%s\"\n", core->cycle, car->id, g_oplist[car->op_index].opname);
 			g_oplist[car->op_index].op(core, car);
 			car->op_index = -1;
-			// change car->step
 		}
 		car->pc = (car->pc + car->step) % MEM_SIZE;
 	}
@@ -62,22 +62,41 @@ void	process_car(t_vm *core, t_car *car)
 void	check_live_calls(t_vm *core)
 {
 	t_car *tmp;
-	size_t limit;
+	ssize_t limit;
+	size_t	cnt;
 
 	limit = core->cycle - core->cycles_to_die;
+	limit = limit < 0 ? 0 : limit;
 	tmp = core->car_list;
+	cnt = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		cnt++;
+	}
+	tmp = core->car_list;
+	vm_log(F_LOG, "[%zu]: Checking Lives:\n", core->cycle);
+	vm_log(F_LOG, "Total carriages alive [%zu]\n", cnt);
+	cnt = 0;
 	while (tmp)
 	{
 		if (tmp->last_live < limit)
 		{
-			if (F_LOG)
-				vm_log(F_LOG, "[%zu]: Carriage[%zu] failed to report live\n", core->cycle, tmp->id);
+			vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n", core->cycle, tmp->id);
+			log_carriage(tmp, F_LOG);
 			core->car_list = delete_carriage(core->car_list, tmp->id);
 			tmp = core->car_list;
 		}
 		else
 			tmp = tmp->next;
 	}
+	tmp = core->car_list;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		cnt++;
+	}
+	vm_log(F_LOG, "Total carriages alive [%zu]\n", cnt);
 }
 
 void	print_reg(t_car *car)
@@ -121,7 +140,7 @@ void	engine(t_vm *core)
 			current = core->car_list;
 			while (current)
 			{
-				// log_carriage(current);
+				// log_carriage(current, F_LOG);
 				process_car(core, current);
 				// if (F_LOG == 2)
 				// 	print_reg(current);
@@ -154,6 +173,8 @@ void	engine(t_vm *core)
 			if (core->cycle == core->flags->dump_cycle)
 			{
 				print_arena(core->arena, core->flags->dump_size);
+				if (F_LOG)
+					log_vm_status(core, F_LOG);
 				return ;
 			}
 		}

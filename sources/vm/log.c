@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 16:54:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 15:29:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,45 @@ void		log_carriage(t_car *node, uint8_t log_lvl)
 	vm_log(log_lvl, "REG: ");
 	while (i++ < REG_NUMBER)
 		vm_log(log_lvl, " %d |", node->reg[i - 1]);
-	vm_log(log_lvl, "\n\n");
+	vm_log(log_lvl, "\nCarry\t%d\n", node->carry);
+	vm_log(log_lvl, "Last Live\t%zu\n\n", node->last_live);
+}
+
+void	log_champ(t_champ *champ, int index, uint8_t log_lvl)
+{
+	vm_log(log_lvl, "Champ[%d] Details:\n", index);
+	vm_log(log_lvl, "ID\t\t%5zu\n", champ->id);
+	vm_log(log_lvl, "User\t\t%5d\n", champ->usr_id);
+	vm_log(log_lvl, "FD\t\t%5d\n", champ->fd);
+	vm_log(log_lvl, "Name\t\t%s\n", champ->header->prog_name);
+	vm_log(log_lvl, "Size\t\t%5u\n\n", champ->header->prog_size);
+}
+
+void	log_vm_status(t_vm *core, uint8_t log_lvl)
+{
+	int		i;
+	t_car	*tmp;
+	size_t	limit;
+
+	vm_log(log_lvl, "Virtual Machine Details:\n");
+	vm_log(log_lvl, "Players\t%5d\n",core->n_players);
+	vm_log(log_lvl, "Cycle\t\t%5zu\n", core->cycle);
+	vm_log(log_lvl, "CTD\t\t%5zu\n", core->cycles_to_die);
+	limit = core->cycle + core->check_cd - core->cycles_to_die;
+	vm_log(log_lvl, "Llim\t\t%5zu\n", limit);
+	i = 0;
+	while (i < core->n_players)
+	{
+		log_champ(core->champ[i], i, log_lvl);
+		i++;
+	}
+	tmp = core->car_list;
+	i = 0;
+	while(tmp)
+	{
+		log_carriage(tmp, log_lvl);
+		tmp = tmp->next;
+		i++;
+	}
+	vm_log(log_lvl, "Total Car:\t%5d\n\n",i);
 }

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:08:18 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:50:24 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,6 @@ static void	process_player(t_vm *core, char *number, char *filename)
 		core->champ[i]->usr_id = 1;
 	load_champ(core->champ[i]);
 	vm_log(F_LOG, "Champ [%zu] initialized and loaded\n", n);
-	position = i * MEM_SIZE / core->n_players;
-	insert_champ_to_arena(core, core->champ[i], position);
-	vm_log(F_LOG, "Champ [%zu] inserted to arena\n", n);
-	core->car_list = prepend_carriage(core->car_list, create_carriage(core->car_id, position, (uint8_t)n));
-	core->car_id++;
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:17:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 14:50:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ t_car		*prepend_carriage(t_car *head, t_car *node);
 t_car		*append_carriage(t_car *head, t_car *node);
 t_car		*delete_carriage(t_car *head, size_t id);
 void		delete_car_list(t_car *head);
-void		log_carriage(t_car *node, uint8_t log_lvl);
 
 /*
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
@@ -161,7 +160,6 @@ void		vfx_key(t_vs *vfx);
 ** VM utilities
 */
 
-void		vm_log(uint8_t lvl, char *message, ...);
 void		engine(t_vm *core);
 void		process_vm_args(t_vm *core, char **argv, int argc);
 size_t		check_player_id(t_vm *core, size_t number, int8_t mod);
@@ -170,6 +168,14 @@ void		vm_error(char *usr_msg, uint8_t log);
 void		print_usage(void);
 void		introduce_champs(t_vm *core);
 
+/*
+** Logging
+*/
+
+void		vm_log(uint8_t lvl, char *message, ...);
+void		log_carriage(t_car *node, uint8_t log_lvl);
+void		log_champ(t_champ *champ, int index, uint8_t log_lvl);
+void		log_vm_status(t_vm *core, uint8_t log_lvl);
 /*
 ** OP read and utils
 */

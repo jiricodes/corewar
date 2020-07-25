@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:51:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:50:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ static size_t	*sort_ids(size_t *ids, size_t lenght)
 
 static void	intro_champ(t_vm *core, size_t id)
 {
-	int i;
+	int		i;
+	ssize_t	position;
 
 	i = 0;
 	while (core->champ[i]->id != id)
 		i++;
 	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\")\n", core->champ[i]->id, core->champ[i]->header->prog_size, core->champ[i]->header->prog_name, core->champ[i]->header->comment);
+	position = i * MEM_SIZE / core->n_players;
+	insert_champ_to_arena(core, core->champ[i], position);
+	vm_log(F_LOG, "Champ [%zu] inserted to arena\n", core->champ[i]->id);
+	core->car_list = prepend_carriage(core->car_list, create_carriage(core->car_id, position, (uint8_t)core->champ[i]->id));
+	core->car_id++;
 }
 
 void	introduce_champs(t_vm *core)
@@ -74,4 +80,5 @@ void	introduce_champs(t_vm *core)
 		intro_champ(core, ids[i]);
 		i++;
 	}
+	
 }

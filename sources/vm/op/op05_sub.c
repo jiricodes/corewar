@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:57:20 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 15:10:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	op_sub(t_vm *core, t_car *car)
 	ssize_t	index;
 
 	if (F_LOG)
-		vm_log(F_LOG, "Carriage[%zu] - operation \"%s\"\n",\
+		vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\"\n", core->cycle,\
 			car->id, g_oplist[car->op_index].opname);
 	fill_args("sub", car->args);
 	index = car->pc + OP_SIZE;
