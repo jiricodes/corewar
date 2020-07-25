@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/25 16:15:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/25 18:58:09 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	get_step(t_car *car, t_args *args)
 			val += args->t_dir_size;
 		cnt += 1;
 	}
-	car->step = val % MEM_SIZE;
+	car->step = val;
 }
 
 void	copy_carriage(t_vm *core, t_car *car, int addr)
