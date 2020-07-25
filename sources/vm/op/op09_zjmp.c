@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op09_zjmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 15:10:40 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/25 22:24:40 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	op_zjmp(t_vm *core, t_car *car)
 	{
 		val = car->args->arg[0];
 		if (car->carry)
+		{
 			car->step = val % IDX_MOD;
-		return ;
+			return ;
+		}
 	}
 	get_step(car, car->args);
 }
