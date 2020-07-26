@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 16:35:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 19:08:54 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // # include "oplist_cw.h"
 # include <ncurses.h>
 # include <time.h>
+# include <sys/ioctl.h>
 
 /*
 ** Logging options:
@@ -40,6 +41,12 @@
 # define VFX_SLEEP_N 250000000
 # define VFX_SPEED_DELTA 500
 # define VFX_INIT_SPEED 5000
+# define VFX_INFO_STD 30
+# define VFX_LEGEND_STD 3
+# define VFX_PLAY core->vfx->play
+# define VFX_ARENA core->vfx->arena->win
+# define VFX_INFO core->vfx->info->win
+# define VFX_LEG core->vfx->legend->win
 
 /*
 ** FLAGS Preset
@@ -63,11 +70,20 @@ typedef struct s_champ
 	uint8_t		*raw;
 }				t_champ;
 
-typedef struct	s_visual_settings
+typedef struct	s_window
 {
+	WINDOW		*win;
 	int			width;
 	int			height;
-	WINDOW		*win;
+	int			x;
+	int			y;
+}				t_win;
+
+typedef struct	s_visual_settings
+{
+	t_win		*arena;
+	t_win		*info;
+	t_win		*legend;
 	int			play;
 	int			key;
 	size_t		freq;
@@ -152,11 +168,12 @@ void		delete_car_list(t_car *head);
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
 */
 
-t_vs		*init_visual_settings(char *title);
+t_vs		*init_visual_settings(void);
 void		init_vfx_arena(t_vm *core);
 void		draw_arena(t_vm *core);
+void		draw_cycle(t_vm *core);
 void		vfx_colors();
-void		vfx_key(t_vs *vfx);
+void		vfx_key(t_vm *core);
 
 /*
 ** VM utilities

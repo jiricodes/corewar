@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 15:28:49 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 19:18:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,13 @@ void	engine(t_vm *core)
 	if (VFX)
 	{
 		init_vfx_arena(core);
-		mvprintw(0,0, "Cycle: %zu", core->cycle);
-		draw_arena(core);
+		draw_cycle(core);
 	}
 	while (core->car_list && core->cycles_to_die > 0)
 	{
 		// printf("Cycle %zu\n", core->cycle);
 		if (VFX && (core->vfx->key = getch()) != ERR)
-			vfx_key(core->vfx);
-		if (VFX)
-			mvprintw(0,35, "Frequency %zu", core->vfx->freq);
+			vfx_key(core);
 		if (!VFX || (core->vfx->play && loop % core->vfx->freq == 0))
 		{
 			loop = 0;
@@ -165,11 +162,7 @@ void	engine(t_vm *core)
 				core->check_cd = core->cycles_to_die;
 			}
 			if (VFX)
-			{
-				mvprintw(0,0, "Cycle: %zu", core->cycle);
-				draw_arena(core);
-				// nanosleep(&(core->vfx->time), NULL);
-			}
+				draw_cycle(core);
 			if (core->cycle == core->flags->dump_cycle)
 			{
 				print_arena(core->arena, core->flags->dump_size);
