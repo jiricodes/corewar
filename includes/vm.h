@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 14:50:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 14:43:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct	s_flags
 	uint8_t		aff;
 	uint8_t		log;
 	uint8_t		large;
+	uint8_t		silent;
 	uint8_t		dump_size;
 	size_t		dump_cycle;
 }				t_flg;

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:50:24 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 14:44:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ static int		handle_flags(t_vm *core, char **argv, int argc, int i)
 		return (1);
 	}
 	else if (ft_strequ(argv[i], "-v"))
+	{
 		core->flags->vfx = 1;
+		core->flags->silent = 1;
+	}
 	else if (ft_strequ(argv[i], "-n"))
 	{
 		if (i < argc - 2)
@@ -129,6 +132,8 @@ static int		handle_flags(t_vm *core, char **argv, int argc, int i)
 	}
 	else if (ft_strequ(argv[i], "-a"))
 		core->flags->aff = 1;
+	else if (ft_strequ(argv[i], "-s"))
+		core->flags->silent = 1;
 	else
 		process_player(core, NULL, argv[i]);
 	return (0);

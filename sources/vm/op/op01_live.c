@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 15:08:35 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 14:43:53 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		last_to_live(t_vm *core, int live_arg)
 		if (core->champ[i]->id == (size_t)live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			if (!core->flags->vfx)
+			if (!core->flags->silent)
 				ft_printf("A process shows that player %d (%s) is alive\n",\
 				core->champ[i]->id, core->champ[i]->header->prog_name);
 			break ;
