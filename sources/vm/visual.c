@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 19:18:01 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 19:51:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,28 @@ void	draw_arena(t_vm *core)
 	wrefresh(VFX_ARENA);
 }
 
+char	*create_progress_bar(size_t max_val, size_t cur_val, size_t len, int *color)
+{
+	double	rat;
+	double	l;
+	char	*str;
+	
+	rat = (double)cur_val / (double)max_val;
+	l = rat * len;
+	str = ft_strnew((size_t)l);
+	ft_strset(str, 35, (size_t)l);
+	// *color = (1 - rat) * 3 + 1;
+	if (rat <= 0.45)
+		*color = 3;
+	else if (rat > 0.45 && rat <= 0.65)
+		*color = 4;
+	else if (rat > 0.65 && rat <= 0.85)
+		*color = 10;
+	else
+		*color = 1;
+	return (str);
+}
+
 void	draw_legend(t_vm *core)
 {
 	int x;
@@ -125,7 +147,7 @@ void	draw_legend(t_vm *core)
 	reset_window(VFX_LEG, VFX_PLAY);
 	x = core->vfx->legend->width - 13;
 	y = core->vfx->legend->height / 2;
-	vm_log(1, "LEG FREQ x = %d, y = %d\n", x, y);
+	// vm_log(1, "LEG FREQ x = %d, y = %d\n", x, y);
 	mvwprintw(VFX_LEG, y, x, "FREQ %6zu", core->vfx->freq);
 	wrefresh(VFX_LEG);
 }
@@ -135,11 +157,12 @@ void	draw_info(t_vm *core)
 	char	*buf;
 	int		x;
 	int		y;
+	int		clr;
 
 	reset_window(VFX_INFO, VFX_PLAY);
 	x = core->vfx->info->width / 2 - 7;
 	y = 1;
-	vm_log(1, "info x = %d, y = %d\n", x, y);
+	// vm_log(1, "info x = %d, y = %d\n", x, y);
 	if (core->vfx->play)
 	{
 		wattron(VFX_INFO, COLOR_PAIR(3));
@@ -155,6 +178,17 @@ void	draw_info(t_vm *core)
 	y += 2;
 	x = 2;
 	mvwprintw(VFX_INFO, y, x, "Cycle:\t%6zu", core->cycle);
+	y++;
+	mvwprintw(VFX_INFO, y, x, "CTD:\t%6zu", core->cycles_to_die);
+	y++;
+	mvwprintw(VFX_INFO, y, x, "Live Check:");
+	y++;
+	clr = 1;
+	buf = create_progress_bar(core->cycles_to_die, core->cycles_to_die - core->check_cd, core->vfx->info->width - 4, &clr);
+	wattron(VFX_INFO, COLOR_PAIR(clr));
+	mvwprintw(VFX_INFO, y, x, buf);
+	wattron(VFX_INFO, COLOR_PAIR(clr));
+	free(buf);
 	wrefresh(VFX_INFO);
 }
 
