@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:17:03 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:13:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_vs	*init_visual_settings(char *title)
 	settings = (t_vs *)ft_memalloc(sizeof(t_vs));
 	if (!settings)
 		vm_error("Malloc at init_visual_settings", LOG);
-	settings->height = 66;
-	settings->width = 64 * 2 + 2;
+	settings->width = VFX_WIDTH * 2 + 2;
+	settings->height = MEM_SIZE / VFX_WIDTH + 2;
 	settings->time.tv_sec = VFX_SLEEP_S;
 	settings->time.tv_nsec = VFX_SLEEP_N;
 	settings->freq = VFX_INIT_SPEED;
@@ -30,7 +30,7 @@ t_vs	*init_visual_settings(char *title)
 	curs_set(0);
 	cbreak();
 	noecho();
-	mvprintw(0,20, title);
+	mvprintw(0, 20, title);
 	settings->win = newwin(settings->height, settings->width, 1, 0);
 	refresh();
 	box(settings->win, 0, 0);
@@ -47,33 +47,32 @@ int		check_carriage(t_car *head, ssize_t pos)
 	}
 	return (0);
 }
+
 void	draw_arena(t_vm *core)
 {
-	int	y;
-	int	x;
-	ssize_t	i;
-	int	hgl;
+	size_t	i;
+	int		hgl;
+	int		x;
+	int		y;
 
 	werase(core->vfx->win);
-	y = 1;
-	x = 1;
+	wattron(core->vfx->win, COLOR_PAIR(8));
+	wattron(core->vfx->win, A_STANDOUT);
+	wborder(core->vfx->win, '*', '*', '*', '*', '*', '*', '*', '*');
+	wattroff(core->vfx->win, A_STANDOUT);
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		if ((hgl = check_carriage(core->car_list, i)))
 			wattron(core->vfx->win, A_STANDOUT);
 		wattron(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
+		x = ((i % (VFX_WIDTH)) * 2) + 1;
+		y = (i / (core->vfx->height - 2)) + 1;
 		mvwprintw(core->vfx->win, y, x, "%02x", core->arena[i]);
 		wattroff(core->vfx->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		if (hgl)
 			wattroff(core->vfx->win, A_STANDOUT);
 		i++;
-		x += 2;
-		if (x >= core->vfx->width - 1)
-		{
-			x = 1;
-			y++;
-		}
 	}
 	wrefresh(core->vfx->win);
 }
@@ -98,3 +97,4 @@ void	vfx_key(t_vs *vfx)
 	else if (vfx->key == KEY_LEFT)
 		vfx->freq += VFX_SPEED_DELTA;
 }
+

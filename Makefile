@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/24 20:06:38 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/26 15:31:29 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ VM_FILES =	arena.c \
 			engine.c \
 			error.c \
 			init_colors.c \
+			load.c \
 			log.c \
 			visual.c \
 			vm.c \

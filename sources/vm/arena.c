@@ -6,20 +6,28 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:45:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:44:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	init_arena(t_vm	*core)
+void			init_arena(t_vm *core)
 {
+	size_t i;
+
 	core->arena = (uint8_t *)ft_memalloc(MEM_SIZE);
 	if (!(core->arena))
 		vm_error("Malloc at init_arena [arena]", LOG);
 	core->byte_owner = (uint8_t *)ft_memalloc(MEM_SIZE);
 	if (!(core->byte_owner))
 		vm_error("Malloc at init_arena [byte_owner]", LOG);
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		core->byte_owner[i] = 8;
+		i++;
+	}
 }
 
 static uint8_t	champ_index(t_vm *core, size_t id)
@@ -32,7 +40,8 @@ static uint8_t	champ_index(t_vm *core, size_t id)
 	return (i);
 }
 
-void	insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position)
+void			insert_champ_to_arena(t_vm *core, t_champ *champ,\
+					ssize_t position)
 {
 	size_t	i;
 	char	*buf;
@@ -44,7 +53,8 @@ void	insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position)
 	{
 		if (core->arena[position + i])
 		{
-			ft_sprintf(buf, "Inserting Player %zu error. Byte [%zu] overwrite", champ->id, position + 1);
+			ft_sprintf(buf, "Inserting Player %zu error. Byte [%zu] overwrite",\
+				champ->id, position + 1);
 			vm_error(buf, F_LOG);
 		}
 		core->arena[position + i] = champ->raw[i];
@@ -55,7 +65,7 @@ void	insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position)
 	}
 }
 
-void	print_arena(uint8_t *arena, int	size)
+void			print_arena(uint8_t *arena, int size)
 {
 	int	i;
 

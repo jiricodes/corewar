@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:17:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 13:49:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 15:37:54 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	print_usage(void)
 	ft_printf("Usage:\n");
 	ft_printf("./corewar -[flag] [-n [player_number] [player.cor]] ...\n");
 	ft_printf("\nFlags:\n");
-	ft_printf("-n [number]\tFollowed by .cor file. Assign the number to the player");
-	ft_printf("-d [number]\tDumps memory after that cycle.");
+	ft_printf("-n [number] <player.cor>\tAssign the number to the player");
+	ft_printf("-d [number]\tDumps memory after that cycle. 64 octets");
+	ft_printf("-dump [number]\tDumps memory after that cycle. 32 octets");
 	ft_printf("-v\t\ttoggle visualiser");
+	ft_printf("-a\t\taff support");
+	ft_printf("-log [1 | 2]\t\ttoggle log 1 file, 2 file & stdout");
+	ft_printf("-s\t\tsilent run");
 }

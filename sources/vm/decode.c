@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 10:47:50 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 19:34:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 15:34:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int32_t		decode(const uint8_t *source, size_t size)
 {
 	int32_t result;
 	uint8_t sign;
-	size_t i;
+	size_t	i;
 
 	if (source[0] & 128)
 		sign = 255;

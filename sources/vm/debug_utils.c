@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 20:50:13 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 15:34:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ static size_t	*sort_ids(size_t *ids, size_t lenght)
 	size_t	tmp;
 	size_t	i;
 	size_t	k;
-	size_t *result;
+	size_t	*result;
 
-	if (lenght == 1)
-		return (ids);
 	i = 1;
 	while (i < lenght)
 	{
@@ -42,7 +40,7 @@ static size_t	*sort_ids(size_t *ids, size_t lenght)
 	return (ids);
 }
 
-static void	intro_champ(t_vm *core, size_t id)
+static void		intro_champ(t_vm *core, size_t id)
 {
 	int		i;
 	ssize_t	position;
@@ -50,18 +48,21 @@ static void	intro_champ(t_vm *core, size_t id)
 	i = 0;
 	while (core->champ[i]->id != id)
 		i++;
-	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\")\n", core->champ[i]->id, core->champ[i]->header->prog_size, core->champ[i]->header->prog_name, core->champ[i]->header->comment);
+	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\")\n",\
+		core->champ[i]->id, core->champ[i]->header->prog_size,\
+		core->champ[i]->header->prog_name, core->champ[i]->header->comment);
 	position = i * MEM_SIZE / core->n_players;
 	insert_champ_to_arena(core, core->champ[i], position);
 	vm_log(F_LOG, "Champ [%zu] inserted to arena\n", core->champ[i]->id);
-	core->car_list = prepend_carriage(core->car_list, create_carriage(core->car_id, position, (uint8_t)core->champ[i]->id));
+	core->car_list = prepend_carriage(core->car_list,\
+		create_carriage(core->car_id, position, (uint8_t)core->champ[i]->id));
 	core->car_id++;
 }
 
-void	introduce_champs(t_vm *core)
+void			introduce_champs(t_vm *core)
 {
 	size_t	*ids;
-	int	i;
+	int		i;
 
 	ids = (size_t *)ft_memalloc(sizeof(size_t) * core->n_players);
 	if (!ids)
@@ -80,5 +81,4 @@ void	introduce_champs(t_vm *core)
 		intro_champ(core, ids[i]);
 		i++;
 	}
-	
 }

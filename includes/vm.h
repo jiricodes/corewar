@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 14:43:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:35:31 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 */
 
 # define VFX core->flags->vfx
+# define VFX_WIDTH 64
 # define VFX_SLEEP_S 0
 # define VFX_SLEEP_N 250000000
 # define VFX_SPEED_DELTA 500
@@ -168,6 +169,10 @@ void		clear_vm(t_vm *core);
 void		vm_error(char *usr_msg, uint8_t log);
 void		print_usage(void);
 void		introduce_champs(t_vm *core);
+int32_t		decode_bytes(t_champ *champ, size_t size);
+void		load_header(t_champ *champ);
+void		load_code(t_champ *champ);
+void		magic_check(t_champ *champ);
 
 /*
 ** Logging
@@ -177,6 +182,8 @@ void		vm_log(uint8_t lvl, char *message, ...);
 void		log_carriage(t_car *node, uint8_t log_lvl);
 void		log_champ(t_champ *champ, int index, uint8_t log_lvl);
 void		log_vm_status(t_vm *core, uint8_t log_lvl);
+void		log_arena(uint8_t *arena, int size, uint8_t log_lvl);
+
 /*
 ** OP read and utils
 */
