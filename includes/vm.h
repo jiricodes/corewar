@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 19:08:54 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 20:12:31 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,12 @@ int32_t		decode_bytes(t_champ *champ, size_t size);
 void		load_header(t_champ *champ);
 void		load_code(t_champ *champ);
 void		magic_check(t_champ *champ);
+
+/*
+** Stats
+*/
+
+size_t		carriage_count(t_car *list);
 
 /*
 ** Logging

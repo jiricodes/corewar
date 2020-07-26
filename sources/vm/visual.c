@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 19:51:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/26 20:14:30 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void	draw_info(t_vm *core)
 	x = 2;
 	mvwprintw(VFX_INFO, y, x, "Cycle:\t%6zu", core->cycle);
 	y++;
-	mvwprintw(VFX_INFO, y, x, "CTD:\t%6zu", core->cycles_to_die);
+	mvwprintw(VFX_INFO, y, x, "CTD:\t\t%6zu", core->cycles_to_die);
 	y++;
 	mvwprintw(VFX_INFO, y, x, "Live Check:");
 	y++;
@@ -187,8 +187,10 @@ void	draw_info(t_vm *core)
 	buf = create_progress_bar(core->cycles_to_die, core->cycles_to_die - core->check_cd, core->vfx->info->width - 4, &clr);
 	wattron(VFX_INFO, COLOR_PAIR(clr));
 	mvwprintw(VFX_INFO, y, x, buf);
-	wattron(VFX_INFO, COLOR_PAIR(clr));
+	wattroff(VFX_INFO, COLOR_PAIR(clr));
 	free(buf);
+	y += 2;
+	mvwprintw(VFX_INFO, y, x, "PC count:\t%6zu", carriage_count(core->car_list));
 	wrefresh(VFX_INFO);
 }
 
