@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op15_lfork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 16:05:43 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:35:21 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		op_lfork(t_vm *core, t_car *car)
 	index = car->pc + OP_SIZE;
 	if (read_args(core->arena, car->args, index % MEM_SIZE))
 	{
-		val = car->pc + car->args->arg[0] % MEM_SIZE;
+		val = (car->pc + car->args->arg[0]) % MEM_SIZE;
 		copy_carriage(core, car, val);
 	}
 	get_step(car, car->args);

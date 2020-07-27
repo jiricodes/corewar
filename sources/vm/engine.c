@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 19:18:38 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:32:49 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ static void check_operation(t_vm *core, t_car *car)
 
 void	process_car(t_vm *core, t_car *car)
 {
+	int	i;
+
+	core->car_cnt++;
+	if (car->pc >= MEM_SIZE || car->pc < 0)
+		vm_log(1, "Index ERROR carriage[%zu] = [%zd] current \"%s\"\n", car->id, car->pc,car->op_index >= 0 ? g_oplist[car->op_index].opname : "None");
+	i = core->byte_owner[car->pc] - 1;
+	if (i < core->n_players)
+		core->champ[i]->car_cnt++;
 	if (car->cooldown == 0 && car->op_index == -1)
 		check_operation(core, car);
 	if (car->cooldown != 0)
@@ -52,6 +60,7 @@ void	process_car(t_vm *core, t_car *car)
 			car->op_index = -1;
 		}
 		car->pc = (car->pc + car->step) % MEM_SIZE;
+		car->pc = car->pc < 0 ? MEM_SIZE + car->pc : car->pc;
 	}
 }
 
@@ -113,6 +122,19 @@ void	print_reg(t_car *car)
 	}
 }
 
+void	reset_car_cnt(t_vm *core)
+{
+	int cnt;
+
+	cnt = 0;
+	core->car_cnt = 0;
+	while (cnt < core->n_players)
+	{
+		core->champ[cnt]->car_cnt = 0;
+		cnt++;
+	}
+}
+
 void	engine(t_vm *core)
 {
 	t_car	*current;
@@ -128,21 +150,17 @@ void	engine(t_vm *core)
 	}
 	while (core->car_list && core->cycles_to_die > 0)
 	{
-		// printf("Cycle %zu\n", core->cycle);
 		if (VFX && (core->vfx->key = getch()) != ERR)
 			vfx_key(core);
 		if (!VFX || (core->vfx->play && loop % core->vfx->freq == 0))
 		{
 			loop = 0;
 			current = core->car_list;
+			reset_car_cnt(core);
 			while (current)
 			{
-				// log_carriage(current, F_LOG);
 				process_car(core, current);
-				// if (F_LOG == 2)
-				// 	print_reg(current);
 				current = current->next;
-				// show_arena(core);
 			}
 			core->cycle++;
 			core->check_cd--;

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 20:12:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:11:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define VFX_SLEEP_N 250000000
 # define VFX_SPEED_DELTA 500
 # define VFX_INIT_SPEED 5000
+# define VFX_ANIM_SPEED 50000
 # define VFX_INFO_STD 30
 # define VFX_LEGEND_STD 3
 # define VFX_PLAY core->vfx->play
@@ -68,6 +69,7 @@ typedef struct s_champ
 	int			fd;
 	header_t	*header;
 	uint8_t		*raw;
+	size_t		car_cnt;
 }				t_champ;
 
 typedef struct	s_window
@@ -131,6 +133,7 @@ typedef struct	s_vm
 	t_champ		**champ;
 	t_car		*car_list;
 	size_t		car_id;
+	size_t		car_cnt;
 	uint8_t		*arena;
 	uint8_t		*byte_owner;
 	t_flg		*flags;
@@ -170,7 +173,7 @@ void		delete_car_list(t_car *head);
 
 t_vs		*init_visual_settings(void);
 void		init_vfx_arena(t_vm *core);
-void		draw_arena(t_vm *core);
+void		draw_arena(t_vm *core, size_t limit);
 void		draw_cycle(t_vm *core);
 void		vfx_colors();
 void		vfx_key(t_vm *core);
@@ -190,12 +193,6 @@ int32_t		decode_bytes(t_champ *champ, size_t size);
 void		load_header(t_champ *champ);
 void		load_code(t_champ *champ);
 void		magic_check(t_champ *champ);
-
-/*
-** Stats
-*/
-
-size_t		carriage_count(t_car *list);
 
 /*
 ** Logging
