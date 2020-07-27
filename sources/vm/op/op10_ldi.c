@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op10_ldi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:34:55 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:17:56 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 	int		val[3];
 
 	if (args->arg_types[0] == T_IND)
-		val[0] = read_arena(core->arena, car->pc, args->arg[0] % IDX_MOD, REG_SIZE);
+		val[0] = read_arena(core->arena, car->pc,\
+			args->arg[0] % IDX_MOD, REG_SIZE);
 	else if (args->arg_types[0] == T_DIR)
 		val[0] = args->arg[0];
 	else if (args->arg_types[0] == T_REG)
@@ -44,7 +45,8 @@ void		op_ldi(t_vm *core, t_car *car)
 		start += ARG_SIZE;
 		if (read_args(core, car->args, start % MEM_SIZE))
 		{
-			vm_log(F_LOG, "P\t%zu | %s", car->id, g_oplist[car->op_index].opname);
+			vm_log(F_LOG, "P\t%zu | %s", car->id,\
+				g_oplist[car->op_index].opname);
 			do_ldi(core, car->args, car);
 		}
 	}

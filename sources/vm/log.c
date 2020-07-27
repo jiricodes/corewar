@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:45:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:15:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,15 @@ void		log_vm_status(t_vm *core, uint8_t log_lvl)
 		i++;
 	}
 	tmp = core->car_list;
-	i = 0;
 	while (tmp)
 	{
 		log_carriage(tmp, log_lvl);
 		tmp = tmp->next;
-		i++;
 	}
-	vm_log(log_lvl, "Total Car:\t%5d\n\n", i);
+	vm_log(log_lvl, "Total Car:\t%5d\n\n", core->car_cnt);
 }
 
-void			log_arena(uint8_t *arena, int size, uint8_t log_lvl)
+void		log_arena(uint8_t *arena, int size, uint8_t log_lvl)
 {
 	int	i;
 

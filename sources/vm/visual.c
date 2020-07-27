@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 12:12:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:03:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void	draw_info(t_vm *core)
 	x = 2;
 	mvwprintw(VFX_INFO, y, x, "Cycle:\t%6zu", core->cycle);
 	y++;
-	mvwprintw(VFX_INFO, y, x, "CTD:\t\t%6zu", core->cycles_to_die);
+	mvwprintw(VFX_INFO, y, x, "CTD:\t\t%6zd", core->cycles_to_die);
 	y++;
 	mvwprintw(VFX_INFO, y, x, "Live Check:");
 	y++;

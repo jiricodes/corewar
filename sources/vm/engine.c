@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 18:59:35 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:11:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,14 @@ void	vfx_engine(t_vm *core)
 		}
 		loop++;
 	}
-	wattron(stdscr, A_STANDOUT);
-	wattron(stdscr, COLOR_PAIR(3));
+	VFX_PLAY = 0;
+	wattron(VFX_INFO, A_STANDOUT);
+	wattron(VFX_INFO, COLOR_PAIR(3));
 	if (core->last_to_live)
-		mvwprintw(VFX_INFO, core->vfx->info->height - 2, 2, "Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
+		mvwprintw(VFX_INFO, core->vfx->info->height - 10, 2, "Player (%d) %s won", core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
-		mvwprintw(VFX_INFO, core->vfx->info->height - 2, 2, "Everyone is dead, total clusterfuck\n");
+		mvwprintw(VFX_INFO, core->vfx->info->height - 10, 2, "Everyone is dead, total clusterfuck");
+	wrefresh(VFX_INFO);
 	while (getch() != 27);
 	endwin();
 	log_vm_status(core, F_LOG);

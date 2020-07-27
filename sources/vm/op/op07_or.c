@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op07_or.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:15:29 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:17:26 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	do_or(t_vm *core, t_args *args, t_car *car)
 		if (args->arg_types[cnt] == T_REG)
 			val[cnt] = car->reg[args->arg[cnt] - 1];
 		else if (args->arg_types[cnt] == T_IND)
-			val[cnt] = read_arena(core->arena, car->pc, args->arg[cnt], REG_SIZE);
+			val[cnt] = read_arena(core->arena, car->pc,\
+				args->arg[cnt], REG_SIZE);
 		else if (args->arg_types[cnt] == T_DIR)
 			val[cnt] = args->arg[cnt];
 		cnt += 1;

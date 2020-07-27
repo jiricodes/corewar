@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:31:02 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:18:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	last_to_live(t_vm *core, int live_arg)
 		if (core->champ[i]->id == (size_t)live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			// if (!core->flags->silent)
-			// 	ft_printf("A process shows that player %d (%s) is alive\n",\
-			// 	core->champ[i]->id, core->champ[i]->header->prog_name);
+			if (!core->flags->silent)
+				ft_printf("A process shows that player %d (%s) is alive\n",\
+				core->champ[i]->id, core->champ[i]->header->prog_name);
 			core->live_cnt++;
 			break ;
 		}

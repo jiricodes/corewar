@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 17:28:39 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:20:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 */
 
 # define PLAYER_N_MAX 255
+# define ARENA	core->arena
 
 typedef struct s_champ
 {
