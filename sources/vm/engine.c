@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 17:29:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:59:35 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,12 +176,13 @@ void	vfx_engine(t_vm *core)
 
 	loop = 0;
 	core->checks = 0;
-		init_vfx_arena(core);
-		draw_cycle(core);
+	init_vfx_arena(core);
+	draw_cycle(core);
 	while (core->car_list && core->cycles_to_die >= 0)
 	{
-		vfx_key(core);
-		if (core->vfx->play && loop % core->vfx->freq == 0)
+		if ((core->vfx->key = getch()) != ERR)
+			vfx_key(core);
+		if (VFX_PLAY && loop % core->vfx->freq == 0)
 		{
 			core->check_cd--;
 			core->cycle++;
@@ -205,31 +206,23 @@ void	vfx_engine(t_vm *core)
 				core->check_cd = core->cycles_to_die;
 				core->checks++;
 			}
+			draw_cycle(core);
 			if (core->cycle == core->flags->dump_cycle)
 			{
-				print_arena(core->arena, core->flags->dump_size);
+				VFX_PLAY = 0;
+				draw_cycle(core);
 				log_vm_status(core, F_LOG);
-				return ;
 			}
 		}
-		// ft_printf("Cycle to die: %zu\n", core->cycles_to_die);
 		loop++;
 	}
-	core->cycle--;
-	if (VFX)
-	{
-		wattron(stdscr, A_STANDOUT);
-		wattron(stdscr, COLOR_PAIR(3));
-		if (core->last_to_live)
-			mvprintw(0, 55, "Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
-		else
-			mvprintw(0, 55, "Everyone is dead, total clusterfuck\n");
-		while (getch() != 27);
-		endwin();
-	}
+	wattron(stdscr, A_STANDOUT);
+	wattron(stdscr, COLOR_PAIR(3));
 	if (core->last_to_live)
-		ft_printf("[%zu] Player (%d) %s won\n", core->cycle, core->last_to_live->id, core->last_to_live->header->prog_name);
+		mvwprintw(VFX_INFO, core->vfx->info->height - 2, 2, "Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
-		ft_printf("[%zu] Everyone is dead, total clusterfuck\n", core->cycle);
+		mvwprintw(VFX_INFO, core->vfx->info->height - 2, 2, "Everyone is dead, total clusterfuck\n");
+	while (getch() != 27);
+	endwin();
 	log_vm_status(core, F_LOG);
 }

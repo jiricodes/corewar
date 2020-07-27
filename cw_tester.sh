@@ -1,4 +1,4 @@
-rm -f cw_diff_log
+rm -f cw_diff_log dump_orig dump_us
 for (( i=0; i<=20000; i+=100 ))
 do
 	./corewar $1 $2 $3 $4 -s -d $i > dump_us
