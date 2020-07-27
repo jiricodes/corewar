@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:17:46 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:26:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct	s_vm
 	ssize_t		check_cd;
 	size_t		cycle;
 	int			live_cnt;
+	int			checks;
 }				t_vm;
 
 /*

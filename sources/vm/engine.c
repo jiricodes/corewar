@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:20:53 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:30:18 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,10 @@ void	reset_car_cnt(t_vm *core)
 void	engine(t_vm *core)
 {
 	t_car	*current;
-	int		checks;
 	size_t	loop;
 
 	loop = 0;
-	checks = 0;
+	core->checks = 0;
 	if (VFX)
 	{
 		init_vfx_arena(core);
@@ -152,14 +151,14 @@ void	engine(t_vm *core)
 			if (core->check_cd <= 0)
 			{
 				check_live_calls(core);
-				if (core->live_cnt >= 21 || checks == MAX_CHECKS)
+				if (core->live_cnt >= 21 || core->checks == MAX_CHECKS)
 				{
 					core->cycles_to_die -= CYCLE_DELTA;
-					checks = 0;
-					core->live_cnt = 0;
+					core->checks = 0;
 				}
+				core->live_cnt = 0;
 				core->check_cd = core->cycles_to_die;
-				checks++;
+				core->checks++;
 			}
 			if (VFX)
 				draw_cycle(core);
