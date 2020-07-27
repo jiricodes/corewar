@@ -12,3 +12,5 @@ corewar
 asm
 deasm
 lib/object_files/
+lib/libft/object_files/
+lib/libft/libft.a
