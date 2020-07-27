@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/25 21:09:39 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:33:57 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,34 @@ int			read_arena(uint8_t *arena, int start, int argval, int size)
 	return (ret);
 }
 
-int		read_args(uint8_t *arena, t_args *args, ssize_t index)
+int		read_args(t_vm *core, t_args *args, ssize_t pos)
 {
-	int		cnt;
+	int		x;
 
-	cnt = 0;
-	while (cnt < 3)
+	x = 0;
+	while (x < args->arg_cnt)
 	{
-		if (args->arg_types[cnt] == T_REG)
+		if (args->arg_types[x] == T_REG)
 		{
-			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, TREG_SIZE);
-			if (args->arg[cnt] > 16 || args->arg[cnt] < 1)
+			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, TREG_SIZE);
+			vm_log(F_LOG, "r%d ", args->arg[x]);
+			if (args->arg[x] > 16 || args->arg[x] < 1)
 				return (0);
-			index += TREG_SIZE;
+			pos += TREG_SIZE;
 		}
-		else if (args->arg_types[cnt] == T_DIR)
+		else if (args->arg_types[x] == T_DIR)
 		{
-			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, args->t_dir_size);
-			index += args->t_dir_size;
+			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, args->dir_size);
+			vm_log(F_LOG, "%d ", args->arg[x]);
+			pos += args->dir_size;
 		}
-		else if (args->arg_types[cnt] == T_IND)
+		else if (args->arg_types[x] == T_IND)
 		{
-			args->arg[cnt] = read_arena(arena, index % MEM_SIZE, 0, 2);
-			index += 2;
+			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, 2);
+			vm_log(F_LOG, "%d ", args->arg[x]);
+			pos += 2;
 		}
-		cnt += 1;
+		x += 1;
 	}
 	return (1);
 }

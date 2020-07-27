@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/25 18:58:09 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:21:35 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	fill_args(char *opname, t_args *args)
 {
-	int		cnt;
+	int	cnt;
 
 	cnt = 0;
 	while (cnt < 16)
@@ -24,7 +24,7 @@ void	fill_args(char *opname, t_args *args)
 			args->opcount = cnt;
 			args->arg_cnt = g_oplist[cnt].arg_cnt;
 			args->arg_code = g_oplist[cnt].arg_type_code;
-			args->t_dir_size = g_oplist[cnt].t_dir_size;
+			args->dir_size = g_oplist[cnt].t_dir_size;
 			args->arg_types[0] = g_oplist[cnt].arg_type[0];
 			args->arg_types[1] = g_oplist[cnt].arg_type[1];
 			args->arg_types[2] = g_oplist[cnt].arg_type[2];
@@ -38,14 +38,16 @@ void	write_bytes(size_t index, int val, t_car *car, t_vm *core)
 	int		x;
 	int		size;
 	uint8_t	byte;
+	int		pos;
 
 	x = 0;
 	size = 4;
 	while (size)
 	{
 		byte = (uint8_t)(val >> x) & 0xFF;
-		core->arena[(index + size - 1) % MEM_SIZE] = byte;
-		core->byte_owner[(index + size - 1) % MEM_SIZE] = core->byte_owner[car->pc];
+		pos = (index + size - 1) % MEM_SIZE;
+		core->arena[pos] = byte;
+		core->byte_owner[pos] = core->byte_owner[car->pc];
 		x += 8;
 		size -= 1;
 	}
@@ -67,7 +69,7 @@ void	get_step(t_car *car, t_args *args)
 		if (args->arg_types[cnt] == T_IND)
 			val += IND_SIZE;
 		if (args->arg_types[cnt] == T_DIR)
-			val += args->t_dir_size;
+			val += args->dir_size;
 		cnt += 1;
 	}
 	car->step = val;
@@ -75,8 +77,8 @@ void	get_step(t_car *car, t_args *args)
 
 void	copy_carriage(t_vm *core, t_car *car, int addr)
 {
-	t_car *new;
-	int cnt;
+	t_car	*new;
+	int		cnt;
 
 	cnt = 0;
 	new = create_carriage(core->car_id, addr, 0);
