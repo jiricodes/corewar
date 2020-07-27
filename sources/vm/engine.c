@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:49:39 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:29:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	process_car(t_vm *core, t_car *car)
 	{
 		if (car->op_index != -1)
 		{
+			vm_log(F_LOG, "P%5zu | %s ", car->id + 1, g_oplist[car->op_index].opname);
 			g_oplist[car->op_index].op(core, car);
+			vm_log(F_LOG, "\n");
 			car->op_index = -1;
 		}
 		car->pc = (car->pc + car->step) % MEM_SIZE;

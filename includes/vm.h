@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 15:23:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:28:39 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct	s_args
 	int			arg_code;
 	int			arg_types[3];
 	int			arg[3];
-	int			t_dir_size;
+	int			dir_size;
 }				t_args;
 
 typedef struct	s_carriage
@@ -139,8 +139,8 @@ typedef struct	s_vm
 	t_flg		*flags;
 	t_vs		*vfx;
 	t_champ		*last_to_live;
-	ssize_t		cycles_to_die;
-	ssize_t		check_cd;
+	int		cycles_to_die;
+	int		check_cd;
 	size_t		cycle;
 	int			live_cnt;
 	int			checks;
@@ -216,7 +216,7 @@ void		write_bytes(size_t index, int val, t_car *car, t_vm *core);
 void		copy_carriage(t_vm *core, t_car *car, int addr);
 
 int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
-int			read_args(uint8_t *arena, t_args *args, ssize_t index);
+int			read_args(t_vm *core, t_args *args, ssize_t pos);
 int			read_arena(uint8_t *arena, int start, int argval, int size);
 
 #endif

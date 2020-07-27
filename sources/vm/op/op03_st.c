@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op03_st.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 15:10:12 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:11:56 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,19 @@ static void	do_st(t_args *args, t_car *car, t_vm *core)
 		val[1] = args->arg[1];
 		car->reg[val[1] - 1] = val[0];
 	}
+	vm_log(F_LOG, "r%d %d", val[0], val[1]);
 }
 
 void		op_st(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 
-	if (F_LOG)
-		vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\"\n", core->cycle,\
-			car->id, g_oplist[car->op_index].opname);
 	fill_args("st", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{
 		index += ARG_SIZE;
-		if (read_args(core->arena, car->args, index % MEM_SIZE))
+		if (read_args(core, car->args, index % MEM_SIZE))
 			do_st(car->args, car, core);
 	}
 	get_step(car, car->args);

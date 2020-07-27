@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:09:10 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:31:02 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void		last_to_live(t_vm *core, int live_arg)
+static void	last_to_live(t_vm *core, int live_arg)
 {
 	int	i;
 
@@ -22,9 +22,9 @@ static void		last_to_live(t_vm *core, int live_arg)
 		if (core->champ[i]->id == (size_t)live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			if (!core->flags->silent)
-				ft_printf("A process shows that player %d (%s) is alive\n",\
-				core->champ[i]->id, core->champ[i]->header->prog_name);
+			// if (!core->flags->silent)
+			// 	ft_printf("A process shows that player %d (%s) is alive\n",\
+			// 	core->champ[i]->id, core->champ[i]->header->prog_name);
 			core->live_cnt++;
 			break ;
 		}
@@ -32,25 +32,19 @@ static void		last_to_live(t_vm *core, int live_arg)
 	}
 }
 
-void	op_live(t_vm *core, t_car *car)
+void		op_live(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 	int		val;
 
-	if (F_LOG)
-		vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\" ", core->cycle,\
-			car->id, g_oplist[car->op_index].opname);
 	fill_args("live", car->args);
 	index = car->pc + OP_SIZE;
-	if (read_args(core->arena, car->args, index % MEM_SIZE))
+	if (read_args(core, car->args, index % MEM_SIZE))
 	{
-		val = car->args->arg[0] * -1;
-		if (F_LOG)
-			vm_log(F_LOG, "arg = %d\n", val);
-		last_to_live(core, val);
+		val = car->args->arg[0];
+		vm_log(F_LOG, "%d", val);
+		last_to_live(core, val * -1);
 		car->last_live = core->cycle;
 	}
-	else if (F_LOG)
-		vm_log(F_LOG, "arg = failed to load\n");
 	get_step(car, car->args);
 }
