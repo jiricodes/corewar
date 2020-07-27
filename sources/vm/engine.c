@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:55:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:44:34 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	process_car(t_vm *core, t_car *car)
 	{
 		if (car->op_index != -1)
 		{
+			vm_log(F_LOG, "P\t%zu | %s ", car->id + 1, g_oplist[car->op_index].opname);
 			g_oplist[car->op_index].op(core, car);
+			vm_log(F_LOG, "\n");
 			car->op_index = -1;
 		}
 		car->pc = (car->pc + car->step) % MEM_SIZE;
