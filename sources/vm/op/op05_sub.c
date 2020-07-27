@@ -6,13 +6,13 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 15:42:15 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:12:20 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-static void	do_sub(t_args *args, t_car *car)
+static void	do_sub(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[3];
 
@@ -21,6 +21,7 @@ static void	do_sub(t_args *args, t_car *car)
 	val[2] = car->reg[args->arg[2] - 1];
 	car->reg[val[2]] = val[0] - val[1];
 	car->carry = car->reg[val[2]] ? 0 : 1;
+	vm_log(F_LOG, "r%d r%d r%d", args->arg[0], args->arg[1], args->arg[2]);
 }
 
 void		op_sub(t_vm *core, t_car *car)
@@ -33,7 +34,7 @@ void		op_sub(t_vm *core, t_car *car)
 	{
 		index += ARG_SIZE;
 		if (read_args(core, car->args, index % MEM_SIZE))
-			do_sub(car->args, car);
+			do_sub(core, car->args, car);
 	}
 	get_step(car, car->args);
 }

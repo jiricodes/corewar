@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 15:42:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:31:02 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	last_to_live(t_vm *core, int live_arg)
 		if (core->champ[i]->id == (size_t)live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			if (!core->flags->silent)
-				ft_printf("A process shows that player %d (%s) is alive\n",\
-				core->champ[i]->id, core->champ[i]->header->prog_name);
+			// if (!core->flags->silent)
+			// 	ft_printf("A process shows that player %d (%s) is alive\n",\
+			// 	core->champ[i]->id, core->champ[i]->header->prog_name);
 			core->live_cnt++;
 			break ;
 		}
@@ -42,6 +42,7 @@ void		op_live(t_vm *core, t_car *car)
 	if (read_args(core, car->args, index % MEM_SIZE))
 	{
 		val = car->args->arg[0];
+		vm_log(F_LOG, "%d", val);
 		last_to_live(core, val * -1);
 		car->last_live = core->cycle;
 	}

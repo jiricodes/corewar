@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/27 15:33:57 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:28:24 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int		read_args(t_vm *core, t_args *args, ssize_t pos)
 		if (args->arg_types[x] == T_REG)
 		{
 			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, TREG_SIZE);
-			vm_log(F_LOG, "r%d ", args->arg[x]);
 			if (args->arg[x] > 16 || args->arg[x] < 1)
 				return (0);
 			pos += TREG_SIZE;
@@ -87,13 +86,11 @@ int		read_args(t_vm *core, t_args *args, ssize_t pos)
 		else if (args->arg_types[x] == T_DIR)
 		{
 			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, args->dir_size);
-			vm_log(F_LOG, "%d ", args->arg[x]);
 			pos += args->dir_size;
 		}
 		else if (args->arg_types[x] == T_IND)
 		{
 			args->arg[x] = read_arena(core->arena, pos % MEM_SIZE, 0, 2);
-			vm_log(F_LOG, "%d ", args->arg[x]);
 			pos += 2;
 		}
 		x += 1;
