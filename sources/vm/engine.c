@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 12:32:49 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:20:53 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,11 @@ void	check_live_calls(t_vm *core)
 {
 	t_car *tmp;
 	ssize_t limit;
-	size_t	cnt;
 
-	limit = core->cycle - core->cycles_to_die;
+	limit = core->cycles_to_die >= 0 ? core->cycle - core->cycles_to_die : core->cycle + core->cycles_to_die;
 	limit = limit < 0 ? 0 : limit;
 	tmp = core->car_list;
-	cnt = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		cnt++;
-	}
-	tmp = core->car_list;
 	vm_log(F_LOG, "[%zu]: Checking Lives:\n", core->cycle);
-	vm_log(F_LOG, "Total carriages alive [%zu]\n", cnt);
-	cnt = 0;
 	while (tmp)
 	{
 		if (tmp->last_live < limit)
@@ -95,17 +85,12 @@ void	check_live_calls(t_vm *core)
 			log_carriage(tmp, F_LOG);
 			core->car_list = delete_carriage(core->car_list, tmp->id);
 			tmp = core->car_list;
+			core->car_cnt--;
 		}
 		else
 			tmp = tmp->next;
 	}
-	tmp = core->car_list;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		cnt++;
-	}
-	vm_log(F_LOG, "Total carriages alive [%zu]\n", cnt);
+	vm_log(F_LOG, "Total carriages alive [%zu]\n", core->car_cnt);
 }
 
 void	print_reg(t_car *car)
@@ -148,7 +133,7 @@ void	engine(t_vm *core)
 		init_vfx_arena(core);
 		draw_cycle(core);
 	}
-	while (core->car_list && core->cycles_to_die > 0)
+	while (core->car_list && core->cycles_to_die >= 0)
 	{
 		if (VFX && (core->vfx->key = getch()) != ERR)
 			vfx_key(core);
@@ -167,17 +152,14 @@ void	engine(t_vm *core)
 			if (core->check_cd <= 0)
 			{
 				check_live_calls(core);
-				checks++;
 				if (core->live_cnt >= 21 || checks == MAX_CHECKS)
 				{
-					if (core->cycles_to_die >= CYCLE_DELTA)
-						core->cycles_to_die -= CYCLE_DELTA;
-					else
-						core->cycles_to_die = 0;
+					core->cycles_to_die -= CYCLE_DELTA;
 					checks = 0;
 					core->live_cnt = 0;
 				}
 				core->check_cd = core->cycles_to_die;
+				checks++;
 			}
 			if (VFX)
 				draw_cycle(core);
@@ -204,7 +186,8 @@ void	engine(t_vm *core)
 		endwin();
 	}
 	if (core->last_to_live)
-		ft_printf("Player (%d) %s won\n", core->last_to_live->id, core->last_to_live->header->prog_name);
+		ft_printf("[%zu] Player (%d) %s won\n", core->cycle, core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
-		ft_printf("Everyone is dead, total clusterfuck\n");
+		ft_printf("[%zu] Everyone is dead, total clusterfuck\n", core->cycle);
+	log_vm_status(core, F_LOG);
 }

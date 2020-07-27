@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 16:35:10 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:22:06 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		log_vm_status(t_vm *core, uint8_t log_lvl)
 	vm_log(log_lvl, "Virtual Machine Details:\n");
 	vm_log(log_lvl, "Players\t%5d\n", core->n_players);
 	vm_log(log_lvl, "Cycle\t\t%5zu\n", core->cycle);
-	vm_log(log_lvl, "CTD\t\t%5zu\n", core->cycles_to_die);
+	vm_log(log_lvl, "CTD\t\t%5zd\n", core->cycles_to_die);
 	limit = core->cycle + core->check_cd - core->cycles_to_die;
 	vm_log(log_lvl, "Llim\t\t%5zu\n", limit);
 	i = 0;
