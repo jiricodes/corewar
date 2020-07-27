@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:12:20 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:01:00 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	do_sub(t_vm *core, t_args *args, t_car *car)
 
 	val[0] = car->reg[args->arg[0] - 1];
 	val[1] = car->reg[args->arg[1] - 1];
-	val[2] = car->reg[args->arg[2] - 1];
+	val[2] = args->arg[2] - 1;
 	car->reg[val[2]] = val[0] - val[1];
 	car->carry = car->reg[val[2]] ? 0 : 1;
 	vm_log(F_LOG, "r%d r%d r%d", args->arg[0], args->arg[1], args->arg[2]);
