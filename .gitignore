@@ -7,3 +7,8 @@ a.out
 test_file.s
 test_file.cor
 cw_log.txt
+objects/
+corewar
+asm
+deasm
+lib/object_files/

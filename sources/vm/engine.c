@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:30:18 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:55:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	process_car(t_vm *core, t_car *car)
 		check_operation(core, car);
 	if (car->cooldown != 0)
 		car->cooldown--;
-	else 
+	if (car->cooldown == 0)
 	{
 		if (car->op_index != -1)
 		{
@@ -132,12 +132,14 @@ void	engine(t_vm *core)
 		init_vfx_arena(core);
 		draw_cycle(core);
 	}
-	while (core->car_list && core->cycles_to_die >= 0)
+	while (core->car_list)
 	{
 		if (VFX && (core->vfx->key = getch()) != ERR)
 			vfx_key(core);
 		if (!VFX || (core->vfx->play && loop % core->vfx->freq == 0))
 		{
+			core->check_cd--;
+			core->cycle++;
 			loop = 0;
 			current = core->car_list;
 			reset_car_cnt(core);
@@ -146,8 +148,6 @@ void	engine(t_vm *core)
 				process_car(core, current);
 				current = current->next;
 			}
-			core->cycle++;
-			core->check_cd--;
 			if (core->check_cd <= 0)
 			{
 				check_live_calls(core);
@@ -173,6 +173,7 @@ void	engine(t_vm *core)
 		// ft_printf("Cycle to die: %zu\n", core->cycles_to_die);
 		loop++;
 	}
+	core->cycle--;
 	if (VFX)
 	{
 		wattron(stdscr, A_STANDOUT);
