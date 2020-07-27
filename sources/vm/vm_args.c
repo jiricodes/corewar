@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 14:44:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:40:05 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ static int		handle_flags(t_vm *core, char **argv, int argc, int i)
 		core->flags->aff = 1;
 	else if (ft_strequ(argv[i], "-s"))
 		core->flags->silent = 1;
+	// else if (ft_strequ(argv[i], ""))
+	// 	return (0);
 	else
 		process_player(core, NULL, argv[i]);
 	return (0);
