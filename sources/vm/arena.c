@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 16:44:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:07:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ void			print_arena(uint8_t *arena, int size)
 		if (i != 0 && i % size == 0)
 			ft_printf("\n");
 		if (i % size == 0)
-			ft_printf("%#06x :", i);
-		else
-			ft_printf(" %02x", arena[i]);
+			ft_printf("0x%04x : ", i);
+		ft_printf("%02x ", arena[i]);
 		i++;
 	}
 	ft_printf("\n");

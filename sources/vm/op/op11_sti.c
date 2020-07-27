@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/25 15:10:53 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:08:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void		op_sti(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 
-	if (F_LOG)
-		vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\"\n", core->cycle,\
-			car->id, g_oplist[car->op_index].opname);
+	vm_log(F_LOG, "[%zu]: Carriage[%zu] - operation \"%s\"\n", core->cycle,\
+		car->id, g_oplist[car->op_index].opname);
 	fill_args("sti", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))

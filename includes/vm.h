@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:26:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:23:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void		vfx_key(t_vm *core);
 */
 
 void		engine(t_vm *core);
+void		vfx_engine(t_vm *core);
 void		process_vm_args(t_vm *core, char **argv, int argc);
 size_t		check_player_id(t_vm *core, size_t number, int8_t mod);
 void		clear_vm(t_vm *core);

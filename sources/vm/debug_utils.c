@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 15:34:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:12:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		intro_champ(t_vm *core, size_t id)
 	i = 0;
 	while (core->champ[i]->id != id)
 		i++;
-	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\")\n",\
+	ft_printf("* Player %zu, weighing %u bytes, \"%s\" (\"%s\") !\n",\
 		core->champ[i]->id, core->champ[i]->header->prog_size,\
 		core->champ[i]->header->prog_name, core->champ[i]->header->comment);
 	position = i * MEM_SIZE / core->n_players;

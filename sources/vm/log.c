@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 13:28:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 16:45:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ void		log_carriage(t_car *node, uint8_t log_lvl)
 
 void		log_champ(t_champ *champ, int index, uint8_t log_lvl)
 {
+	int i;
+
 	vm_log(log_lvl, "Champ[%d] Details:\n", index);
 	vm_log(log_lvl, "ID\t\t%5zu\n", champ->id);
 	vm_log(log_lvl, "User\t\t%5d\n", champ->usr_id);
 	vm_log(log_lvl, "FD\t\t%5d\n", champ->fd);
 	vm_log(log_lvl, "Name\t\t%s\n", champ->header->prog_name);
 	vm_log(log_lvl, "Size\t\t%5u\n\n", champ->header->prog_size);
+	i = 0;
 }
 
 void		log_vm_status(t_vm *core, uint8_t log_lvl)
@@ -74,7 +77,7 @@ void		log_vm_status(t_vm *core, uint8_t log_lvl)
 	limit = core->cycle + core->check_cd - core->cycles_to_die;
 	vm_log(log_lvl, "Llim\t\t%5zu\n", limit);
 	vm_log(log_lvl, "NBR_LIVE\t%5d\n", core->live_cnt);
-	vm_log(log_lvl, "MAX_CHECKS\t%5d\n", core->checks);
+	vm_log(log_lvl, "MAX_CHECKS\t%5d\n\n", core->checks);
 	i = 0;
 	while (i < core->n_players)
 	{
@@ -103,8 +106,7 @@ void			log_arena(uint8_t *arena, int size, uint8_t log_lvl)
 			vm_log(log_lvl, "\n");
 		if (i % size == 0)
 			vm_log(log_lvl, "%#06x :", i);
-		else
-			vm_log(log_lvl, " %02x", arena[i]);
+		vm_log(log_lvl, " %02x", arena[i]);
 		i++;
 	}
 	vm_log(log_lvl, "\n");
