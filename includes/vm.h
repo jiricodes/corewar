@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 19:20:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:43:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@
 
 # define PLAYER_N_MAX 255
 # define ARENA	core->arena
-
+# define CTD	core->cycles_to_die
+# define WINNER core->last_to_live->header->prog_name
 typedef struct s_champ
 {
 	size_t		id;
@@ -140,8 +141,8 @@ typedef struct	s_vm
 	t_flg		*flags;
 	t_vs		*vfx;
 	t_champ		*last_to_live;
-	int		cycles_to_die;
-	int		check_cd;
+	ssize_t		cycles_to_die;
+	ssize_t		check_cd;
 	size_t		cycle;
 	int			live_cnt;
 	int			checks;
