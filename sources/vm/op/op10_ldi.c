@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 16:28:24 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:57:22 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 {
 	int		val[3];
 
+	vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "ldi");
 	if (args->arg_types[0] == T_IND)
 		val[0] = read_arena(core->arena, car->pc,\
 			args->arg[0] % IDX_MOD, REG_SIZE);
@@ -31,7 +32,6 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 	car->reg[val[2] - 1] = read_arena(core->arena, car->pc, \
 							(val[0] + val[1]) % IDX_MOD, REG_SIZE);
 	vm_log(F_LOG, "%d %d r%d\n", val[0], val[1], val[2]);
-	vm_log(F_LOG, "-> load from %d + %d = %d", val[0], val[1], val[0] + val[1]);
 }
 
 void		op_ldi(t_vm *core, t_car *car)
@@ -43,11 +43,7 @@ void		op_ldi(t_vm *core, t_car *car)
 	{
 		start += ARG_SIZE;
 		if (read_args(core, car->args, start % MEM_SIZE))
-		{
-			vm_log(F_LOG, "P\t%zu | %s", car->id,\
-				g_oplist[car->op_index].opname);
 			do_ldi(core, car->args, car);
-		}
 	}
 	get_step(car, car->args);
 }
