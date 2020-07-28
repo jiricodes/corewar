@@ -19,3 +19,6 @@ https://en.wikipedia.org/wiki/C_data_types#stdint.h</br>
 ### Files
 
 ## Assembler
+
+## Speed test
+28.7. ./corewar -s resources/champs/examples/helltrain.cor    421.61s user 0.22s system 99% cpu 7:01.92 total

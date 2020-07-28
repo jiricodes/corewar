@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 17:12:40 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:38:01 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void		intro_champ(t_vm *core, size_t id)
 	core->car_list = prepend_carriage(core->car_list,\
 		create_carriage(core->car_id, position, (uint8_t)core->champ[i]->id));
 	core->car_id++;
+	core->last_to_live = core->champ[i];
 }
 
 void			introduce_champs(t_vm *core)
