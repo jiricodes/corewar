@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:27:39 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:28:22 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		op_lld(t_vm *core, t_car *car)
 {
 	ssize_t	start;
 
-	fill_args("lld", car->args);
 	start = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))
 	{

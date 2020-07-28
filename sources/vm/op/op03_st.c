@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 13:29:43 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:28:30 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		op_st(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 
-	fill_args("st", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{

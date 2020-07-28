@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:47:16 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:27:23 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,6 @@ void		log_arena(uint8_t *arena, int size, uint8_t log_lvl);
 ** OP read and utils
 */
 
-void		fill_args(char *opname, t_args *args);
 void		get_step(t_car *car, t_args *args);
 void		write_bytes(size_t index, int val, t_car *car, t_vm *core);
 void		copy_carriage(t_vm *core, t_car *car, int addr);

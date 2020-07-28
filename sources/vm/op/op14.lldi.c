@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op14.lldi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 19:16:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:28:21 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void		op_lldi(t_vm *core, t_car *car)
 {
 	ssize_t	start;
 
-	fill_args("lldi", car->args);
 	start = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))
 	{

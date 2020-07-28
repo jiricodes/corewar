@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 13:52:21 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:34:54 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void			check_live_calls(t_vm *core)
 	vm_log(F_LOG, "[%zu]: Checking Lives:\n", core->cycle);
 	while (tmp)
 	{
-		log_carriage(tmp, 2);
 		if (tmp->last_live < limit)
 		{
 			vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n",\

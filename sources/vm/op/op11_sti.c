@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op11_sti.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 17:30:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:28:23 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void		op_sti(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 
-	fill_args("sti", car->args);
 	index = car->pc + OP_SIZE;
 	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{
