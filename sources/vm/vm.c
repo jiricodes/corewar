@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 20:57:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 06:19:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static t_vm	*init_vm(void)
 	core->check_cd = core->cycles_to_die;
 	core->flags->dump_cycle = -1;
 	core->flags->log = LOG;
+	core->checks = 0;
 	return (core);
 }
 
