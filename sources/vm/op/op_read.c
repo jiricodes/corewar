@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/27 19:21:12 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 13:35:35 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_types(int *types, const int *reference)
 	cnt = 0;
 	while (cnt < 3)
 	{
-		if ((types[cnt] | reference[cnt]) != reference[cnt])
+		if ((!types[cnt] && reference[cnt]) || ((types[cnt] | reference[cnt]) != reference[cnt]))
 			return (0);
 		cnt += 1;
 	}

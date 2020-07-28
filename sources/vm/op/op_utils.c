@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/27 14:21:35 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 13:30:29 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ void	fill_args(char *opname, t_args *args)
 			args->arg_cnt = g_oplist[cnt].arg_cnt;
 			args->arg_code = g_oplist[cnt].arg_type_code;
 			args->dir_size = g_oplist[cnt].t_dir_size;
-			args->arg_types[0] = g_oplist[cnt].arg_type[0];
-			args->arg_types[1] = g_oplist[cnt].arg_type[1];
-			args->arg_types[2] = g_oplist[cnt].arg_type[2];
+			if (!args->arg_code)
+			{
+				args->arg_types[0] = g_oplist[cnt].arg_type[0];
+				args->arg_types[1] = g_oplist[cnt].arg_type[1];
+				args->arg_types[2] = g_oplist[cnt].arg_type[2];
+			}
 		}
 		cnt += 1;
 	}
@@ -62,7 +65,7 @@ void	get_step(t_car *car, t_args *args)
 	val = OP_SIZE;
 	if (args->arg_code)
 		val += ARG_SIZE;
-	while (cnt < 3)
+	while (cnt < args->arg_cnt)
 	{
 		if (args->arg_types[cnt] == T_REG)
 			val += TREG_SIZE;

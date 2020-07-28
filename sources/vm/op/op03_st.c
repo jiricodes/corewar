@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 16:11:56 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 13:29:43 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	do_st(t_args *args, t_car *car, t_vm *core)
 		val[1] = args->arg[1];
 		car->reg[val[1] - 1] = val[0];
 	}
-	vm_log(F_LOG, "r%d %d", val[0], val[1]);
+	vm_log(F_LOG, "r%d %d", args->arg[0], val[1]);
 }
 
 void		op_st(t_vm *core, t_car *car)

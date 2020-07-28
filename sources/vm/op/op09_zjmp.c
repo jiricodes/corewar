@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 15:42:13 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 12:25:06 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	op_zjmp(t_vm *core, t_car *car)
 		if (car->carry)
 		{
 			car->step = val % IDX_MOD;
-			vm_log(F_LOG, " OK");
+			vm_log(F_LOG, "%d OK", car->step);
 			return ;
 		}
 	}
-	vm_log(F_LOG, " FAILED");
+	vm_log(F_LOG, "%d FAILED", val % IDX_MOD);
 	get_step(car, car->args);
 }
