@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 06:30:52 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 18:01:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ static void		do_vfx_dump(t_vm *core)
 	log_vm_status(core, F_LOG);
 }
 
+void		vfx_cycle(t_vm *core)
+{
+	core->check_cd--;
+	do_cycle(core);
+	if (core->check_cd <= 0)
+		check_lives(core);
+	draw_cycle(core);
+	core->cycle++;
+}
+
 void			vfx_engine(t_vm *core)
 {
 	size_t	loop;
@@ -55,12 +65,7 @@ void			vfx_engine(t_vm *core)
 		if (VFX_PLAY && loop % core->vfx->freq == 0)
 		{
 			loop = 0;
-			core->check_cd--;
-			do_cycle(core);
-			if (core->check_cd <= 0)
-				check_lives(core);
-			draw_cycle(core);
-			core->cycle++;
+			vfx_cycle(core);
 		}
 		loop++;
 	}

@@ -3,40 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:19:33 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:57:08 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void			check_live_calls(t_vm *core)
+t_car			*check_live_calls(t_vm *core, t_car *car)
 {
-	t_car		*tmp;
 	ssize_t		limit;
+	t_car		*next;
 
 	limit = CTD >= 0 ? core->cycle - CTD : core->cycle + CTD;
 	limit = limit < 1 ? 1 : limit;
 	limit = limit > core->cycle ? CTD : limit;
-	tmp = core->car_list;
-	vm_log(F_LOG, "[%zu]: Checking Lives:\n", core->cycle);
-	while (tmp)
+	vm_log(F_LOG, "\n[%zu]: Carriage[%zu] live [%zu] limit [%zd]\n",\
+			core->cycle, car->id, car->last_live, limit);
+	if (car->last_live < limit)
 	{
-		if (tmp->last_live < limit)
-		{
-			vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n",\
-				core->cycle, tmp->id);
-			log_carriage(tmp, F_LOG);
-			core->car_list = delete_carriage(core->car_list, tmp->id);
-			tmp = core->car_list;
-			core->car_cnt--;
-		}
-		else
-			tmp = tmp->next;
+		vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n",\
+			core->cycle, car->id);
+		log_carriage(car, F_LOG);
+		next = car->next;
+		core->car_list = delete_carriage(core->car_list, car->id);
+		core->car_cnt--;
+		return (next);
 	}
-	vm_log(F_LOG, "Total carriages alive [%zu]\n", core->car_cnt);
+	return (car->next);
 }
 
 void			do_cycle(t_vm *core)
@@ -48,13 +44,15 @@ void			do_cycle(t_vm *core)
 	while (current)
 	{
 		process_car(core, current);
-		current = current->next;
+		if (core->check_cd <= 0)
+			current = check_live_calls(core, current);
+		else
+			current = current->next;
 	}
 }
 
 void			check_lives(t_vm *core)
 {
-	check_live_calls(core);
 	if (core->live_cnt >= 21 || core->checks == MAX_CHECKS)
 	{
 		core->cycles_to_die -= CYCLE_DELTA;
@@ -83,8 +81,8 @@ void			engine(t_vm *core)
 			do_dump(core);
 			return ;
 		}
-		do_cycle(core);
 		core->check_cd--;
+		do_cycle(core);
 		if (core->check_cd <= 0)
 			check_lives(core);
 		core->cycle++;

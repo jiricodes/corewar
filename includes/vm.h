@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:19:38 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/28 18:01:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ char		*create_progress_bar(size_t max_val, size_t cur_val,\
 void		reset_window(WINDOW *win, int playback);
 int			check_carriage(t_car *head, ssize_t pos);
 void		players_info(t_vm *core, int *x, int *y);
+void		vfx_cycle(t_vm *core);
 
 /*
 ** VM utilities
@@ -209,7 +210,7 @@ void		load_code(t_champ *champ);
 void		magic_check(t_champ *champ);
 void		process_car(t_vm *core, t_car *car);
 void		reset_car_cnt(t_vm *core);
-void		check_live_calls(t_vm *core);
+t_car		*check_live_calls(t_vm *core, t_car *car);
 void		do_cycle(t_vm *core);
 void		check_lives(t_vm *core);
 size_t		find_player_nb(t_vm *core, size_t start);
