@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 18:01:28 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 19:54:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@
 # define ARENA_H settings->arena->height
 # define ARENA_X settings->arena->x
 # define ARENA_Y settings->arena->y
+
+/*
+** LOG Settings
+*/
+
+# define OP_STR	"[%zu]\tP%5zu | %s "
 
 typedef struct s_champ
 {
