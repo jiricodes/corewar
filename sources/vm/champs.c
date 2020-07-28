@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 15:31:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:39:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_champ		*init_champ(char *filename, uint8_t id)
 
 	if (!ft_strendwith(filename, ".cor"))
 	{
-		ft_sprintf(buf, "Incorrect file type: %s\n", filename);
+		ft_sprintf(buf, "Incorrect file type: %s", filename);
 		vm_error(buf, LOG);
 	}
 	champ = (t_champ*)ft_memalloc(sizeof(t_champ));

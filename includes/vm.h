@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:47:16 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:01:26 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define VFX_ARENA core->vfx->arena->win
 # define VFX_INFO core->vfx->info->win
 # define VFX_LEG core->vfx->legend->win
+# define VFX_FREQ core->vfx->freq
 
 /*
 ** FLAGS Preset
@@ -184,6 +185,11 @@ void		draw_arena(t_vm *core, size_t limit);
 void		draw_cycle(t_vm *core);
 void		vfx_colors();
 void		vfx_key(t_vm *core);
+char		*create_progress_bar(size_t max_val, size_t cur_val,\
+				size_t len, int *color);
+void		reset_window(WINDOW *win, int playback);
+int			check_carriage(t_car *head, ssize_t pos);
+void		players_info(t_vm *core, int *x, int *y);
 
 /*
 ** VM utilities

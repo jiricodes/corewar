@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:48:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:02:26 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,10 @@ t_vs			*init_visual_settings(void)
 		settings->legend = init_window(VFX_LEGEND_STD, width, 0, ARENA_H - 1);
 	refresh();
 	return (settings);
+}
+
+void			init_vfx_arena(t_vm *core)
+{
+	core->vfx = init_visual_settings();
+	vfx_colors();
 }
