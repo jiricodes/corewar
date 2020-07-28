@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:17:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:47:16 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@
 # define ARENA	core->arena
 # define CTD	core->cycles_to_die
 # define WINNER core->last_to_live->header->prog_name
+# define ARENA_W settings->arena->width
+# define ARENA_H settings->arena->height
+# define ARENA_X settings->arena->x
+# define ARENA_Y settings->arena->y
+
 typedef struct s_champ
 {
 	size_t		id;
@@ -91,7 +96,6 @@ typedef struct	s_visual_settings
 	int			play;
 	int			key;
 	size_t		freq;
-	struct timespec time;
 }				t_vs;
 
 typedef struct	s_args

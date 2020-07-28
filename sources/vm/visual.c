@@ -6,67 +6,12 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 19:03:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:50:07 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "vfx_tools.h"
-
-static void get_term_size(int *height, int *width) {
-    struct winsize ws = {0, 0, 0, 0};
-    if (ioctl(0, TIOCGWINSZ, &ws) < 0)
-        vm_error("Failed to retrieve terminal size", LOG);
-    *height = ws.ws_row;
-    *width = ws.ws_col;
-}
-
-static t_win	*init_window(int height, int width, int x, int y)
-{
-	t_win	*window;
-
-	window = (t_win *)ft_memalloc(sizeof(t_win));
-	if (!window)
-		vm_error("Malloc at init_window", LOG);
-	window->win = newwin(height, width, y, x);
-	window->height = height;
-	window->width = width;
-	window->x = x;
-	window->y = y;
-	return (window);
-}
-
-t_vs	*init_visual_settings(void)
-{
-	t_vs	*settings;
-	int		height;
-	int		width;
-
-	settings = (t_vs *)ft_memalloc(sizeof(t_vs));
-	if (!settings)
-		vm_error("Malloc at init_visual_settings", LOG);
-	get_term_size(&height, &width);
-	settings->time.tv_sec = VFX_SLEEP_S;
-	settings->time.tv_nsec = VFX_SLEEP_N;
-	settings->freq = VFX_INIT_SPEED;
-	initscr();
-	keypad(stdscr, true);
-	nodelay(stdscr, true);
-	curs_set(0);
-	cbreak();
-	noecho();
-	settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2, VFX_WIDTH * 2 + 2, 0, 0);
-	if (width > settings->arena->width)
-		settings->info = init_window(settings->arena->height, width - settings->arena->width + 1, settings->arena->x + settings->arena->width - 1, settings->arena->y);
-	else
-		settings->info = init_window(settings->arena->height, VFX_INFO_STD, settings->arena->x + settings->arena->width - 1, settings->arena->y);
-	if (height > settings->arena->height + VFX_LEGEND_STD)
-		settings->legend = init_window(height - settings->arena->height + 1, width, 0, settings->arena->height - 1);
-	else
-		settings->legend = init_window(VFX_LEGEND_STD, width, 0, settings->arena->height - 1);
-	refresh();
-	return (settings);
-}
 
 int		check_carriage(t_car *head, ssize_t pos)
 {
@@ -174,14 +119,12 @@ void	players_info(t_vm *core, int *x, int *y)
 	while (i < core->n_players)
 	{
 		wattron(VFX_INFO, COLOR_PAIR(i + 1));
-		// if (core->last_to_live && core->last_to_live->id == core->champ[i]->id)
-		// 	wattron(VFX_INFO, A_STANDOUT);
 		len = core->vfx->info->width - 15 - *x;
 		mvwprintw(VFX_INFO, *y, *x, "Player %3d: %-*s", core->champ[i]->id, len, core->champ[i]->header->prog_name);
 		*y += 1;
-		// wattroff(VFX_INFO, A_STANDOUT);
 		buf = create_progress_bar(core->car_cnt, core->champ[i]->car_cnt, core->vfx->info->width - 2 - *x, NULL);
 		mvwprintw(VFX_INFO, *y, *x, buf);
+		free(buf);
 		wattroff(VFX_INFO, COLOR_PAIR(i + 1));
 		*y += 2;
 		i++;

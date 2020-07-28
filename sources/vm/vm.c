@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 06:19:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 12:39:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ void		clear_vm(t_vm *core)
 	if (core->flags)
 		free(core->flags);
 	if (core->flags->vfx)
+	{
+		free(core->vfx->arena);
+		free(core->vfx->info);
+		free(core->vfx->legend);
 		free(core->vfx);
+	}
 	free(core);
 }
 
