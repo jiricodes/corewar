@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:09:51 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:13:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:18:07 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ int			handle_flags(t_vm *core, char **argv, int argc, int i)
 	}
 	else
 		return (handle_pt2(core, argv, argc, i));
+	return (0);
 }

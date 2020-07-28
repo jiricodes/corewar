@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:13:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:17:25 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,8 @@ void		do_cycle(t_vm *core);
 void		check_lives(t_vm *core);
 size_t		find_player_nb(t_vm *core, size_t start);
 int			handle_flags(t_vm *core, char **argv, int argc, int i);
+void		process_dump(t_vm *core, char *cycle, char *size);
+void		process_player(t_vm *core, char *number, char *filename);
 
 /*
 ** Logging

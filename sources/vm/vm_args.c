@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:10:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:18:48 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void		process_dump(t_vm *core, char *cycle, char *size)
+void			process_dump(t_vm *core, char *cycle, char *size)
 {
 	size_t i;
 
@@ -45,7 +45,7 @@ static size_t	confirm_player_num(t_vm *core, char *number)
 	return (n);
 }
 
-static void		process_player(t_vm *core, char *number, char *filename)
+void			process_player(t_vm *core, char *number, char *filename)
 {
 	size_t	n;
 	size_t	i;
