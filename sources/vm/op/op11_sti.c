@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op11_sti.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:57:02 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:19:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	do_sti(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[3];
 
-	vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "sti");
+	vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "sti");
 	val[0] = car->reg[args->arg[0] - 1];
 	if (args->arg_types[1] == T_IND)
 		val[1] = read_arena(core->arena, car->pc,\
@@ -30,7 +30,7 @@ static void	do_sti(t_vm *core, t_args *args, t_car *car)
 	else if (args->arg_types[2] == T_DIR)
 		val[2] = args->arg[2];
 	write_bytes(car->pc + (val[1] + val[2]) % IDX_MOD, val[0], car, core);
-	vm_log(F_LOG, "r%d %d %d\n", args->arg[0], val[1], val[2]);
+	vm_log(core->flags->log, "r%d %d %d\n", args->arg[0], val[1], val[2]);
 }
 
 void		op_sti(t_vm *core, t_car *car)

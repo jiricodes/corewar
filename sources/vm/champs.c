@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:12:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:16:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_champ		*init_champ(char *filename, uint8_t id)
 		vm_error("Malloc at init_champ", LOG);
 	if ((champ->fd = open(filename, O_RDONLY)) < 0)
 		vm_error(filename, LOG);
-	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
+	champ->header = (t_header *)ft_memalloc(sizeof(t_header));
 	if (!(champ->header))
 		vm_error("Malloc header in init_champ", LOG);
 	champ->id = id;

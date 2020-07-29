@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:45:32 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:15:43 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_champ
 	size_t		id;
 	uint8_t		usr_id;
 	int			fd;
-	header_t	*header;
+	t_header	*header;
 	uint8_t		*raw;
 	size_t		car_cnt;
 }				t_champ;
