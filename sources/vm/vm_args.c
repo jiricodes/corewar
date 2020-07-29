@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:18:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:15:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void			process_player(t_vm *core, char *number, char *filename)
 {
 	size_t	n;
 	size_t	i;
-	ssize_t	position;
 
 	if (number)
 		n = confirm_player_num(core, number);

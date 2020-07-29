@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:04:26 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:10:36 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			insert_champ_to_arena(t_vm *core, t_champ *champ,\
 					ssize_t position)
 {
 	size_t	i;
-	char	*buf;
 	uint8_t chi;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:04:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:12:25 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_champ		*init_champ(char *filename, uint8_t id)
 {
 	t_champ		*champ;
-	char		*buf;
 
 	if (!ft_strendwith(filename, ".cor"))
 	{
@@ -38,7 +37,6 @@ void		delete_champs(t_champ **champs, int n)
 {
 	int		i;
 	int		stat;
-	char	*buf;
 
 	i = 0;
 	while (i < n)
@@ -61,7 +59,6 @@ void		magic_check(t_champ *champ)
 {
 	ssize_t	ret;
 	uint8_t buffer[4];
-	char	*buf;
 
 	ret = read(champ->fd, buffer, 4);
 	if (ret < 4)
@@ -82,10 +79,9 @@ int32_t		decode_bytes(t_champ *champ, size_t size)
 {
 	ssize_t	ret;
 	uint8_t buffer[size];
-	char	*buf;
 
 	ret = read(champ->fd, buffer, size);
-	if (ret < size)
+	if (ret < (ssize_t)size)
 	{
 		ft_dprintf(2, "Player %zu cannot read file or too short\n", champ->id);
 		vm_error("File too short", LOG);

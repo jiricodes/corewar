@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 16:38:01 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:13:00 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static size_t	*sort_ids(size_t *ids, size_t lenght)
 	size_t	tmp;
 	size_t	i;
 	size_t	k;
-	size_t	*result;
 
 	i = 1;
 	while (i < lenght)

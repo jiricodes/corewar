@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:17:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 15:37:54 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:13:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	vm_error(char *usr_msg, uint8_t log)
 {
-	char *tmp;
-
 	if (log)
 	{
 		if (errno != 0)

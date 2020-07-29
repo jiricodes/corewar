@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 15:30:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:04:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:15:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 char		*load_string(t_champ *champ, size_t size)
 {
 	char	*buffer;
-	char	*buf;
 	ssize_t	ret;
 
 	buffer = ft_strnew(size + 1);
 	if (!buffer)
 		vm_error("Malloc at load_string", LOG);
 	ret = read(champ->fd, buffer, size);
-	if (ret != size)
+	if (ret != (ssize_t)size)
 	{
 		ft_dprintf(2, "Player %u cannot read file or too short\n", champ->id);
 		vm_error("Load String", LOG);
@@ -33,8 +32,6 @@ char		*load_string(t_champ *champ, size_t size)
 
 static void	check_null_bytes(t_champ *champ, int index)
 {
-	char *buf;
-
 	if (decode_bytes(champ, 4) != 0)
 	{
 		ft_dprintf(2, "Player %u - %d. NULL error\n", champ->id, index);
@@ -45,7 +42,6 @@ static void	check_null_bytes(t_champ *champ, int index)
 void		load_header(t_champ *champ)
 {
 	char *tmp;
-	char *buf;
 
 	magic_check(champ);
 	tmp = load_string(champ, PROG_NAME_LENGTH);
@@ -70,9 +66,9 @@ void		load_code(t_champ *champ)
 {
 	uint8_t *code;
 	ssize_t ret;
-	char	*buf;
 	char	*temp;
 
+	temp = NULL;
 	code = (uint8_t *)ft_memalloc(champ->header->prog_size);
 	if (!code)
 		vm_error("Malloc at load_code", LOG);

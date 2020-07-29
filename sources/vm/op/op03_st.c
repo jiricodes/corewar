@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op03_st.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:54:06 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:16:12 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	do_st(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[2];
-	int	temp;
 
 	vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "st");
 	val[0] = car->reg[args->arg[0] - 1];

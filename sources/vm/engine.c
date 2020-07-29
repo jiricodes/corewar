@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:57:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:13:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_car			*check_live_calls(t_vm *core, t_car *car)
 
 	limit = CTD >= 0 ? core->cycle - CTD : core->cycle + CTD;
 	limit = limit < 1 ? 1 : limit;
-	limit = limit > core->cycle ? CTD : limit;
+	limit = limit > (ssize_t)core->cycle ? CTD : limit;
 	vm_log(F_LOG, "\n[%zu]: Carriage[%zu] live [%zu] limit [%zd]\n",\
 			core->cycle, car->id, car->last_live, limit);
-	if (car->last_live < limit)
+	if ((ssize_t)car->last_live < limit)
 	{
 		vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n",\
 			core->cycle, car->id);
