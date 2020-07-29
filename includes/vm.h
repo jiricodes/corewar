@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 19:54:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:35:05 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "ft_error.h"
 # include <stdint.h>
 # include "op.h"
-// # include "oplist_cw.h"
 # include <ncurses.h>
 # include <time.h>
 # include <sys/ioctl.h>
@@ -35,40 +34,36 @@
 ** VFX settings
 */
 
-# define VFX core->flags->vfx
+// # define VFX core->flags->vfx
 # define VFX_WIDTH 64
-# define VFX_SLEEP_S 0
-# define VFX_SLEEP_N 250000000
 # define VFX_SPEED_DELTA 500
 # define VFX_INIT_SPEED 5000
 # define VFX_ANIM_SPEED 50000
 # define VFX_INFO_STD 30
 # define VFX_LEGEND_STD 3
-# define VFX_PLAY core->vfx->play
-# define VFX_ARENA core->vfx->arena->win
-# define VFX_INFO core->vfx->info->win
-# define VFX_LEG core->vfx->legend->win
-# define VFX_FREQ core->vfx->freq
+// # define VFX_INFO core->vfx->info->win
+// # define VFX_LEG core->vfx->legend->win
+// # define VFX_FREQ core->vfx->freq
 
 /*
 ** FLAGS Preset
 */
 
 # define F_LOG_STR "12"
-# define F_LOG core->flags->log
+// # define F_LOG core->flags->log
 
 /*
 ** VM Settings
 */
 
 # define PLAYER_N_MAX 255
-# define ARENA	core->arena
-# define CTD	core->cycles_to_die
-# define WINNER core->last_to_live->header->prog_name
-# define ARENA_W settings->arena->width
-# define ARENA_H settings->arena->height
-# define ARENA_X settings->arena->x
-# define ARENA_Y settings->arena->y
+// # define ARENA	core->arena
+// # define CTD	core->cycles_to_die
+// # define WINNER core->last_to_live->header->prog_name
+// # define ARENA_W settings->arena->width
+// # define ARENA_H settings->arena->height
+// # define ARENA_X settings->arena->x
+// # define ARENA_Y settings->arena->y
 
 /*
 ** LOG Settings
@@ -76,7 +71,7 @@
 
 # define OP_STR	"[%zu]\tP%5zu | %s "
 
-typedef struct s_champ
+typedef struct	s_champ
 {
 	size_t		id;
 	uint8_t		usr_id;
@@ -163,87 +158,86 @@ typedef struct	s_vm
 ** Champions and Arena Utilities
 */
 
-t_champ		*init_champ(char	*filename, uint8_t id);
-void		load_champ(t_champ *champ);
-int32_t		decode(const uint8_t *source, size_t size);
-void		init_arena(t_vm	*core);
-void		print_arena(uint8_t *arena, int	size);
-void		insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
-void		delete_champs(t_champ **champs, int n);
+t_champ			*init_champ(char	*filename, uint8_t id);
+void			load_champ(t_champ *champ);
+int32_t			decode(const uint8_t *source, size_t size);
+void			init_arena(t_vm	*core);
+void			print_arena(uint8_t *arena, int	size);
+void			insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
+void			delete_champs(t_champ **champs, int n);
 
 /*
 ** Carriage Utils
 */
 
-t_car		*create_carriage(size_t id, ssize_t	pc, uint8_t player_id);
-t_car		*prepend_carriage(t_car *head, t_car *node);
-t_car		*append_carriage(t_car *head, t_car *node);
-t_car		*delete_carriage(t_car *head, size_t id);
-void		delete_car_list(t_car *head);
+t_car			*create_carriage(size_t id, ssize_t	pc, uint8_t player_id);
+t_car			*prepend_carriage(t_car *head, t_car *node);
+t_car			*append_carriage(t_car *head, t_car *node);
+t_car			*delete_carriage(t_car *head, size_t id);
+void			delete_car_list(t_car *head);
 
 /*
 ** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
 */
 
-t_vs		*init_visual_settings(void);
-void		init_vfx_arena(t_vm *core);
-void		draw_arena(t_vm *core, size_t limit);
-void		draw_cycle(t_vm *core);
-void		vfx_colors();
-void		vfx_key(t_vm *core);
-char		*create_progress_bar(size_t max_val, size_t cur_val,\
-				size_t len, int *color);
-void		reset_window(WINDOW *win, int playback);
-int			check_carriage(t_car *head, ssize_t pos);
-void		players_info(t_vm *core, int *x, int *y);
-void		vfx_cycle(t_vm *core);
+t_vs			*init_visual_settings(void);
+void			init_vfx_arena(t_vm *core);
+void			draw_arena(t_vm *core, size_t limit);
+void			draw_cycle(t_vm *core);
+void			vfx_colors();
+void			vfx_key(t_vm *core);
+char			*create_progress_bar(size_t max_val, size_t cur_val,\
+					size_t len, int *color);
+void			reset_window(WINDOW *win, int playback);
+int				check_carriage(t_car *head, ssize_t pos);
+void			players_info(t_vm *core, int *x, int *y);
+void			vfx_cycle(t_vm *core);
 
 /*
 ** VM utilities
 */
 
-void		engine(t_vm *core);
-void		vfx_engine(t_vm *core);
-void		process_vm_args(t_vm *core, char **argv, int argc);
-size_t		check_player_id(t_vm *core, size_t number, int8_t mod);
-void		clear_vm(t_vm *core);
-void		vm_error(char *usr_msg, uint8_t log);
-void		print_usage(void);
-void		introduce_champs(t_vm *core);
-int32_t		decode_bytes(t_champ *champ, size_t size);
-void		load_header(t_champ *champ);
-void		load_code(t_champ *champ);
-void		magic_check(t_champ *champ);
-void		process_car(t_vm *core, t_car *car);
-void		reset_car_cnt(t_vm *core);
-t_car		*check_live_calls(t_vm *core, t_car *car);
-void		do_cycle(t_vm *core);
-void		check_lives(t_vm *core);
-size_t		find_player_nb(t_vm *core, size_t start);
-int			handle_flags(t_vm *core, char **argv, int argc, int i);
-void		process_dump(t_vm *core, char *cycle, char *size);
-void		process_player(t_vm *core, char *number, char *filename);
+void			engine(t_vm *core);
+void			vfx_engine(t_vm *core);
+void			process_vm_args(t_vm *core, char **argv, int argc);
+size_t			check_player_id(t_vm *core, size_t number, int8_t mod);
+void			clear_vm(t_vm *core);
+void			vm_error(char *usr_msg, uint8_t log);
+void			print_usage(void);
+void			introduce_champs(t_vm *core);
+int32_t			decode_bytes(t_champ *champ, size_t size);
+void			load_header(t_champ *champ);
+void			load_code(t_champ *champ);
+void			magic_check(t_champ *champ);
+void			process_car(t_vm *core, t_car *car);
+void			reset_car_cnt(t_vm *core);
+t_car			*check_live_calls(t_vm *core, t_car *car);
+void			do_cycle(t_vm *core);
+void			check_lives(t_vm *core);
+size_t			find_player_nb(t_vm *core, size_t start);
+int				handle_flags(t_vm *core, char **argv, int argc, int i);
+void			process_dump(t_vm *core, char *cycle, char *size);
+void			process_player(t_vm *core, char *number, char *filename);
 
 /*
 ** Logging
 */
 
-void		vm_log(uint8_t lvl, char *message, ...);
-void		log_carriage(t_car *node, uint8_t log_lvl);
-void		log_champ(t_champ *champ, int index, uint8_t log_lvl);
-void		log_vm_status(t_vm *core, uint8_t log_lvl);
-void		log_arena(uint8_t *arena, int size, uint8_t log_lvl);
+void			vm_log(uint8_t lvl, char *message, ...);
+void			log_carriage(t_car *node, uint8_t log_lvl);
+void			log_champ(t_champ *champ, int index, uint8_t log_lvl);
+void			log_vm_status(t_vm *core, uint8_t log_lvl);
+void			log_arena(uint8_t *arena, int size, uint8_t log_lvl);
 
 /*
 ** OP read and utils
 */
 
-void		get_step(t_car *car, t_args *args);
-void		write_bytes(size_t index, int val, t_car *car, t_vm *core);
-void		copy_carriage(t_vm *core, t_car *car, int addr);
-
-int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
-int			read_args(t_vm *core, t_args *args, ssize_t pos);
-int			read_arena(uint8_t *arena, int start, int argval, int size);
+void			get_step(t_car *car, t_args *args);
+void			write_bytes(size_t index, int val, t_car *car, t_vm *core);
+void			copy_carriage(t_vm *core, t_car *car, int addr);
+int				read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
+int				read_args(t_vm *core, t_args *args, ssize_t pos);
+int				read_arena(uint8_t *arena, int start, int argval, int size);
 
 #endif

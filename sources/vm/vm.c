@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:21:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:42:23 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int			main(int argc, char **argv)
 		init_arena(core);
 		process_vm_args(core, argv, argc);
 		introduce_champs(core);
-		if (VFX)
+		if (core->flags->vfx)
 			vfx_engine(core);
 		else
 			engine(core);
-		log_vm_status(core, F_LOG);
+		log_vm_status(core, core->flags->log);
 		clear_vm(core);
 	}
 	else

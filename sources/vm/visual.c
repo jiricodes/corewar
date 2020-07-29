@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:02:00 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:38:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void		draw_arena(t_vm *core, size_t limit)
 	int		x;
 	int		y;
 
-	reset_window(VFX_ARENA, VFX_PLAY);
+	reset_window(core->vfx->arena->win, core->vfx->play);
 	i = 0;
 	while (i < limit)
 	{
 		if ((hgl = check_carriage(core->car_list, i)))
-			wattron(VFX_ARENA, A_STANDOUT);
-		wattron(VFX_ARENA, COLOR_PAIR((int)(core->byte_owner[i])));
+			wattron(core->vfx->arena->win, A_STANDOUT);
+		wattron(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		x = ((i % (VFX_WIDTH)) * 2) + 1;
 		y = (i / (core->vfx->arena->height - 2)) + 1;
-		mvwprintw(VFX_ARENA, y, x, "%02x", core->arena[i]);
-		wattroff(VFX_ARENA, COLOR_PAIR((int)(core->byte_owner[i])));
+		mvwprintw(core->vfx->arena->win, y, x, "%02x", core->arena[i]);
+		wattroff(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		if (hgl)
-			wattroff(VFX_ARENA, A_STANDOUT);
+			wattroff(core->vfx->arena->win, A_STANDOUT);
 		i++;
 	}
-	wrefresh(VFX_ARENA);
+	wrefresh(core->vfx->arena->win);
 }
 
 void		draw_legend(t_vm *core)
@@ -43,19 +43,19 @@ void		draw_legend(t_vm *core)
 	int x;
 	int y;
 
-	reset_window(VFX_LEG, VFX_PLAY);
+	reset_window(core->vfx->legend->win, core->vfx->play);
 	x = core->vfx->legend->width - 13;
 	y = core->vfx->legend->height / 2;
-	mvwprintw(VFX_LEG, y, x, "FREQ %6zu", VFX_FREQ);
+	mvwprintw(core->vfx->legend->win, y, x, "FREQ %6zu", core->vfx->freq);
 	x = 4;
-	mvwprintw(VFX_LEG, y, x, L_SLOW);
+	mvwprintw(core->vfx->legend->win, y, x, L_SLOW);
 	x += ft_strlen(L_SLOW) + 4;
-	mvwprintw(VFX_LEG, y, x, L_FAST);
+	mvwprintw(core->vfx->legend->win, y, x, L_FAST);
 	x += ft_strlen(L_FAST) + 4;
-	mvwprintw(VFX_LEG, y, x, L_PLAY);
+	mvwprintw(core->vfx->legend->win, y, x, L_PLAY);
 	x += ft_strlen(L_PLAY) + 4;
-	mvwprintw(VFX_LEG, y, x, L_EXIT);
-	wrefresh(VFX_LEG);
+	mvwprintw(core->vfx->legend->win, y, x, L_EXIT);
+	wrefresh(core->vfx->legend->win);
 }
 
 static void	draw_info_pt2(t_vm *core, int x, int y)
@@ -63,24 +63,24 @@ static void	draw_info_pt2(t_vm *core, int x, int y)
 	char	*buf;
 	int		clr;
 
-	mvwprintw(VFX_INFO, y, x, "Cycle:\t%6zu", core->cycle);
+	mvwprintw(core->vfx->info->win, y, x, "Cycle:\t%6zu", core->cycle);
 	y++;
-	mvwprintw(VFX_INFO, y, x, "CTD:\t\t%6zd", core->cycles_to_die);
+	mvwprintw(core->vfx->info->win, y, x, "CTD:\t\t%6zd", core->cycles_to_die);
 	y++;
-	mvwprintw(VFX_INFO, y, x, "Live Check:");
+	mvwprintw(core->vfx->info->win, y, x, "Live Check:");
 	y++;
 	clr = 1;
 	buf = create_progress_bar(core->cycles_to_die,\
 		core->cycles_to_die - core->check_cd, core->vfx->info->width - 4, &clr);
-	wattron(VFX_INFO, COLOR_PAIR(clr));
-	mvwprintw(VFX_INFO, y, x, buf);
-	wattroff(VFX_INFO, COLOR_PAIR(clr));
+	wattron(core->vfx->info->win, COLOR_PAIR(clr));
+	mvwprintw(core->vfx->info->win, y, x, buf);
+	wattroff(core->vfx->info->win, COLOR_PAIR(clr));
 	free(buf);
 	y += 2;
-	mvwprintw(VFX_INFO, y, x, "PC count:\t%6zu", core->car_cnt);
+	mvwprintw(core->vfx->info->win, y, x, "PC count:\t%6zu", core->car_cnt);
 	y += 2;
 	players_info(core, &x, &y);
-	wrefresh(VFX_INFO);
+	wrefresh(core->vfx->info->win);
 }
 
 void		draw_info(t_vm *core)
@@ -88,20 +88,20 @@ void		draw_info(t_vm *core)
 	int		x;
 	int		y;
 
-	reset_window(VFX_INFO, VFX_PLAY);
+	reset_window(core->vfx->info->win, core->vfx->play);
 	x = core->vfx->info->width / 2 - 7;
 	y = 1;
 	if (core->vfx->play)
 	{
-		wattron(VFX_INFO, COLOR_PAIR(3));
-		mvwprintw(VFX_INFO, y, x, "*** RUNNING ***");
-		wattroff(VFX_INFO, COLOR_PAIR(3));
+		wattron(core->vfx->info->win, COLOR_PAIR(3));
+		mvwprintw(core->vfx->info->win, y, x, "*** RUNNING ***");
+		wattroff(core->vfx->info->win, COLOR_PAIR(3));
 	}
 	else
 	{
-		wattron(VFX_INFO, COLOR_PAIR(1));
-		mvwprintw(VFX_INFO, y, x, "*** PAUSED ***");
-		wattroff(VFX_INFO, COLOR_PAIR(1));
+		wattron(core->vfx->info->win, COLOR_PAIR(1));
+		mvwprintw(core->vfx->info->win, y, x, "*** PAUSED ***");
+		wattroff(core->vfx->info->win, COLOR_PAIR(1));
 	}
 	y += 2;
 	x = 2;

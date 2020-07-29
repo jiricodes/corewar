@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:10:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:39:43 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			insert_champ_to_arena(t_vm *core, t_champ *champ,\
 		{
 			ft_dprintf(2, "Inserting Player %zu error. Byte [%zu] overwrite",\
 				champ->id, position + 1);
-			vm_error("Insertion Overwrite", F_LOG);
+			vm_error("Insertion Overwrite", core->flags->log);
 		}
 		core->arena[position + i] = champ->raw[i];
 		core->byte_owner[position + i] = chi;
