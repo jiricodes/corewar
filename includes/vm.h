@@ -64,7 +64,7 @@ typedef struct	s_champ
 	size_t		id;
 	uint8_t		usr_id;
 	int			fd;
-	header_t	*header;
+	t_header	*header;
 	uint8_t		*raw;
 	size_t		car_cnt;
 }				t_champ;

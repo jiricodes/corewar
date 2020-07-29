@@ -26,7 +26,7 @@ t_champ		*init_champ(char *filename, uint8_t id)
 		vm_error("Malloc at init_champ", LOG);
 	if ((champ->fd = open(filename, O_RDONLY)) < 0)
 		vm_error(filename, LOG);
-	champ->header = (header_t *)ft_memalloc(sizeof(header_t));
+	champ->header = (t_header*)ft_memalloc(sizeof(t_header));
 	if (!(champ->header))
 		vm_error("Malloc header in init_champ", LOG);
 	champ->id = id;
