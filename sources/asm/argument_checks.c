@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argument_checks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 15:50:55 by jmakela           #+#    #+#             */
-/*   Updated: 2020/07/23 15:50:58 by jmakela          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:26:43 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		check_argument(char *argum, t_asm *core)
 	if (!argum)
 	{
 		ft_dprintf(2, "Missing instruction on row %d\n", core->line_cnt);
-		ft_error_exit("check_argument error", 0, 0);
+		ft_error_exit("No argument provided", 0, 0);
 	}
 	if (check_t_reg(argum) == 1)
 		return (T_REG);
@@ -91,7 +91,7 @@ int		check_argument(char *argum, t_asm *core)
 	{
 		ft_dprintf(2, "Invalid instruction: %s, on row %d\n", \
 					argum, core->line_cnt);
-		ft_error_exit("check_argument error", 0, 0);
+		ft_error_exit("Invalid argument provided", 0, 0);
 		return (0);
 	}
 }

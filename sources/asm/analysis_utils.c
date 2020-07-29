@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analysis_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 15:48:17 by jmakela           #+#    #+#             */
-/*   Updated: 2020/07/23 15:48:18 by jmakela          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:29:23 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 			if (cnt > 2)
 			{
 				ft_dprintf(2, "Argument error on line %d\n", core->line_cnt);
-				ft_error_exit("check_argument error", 0, 0);
+				ft_error_exit("Lexical error", 0, 0);
 			}
 			line[i] = '\0';
 			if (is_hex(line))

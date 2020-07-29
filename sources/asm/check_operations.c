@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:16:57 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 12:17:09 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 14:24:18 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 			operation->argtypes[cnt] = ret;
 		else
 		{
-			ft_dprintf(2, "argument error: %s\n", operation->arg[cnt]);
-			ft_error_exit("No operation found (check_further)", 0, 0);
+			ft_dprintf(2, "Invalid argument: %s\n", operation->arg[cnt]);
+			ft_error_exit("Wrong argument type!", 0, 0);
 		}
 		cnt += 1;
 	}
 	if (cnt < 3 && operation->arg[cnt])
 	{
-		ft_dprintf(2, "Too many arguments on row: %d\n", core->line_cnt);
-		ft_error_exit("check_argument error", 0, 0);
+		ft_dprintf(2, "Invalid arguments on row: %d\n", core->line_cnt);
+		ft_error_exit("Wrong argument number!", 0, 0);
 	}
 	operation->arg_type_code = ref.arg_type_code;
 	operation->op_code = ref.opcode;
@@ -57,6 +57,6 @@ void	check_operation(t_operation *operation, t_asm *core)
 	{
 		ft_dprintf(2, "Invalid instruction: %s, on row %d\n", \
 					operation->op_name, core->line_cnt);
-		ft_error_exit("No operation/label found!\n", 0, 0);
+		ft_error_exit("No operation found!", 0, 0);
 	}
 }
