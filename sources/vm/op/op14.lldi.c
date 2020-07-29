@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op14.lldi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:58:47 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:19:24 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	do_lldi(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[3];
 
-	vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "lldi");
+	vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "lldi");
 	if (args->arg_types[0] == T_IND)
 		val[0] = read_arena(core->arena, car->pc,\
 			args->arg[0] % IDX_MOD, REG_SIZE);
@@ -31,7 +31,7 @@ static void	do_lldi(t_vm *core, t_args *args, t_car *car)
 	val[2] = args->arg[2];
 	car->reg[val[2] - 1] = read_arena(core->arena, car->pc,\
 		val[0] + val[1], REG_SIZE);
-	vm_log(F_LOG, "%d %d r%d\n", val[0], val[1], val[2]);
+	vm_log(core->flags->log, "%d %d r%d\n", val[0], val[1], val[2]);
 }
 
 void		op_lldi(t_vm *core, t_car *car)

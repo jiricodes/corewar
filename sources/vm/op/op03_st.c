@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:16:12 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:18:26 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	do_st(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[2];
 
-	vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "st");
+	vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "st");
 	val[0] = car->reg[args->arg[0] - 1];
 	if (args->arg_types[1] == T_IND)
 	{
@@ -28,7 +28,7 @@ static void	do_st(t_vm *core, t_args *args, t_car *car)
 		val[1] = args->arg[1];
 		car->reg[val[1] - 1] = val[0];
 	}
-	vm_log(F_LOG, "r%d %d\n", args->arg[0], val[1]);
+	vm_log(core->flags->log, "r%d %d\n", args->arg[0], val[1]);
 }
 
 void		op_st(t_vm *core, t_car *car)

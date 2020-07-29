@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op01_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:47:18 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:18:19 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void		op_live(t_vm *core, t_car *car)
 	index = car->pc + OP_SIZE;
 	if (read_args(core, car->args, index % MEM_SIZE))
 	{
-		vm_log(F_LOG, OP_STR, core->cycle, car->id + 1, "live");
+		vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "live");
 		val = car->args->arg[0];
 		if (val < 0)
 			val *= -1;
-		vm_log(F_LOG, "%d\n", val);
+		vm_log(core->flags->log, "%d\n", val);
 		last_to_live(core, val);
 		car->last_live = core->cycle;
 	}
