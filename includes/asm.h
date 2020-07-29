@@ -18,8 +18,8 @@
 # include "libft.h"
 # include "ft_error.h"
 
-# define				SRC_TYPE ".s"
-# define				TRGT_TYPE ".cor"
+# define SRC_TYPE ".s"
+# define TRGT_TYPE ".cor"
 
 /*
 ** ASM core struct.
@@ -66,8 +66,8 @@ typedef struct			s_operation
 */
 
 void					clear_t_asm(void *object);
-char					*filename_pars(const char *source, const char *src_type,\
-						const char *target_type);
+char					*filename_pars(const char *source,\
+						const char *src_type, const char *target_type);
 t_asm					*intialize_asm(char *filename);
 int						ft_chrpos(char *str, char c);
 int						is_hex(char *argum);
@@ -78,18 +78,23 @@ int						is_special(char *argum, int func);
 ** ASM File reading
 */
 
-void					read_file(t_asm *core, int source_fd, t_operation **list);
+void					read_file(t_asm *core, int source_fd,\
+						t_operation **list);
 
 /*
 ** ASM Parsing
 */
 
 int						lex_parser(t_asm *core, t_operation **list, char *line);
-int						get_size_type(t_operation **list, t_asm *core);
-int						find_position(t_operation **list, t_operation *temp, char *arg);
+int						get_size_type(t_operation **list,\
+										t_asm *core);
+int						find_position(t_operation **list, t_operation *temp,\
+										char *arg);
 void					special_arg_finder(t_operation **head);
-int						arg_math(t_operation **head, t_operation *cur, char *label, int cnt);
-void					get_label_op(t_asm *core, t_operation **list, char *line);
+int						arg_math(t_operation **head, t_operation *cur,\
+								char *label, int cnt);
+void					get_label_op(t_asm *core, t_operation **list,\
+									char *line);
 char					*strjoin_first(char *s1, char *s2);
 char					*remove_trailing_spaces(char *src);
 
@@ -98,12 +103,13 @@ char					*remove_trailing_spaces(char *src);
 */
 
 void					check_operation(t_operation *operation, t_asm *core);
-void					match_labels(t_operation **head, int cnt, int pos, int test);
+void					match_labels(t_operation **head, int cnt,\
+									int pos, int test);
 int						check_label(char *label, t_operation **head);
 int						check_argument(char *argum, t_asm *core);
 int						check_name_cmt(t_asm *core);
 int						check_label_chars(char *label);
-int						check_lastline(int source_fd);
+void					check_lastline(int source_fd);
 int						special_arg_check(char *label, t_operation **head);
 
 /*

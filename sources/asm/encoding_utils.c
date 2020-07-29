@@ -52,11 +52,11 @@ int		check_label_chars(char *label)
 	}
 }
 
-int		check_lastline(int source_fd)
+void	check_lastline(int source_fd)
 {
-	char temp[1];
-	char *last;
-	int i;
+	char	temp[1];
+	char	*last;
+	int		i;
 
 	i = -2;
 	lseek(source_fd, -1, SEEK_END);
@@ -75,10 +75,10 @@ int		check_lastline(int source_fd)
 	i = 0;
 	while (last[i] == ' ' || last[i] == '\t')
 		i += 1;
-	if (last[i] != '\0' && last[i] != COMMENT_CHAR && last[i] != ALT_COMMENT_CHAR)
+	if (last[i] != '\0' && last[i] != COMMENT_CHAR &&
+		last[i] != ALT_COMMENT_CHAR)
 		ft_error_exit("File does not end with newline", 0, 0);
-	free (last);
-	return (1);
+	free(last);
 }
 
 char	*remove_trailing_spaces(char *src)

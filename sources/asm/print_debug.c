@@ -21,12 +21,11 @@ void	print_asmcore(t_asm *core)
 	ft_printf("Champ's Comment: %s\n", core->champ_comment);
 }
 
-
 /*
 ** Test printer to see the contents of the linked list.
 */
 
-void			print_list(t_operation *list, t_asm *core)
+void	print_list(t_operation *list, t_asm *core)
 {
 	while (list != NULL)
 	{
