@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encoding_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 15:55:03 by jmakela           #+#    #+#             */
-/*   Updated: 2020/07/23 15:55:04 by jmakela          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:37:20 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,19 @@ char	*strjoin_first(char *s1, char *s2)
 	return (ret);
 }
 
-int		check_name_cmt(t_asm *core)
+void	check_name_cmt(t_asm *core)
 {
-	int i;
-
-	i = 0;
 	if (core->champ_name == NULL)
 		ft_error_exit("Champ name is missing!", 0, 0);
 	if (core->champ_comment == NULL)
 		ft_error_exit("Champ comment is missing!", 0, 0);
 	if (ft_strlen(core->champ_name) > PROG_NAME_LENGTH)
 		ft_error_exit("Champ name is too long (128)", 0, 0);
-	if (ft_strlen(core->champ_name) > COMMENT_LENGTH)
+	if (ft_strlen(core->champ_comment) > COMMENT_LENGTH)
 		ft_error_exit("Champ comment is too long (2048)", 0, 0);
 }
 
-int		check_label_chars(char *label)
+void	check_label_chars(char *label)
 {
 	int i;
 

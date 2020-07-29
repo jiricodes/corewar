@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/17 16:18:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 14:37:48 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void					match_labels(t_operation **head, int cnt,\
 									int pos, int test);
 int						check_label(char *label, t_operation **head);
 int						check_argument(char *argum, t_asm *core);
-int						check_name_cmt(t_asm *core);
-int						check_label_chars(char *label);
+void					check_name_cmt(t_asm *core);
+void					check_label_chars(char *label);
 void					check_lastline(int source_fd);
 int						special_arg_check(char *label, t_operation **head);
 
