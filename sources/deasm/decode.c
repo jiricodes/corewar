@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/16 17:59:29 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:23:18 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ static void	read_opcode(int8_t byte, t_operation *op)
 	int cnt;
 
 	cnt = 0;
-	printf("%d\n", byte);
 	while (cnt < 16)
 	{
-		printf("%d ", g_oplist[cnt].opcode);
 		if (byte == g_oplist[cnt].opcode)
 		{
 			op->opname = g_oplist[cnt].opname;

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:21:48 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 15:34:48 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:22:25 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,16 @@ t_operation	*init_op(t_operation *op)
 t_deasm		*initialize_deasm(char *filename)
 {
 	t_deasm	*core;
-	char	*target_file;
 
 	core = (t_deasm *)ft_memalloc(sizeof(t_deasm));
 	if (!core)
 		ft_error_exit("DeAsm malloc error", 0, 0);
-	target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
-	if (!target_file)
+	core->target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
+	if (!core->target_file)
 		ft_error_exit("Incorrect file type", (void *)core, clear_t_deasm);
 	core->source_fd = open(filename, O_RDONLY);
 	if (core->source_fd < 0)
 		ft_error_exit("Couldn't open source", (void *)core, clear_t_deasm);
-	core->target_fd = open(target_file, O_RDWR | O_CREAT, 0600);
-	if (core->target_fd < 0)
-		ft_error_exit("Couldn't open target", (void *)core, clear_t_deasm);
-	free(target_file);
 	return (core);
 }
 
@@ -66,6 +61,7 @@ t_deasm		*initialize_deasm(char *filename)
 
 void		clear_t_deasm(void *object)
 {
+	free(((t_deasm*)object)->target_file);
 	free(((t_deasm*)object)->champ_name);
 	free(((t_deasm*)object)->champ_comment);
 	free(((t_deasm*)object)->raw_code);

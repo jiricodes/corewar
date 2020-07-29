@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deasm.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/17 17:51:40 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:21:38 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_deasm
 {
 	int	source_fd;
 	int	target_fd;
+	char	*target_file;
 	char	*champ_name;
 	char	*champ_comment;
 	int	exec_code_size;
