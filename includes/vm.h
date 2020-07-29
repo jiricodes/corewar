@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:35:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:45:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,24 @@
 ** VFX settings
 */
 
-// # define VFX core->flags->vfx
 # define VFX_WIDTH 64
 # define VFX_SPEED_DELTA 500
 # define VFX_INIT_SPEED 5000
 # define VFX_ANIM_SPEED 50000
 # define VFX_INFO_STD 30
 # define VFX_LEGEND_STD 3
-// # define VFX_INFO core->vfx->info->win
-// # define VFX_LEG core->vfx->legend->win
-// # define VFX_FREQ core->vfx->freq
 
 /*
 ** FLAGS Preset
 */
 
 # define F_LOG_STR "12"
-// # define F_LOG core->flags->log
 
 /*
 ** VM Settings
 */
 
 # define PLAYER_N_MAX 255
-// # define ARENA	core->arena
-// # define CTD	core->cycles_to_die
-// # define WINNER core->last_to_live->header->prog_name
-// # define ARENA_W settings->arena->width
-// # define ARENA_H settings->arena->height
-// # define ARENA_X settings->arena->x
-// # define ARENA_Y settings->arena->y
 
 /*
 ** LOG Settings
@@ -112,15 +100,15 @@ typedef struct	s_args
 
 typedef struct	s_carriage
 {
-	size_t		id;
-	int32_t		reg[REG_NUMBER];
-	int			carry;
-	ssize_t		pc;
-	ssize_t		step;
-	int			op_index;
-	size_t		cooldown;
-	size_t		last_live;
-	t_args		*args;
+	size_t				id;
+	int32_t				reg[REG_NUMBER];
+	int					carry;
+	ssize_t				pc;
+	ssize_t				step;
+	int					op_index;
+	size_t				cooldown;
+	size_t				last_live;
+	t_args				*args;
 	struct s_carriage	*next;
 }				t_car;
 
@@ -163,7 +151,8 @@ void			load_champ(t_champ *champ);
 int32_t			decode(const uint8_t *source, size_t size);
 void			init_arena(t_vm	*core);
 void			print_arena(uint8_t *arena, int	size);
-void			insert_champ_to_arena(t_vm *core, t_champ *champ, ssize_t position);
+void			insert_champ_to_arena(t_vm *core, t_champ *champ,\
+					ssize_t position);
 void			delete_champs(t_champ **champs, int n);
 
 /*
@@ -177,7 +166,7 @@ t_car			*delete_carriage(t_car *head, size_t id);
 void			delete_car_list(t_car *head);
 
 /*
-** Ncurses VFX, not sure if we want to use minilibx or other, this shit is for debuggin purposes atm
+** Ncurses VFX
 */
 
 t_vs			*init_visual_settings(void);

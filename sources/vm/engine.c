@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:40:26 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:43:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			engine(t_vm *core)
 	}
 	if (core->last_to_live)
 		ft_printf("[%zu] Player (%d) %s won\n", core->cycle,\
-			core->last_to_live->id, WINNER);
+			core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
 		ft_printf("[%zu] Everyone is dead, total clusterfuck\n", core->cycle);
 }

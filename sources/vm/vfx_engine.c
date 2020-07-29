@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:39:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:43:56 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			vfx_announce_winner(t_vm *core)
 	wattron(core->vfx->info->win, COLOR_PAIR(3));
 	if (core->last_to_live)
 		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
-			"Player (%d) %s won", core->last_to_live->id, WINNER);
+			"Player (%d) %s won", core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
 		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
 			"Everyone is dead, total clusterfuck");
