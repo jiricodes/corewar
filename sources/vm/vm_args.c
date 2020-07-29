@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:15:52 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:06:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			process_dump(t_vm *core, char *cycle, char *size)
 	while (cycle[i] != '\0')
 	{
 		if (!ft_isdigit(cycle[i]))
-			vm_error("Dump cycle must be a positive number", F_LOG);
+			vm_error("Dump cycle must be a positive number", core->flags->log);
 		i++;
 	}
 	core->flags->dump_cycle = (size_t)ft_latoi(cycle);
@@ -36,12 +36,13 @@ static size_t	confirm_player_num(t_vm *core, char *number)
 	while (number[i] != '\0')
 	{
 		if (!ft_isdigit(number[i]))
-			vm_error("Player number must be a positive number", F_LOG);
+			vm_error("Player number must be a positive number",\
+				core->flags->log);
 		i++;
 	}
 	n = (size_t)ft_latoi(number);
 	if (!check_player_id(core, n, 1))
-		vm_error("ID already taken", F_LOG);
+		vm_error("ID already taken", core->flags->log);
 	return (n);
 }
 
@@ -57,12 +58,12 @@ void			process_player(t_vm *core, char *number, char *filename)
 	i = core->n_players;
 	core->n_players++;
 	if (i >= MAX_PLAYERS)
-		vm_error("Too many players.", F_LOG);
+		vm_error("Too many players.", core->flags->log);
 	core->champ[i] = init_champ(filename, (uint8_t)n);
 	if (number)
 		core->champ[i]->usr_id = 1;
 	load_champ(core->champ[i]);
-	vm_log(F_LOG, "Champ [%zu] initialized and loaded\n", n);
+	vm_log(core->flags->log, "Champ [%zu] initialized and loaded\n", n);
 }
 
 void			process_vm_args(t_vm *core, char **argv, int argc)

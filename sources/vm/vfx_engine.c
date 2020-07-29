@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 18:01:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:04:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 void			vfx_announce_winner(t_vm *core)
 {
-	VFX_PLAY = 0;
-	wattron(VFX_INFO, A_STANDOUT);
-	wattron(VFX_INFO, COLOR_PAIR(3));
+	core->vfx->play = 0;
+	wattron(core->vfx->info->win, A_STANDOUT);
+	wattron(core->vfx->info->win, COLOR_PAIR(3));
 	if (core->last_to_live)
-		mvwprintw(VFX_INFO, core->vfx->info->height - 10, 2,\
-			"Player (%d) %s won", core->last_to_live->id, WINNER);
+		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
+			"Player (%d) %s won", core->last_to_live->id,\
+				core->last_to_live->header->prog_name);
 	else
-		mvwprintw(VFX_INFO, core->vfx->info->height - 10, 2,\
+		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
 			"Everyone is dead, total clusterfuck");
-	wrefresh(VFX_INFO);
+	wrefresh(core->vfx->info->win);
 	while (1)
 	{
 		if (getch() != ERR)
@@ -34,12 +35,12 @@ void			vfx_announce_winner(t_vm *core)
 
 static void		do_vfx_dump(t_vm *core)
 {
-	VFX_PLAY = 0;
+	core->vfx->play = 0;
 	draw_cycle(core);
-	log_vm_status(core, F_LOG);
+	log_vm_status(core, core->flags->log);
 }
 
-void		vfx_cycle(t_vm *core)
+void			vfx_cycle(t_vm *core)
 {
 	core->check_cd--;
 	do_cycle(core);
@@ -56,13 +57,13 @@ void			vfx_engine(t_vm *core)
 	loop = 0;
 	init_vfx_arena(core);
 	draw_cycle(core);
-	while (core->car_list && CTD >= 0)
+	while (core->car_list && core->cycles_to_die >= 0)
 	{
 		if ((core->vfx->key = getch()) != ERR)
 			vfx_key(core);
 		if (core->cycle == core->flags->dump_cycle)
 			do_vfx_dump(core);
-		if (VFX_PLAY && loop % core->vfx->freq == 0)
+		if (core->vfx->play && loop % core->vfx->freq == 0)
 		{
 			loop = 0;
 			vfx_cycle(core);

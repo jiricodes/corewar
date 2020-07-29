@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:02:26 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:09:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,25 @@ t_vs			*init_visual_settings(void)
 	int		height;
 	int		width;
 
-	settings = (t_vs *)ft_memalloc(sizeof(t_vs));
-	if (!settings)
+	if (!(settings = (t_vs *)ft_memalloc(sizeof(t_vs))))
 		vm_error("Malloc at init_visual_settings", LOG);
 	get_term_size(&height, &width);
 	vfx_config(settings);
 	settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\
 		VFX_WIDTH * 2 + 2, 0, 0);
-	if (width > ARENA_W)
-		settings->info = init_window(ARENA_H,\
-			width - ARENA_W + 1, ARENA_X + ARENA_W - 1, ARENA_Y);
+	if (width > settings->arena->width)
+		settings->info = init_window(settings->arena->height,\
+			width - settings->arena->width + 1, settings->arena->x +\
+				settings->arena->width - 1, settings->arena->y);
 	else
-		settings->info = init_window(ARENA_H, VFX_INFO_STD,\
-			ARENA_X + ARENA_W - 1, ARENA_Y);
-	if (height > ARENA_H + VFX_LEGEND_STD)
-		settings->legend = init_window(height - ARENA_H + 1,\
-			width, 0, ARENA_H - 1);
+		settings->info = init_window(settings->arena->height, VFX_INFO_STD,\
+		settings->arena->x + settings->arena->width - 1, settings->arena->y);
+	if (height > settings->arena->height + VFX_LEGEND_STD)
+		settings->legend = init_window(height - settings->arena->height + 1,\
+			width, 0, settings->arena->height - 1);
 	else
-		settings->legend = init_window(VFX_LEGEND_STD, width, 0, ARENA_H - 1);
+		settings->legend = init_window(VFX_LEGEND_STD, width, 0,\
+			settings->arena->height - 1);
 	refresh();
 	return (settings);
 }

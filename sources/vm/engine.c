@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:13:44 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:05:39 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@ t_car			*check_live_calls(t_vm *core, t_car *car)
 	ssize_t		limit;
 	t_car		*next;
 
-	limit = CTD >= 0 ? core->cycle - CTD : core->cycle + CTD;
+	limit = core->cycles_to_die >= 0 ?\
+		core->cycle - core->cycles_to_die : core->cycle + core->cycles_to_die;
 	limit = limit < 1 ? 1 : limit;
-	limit = limit > (ssize_t)core->cycle ? CTD : limit;
-	vm_log(F_LOG, "\n[%zu]: Carriage[%zu] live [%zu] limit [%zd]\n",\
+	limit = limit > (ssize_t)core->cycle ? core->cycles_to_die : limit;
+	vm_log(core->flags->log, "\n[%zu]: Carriage[%zu] live [%zu] limit [%zd]\n",\
 			core->cycle, car->id, car->last_live, limit);
 	if ((ssize_t)car->last_live < limit)
 	{
-		vm_log(F_LOG, "\n[%zu]: Carriage[%zu] failed to report live!\n",\
+		vm_log(core->flags->log, "\n[%zu]: Carriage[%zu] failed to live!\n",\
 			core->cycle, car->id);
-		log_carriage(car, F_LOG);
+		log_carriage(car, core->flags->log);
 		next = car->next;
 		core->car_list = delete_carriage(core->car_list, car->id);
 		core->car_cnt--;
@@ -66,15 +67,15 @@ void			check_lives(t_vm *core)
 static void		do_dump(t_vm *core)
 {
 	print_arena(core->arena, core->flags->dump_size);
-	log_arena(core->arena, core->flags->dump_size, F_LOG);
-	log_vm_status(core, F_LOG);
+	log_arena(core->arena, core->flags->dump_size, core->flags->log);
+	log_vm_status(core, core->flags->log);
 }
 
 void			engine(t_vm *core)
 {
 	core->checks = 0;
 	core->cycle = 1;
-	while (core->car_list && CTD >= 0)
+	while (core->car_list && core->cycles_to_die >= 0)
 	{
 		if (core->cycle >= core->flags->dump_cycle)
 		{
@@ -89,7 +90,7 @@ void			engine(t_vm *core)
 	}
 	if (core->last_to_live)
 		ft_printf("[%zu] Player (%d) %s won\n", core->cycle,\
-			core->last_to_live->id, WINNER);
+			core->last_to_live->id, core->last_to_live->header->prog_name);
 	else
 		ft_printf("[%zu] Everyone is dead, total clusterfuck\n", core->cycle);
 }
