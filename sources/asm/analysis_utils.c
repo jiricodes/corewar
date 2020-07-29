@@ -48,7 +48,7 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 		{
 			if (cnt > 2)
 			{
-				ft_dprintf(2, "argument error on line %d\n", core->line_cnt);
+				ft_dprintf(2, "Argument error on line %d\n", core->line_cnt);
 				ft_error_exit("check_argument error", 0, 0);
 			}
 			line[i] = '\0';
@@ -80,6 +80,7 @@ int			save_label_op(t_operation **list, t_operation *new, \
 			new = new->next;
 		}
 		new->label = ft_strdup(line);
+		check_label_chars(new->label);
 	}
 	else if (line[*i] == SEPARATOR_CHAR && line[*i - 1] != LABEL_CHAR)
 	{

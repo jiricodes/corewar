@@ -21,9 +21,7 @@ int	main(int argc, char **argv)
 	{
 		core = intialize_asm(argv[1]);
 		list = NULL;
-		ft_printf("%{GREEN}Initialization done!%{EOC}\n");
 		read_file(core, core->source_fd, &list);
-		print_asmcore(core);
 		write_champion(core, list);
 		clear_t_asm((void *)core);
 	}

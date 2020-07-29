@@ -24,14 +24,60 @@ char	*strjoin_first(char *s1, char *s2)
 	return (ret);
 }
 
+int		check_name_cmt(t_asm *core)
+{
+	int i;
+
+	i = 0;
+	if (core->champ_name == NULL)
+		ft_error_exit("Champ name is missing!", 0, 0);
+	if (core->champ_comment == NULL)
+		ft_error_exit("Champ comment is missing!", 0, 0);
+	if (ft_strlen(core->champ_name) > PROG_NAME_LENGTH)
+		ft_error_exit("Champ name is too long (128)", 0, 0);
+	if (ft_strlen(core->champ_name) > COMMENT_LENGTH)
+		ft_error_exit("Champ comment is too long (2048)", 0, 0);
+}
+
+int		check_label_chars(char *label)
+{
+	int i;
+
+	i = 0;
+	while (label[i])
+	{
+		if (!ft_strchr(LABEL_CHARS, label[i]))
+			ft_error_exit("Wrong chars in label!", 0, 0);
+		i += 1;
+	}
+}
+
 int		check_lastline(int source_fd)
 {
 	char temp[1];
+	char *last;
+	int i;
 
+	i = -2;
 	lseek(source_fd, -1, SEEK_END);
 	read(source_fd, &temp, 1);
-	if (temp[0] != '\n')
+	while (temp[0] != '\n')
+	{
+		lseek(source_fd, i, SEEK_END);
+		read(source_fd, &temp, 1);
+		i -= 1;
+	}
+	i = (i + 2) * -1;
+	if (!(last = (char*)malloc(sizeof(char) * i + 1)))
+		ft_error_exit("Malloc error", 0, 0);
+	read(source_fd, last, i);
+	last[i] = '\0';
+	i = 0;
+	while (last[i] == ' ' || last[i] == '\t')
+		i += 1;
+	if (last[i] != '\0' && last[i] != COMMENT_CHAR && last[i] != ALT_COMMENT_CHAR)
 		ft_error_exit("File does not end with newline", 0, 0);
+	free (last);
 	return (1);
 }
 

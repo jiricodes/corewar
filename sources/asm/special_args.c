@@ -21,6 +21,7 @@ int		check_label(char *label, t_operation **head)
 	t_operation *cpy;
 
 	cpy = *head;
+	check_label_chars(label);
 	while (cpy)
 	{
 		if (cpy->label)

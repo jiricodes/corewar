@@ -125,6 +125,11 @@ int			lex_parser(t_asm *core, t_operation **list, char *line)
 		return (0);
 	if (*line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR || *line == '.')
 		return (1);
+	if (!core->champ_name || !core->champ_comment)
+	{
+		ft_dprintf(2, "Issue on line %d\n", core->line_cnt);
+		ft_error_exit("Lexical error", 0, 0);
+	}
 	reform = reformat(line);
 	list_append(list);
 	get_label_op(core, list, reform);

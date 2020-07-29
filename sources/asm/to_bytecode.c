@@ -19,4 +19,5 @@ void	write_champion(t_asm *core, t_operation *op)
 		ft_error_exit("Open Error on target file", (void *)core, clear_t_asm);
 	write_headers(core);
 	write_exec_code(core, op);
+	ft_printf("Writing output program to: %s\n", core->target_file);
 }

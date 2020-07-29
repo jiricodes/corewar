@@ -25,14 +25,14 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 			operation->argtypes[cnt] = ret;
 		else
 		{
-			ft_printf("argument error: %s\n", operation->arg[cnt]);
+			ft_dprintf(2, "argument error: %s\n", operation->arg[cnt]);
 			ft_error_exit("No operation found (check_further)", 0, 0);
 		}
 		cnt += 1;
 	}
 	if (cnt < 3 && operation->arg[cnt])
 	{
-		ft_printf("Too many arguments on row: %d\n", core->line_cnt);
+		ft_dprintf(2, "Too many arguments on row: %d\n", core->line_cnt);
 		ft_error_exit("check_argument error", 0, 0);
 	}
 	operation->arg_type_code = ref.arg_type_code;
@@ -55,7 +55,7 @@ void	check_operation(t_operation *operation, t_asm *core)
 	}
 	if (cnt == 16)
 	{
-		ft_printf("Invalid instruction: %s, on row %d\n", \
+		ft_dprintf(2, "Invalid instruction: %s, on row %d\n", \
 					operation->op_name, core->line_cnt);
 		ft_error_exit("No operation/label found!\n", 0, 0);
 	}
