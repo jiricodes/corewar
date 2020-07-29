@@ -90,7 +90,7 @@ void	special_arg_finder(t_operation **head)
 			if ((ft_chrpos(finder->arg[cnt], '+') > pos) ||
 				(ft_chrpos(finder->arg[cnt], '-') > pos))
 			{
-				total = arg_math(head, finder, finder->arg[cnt], cnt);
+				total = arg_math(head, finder, finder->arg[cnt]);
 				assign_specials(finder, cnt, total);
 			}
 			cnt += 1;

@@ -124,12 +124,11 @@ int	get_next_number(char *label, int i)
 ** Check if direct or indirect, keep looping args.
 */
 
-int	arg_math(t_operation **head, t_operation *cur, char *label, int cnt)
+int	arg_math(t_operation **head, t_operation *cur, char *label)
 {
 	int				i;
 	int				sign;
 	long long int	total;
-	char			*temp;
 
 	i = 0;
 	sign = 1;

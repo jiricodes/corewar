@@ -101,7 +101,6 @@ int			save_label_op(t_operation **list, t_operation *new, \
 void		get_label_op(t_asm *core, t_operation **list, char *line)
 {
 	int			i;
-	int			pos;
 	t_operation	*new;
 
 	i = 0;
