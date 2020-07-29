@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:42:20 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:06:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static size_t	confirm_player_num(t_vm *core, char *number)
 	while (number[i] != '\0')
 	{
 		if (!ft_isdigit(number[i]))
-			vm_error("Player number must be a positive number", core->flags->log);
+			vm_error("Player number must be a positive number",\
+				core->flags->log);
 		i++;
 	}
 	n = (size_t)ft_latoi(number);

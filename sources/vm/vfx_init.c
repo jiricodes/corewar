@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:30:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:09:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ t_vs			*init_visual_settings(void)
 	int		height;
 	int		width;
 
-	settings = (t_vs *)ft_memalloc(sizeof(t_vs));
-	if (!settings)
+	if (!(settings = (t_vs *)ft_memalloc(sizeof(t_vs))))
 		vm_error("Malloc at init_visual_settings", LOG);
 	get_term_size(&height, &width);
 	vfx_config(settings);
@@ -67,15 +66,17 @@ t_vs			*init_visual_settings(void)
 		VFX_WIDTH * 2 + 2, 0, 0);
 	if (width > settings->arena->width)
 		settings->info = init_window(settings->arena->height,\
-			width - settings->arena->width + 1, settings->arena->x + settings->arena->width - 1, settings->arena->y);
+			width - settings->arena->width + 1, settings->arena->x +\
+				settings->arena->width - 1, settings->arena->y);
 	else
 		settings->info = init_window(settings->arena->height, VFX_INFO_STD,\
-			settings->arena->x + settings->arena->width - 1, settings->arena->y);
+		settings->arena->x + settings->arena->width - 1, settings->arena->y);
 	if (height > settings->arena->height + VFX_LEGEND_STD)
 		settings->legend = init_window(height - settings->arena->height + 1,\
 			width, 0, settings->arena->height - 1);
 	else
-		settings->legend = init_window(VFX_LEGEND_STD, width, 0, settings->arena->height - 1);
+		settings->legend = init_window(VFX_LEGEND_STD, width, 0,\
+			settings->arena->height - 1);
 	refresh();
 	return (settings);
 }
