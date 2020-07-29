@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:23:18 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:40:18 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	read_opcode(int8_t byte, t_operation *op)
 		}
 		cnt += 1;
 	}
-	ft_error_exit("no matching op found, exit", 0, 0);
+	ft_error_exit("No matching op found, exit", 0, 0);
 }
 
 /*
@@ -67,7 +67,7 @@ static void	get_arg_type(t_operation *op)
 		cnt += 1;
 	}
 	if (cnt == 16)
-		ft_error_exit("no matching op found, exit", 0, 0);
+		ft_error_exit("No matching op found, exit", 0, 0);
 }
 
 /*

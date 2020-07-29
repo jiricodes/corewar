@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:15 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:20:11 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:39:50 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int32_t	read_bytes(int source_fd, int size)
 
 	ret = read(source_fd, buffer, size);
 	if (ret < size)
-		ft_error_exit("file read error", 0, 0);
+		ft_error_exit("File read error", 0, 0);
 	return (decode(buffer, size));
 }
 
@@ -56,10 +56,10 @@ static char		*read_str(int source_fd, int size)
 
 	buffer = ft_strnew(size + 1);
 	if (!buffer)
-		ft_error_exit("couldn't create buffer", 0, 0);
+		ft_error_exit("Couldn't create buffer", 0, 0);
 	ret = read(source_fd, buffer, size);
 	if (ret != size)
-		ft_error_exit("couldn't read string", 0, 0);
+		ft_error_exit("Couldn't read string", 0, 0);
 	return (buffer);
 }
 
@@ -74,10 +74,18 @@ static int8_t	*read_exec_code(int source_fd, int size)
 
 	code = (int8_t *)malloc(size);
 	if (!code)
-		ft_error_exit("couldn't malloc code array", 0, 0);
-	ret = read(source_fd, code, size);
+		ft_error_exit("Couldn't malloc code array", 0, 0);
+	if (size == 0)
+	{
+		if (read(source_fd, code, size + 1))
+			ft_error_exit("Expected zero bytes of exec code", 0, 0);
+		else
+			ret = 0;
+	}
+	else
+		ret = read(source_fd, code, size);
 	if (ret != size)
-		ft_error_exit("incorrect champ size or exec code", 0, 0);
+		ft_error_exit("Incorrect champ size or exec code", 0, 0);
 	return (code);
 }
 
