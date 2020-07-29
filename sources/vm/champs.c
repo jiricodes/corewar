@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:48:05 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 16:39:22 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:04:48 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_champ		*init_champ(char *filename, uint8_t id)
 
 	if (!ft_strendwith(filename, ".cor"))
 	{
-		ft_sprintf(buf, "Incorrect file type: %s", filename);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Incorrect file type: %s\n", filename);
+		vm_error("File Type", LOG);
 	}
 	champ = (t_champ*)ft_memalloc(sizeof(t_champ));
 	if (!champ)
@@ -46,8 +46,8 @@ void		delete_champs(t_champ **champs, int n)
 		stat = close(champs[i]->fd);
 		if (stat == -1)
 		{
-			ft_sprintf(buf, "Champ [%s] source.", champs[i]->header->prog_name);
-			vm_error(buf, LOG);
+			ft_dprintf(2, "Champ [%s] source.\n", champs[i]->header->prog_name);
+			vm_error("Close FD", LOG);
 		}
 		free(champs[i]->raw);
 		free(champs[i]->header);
@@ -66,14 +66,14 @@ void		magic_check(t_champ *champ)
 	ret = read(champ->fd, buffer, 4);
 	if (ret < 4)
 	{
-		ft_sprintf(buf, "Player %zu cannot read file or too short", champ->id);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Player %zu cannot read file or too short\n", champ->id);
+		vm_error("Magic Invalid Size", LOG);
 	}
 	champ->header->magic = decode(buffer, 4);
-	if (champ->header->magic != COREWAR_EXEC_MAGIC)
+	if (champ->header->magic != (unsigned int)COREWAR_EXEC_MAGIC)
 	{
-		ft_sprintf(buf, "Player %zu - Magic Error", champ->id);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Player %u\n", champ->id);
+		vm_error("Magic Invalid", LOG);
 	}
 	return ;
 }
@@ -87,8 +87,8 @@ int32_t		decode_bytes(t_champ *champ, size_t size)
 	ret = read(champ->fd, buffer, size);
 	if (ret < size)
 	{
-		ft_sprintf(buf, "Player %zu cannot read file or too short", champ->id);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Player %zu cannot read file or too short\n", champ->id);
+		vm_error("File too short", LOG);
 	}
 	return (decode(buffer, size));
 }

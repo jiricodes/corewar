@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 15:30:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 15:31:12 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:04:11 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char		*load_string(t_champ *champ, size_t size)
 	ret = read(champ->fd, buffer, size);
 	if (ret != size)
 	{
-		ft_sprintf(buf, "Player %zu cannot read file or too short", champ->id);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Player %u cannot read file or too short\n", champ->id);
+		vm_error("Load String", LOG);
 	}
 	buffer[ret] = '\0';
 	return (buffer);
@@ -37,8 +37,8 @@ static void	check_null_bytes(t_champ *champ, int index)
 
 	if (decode_bytes(champ, 4) != 0)
 	{
-		ft_sprintf(buf, "Player %zu - %d. NULL error", champ->id, index);
-		vm_error(buf, LOG);
+		ft_dprintf(2, "Player %u - %d. NULL error\n", champ->id, index);
+		vm_error("NULL Check", LOG);
 	}
 }
 
@@ -56,9 +56,9 @@ void		load_header(t_champ *champ)
 	if (champ->header->prog_size > CHAMP_MAX_SIZE ||\
 		champ->header->prog_size < 0)
 	{
-		ft_sprintf(buf, "Player %zu - champ size must be 0 < size <= %zu",\
+		ft_dprintf(2, "Player %zu - champ size must be 0 < size <= %zu\n",\
 			champ->id, CHAMP_MAX_SIZE);
-		vm_error(buf, LOG);
+		vm_error("Champion Size", LOG);
 	}
 	tmp = load_string(champ, COMMENT_LENGTH);
 	ft_strcpy(champ->header->comment, tmp);
@@ -79,9 +79,9 @@ void		load_code(t_champ *champ)
 	ret = read(champ->fd, code, champ->header->prog_size);
 	if (ret != champ->header->prog_size || read(champ->fd, temp, 1) > 0)
 	{
-		ft_sprintf(buf, "Player %zu - code lenght != prog_size",\
+		ft_dprintf(2, "Player %zu - code lenght != prog_size\n",\
 			champ->id, CHAMP_MAX_SIZE);
-		vm_error(buf, LOG);
+		vm_error("Champion Code Lenght", LOG);
 	}
 	champ->raw = code;
 }

@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/07/28 17:04:32 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/07/29 17:06:35 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ DEASM_EXEC = deasm
 
 # GCC Settings
 CC = gcc
-# CFLAGS = -Wall -Werror -Wextra -O3
+CFLAGS = -Wall -Werror -Wextra -O3
 LDFLAGS = $(LIBFT_FLAG)
 INCLUDES = -I includes/ $(LIBFT_INC)
 
