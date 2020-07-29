@@ -15,7 +15,6 @@
 t_asm			*intialize_asm(char *filename)
 {
 	t_asm	*core;
-	char	*target_file;
 
 	core = (t_asm *)ft_memalloc(sizeof(t_asm));
 	if (!core)

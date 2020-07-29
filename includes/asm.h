@@ -92,7 +92,7 @@ int						find_position(t_operation **list, t_operation *temp,\
 										char *arg);
 void					special_arg_finder(t_operation **head);
 int						arg_math(t_operation **head, t_operation *cur,\
-								char *label, int cnt);
+								char *label);
 void					get_label_op(t_asm *core, t_operation **list,\
 									char *line);
 char					*strjoin_first(char *s1, char *s2);

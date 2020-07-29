@@ -89,7 +89,7 @@ char	*continue_reading(int source_fd)
 ** Extract name and comment using gnl
 */
 
-char	*save_name_comment(char *target, int source_fd, char *line)
+char	*save_name_comment(int source_fd, char *line)
 {
 	char	*ret;
 	int		cnt;
@@ -113,7 +113,7 @@ char	*save_name_comment(char *target, int source_fd, char *line)
 		ret = strjoin_first(ret, cntd);
 		free(cntd);
 	}
-	else if (line[cnt] == '\"')
+	else
 		ret = ft_strdup(&line[pos_start]);
 	return (remove_trailing_spaces(ret));
 }
@@ -133,12 +133,10 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 	{
 		core->line_cnt += 1;
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-			core->champ_name = save_name_comment(NAME_CMD_STRING, \
-												source_fd, line);
+			core->champ_name = save_name_comment(source_fd, line);
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, \
 							ft_strlen(COMMENT_CMD_STRING)))
-			core->champ_comment = save_name_comment(COMMENT_CMD_STRING, \
-													source_fd, line);
+			core->champ_comment = save_name_comment(source_fd, line);
 		else
 			lex_parser(core, list, line);
 		free(line);
