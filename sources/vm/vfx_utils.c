@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:31:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:59:21 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ char	*create_progress_bar(size_t max_val, size_t cur_val,\
 	double	l;
 	char	*str;
 
+	if (!max_val)
+		return (ft_strdup(" "));
 	rat = (double)cur_val / (double)max_val;
 	l = rat * len;
+	if (!l)
+		return (ft_strdup(" "));
 	str = ft_strnew((size_t)l);
 	ft_strset(str, 35, (size_t)l);
 	if (color)

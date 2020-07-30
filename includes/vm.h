@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:15:43 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:42:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 ** 1 - dev log (more details than -log flag)
 */
 
-# define LOG 0
+# define LOG 1
 # define LOG_FILE "cw_log.txt"
 
 /*
