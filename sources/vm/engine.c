@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:05:39 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 17:49:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,18 @@ void			engine(t_vm *core)
 	core->cycle = 1;
 	while (core->car_list && core->cycles_to_die >= 0)
 	{
+		core->check_cd--;
+		do_cycle(core);
 		if (core->cycle >= core->flags->dump_cycle)
 		{
 			do_dump(core);
 			return ;
 		}
-		core->check_cd--;
-		do_cycle(core);
 		if (core->check_cd <= 0)
 			check_lives(core);
 		core->cycle++;
 	}
+	core->cycle--;
 	if (core->last_to_live)
 		ft_printf("[%zu] Player (%d) %s won\n", core->cycle,\
 			core->last_to_live->id, core->last_to_live->header->prog_name);

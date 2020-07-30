@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 12:59:59 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 17:50:35 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void			vfx_engine(t_vm *core)
 	{
 		if ((core->vfx->key = getch()) != ERR)
 			vfx_key(core);
-		if (core->cycle == core->flags->dump_cycle)
-			do_vfx_dump(core);
 		if (core->vfx->play && loop % core->vfx->freq == 0)
 		{
 			loop = 0;
 			vfx_cycle(core);
 		}
+		if (core->cycle == core->flags->dump_cycle)
+			do_vfx_dump(core);
 		loop++;
 	}
 	vfx_announce_winner(core);
