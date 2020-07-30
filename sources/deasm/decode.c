@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:07 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:40:18 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:21:11 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,13 @@ static int	read_arguments(int8_t *rawcode, t_operation *op)
 void		decode_exec(t_deasm *core, int8_t *rawcode)
 {
 	int			cnt;
-	int			val;
 	t_operation *op;
 
 	cnt = 0;
 	write_header(core->target_fd, core);
 	while (cnt < core->exec_code_size)
 	{
-		op = init_op(op);
+		op = init_op();
 		read_opcode(rawcode[cnt], op);
 		cnt += 1;
 		if (op->arg_type_code == 1)

@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:21:48 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:22:25 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:20:33 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** inits operation struct
 */
 
-t_operation	*init_op(t_operation *op)
+t_operation	*init_op(void)
 {
 	t_operation *new;
 	int			cnt;

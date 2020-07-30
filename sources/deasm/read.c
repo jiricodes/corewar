@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:15:15 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:39:50 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:19:50 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static int8_t	*read_exec_code(int source_fd, int size)
 		ft_error_exit("Couldn't malloc code array", 0, 0);
 	if (size == 0)
 	{
-		if (read(source_fd, code, size + 1))
+		ret = read(source_fd, code, size + 1);
+		if (ret)
 			ft_error_exit("Expected zero bytes of exec code", 0, 0);
 		else
 			ret = 0;

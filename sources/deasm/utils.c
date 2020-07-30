@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:16:18 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/14 15:33:32 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:22:25 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		decode_arg(t_operation *op, int cnt, int8_t *rawcode, int move)
 {
 	int jump;
 
+	jump = 0;
 	if (op->argtypes[cnt] == T_REG_CODE)
 	{
 		jump = 1;
