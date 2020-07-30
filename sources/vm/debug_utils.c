@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:04:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 13:13:25 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void			introduce_champs(t_vm *core)
 		intro_champ(core, ids[i]);
 		i++;
 	}
+	free(ids);
 }
