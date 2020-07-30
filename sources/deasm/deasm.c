@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:42:40 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:22:09 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:33:42 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ int		main(int argc, char **argv)
 	}
 	else
 		ft_printf("./deasm <filename.cor>");
+	return (0);
 }

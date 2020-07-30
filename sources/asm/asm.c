@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:51:34 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/13 12:55:09 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:32:29 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		ft_printf("./asm <filename.s>");
-	// while(1);
 	return (0);
 }

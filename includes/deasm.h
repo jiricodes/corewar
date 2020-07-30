@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/30 10:20:50 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:27:04 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,20 @@
 typedef struct	s_operation
 {
 	char	*opname;
-	
 	int		arg_type_code;
 	int		t_dir_size;
-	
 	char	*arg[4];
 	int		argtypes[4];
 }				t_operation;
 
 typedef struct	s_deasm
 {
-	int	source_fd;
-	int	target_fd;
+	int		source_fd;
+	int		target_fd;
 	char	*target_file;
 	char	*champ_name;
 	char	*champ_comment;
-	int	exec_code_size;
+	int		exec_code_size;
 	int8_t	*raw_code;
 }				t_deasm;
 

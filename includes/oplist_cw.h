@@ -6,49 +6,47 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 14:13:21 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/23 16:49:20 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:31:37 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef OPLIST_H
-
-# define OPLIST_H
+#ifndef OPLIST_CW_H
+# define OPLIST_CW_H
 
 # include "vm.h"
 
-#define TREG_CODE	0b00000001
-#define TDIR_CODE	0b00000010
-#define	TIND_CODE	0b00000011
+# define TREG_CODE	0b00000001
+# define TDIR_CODE	0b00000010
+# define TIND_CODE	0b00000011
 
-#define	OP_SIZE		1
-#define ARG_SIZE 	1
-#define TREG_SIZE	1
+# define OP_SIZE	1
+# define ARG_SIZE 	1
+# define TREG_SIZE	1
 
 /*
 ** Operations
 */
 
-void	op_live(t_vm *core, t_car *car);
-void	op_ld(t_vm *core, t_car *car);
-void	op_st(t_vm *core, t_car *car);
-void	op_add(t_vm *core, t_car *car);
-void	op_sub(t_vm *core, t_car *car);
-void	op_and(t_vm *core, t_car *car);
-void	op_or(t_vm *core, t_car *car);
-void	op_xor(t_vm *core, t_car *car);
-void	op_zjmp(t_vm *core, t_car *car);
-void	op_ldi(t_vm *core, t_car *car);
-void	op_sti(t_vm *core, t_car *car);
-void	op_fork(t_vm *core, t_car *car);
-void	op_lld(t_vm *core, t_car *car);
-void	op_lldi(t_vm *core, t_car *car);
-void	op_lfork(t_vm *core, t_car *car);
-void	op_aff(t_vm *core, t_car *car);
+void			op_live(t_vm *core, t_car *car);
+void			op_ld(t_vm *core, t_car *car);
+void			op_st(t_vm *core, t_car *car);
+void			op_add(t_vm *core, t_car *car);
+void			op_sub(t_vm *core, t_car *car);
+void			op_and(t_vm *core, t_car *car);
+void			op_or(t_vm *core, t_car *car);
+void			op_xor(t_vm *core, t_car *car);
+void			op_zjmp(t_vm *core, t_car *car);
+void			op_ldi(t_vm *core, t_car *car);
+void			op_sti(t_vm *core, t_car *car);
+void			op_fork(t_vm *core, t_car *car);
+void			op_lld(t_vm *core, t_car *car);
+void			op_lldi(t_vm *core, t_car *car);
+void			op_lfork(t_vm *core, t_car *car);
+void			op_aff(t_vm *core, t_car *car);
 
 /*
 ** Utilities
 */
-
 
 typedef struct	s_oplist
 {
@@ -174,7 +172,7 @@ static const	t_oplist	g_oplist[16] = {
 		.exec_cycles = 25,
 		.op = &op_ldi
 	},
-		{
+	{
 		.opcode = 0x0b,
 		.opname = "sti",
 		.arg_cnt = 3,
@@ -185,7 +183,7 @@ static const	t_oplist	g_oplist[16] = {
 		.exec_cycles = 25,
 		.op = &op_sti
 	},
-		{
+	{
 		.opcode = 0x0c,
 		.opname = "fork",
 		.arg_cnt = 1,
@@ -196,7 +194,7 @@ static const	t_oplist	g_oplist[16] = {
 		.exec_cycles = 800,
 		.op = &op_fork
 	},
-		{
+	{
 		.opcode = 0x0d,
 		.opname = "lld",
 		.arg_cnt = 3,
@@ -207,7 +205,7 @@ static const	t_oplist	g_oplist[16] = {
 		.exec_cycles = 10,
 		.op = &op_lld
 	},
-		{
+	{
 		.opcode = 0x0e,
 		.opname = "lldi",
 		.arg_cnt = 3,
@@ -218,7 +216,7 @@ static const	t_oplist	g_oplist[16] = {
 		.exec_cycles = 50,
 		.op = &op_lldi
 	},
-		{
+	{
 		.opcode = 0x0f,
 		.opname = "lfork",
 		.arg_cnt = 1,
