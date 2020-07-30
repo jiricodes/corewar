@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:06:13 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 13:27:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,10 @@ void			process_vm_args(t_vm *core, char **argv, int argc)
 	{
 		i += handle_flags(core, argv, argc, i);
 		i++;
+	}
+	if (core->flags->vfx)
+	{
+		core->flags->aff = 0;
+		core->flags->log = core->flags->log == 2 ? 1 : core->flags->log;
 	}
 }
