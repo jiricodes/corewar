@@ -9,6 +9,8 @@ ld %78, r6
 ld %71, r7
 ld %32, r8
 
+loop:
+live %1
 aff r2
 aff r3
 aff r4
@@ -16,3 +18,5 @@ aff r5
 aff r6
 aff r7
 aff r8
+and r16, r15, r14
+zjmp %:loop
