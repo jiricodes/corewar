@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 12:58:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 13:21:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void		draw_legend(t_vm *core)
 	x += ft_strlen(L_SLOW) + 4;
 	mvwprintw(core->vfx->legend->win, y, x, L_FAST);
 	x += ft_strlen(L_FAST) + 4;
+	mvwprintw(core->vfx->legend->win, y, x, L_STEP);
+	x += ft_strlen(L_STEP) + 4;
 	mvwprintw(core->vfx->legend->win, y, x, L_PLAY);
 	x += ft_strlen(L_PLAY) + 4;
 	mvwprintw(core->vfx->legend->win, y, x, L_EXIT);

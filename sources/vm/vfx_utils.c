@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 12:59:21 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 13:20:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	vfx_key(t_vm *core)
 	else if (core->vfx->key == KEY_LEFT)
 		core->vfx->freq += VFX_SPEED_DELTA;
 	else if (core->vfx->key == KEY_UP)
+	{
+		core->vfx->play = 0;
 		vfx_cycle(core);
+	}
 }
 
 void	players_info(t_vm *core, int *x, int *y)
