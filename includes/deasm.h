@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:43:35 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 15:21:38 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/07/30 10:20:50 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			read_file(t_deasm *core, int source_fd);
 ** DEASM Init & Clean
 */
 
-t_operation		*init_op(t_operation *op);
+t_operation		*init_op(void);
 t_deasm			*initialize_deasm(char *filename);
 void			clear_t_deasm(void *object);
 
