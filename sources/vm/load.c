@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 15:30:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:15:22 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:18:36 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void		load_code(t_champ *champ)
 {
 	uint8_t *code;
 	ssize_t ret;
-	char	*temp;
+	char	temp[1];
 
-	temp = NULL;
 	code = (uint8_t *)ft_memalloc(champ->header->prog_size);
 	if (!code)
 		vm_error("Malloc at load_code", LOG);
