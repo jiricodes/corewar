@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 17:49:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/01 12:34:50 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void			engine(t_vm *core)
 			check_lives(core);
 		core->cycle++;
 	}
-	core->cycle--;
 	if (core->last_to_live)
 		ft_printf("[%zu] Player (%d) %s won\n", core->cycle,\
 			core->last_to_live->id, core->last_to_live->header->prog_name);
