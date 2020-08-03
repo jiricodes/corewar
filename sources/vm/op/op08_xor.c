@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:06:44 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:37:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	do_xor(t_vm *core, t_args *args, t_car *car)
 	int cnt;
 
 	cnt = 0;
-	
 	while (cnt < 2)
 	{
 		if (args->arg_types[cnt] == T_REG)

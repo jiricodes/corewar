@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:06:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:38:01 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	op_zjmp(t_vm *core, t_car *car)
 		val = car->args->arg[0];
 		if (car->carry)
 		{
-			
 			car->step = val % IDX_MOD;
 			if (core->flags->log & LOG_OPS)
 				ft_printf("%d OK\n", car->step);

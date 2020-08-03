@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:06:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:37:36 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	do_add(t_vm *core, t_args *args, t_car *car)
 {
 	int	val[3];
 
-	
 	val[0] = car->reg[args->arg[0] - 1];
 	val[1] = car->reg[args->arg[1] - 1];
 	val[2] = args->arg[2] - 1;
