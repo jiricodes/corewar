@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 15:37:59 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 19:52:19 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,5 +228,6 @@ void			copy_carriage(t_vm *core, t_car *car, int addr);
 int				read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 int				read_args(t_vm *core, t_args *args, ssize_t pos);
 int				read_arena(uint8_t *arena, int start, int argval, int size);
+int 			mod(int a, int b);
 
 #endif

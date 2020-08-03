@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/08/01 12:20:06 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 19:55:11 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	write_bytes(size_t index, int val, t_car *car, t_vm *core)
 	while (size)
 	{
 		byte = (uint8_t)(val >> x) & 0xFF;
-		pos = (index + size - 1) % MEM_SIZE;
+		pos = mod(index + size - 1, MEM_SIZE);
 		core->arena[pos] = byte;
 		core->byte_owner[pos] = core->byte_owner[car->pc];
 		x += 8;
@@ -70,4 +70,10 @@ void	copy_carriage(t_vm *core, t_car *car, int addr)
 	new->carry = car->carry;
 	new->last_live = car->last_live;
 	core->car_list = prepend_carriage(core->car_list, new);
+}
+
+int mod(int a, int b)
+{
+    int r = a % b;
+    return r < 0 ? r + b : r;
 }
