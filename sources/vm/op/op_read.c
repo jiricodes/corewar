@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/29 18:27:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 20:43:42 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			read_arena(uint8_t *arena, int start, int argval, int size)
 	cnt = 0;
 	while (cnt < size)
 	{
-		code[cnt] = arena[(start + argval + cnt) % MEM_SIZE];
+		code[cnt] = arena[mod((start + argval + cnt), MEM_SIZE)];
 		cnt += 1;
 	}
 	ret = decode(code, size);
