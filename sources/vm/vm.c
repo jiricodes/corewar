@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:23:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:28:26 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int			main(int argc, char **argv)
 			vfx_engine(core);
 		else
 			engine(core);
-		log_vm_status(core);
+		if (core->flags->log & LOG_DETAILS)
+			log_vm_status(core);
 		clear_vm(core);
 	}
 	else
