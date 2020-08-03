@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 17:50:35 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:23:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void		do_vfx_dump(t_vm *core)
 {
 	core->vfx->play = 0;
 	draw_cycle(core);
-	log_vm_status(core, core->flags->log);
 }
 
 void			vfx_cycle(t_vm *core)

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:09:51 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 08:18:07 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:26:10 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			handle_flags(t_vm *core, char **argv, int argc, int i)
 		if (i < argc - 2)
 			process_player(core, argv[i + 1], argv[i + 2]);
 		else
-			vm_error("Player manual numbering error", core->flags->log);
+			vm_error("Player manual numbering error");
 		return (2);
 	}
 	else

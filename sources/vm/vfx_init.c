@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:09:29 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:24:55 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		get_term_size(int *height, int *width)
 	ws.ws_xpixel = 0;
 	ws.ws_ypixel = 0;
 	if (ioctl(0, TIOCGWINSZ, &ws) < 0)
-		vm_error("Failed to retrieve terminal size", LOG);
+		vm_error("Failed to retrieve terminal size");
 	*height = ws.ws_row;
 	*width = ws.ws_col;
 }
@@ -32,7 +32,7 @@ static t_win	*init_window(int height, int width, int x, int y)
 
 	window = (t_win *)ft_memalloc(sizeof(t_win));
 	if (!window)
-		vm_error("Malloc at init_window", LOG);
+		vm_error("Malloc at init_window");
 	window->win = newwin(height, width, y, x);
 	window->height = height;
 	window->width = width;
@@ -59,7 +59,7 @@ t_vs			*init_visual_settings(void)
 	int		width;
 
 	if (!(settings = (t_vs *)ft_memalloc(sizeof(t_vs))))
-		vm_error("Malloc at init_visual_settings", LOG);
+		vm_error("Malloc at init_visual_settings");
 	get_term_size(&height, &width);
 	vfx_config(settings);
 	settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\

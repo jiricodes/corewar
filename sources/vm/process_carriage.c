@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_carriage.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 06:21:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/28 17:36:45 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:22:54 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void			process_car(t_vm *core, t_car *car)
 	int	i;
 
 	core->car_cnt++;
-	if (car->pc >= MEM_SIZE || car->pc < 0)
-		vm_log(1, "ERROR carriage[%zu] = [%zd]\n", car->id, car->pc);
 	i = core->byte_owner[car->pc] - 1;
 	if (i < core->n_players)
 		core->champ[i]->car_cnt++;

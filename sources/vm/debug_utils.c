@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:09:46 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:17:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			introduce_champs(t_vm *core)
 
 	ids = (size_t *)ft_memalloc(sizeof(size_t) * core->n_players);
 	if (!ids)
-		vm_error("Malloc at introduce_champs", core->flags->log);
+		vm_error("Malloc at introduce_champs");
 	i = 0;
 	while (i < core->n_players)
 	{

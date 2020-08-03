@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:08:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/24 17:26:54 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:18:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_car			*create_carriage(size_t id, ssize_t pc, uint8_t player_id)
 
 	car = (t_car *)ft_memalloc(sizeof(t_car));
 	if (!car)
-		vm_error("Malloc at create_carriage", LOG);
+		vm_error("Malloc at create_carriage");
 	car->id = id;
 	ft_bzero(car->reg, sizeof(int32_t) * REG_NUMBER);
 	car->reg[0] = -1 * player_id;
@@ -27,7 +27,7 @@ t_car			*create_carriage(size_t id, ssize_t pc, uint8_t player_id)
 	car->op_index = -1;
 	car->args = (t_args *)ft_memalloc(sizeof(t_args));
 	if (!(car->args))
-		vm_error("Malloc at car_init_args", LOG);
+		vm_error("Malloc at car_init_args");
 	car->next = NULL;
 	return (car);
 }

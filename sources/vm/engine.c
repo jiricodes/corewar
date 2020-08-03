@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:07:54 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:21:31 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_car			*check_live_calls(t_vm *core, t_car *car)
 		{
 			ft_printf("\n[%zu]: Carriage[%zu] failed to live!\n",\
 				core->cycle, car->id);
-			log_carriage(car, core->flags->log);
+			log_carriage(car);
 		}
 		next = car->next;
 		core->car_list = delete_carriage(core->car_list, car->id);
@@ -68,8 +68,8 @@ void			check_lives(t_vm *core)
 static void		do_dump(t_vm *core)
 {
 	print_arena(core->arena, core->flags->dump_size);
-	log_arena(core->arena, core->flags->dump_size, core->flags->log);
-	log_vm_status(core, core->flags->log);
+	if (core->flags->log & LOG_DETAILS)
+		log_vm_status(core);
 }
 
 void			engine(t_vm *core)

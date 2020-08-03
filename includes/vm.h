@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:08:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:15:53 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void			vfx_engine(t_vm *core);
 void			process_vm_args(t_vm *core, char **argv, int argc);
 size_t			check_player_id(t_vm *core, size_t number, int8_t mod);
 void			clear_vm(t_vm *core);
-void			vm_error(char *usr_msg, uint8_t log);
+void			vm_error(char *usr_msg);
 void			print_usage(void);
 void			introduce_champs(t_vm *core);
 int32_t			decode_bytes(t_champ *champ, size_t size);
@@ -213,11 +213,10 @@ void			process_player(t_vm *core, char *number, char *filename);
 ** Logging
 */
 
-void			vm_log(uint8_t lvl, char *message, ...);
-void			log_carriage(t_car *node, uint8_t log_lvl);
-void			log_champ(t_champ *champ, int index, uint8_t log_lvl);
-void			log_vm_status(t_vm *core, uint8_t log_lvl);
-void			log_arena(uint8_t *arena, int size, uint8_t log_lvl);
+void			log_carriage(t_car *node);
+void			log_champ(t_champ *champ, int index);
+void			log_vm_status(t_vm *core);
+void			log_arena(uint8_t *arena, int size);
 
 /*
 ** OP read and utils

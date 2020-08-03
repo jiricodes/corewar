@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:28:33 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 17:39:43 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:18:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void			init_arena(t_vm *core)
 
 	core->arena = (uint8_t *)ft_memalloc(MEM_SIZE);
 	if (!(core->arena))
-		vm_error("Malloc at init_arena [arena]", LOG);
+		vm_error("Malloc at init_arena [arena]");
 	core->byte_owner = (uint8_t *)ft_memalloc(MEM_SIZE);
 	if (!(core->byte_owner))
-		vm_error("Malloc at init_arena [byte_owner]", LOG);
+		vm_error("Malloc at init_arena [byte_owner]");
 	i = 0;
 	while (i < MEM_SIZE)
 	{
@@ -54,7 +54,7 @@ void			insert_champ_to_arena(t_vm *core, t_champ *champ,\
 		{
 			ft_dprintf(2, "Inserting Player %zu error. Byte [%zu] overwrite",\
 				champ->id, position + 1);
-			vm_error("Insertion Overwrite", core->flags->log);
+			vm_error("Insertion Overwrite");
 		}
 		core->arena[position + i] = champ->raw[i];
 		core->byte_owner[position + i] = chi;
