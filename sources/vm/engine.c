@@ -64,6 +64,7 @@ void			do_cycle(t_vm *core)
 
 void			check_lives(t_vm *core)
 {
+	core->checks++;
 	if (core->live_cnt >= 21 || core->checks == MAX_CHECKS)
 	{
 		core->cycles_to_die -= CYCLE_DELTA;
@@ -71,7 +72,6 @@ void			check_lives(t_vm *core)
 	}
 	core->live_cnt = 0;
 	core->check_cd = core->cycles_to_die;
-	core->checks++;
 }
 
 static void		do_dump(t_vm *core)
