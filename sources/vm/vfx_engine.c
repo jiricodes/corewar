@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:23:22 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 15:18:23 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void			vfx_cycle(t_vm *core)
 	core->cycle++;
 }
 
+static void		free_vfx(t_vm *core)
+{
+	free(core->vfx->arena);
+	free(core->vfx->info);
+	free(core->vfx->legend);
+	free(core->vfx);
+}
 void			vfx_engine(t_vm *core)
 {
 	size_t	loop;
@@ -71,4 +78,5 @@ void			vfx_engine(t_vm *core)
 	}
 	vfx_announce_winner(core);
 	endwin();
+	free_vfx(core);
 }

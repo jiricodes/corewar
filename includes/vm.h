@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:15:53 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 15:37:59 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void			load_code(t_champ *champ);
 void			magic_check(t_champ *champ);
 void			process_car(t_vm *core, t_car *car);
 void			reset_car_cnt(t_vm *core);
-t_car			*check_live_calls(t_vm *core, t_car *car);
+t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous);
 void			do_cycle(t_vm *core);
 void			check_lives(t_vm *core);
 size_t			find_player_nb(t_vm *core, size_t start);

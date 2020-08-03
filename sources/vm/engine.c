@@ -6,16 +6,15 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:21:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 15:47:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_car			*check_live_calls(t_vm *core, t_car *car)
+t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 {
 	ssize_t		limit;
-	t_car		*next;
 
 	limit = core->cycles_to_die >= 0 ?\
 		core->cycle - core->cycles_to_die : core->cycle + core->cycles_to_die;
@@ -29,27 +28,37 @@ t_car			*check_live_calls(t_vm *core, t_car *car)
 				core->cycle, car->id);
 			log_carriage(car);
 		}
-		next = car->next;
-		core->car_list = delete_carriage(core->car_list, car->id);
+		if (*previous)
+			(*previous)->next = car->next;
+		else
+			core->car_list = car->next;
+		free(car->args);
+		free(car);
 		core->car_cnt--;
-		return (next);
+		return (*previous ? (*previous)->next : core->car_list);
 	}
+	*previous = car;
 	return (car->next);
 }
 
 void			do_cycle(t_vm *core)
 {
 	t_car	*current;
+	t_car	*previous;
 
 	current = core->car_list;
+	previous = NULL;
 	reset_car_cnt(core);
 	while (current)
 	{
 		process_car(core, current);
 		if (core->check_cd <= 0)
-			current = check_live_calls(core, current);
+			current = check_live_calls(core, current, &previous);
 		else
+		{
+			previous = current;
 			current = current->next;
+		}
 	}
 }
 
