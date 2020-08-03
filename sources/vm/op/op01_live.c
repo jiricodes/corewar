@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:18:19 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:05:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	last_to_live(t_vm *core, int live_arg)
 		if (core->champ[i]->id == (size_t)live_arg)
 		{
 			core->last_to_live = core->champ[i];
-			if (!core->flags->silent)
+			if (!core->flags->silent && !core->flags->log)
 				ft_printf("A process shows that player %d (%s) is alive\n",\
 				core->champ[i]->id, core->champ[i]->header->prog_name);
 			core->live_cnt++;
@@ -40,11 +40,14 @@ void		op_live(t_vm *core, t_car *car)
 	index = car->pc + OP_SIZE;
 	if (read_args(core, car->args, index % MEM_SIZE))
 	{
-		vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "live");
 		val = car->args->arg[0];
 		if (val < 0)
 			val *= -1;
-		vm_log(core->flags->log, "%d\n", val);
+		if (core->flags->log & LOG_OPS)
+		{
+			ft_printf(OP_STR, core->cycle, car->id + 1, "live");
+			ft_printf("%d\n", val);
+		}
 		last_to_live(core, val);
 		car->last_live = core->cycle;
 	}

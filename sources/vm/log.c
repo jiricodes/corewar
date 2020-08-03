@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/27 19:15:50 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 13:35:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,12 @@
 void		vm_log(uint8_t lvl, char *message, ...)
 {
 	va_list	args;
-	va_list args2;
-	FILE	*log_file;
 
 	if (lvl)
 	{
-		log_file = fopen(LOG_FILE, "a+");
 		va_start(args, message);
-		vfprintf(log_file, message, args);
-		if (lvl == 2)
-		{
-			va_start(args2, message);
-			vprintf(message, args2);
-			va_end(args2);
-		}
+		vprintf(message, args);
 		va_end(args);
-		fclose(log_file);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:19:05 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:06:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	do_or(t_vm *core, t_args *args, t_car *car)
 	int		cnt;
 
 	cnt = 0;
-	vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "or");
 	while (cnt < 2)
 	{
 		if (args->arg_types[cnt] == T_REG)
@@ -33,7 +32,11 @@ static void	do_or(t_vm *core, t_args *args, t_car *car)
 	val[2] = args->arg[2];
 	car->reg[val[2] - 1] = val[0] | val[1];
 	car->carry = car->reg[val[2] - 1] ? 0 : 1;
-	vm_log(core->flags->log, "%d %d r%d\n", val[0], val[1], val[2]);
+	if (core->flags->log & LOG_OPS)
+	{
+		ft_printf(OP_STR, core->cycle, car->id + 1, "or");
+		ft_printf("%d %d r%d\n", val[0], val[1], val[2]);
+	}
 }
 
 void		op_or(t_vm *core, t_car *car)

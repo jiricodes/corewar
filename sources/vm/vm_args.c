@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 13:59:43 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 13:27:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:10:57 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void			process_player(t_vm *core, char *number, char *filename)
 	if (number)
 		core->champ[i]->usr_id = 1;
 	load_champ(core->champ[i]);
-	vm_log(core->flags->log, "Champ [%zu] initialized and loaded\n", n);
+	if (core->flags->log & LOG_DETAILS)
+		ft_printf("Champ [%zu] initialized and loaded\n", n);
 }
 
 void			process_vm_args(t_vm *core, char **argv, int argc)

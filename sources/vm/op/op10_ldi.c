@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/29 18:19:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:06:53 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 {
 	int		val[3];
 
-	vm_log(core->flags->log, OP_STR, core->cycle, car->id + 1, "ldi");
 	if (args->arg_types[0] == T_IND)
 		val[0] = read_arena(core->arena, car->pc,\
 			args->arg[0] % IDX_MOD, REG_SIZE);
@@ -31,7 +30,11 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 	val[2] = args->arg[2];
 	car->reg[val[2] - 1] = read_arena(core->arena, car->pc, \
 							(val[0] + val[1]) % IDX_MOD, REG_SIZE);
-	vm_log(core->flags->log, "%d %d r%d\n", val[0], val[1], val[2]);
+	if (core->flags->log & LOG_OPS)
+	{
+		ft_printf(OP_STR, core->cycle, car->id + 1, "ldi");
+		ft_printf("%d %d r%d\n", val[0], val[1], val[2]);
+	}
 }
 
 void		op_ldi(t_vm *core, t_car *car)

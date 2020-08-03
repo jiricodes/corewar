@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/01 12:21:59 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:08:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 */
 
 # define LOG 0
-# define LOG_FILE "cw_log.txt"
+# define LOG_OPS 1
+# define LOG_DETAILS 2
 
 /*
 ** VFX settings
