@@ -30,6 +30,7 @@ static void	do_lldi(t_vm *core, t_args *args, t_car *car)
 	val[2] = args->arg[2];
 	car->reg[val[2] - 1] = read_arena(core->arena, car->pc,\
 		val[0] + val[1], REG_SIZE);
+	car->carry = !(car->reg[val[2]]);
 	if (core->flags->log & LOG_OPS)
 	{
 		ft_printf(OP_STR, core->cycle, car->id + 1, "lldi");
