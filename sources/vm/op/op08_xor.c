@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op08_xor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:37:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/03 18:55:45 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	do_xor(t_vm *core, t_args *args, t_car *car)
 			val[cnt] = car->reg[args->arg[cnt] - 1];
 		else if (args->arg_types[cnt] == T_IND)
 			val[cnt] = read_arena(core->arena, car->pc,\
-				args->arg[cnt], REG_SIZE);
+				args->arg[cnt] % IDX_MOD, REG_SIZE);
 		else if (args->arg_types[cnt] == T_DIR)
 			val[cnt] = args->arg[cnt];
 		cnt += 1;
