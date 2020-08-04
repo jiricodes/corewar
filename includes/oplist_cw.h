@@ -197,7 +197,7 @@ static const	t_oplist	g_oplist[16] = {
 	{
 		.opcode = 0x0d,
 		.opname = "lld",
-		.arg_cnt = 3,
+		.arg_cnt = 2,
 		.arg_type = {T_DIR | T_IND, T_REG},
 		.t_dir_size = 4,
 		.arg_type_code = 1,
@@ -233,7 +233,7 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_REG, 0, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 0,
+		.arg_type_code = 1,
 		.carry_change = 0,
 		.exec_cycles = 2,
 		.op = &op_aff
