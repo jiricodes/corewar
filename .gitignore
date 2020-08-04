@@ -16,4 +16,7 @@ lib/libft/object_files/
 lib/libft/libft.a
 dump_us
 dump_orig
+dump_orig_parsed
 cw_diff_log
+diff_log
+cw_diff_mem
