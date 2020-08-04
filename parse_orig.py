@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 file="dump_orig"
 with open(file) as f:
 	data = f.readlines()
