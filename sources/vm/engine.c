@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 15:47:44 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 13:30:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 	limit = limit > (ssize_t)core->cycle ? core->cycles_to_die : limit;
 	if ((ssize_t)car->last_live < limit)
 	{
-		if (core->flags->log)
+		if (core->flags->log & LOG_DETAILS)
 		{
 			ft_printf("\n[%zu]: Carriage[%zu] failed to live!\n",\
 				core->cycle, car->id);
@@ -84,9 +84,12 @@ static void		do_dump(t_vm *core)
 void			engine(t_vm *core)
 {
 	core->checks = 0;
-	core->cycle = 1;
+	core->cycle = 0;
 	while (core->car_list && core->cycles_to_die >= 0)
 	{
+		if (core->check_cd <= 0)
+			check_lives(core);
+		core->cycle++;
 		core->check_cd--;
 		do_cycle(core);
 		if (core->cycle >= core->flags->dump_cycle)
@@ -94,9 +97,6 @@ void			engine(t_vm *core)
 			do_dump(core);
 			return ;
 		}
-		if (core->check_cd <= 0)
-			check_lives(core);
-		core->cycle++;
 	}
 	if (core->last_to_live)
 		ft_printf("[%zu] Player (%d) %s won\n", core->cycle,\
