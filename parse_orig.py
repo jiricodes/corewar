@@ -23,11 +23,10 @@ with open(file) as f:
 				result.append(new)
 				i += 1
 		if i == l - 1:
-			k = 0
-			while data[-k][0] != 'P':
+			k = 1
+			while data[-k][0] != 'I':
 				k += 1
-			k += 1
-			tmp = data[k].split()
+			tmp = data[-k].split()
 			nb = tmp[-1]
 			tmp = data[i].split()
 			name = " ".join(tmp[2:-3])
