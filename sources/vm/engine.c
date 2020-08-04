@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:21:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:40:01 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void			check_lives(t_vm *core)
 	if (core->live_cnt >= 21 || core->checks == MAX_CHECKS)
 	{
 		core->cycles_to_die -= CYCLE_DELTA;
+		if (core->flags->log & LOG_CTD)
+			ft_printf("[%zu] Cycle to die is now %zd\n",\
+				core->cycle, core->cycles_to_die);
 		core->checks = 0;
 	}
 	core->live_cnt = 0;

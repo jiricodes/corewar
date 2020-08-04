@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:11:25 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:42:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	last_to_live(t_vm *core, int live_arg)
 			if (!core->flags->silent && !core->flags->log)
 				ft_printf("A process shows that player %d (%s) is alive\n",\
 				core->champ[i]->id, core->champ[i]->header->prog_name);
-			core->live_cnt++;
 			break ;
 		}
 		i++;
@@ -50,6 +49,7 @@ void		op_live(t_vm *core, t_car *car)
 		}
 		last_to_live(core, val);
 		car->last_live = core->cycle;
+		core->live_cnt++;
 	}
 	get_step(car, car->args);
 }

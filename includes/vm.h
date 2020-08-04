@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 17:44:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:38:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define LOG_OPS 1
 # define LOG_DETAILS 2
 # define LOG_DEATHS 4
+# define LOG_CTD 8
 
 
 /*
