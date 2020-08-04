@@ -23,6 +23,12 @@ with open(file) as f:
 				result.append(new)
 				i += 1
 		if i == l - 1:
+			k = 0
+			while data[-k][0] != 'P':
+				k += 1
+			k += 1
+			tmp = data[k].split()
+			nb = tmp[-1]
 			tmp = data[i].split()
 			name = " ".join(tmp[2:-3])
 			new = f"[{nb}] Player ({tmp[1][:-1]}) {name[1:-2]} won"
