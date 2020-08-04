@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:09:51 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:26:10 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:40:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 static int	handle_pt2(t_vm *core, char **argv, int argc, int i)
 {
-	if (ft_strequ(argv[i], "-log") && i < argc - 1 &&\
-		ft_strlen(argv[i + 1]) == 1 && ft_strchr(F_LOG_STR, argv[i + 1][0]))
+	if (ft_strequ(argv[i], "-log"))
 	{
-		core->flags->log = argv[i + 1][0] - 48;
-		return (1);
+		if (i < argc - 1 && ft_isnumber(argv[i + 1]))
+		{
+			core->flags->log = ft_atoi(argv[i + 1]);
+			return (1);
+		}
+		else
+			vm_error("Incorrect usage of -log flag");
 	}
 	else if (ft_strequ(argv[i], "-a"))
 		core->flags->aff = 1;

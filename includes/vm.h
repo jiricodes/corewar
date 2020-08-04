@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 19:52:19 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:44:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define LOG 0
 # define LOG_OPS 1
 # define LOG_DETAILS 2
+# define LOG_DEATHS 4
+
 
 /*
 ** VFX settings
@@ -46,7 +48,7 @@
 ** FLAGS Preset
 */
 
-# define F_LOG_STR "12"
+# define F_LOG_STR "1248"
 
 /*
 ** VM Settings
@@ -108,7 +110,7 @@ typedef struct	s_carriage
 	ssize_t				step;
 	int					op_index;
 	size_t				cooldown;
-	size_t				last_live;
+	ssize_t				last_live;
 	t_args				*args;
 	struct s_carriage	*next;
 }				t_car;
@@ -208,6 +210,7 @@ size_t			find_player_nb(t_vm *core, size_t start);
 int				handle_flags(t_vm *core, char **argv, int argc, int i);
 void			process_dump(t_vm *core, char *cycle, char *size);
 void			process_player(t_vm *core, char *number, char *filename);
+int				ft_isnumber(const char *str);
 
 /*
 ** Logging

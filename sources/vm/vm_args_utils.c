@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 07:55:08 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:26:26 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:37:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ size_t			check_player_id(t_vm *core, size_t number, int8_t mod)
 		i++;
 	}
 	return (number);
+}
+
+int				ft_isnumber(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if ((str[0] == '-' || str[0] == '+') && str[1] != '\0')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }

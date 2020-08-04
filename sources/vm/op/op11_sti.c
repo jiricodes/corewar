@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:06:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:12:16 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	do_sti(t_vm *core, t_args *args, t_car *car)
 	write_bytes(car->pc + (val[1] + val[2]) % IDX_MOD, val[0], car, core);
 	if (core->flags->log & LOG_OPS)
 	{
-		ft_printf(OP_STR, core->cycle, car->id + 1, "sti");
+		ft_printf(OP_STR, core->cycle, car->id, "sti");
 		ft_printf("r%d %d %d\n", args->arg[0], val[1], val[2]);
 	}
 }

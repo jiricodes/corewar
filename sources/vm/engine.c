@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 13:30:44 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:21:08 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 {
-	ssize_t		limit;
+	ssize_t		diff;
 
-	limit = core->cycles_to_die >= 0 ?\
-		core->cycle - core->cycles_to_die : core->cycle + core->cycles_to_die;
-	limit = limit < 1 ? 1 : limit;
-	limit = limit > (ssize_t)core->cycle ? core->cycles_to_die : limit;
-	if ((ssize_t)car->last_live < limit)
+	diff = core->cycle - car->last_live;
+	if (diff >= core->cycles_to_die)
 	{
+		if (core->flags->log & LOG_DEATHS)
+			ft_printf("[%zu]: Process %zu hasn't lived for %zd cycles (CTD %zd)\n",\
+				core->cycle, car->id, diff, core->cycles_to_die);
 		if (core->flags->log & LOG_DETAILS)
-		{
-			ft_printf("\n[%zu]: Carriage[%zu] failed to live!\n",\
-				core->cycle, car->id);
 			log_carriage(car);
-		}
 		if (*previous)
 			(*previous)->next = car->next;
 		else
@@ -60,6 +56,13 @@ void			do_cycle(t_vm *core)
 			current = current->next;
 		}
 	}
+	// current = core->car_list;
+	// while (current)
+	// {
+	// 	ft_printf("Car%zu - ", current->id);
+	// 	current = current->next;
+	// }
+	// ft_printf("\n");
 }
 
 void			check_lives(t_vm *core)

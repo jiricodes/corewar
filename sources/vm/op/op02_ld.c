@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:06:02 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:11:32 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	do_ld(t_vm *core, t_args *args, t_car *car)
 	car->carry = (car->reg[val[1] - 1]) ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
 	{
-		ft_printf(OP_STR, core->cycle, car->id + 1, "ld");
+		ft_printf(OP_STR, core->cycle, car->id, "ld");
 		ft_printf("%d r%d\n", val[0], val[1]);
 	}
 }

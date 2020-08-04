@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:04:06 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:12:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	do_lldi(t_vm *core, t_args *args, t_car *car)
 	car->carry = !(car->reg[val[2]]);
 	if (core->flags->log & LOG_OPS)
 	{
-		ft_printf(OP_STR, core->cycle, car->id + 1, "lldi");
+		ft_printf(OP_STR, core->cycle, car->id, "lldi");
 		ft_printf("%d %d r%d\n", val[0], val[1], val[2]);
 	}
 }

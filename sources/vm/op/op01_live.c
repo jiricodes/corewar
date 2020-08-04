@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:05:41 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:11:25 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		op_live(t_vm *core, t_car *car)
 			val *= -1;
 		if (core->flags->log & LOG_OPS)
 		{
-			ft_printf(OP_STR, core->cycle, car->id + 1, "live");
+			ft_printf(OP_STR, core->cycle, car->id, "live");
 			ft_printf("%d\n", val);
 		}
 		last_to_live(core, val);

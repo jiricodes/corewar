@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 15:18:30 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:10:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static t_vm	*init_vm(void)
 	core->flags->dump_cycle = -1;
 	core->flags->log = LOG;
 	core->checks = 0;
+	core->car_id = 1;
 	return (core);
 }
 

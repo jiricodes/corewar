@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:27:01 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:12:33 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	op_aff(t_vm *core, t_car *car)
 		val = (char)(car->reg[car->args->arg[0] - 1] % 256);
 		if (core->flags->log & LOG_OPS)
 		{
-			ft_printf(OP_STR, core->cycle, car->id + 1, "aff");
+			ft_printf(OP_STR, core->cycle, car->id, "aff");
 			ft_printf("%d\n", val);
 		}
 		if (core->flags->aff)

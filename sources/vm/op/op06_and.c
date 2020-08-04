@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op06_and.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 18:55:26 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:11:54 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	do_and(t_vm *core, t_args *args, t_car *car)
 	car->carry = car->reg[val[2] - 1] ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
 	{
-		ft_printf(OP_STR, core->cycle, car->id + 1, "and");
+		ft_printf(OP_STR, core->cycle, car->id, "and");
 		ft_printf("%d %d r%d\n", val[0], val[1], val[2]);
 	}
 }
