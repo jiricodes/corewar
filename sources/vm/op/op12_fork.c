@@ -19,7 +19,7 @@ void	op_fork(t_vm *core, t_car *car)
 
 	index = car->pc + OP_SIZE;
 	if (read_args(core, car->args, index % MEM_SIZE))
-	{	
+	{
 		val = (car->pc + car->args->arg[0] % IDX_MOD) % MEM_SIZE;
 		if (core->flags->log & LOG_OPS)
 		{

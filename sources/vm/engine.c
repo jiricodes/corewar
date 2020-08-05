@@ -20,8 +20,9 @@ inline t_car	*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 	if (diff >= core->cycles_to_die)
 	{
 		if (core->flags->log & LOG_DEATHS)
-			ft_printf("[%zu]: Process %zu hasn't lived for %zd cycles (CTD %zd)\n",\
-				core->cycle, car->id, diff, core->cycles_to_die);
+			ft_printf(\
+			"[%zu]: Process %zu hasn't lived for %zd cycles (CTD %zd)\n",\
+			core->cycle, car->id, diff, core->cycles_to_die);
 		if (core->flags->log & LOG_DETAILS)
 			log_carriage(car);
 		if (*previous)

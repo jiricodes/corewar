@@ -56,6 +56,7 @@ static void		free_vfx(t_vm *core)
 	free(core->vfx->legend);
 	free(core->vfx);
 }
+
 void			vfx_engine(t_vm *core)
 {
 	size_t	loop;

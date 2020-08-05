@@ -34,7 +34,6 @@
 # define LOG_CTD 8
 # define LOG_COPY_CAR 16
 
-
 /*
 ** VFX settings
 */
@@ -233,6 +232,6 @@ void			copy_carriage(t_vm *core, t_car *car, int addr);
 int				read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 int				read_args(t_vm *core, t_args *args, ssize_t pos);
 int				read_arena(uint8_t *arena, int start, int argval, int size);
-int 			mod(int a, int b);
+int				mod(int a, int b);
 
 #endif
