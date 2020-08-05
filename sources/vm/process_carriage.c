@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 06:21:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 14:06:45 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 20:43:59 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,7 @@ void			process_car(t_vm *core, t_car *car)
 		car->pc = (car->pc + car->step) % MEM_SIZE;
 		car->pc = car->pc < 0 ? MEM_SIZE + car->pc : car->pc;
 		if (core->flags->log & LOG_PC)
-		{
 			ft_printf(PC_STR, core->cycle, car->id, old, car->pc);
-			if (core->cycle == 18109 && car->id == 926)
-				log_car_in_arena(core->arena, 64, car->pc);
-		}
 	}
 }
 
