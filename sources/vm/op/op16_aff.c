@@ -18,18 +18,22 @@ void	op_aff(t_vm *core, t_car *car)
 	char	val;
 
 	index = car->pc + OP_SIZE;
-	if (read_args(core, car->args, index % MEM_SIZE))
+	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{
-		val = (char)(car->reg[car->args->arg[0] - 1] % 256);
-		if (core->flags->log & LOG_OPS)
+		index += ARG_SIZE;
+		if (read_args(core, car->args, index % MEM_SIZE))
 		{
-			ft_printf(OP_STR, core->cycle, car->id, "aff");
-			ft_printf("%d\n", val);
-		}
-		if (core->flags->aff)
-		{
-			ft_putchar(val);
-			ft_putchar('\n');
+			val = (char)(car->reg[car->args->arg[0] - 1] % 256);
+			if (core->flags->aff)
+			{
+				ft_putchar(val);
+				ft_putchar('\n');
+				if (core->flags->log & LOG_OPS)
+				{
+					ft_printf(OP_STR, core->cycle, car->id, "aff");
+					ft_printf("%d\n", val);
+				}
+			}
 		}
 	}
 	get_step(car, car->args);

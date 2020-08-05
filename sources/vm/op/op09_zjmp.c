@@ -28,11 +28,11 @@ void	op_zjmp(t_vm *core, t_car *car)
 		{
 			car->step = val % IDX_MOD;
 			if (core->flags->log & LOG_OPS)
-				ft_printf("%d OK\n", car->step);
+				ft_printf("%d OK\n", val);
 			return ;
 		}
 	}
 	if (core->flags->log & LOG_OPS)
-		ft_printf("%d FAILED\n", val % IDX_MOD);
+		ft_printf("%d FAILED\n", val);
 	get_step(car, car->args);
 }

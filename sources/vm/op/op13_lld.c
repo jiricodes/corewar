@@ -32,13 +32,13 @@ static void	do_lld(t_vm *core, t_args *args, t_car *car)
 
 void		op_lld(t_vm *core, t_car *car)
 {
-	ssize_t	start;
+	ssize_t	index;
 
-	start = car->pc + OP_SIZE;
-	if (read_arg_type(core->arena, car->args, start % MEM_SIZE))
+	index = car->pc + OP_SIZE;
+	if (read_arg_type(core->arena, car->args, index % MEM_SIZE))
 	{
-		start += ARG_SIZE;
-		if (read_args(core, car->args, start % MEM_SIZE))
+		index += ARG_SIZE;
+		if (read_args(core, car->args, index % MEM_SIZE))
 			do_lld(core, car->args, car);
 	}
 	get_step(car, car->args);
