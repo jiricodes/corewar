@@ -12,19 +12,16 @@
 
 #include "oplist_cw.h"
 
-static int	check_types(int *types, const int *reference)
+static int	check_types(int *types, const int *reference, t_args *args)
 {
 	int cnt;
 
 	cnt = 0;
-	while (cnt < 3)
+	while (cnt < args->arg_cnt)
 	{
 		if ((!types[cnt] && reference[cnt]) ||\
 			((types[cnt] | reference[cnt]) != reference[cnt]))
-		{
-			// ft_printf("type[%d] %d | ref[%d] %d | OR %d\n", cnt, types[cnt], cnt, reference[cnt], (types[cnt] | reference[cnt]));
 			return (0);
-		}
 		cnt += 1;
 	}
 	return (1);
@@ -41,7 +38,7 @@ int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index)
 	temp[0] = (byte & 0b11000000) >> 6;
 	temp[1] = (byte & 0b00110000) >> 4;
 	temp[2] = (byte & 0b00001100) >> 2;
-	while (cnt < 3)
+	while (cnt < args->arg_cnt)
 	{
 		if (temp[cnt] == TREG_CODE)
 			args->arg_types[cnt] = T_REG;
@@ -51,8 +48,7 @@ int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index)
 			args->arg_types[cnt] = T_DIR;
 		cnt += 1;
 	}
-	// ft_printf("TYPE byte = %u | TEMP [%d, %d, %d] | TYPE [%d, %d, %d] | REF [%d, %d, %d]\n", byte, temp[0], temp[1], temp[2], args->arg_types[0], args->arg_types[1], args->arg_types[2], g_oplist[args->opcount].arg_type[0], g_oplist[args->opcount].arg_type[1], g_oplist[args->opcount].arg_type[2]);
-	if (!check_types(args->arg_types, g_oplist[args->opcount].arg_type))
+	if (!check_types(args->arg_types, g_oplist[args->opcount].arg_type, args))
 		return (0);
 	else
 		return (1);

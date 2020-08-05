@@ -51,8 +51,8 @@ static void		check_operation(t_vm *core, t_car *car)
 
 void			process_car(t_vm *core, t_car *car)
 {
-	int	i;
-	ssize_t old;
+	int			i;
+	ssize_t		old;
 
 	core->car_cnt++;
 	i = core->byte_owner[car->pc] - 1;
