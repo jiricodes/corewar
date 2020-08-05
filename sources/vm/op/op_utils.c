@@ -72,8 +72,10 @@ void	copy_carriage(t_vm *core, t_car *car, int addr)
 	core->car_list = prepend_carriage(core->car_list, new);
 }
 
-int mod(int a, int b)
+int		mod(int a, int b)
 {
-    int r = a % b;
-    return r < 0 ? r + b : r;
+	int r;
+
+	r = a % b;
+	return (r < 0 ? r + b : r);
 }

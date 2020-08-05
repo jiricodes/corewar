@@ -24,7 +24,8 @@ void		op_lfork(t_vm *core, t_car *car)
 		if (core->flags->log & LOG_OPS)
 		{
 			ft_printf(OP_STR, core->cycle, car->id, "lfork");
-			ft_printf("%d (%d)\n", car->args->arg[0], car->pc + car->args->arg[0]);
+			ft_printf("%d (%d)\n", car->args->arg[0], \
+						car->pc + car->args->arg[0]);
 		}
 		if (val < 0)
 			val += MEM_SIZE;
