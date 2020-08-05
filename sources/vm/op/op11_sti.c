@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 08:49:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:28:21 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	do_sti(t_vm *core, t_args *args, t_car *car)
 {
-	int	val[3];
+	int32_t	val[3];
 
 	val[0] = car->reg[args->arg[0] - 1];
 	if (args->arg_types[1] == T_IND)

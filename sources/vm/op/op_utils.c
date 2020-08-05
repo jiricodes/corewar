@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/08/05 13:11:06 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:28:43 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-void	write_bytes(size_t index, int val, t_car *car, t_vm *core)
+void	write_bytes(size_t index, int32_t val, t_car *car, t_vm *core)
 {
 	int		x;
 	int		size;

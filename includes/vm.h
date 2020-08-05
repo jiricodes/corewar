@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 08:23:10 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:29:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define LOG_DEATHS 4
 # define LOG_CTD 8
 # define LOG_COPY_CAR 16
+# define LOG_PC 32
+# define LOG_FAIL_OPS 64
 
 /*
 ** VFX settings
@@ -62,6 +64,7 @@
 */
 
 # define OP_STR	"[%zu]\tP%5zu | %s "
+# define PC_STR	"[%zu]\tP%5zu | %zd -> %zd\n"
 
 typedef struct	s_champ
 {
@@ -227,7 +230,7 @@ void			log_car_in_arena(uint8_t *arena, int size, ssize_t car_pos);
 */
 
 void			get_step(t_car *car, t_args *args);
-void			write_bytes(size_t index, int val, t_car *car, t_vm *core);
+void			write_bytes(size_t index, int32_t val, t_car *car, t_vm *core);
 void			copy_carriage(t_vm *core, t_car *car, int addr);
 int				read_arg_type(uint8_t *arena, t_args *args, ssize_t index);
 int				read_args(t_vm *core, t_args *args, ssize_t pos);

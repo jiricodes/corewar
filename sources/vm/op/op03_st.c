@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 08:50:45 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:29:34 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	do_st(t_vm *core, t_args *args, t_car *car)
 {
-	int	val[2];
+	int32_t	val[2];
 
 	val[0] = car->reg[args->arg[0] - 1];
 	if (args->arg_types[1] == T_IND)
@@ -44,6 +44,16 @@ void		op_st(t_vm *core, t_car *car)
 		index += ARG_SIZE;
 		if (read_args(core, car->args, index % MEM_SIZE))
 			do_st(core, car->args, car);
+		else if (core->flags->log & LOG_FAIL_OPS)
+		{
+			ft_printf(OP_STR, core->cycle, car->id, "st");
+			ft_printf("READ ARG FAIL\n");
+		}
+	}
+	else if (core->flags->log & LOG_FAIL_OPS)
+	{
+		ft_printf(OP_STR, core->cycle, car->id, "st");
+		ft_printf("READ TYPE FAIL\n");
 	}
 	get_step(car, car->args);
 }

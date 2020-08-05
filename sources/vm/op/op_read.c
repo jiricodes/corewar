@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:24:38 by asolopov          #+#    #+#             */
-/*   Updated: 2020/08/03 20:43:42 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:30:01 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static int	check_types(int *types, const int *reference)
 	{
 		if ((!types[cnt] && reference[cnt]) ||\
 			((types[cnt] | reference[cnt]) != reference[cnt]))
+		{
+			// ft_printf("type[%d] %d | ref[%d] %d | OR %d\n", cnt, types[cnt], cnt, reference[cnt], (types[cnt] | reference[cnt]));
 			return (0);
+		}
 		cnt += 1;
 	}
 	return (1);
@@ -29,9 +32,9 @@ static int	check_types(int *types, const int *reference)
 
 int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index)
 {
-	int byte;
-	int cnt;
-	int	temp[3];
+	uint8_t		byte;
+	int			cnt;
+	int			temp[3];
 
 	byte = arena[index];
 	cnt = 0;
@@ -48,6 +51,7 @@ int			read_arg_type(uint8_t *arena, t_args *args, ssize_t index)
 			args->arg_types[cnt] = T_DIR;
 		cnt += 1;
 	}
+	// ft_printf("TYPE byte = %u | TEMP [%d, %d, %d] | TYPE [%d, %d, %d] | REF [%d, %d, %d]\n", byte, temp[0], temp[1], temp[2], args->arg_types[0], args->arg_types[1], args->arg_types[2], g_oplist[args->opcount].arg_type[0], g_oplist[args->opcount].arg_type[1], g_oplist[args->opcount].arg_type[2]);
 	if (!check_types(args->arg_types, g_oplist[args->opcount].arg_type))
 		return (0);
 	else
