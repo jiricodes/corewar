@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:40:01 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 11:17:00 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous)
+inline t_car	*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 {
 	ssize_t		diff;
 
@@ -40,33 +40,25 @@ t_car			*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 void			do_cycle(t_vm *core)
 {
 	t_car	*current;
-	t_car	*previous;
 
 	current = core->car_list;
-	previous = NULL;
 	reset_car_cnt(core);
 	while (current)
 	{
 		process_car(core, current);
-		if (core->check_cd <= 0)
-			current = check_live_calls(core, current, &previous);
-		else
-		{
-			previous = current;
-			current = current->next;
-		}
+		current = current->next;
 	}
-	// current = core->car_list;
-	// while (current)
-	// {
-	// 	ft_printf("Car%zu - ", current->id);
-	// 	current = current->next;
-	// }
-	// ft_printf("\n");
 }
 
 void			check_lives(t_vm *core)
 {
+	t_car	*current;
+	t_car	*previous;
+
+	current = core->car_list;
+	previous = NULL;
+	while (current)
+		current = check_live_calls(core, current, &previous);
 	core->checks++;
 	if (core->live_cnt >= 21 || core->checks == MAX_CHECKS)
 	{
@@ -91,13 +83,13 @@ void			engine(t_vm *core)
 {
 	core->checks = 0;
 	core->cycle = 0;
-	while (core->car_list && core->cycles_to_die >= 0)
+	while (core->car_list)
 	{
-		if (core->check_cd <= 0)
-			check_lives(core);
 		core->cycle++;
 		core->check_cd--;
 		do_cycle(core);
+		if (core->check_cd <= 0)
+			check_lives(core);
 		if (core->cycle >= core->flags->dump_cycle)
 		{
 			do_dump(core);

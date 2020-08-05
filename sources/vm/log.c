@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:24:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 17:58:39 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 08:21:33 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		log_vm_status(t_vm *core)
 	ft_printf("Total Car:\t%5d\n\n", core->car_cnt);
 }
 
-void		log_arena(uint8_t *arena, int size)
+void		log_car_in_arena(uint8_t *arena, int size, ssize_t car_pos)
 {
 	int	i;
 
@@ -82,7 +82,10 @@ void		log_arena(uint8_t *arena, int size)
 			ft_printf("\n");
 		if (i % size == 0)
 			ft_printf("%#06x :", i);
-		ft_printf(" %02x", arena[i]);
+		if (i != car_pos)
+			ft_printf(" %02x", arena[i]);
+		else
+			ft_printf(" [%02x]", arena[i]);
 		i++;
 	}
 	ft_printf("\n");

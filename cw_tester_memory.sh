@@ -1,5 +1,5 @@
 rm -f cw_diff_mem dump_orig dump_us
-for (( i=0; i<=240000; i+=1000 ))
+for (( i=0; i<=24000; i+=100 ))
 do
 	./corewar $1 $2 $3 $4 -s -d $i > dump_us
 	./resources/corewar -d $i $1 $2 $3 $4 > dump_orig

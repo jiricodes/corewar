@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 12:48:25 by asolopov          #+#    #+#             */
-/*   Updated: 2020/08/03 19:55:11 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:11:06 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	copy_carriage(t_vm *core, t_car *car, int addr)
 	new->carry = car->carry;
 	new->last_live = car->last_live;
 	core->car_list = prepend_carriage(core->car_list, new);
+	core->car_cnt++;
+	if (core->flags->log & LOG_COPY_CAR)
+		ft_printf("[%zu] Created New Carriage %zu (%d | %zd)\n",\
+			core->cycle, new->id, addr, new->pc);
 }
 
 int mod(int a, int b)

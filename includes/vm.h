@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:38:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 08:23:10 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define LOG_DETAILS 2
 # define LOG_DEATHS 4
 # define LOG_CTD 8
+# define LOG_COPY_CAR 16
 
 
 /*
@@ -220,7 +221,7 @@ int				ft_isnumber(const char *str);
 void			log_carriage(t_car *node);
 void			log_champ(t_champ *champ, int index);
 void			log_vm_status(t_vm *core);
-void			log_arena(uint8_t *arena, int size);
+void			log_car_in_arena(uint8_t *arena, int size, ssize_t car_pos);
 
 /*
 ** OP read and utils

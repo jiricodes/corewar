@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:08:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 17:45:09 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/05 08:06:51 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_car			*create_carriage(size_t id, ssize_t pc, uint8_t player_id)
 	car->id = id;
 	ft_bzero(car->reg, sizeof(int32_t) * REG_NUMBER);
 	car->reg[0] = -1 * player_id;
-	car->pc = pc;
+	car->pc = pc % MEM_SIZE;
+	car->pc = car->pc < 0 ? car->pc + MEM_SIZE : car->pc;
 	car->step = 1;
 	car->op_index = -1;
 	car->last_live = -1;
