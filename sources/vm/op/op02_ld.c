@@ -6,11 +6,28 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:11:32 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:31:54 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+inline void	log_ld(t_vm *core, size_t car_id, int val[2])
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s %d r%d\n", core->cycle, car_id,\
+			"ld", val[0], val[1]);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [[%zu]\tP %4zu | %s %d r%d\n",\
+			core->cycle, car_id, "ld", val[0], val[1]);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 static void	do_ld(t_vm *core, t_args *args, t_car *car)
 {
@@ -25,10 +42,7 @@ static void	do_ld(t_vm *core, t_args *args, t_car *car)
 	car->reg[val[1] - 1] = val[0];
 	car->carry = (car->reg[val[1] - 1]) ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
-	{
-		ft_printf(OP_STR, core->cycle, car->id, "ld");
-		ft_printf("%d r%d\n", val[0], val[1]);
-	}
+		log_ld(core, car->id, val);
 }
 
 void		op_ld(t_vm *core, t_car *car)

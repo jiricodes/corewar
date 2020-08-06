@@ -6,11 +6,27 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 07:59:36 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:29:58 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+inline void	log_live(t_vm *core, size_t car_id, int val)
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car_id, "live", val);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d\n", core->cycle,\
+			car_id, "live", val);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 static void	last_to_live(t_vm *core, int live_arg)
 {
@@ -21,7 +37,7 @@ static void	last_to_live(t_vm *core, int live_arg)
 		return ;
 	while (i < core->n_players)
 	{
-		if (core->champ[i]->id == (size_t)(-1 *live_arg))
+		if (core->champ[i]->id == (size_t)(-1 * live_arg))
 		{
 			core->last_to_live = core->champ[i];
 			if (!core->flags->silent)
@@ -42,13 +58,8 @@ void		op_live(t_vm *core, t_car *car)
 	if (read_args(core, car->args, index % MEM_SIZE))
 	{
 		val = car->args->arg[0];
-		// if (val < 0)
-		// val *= -1;
 		if (core->flags->log & LOG_OPS)
-		{
-			ft_printf(OP_STR, core->cycle, car->id, "live");
-			ft_printf("%d\n", val);
-		}
+			log_live(core, car->id, val);
 		last_to_live(core, val);
 		car->last_live = core->cycle;
 		core->live_cnt++;

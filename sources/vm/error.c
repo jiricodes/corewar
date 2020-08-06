@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:17:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 14:30:16 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:00:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	print_usage(void)
 	ft_printf("\t\t\t\t%d - cycle to die changes\n", LOG_CTD);
 	ft_printf("\t\t\t\t%d - fork & lfork info\n\n", LOG_COPY_CAR);
 	ft_printf("\t\t\t\t%d - Carriage movement\n\n", LOG_PC);
-	ft_printf("\t\t\t\t%d - Failed OPS\n\n", LOG_FAIL_OPS); // temporrary
 	ft_printf("-s\t\t\t\tsilent run\n");
 }

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 11:39:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:58:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define LOG_CTD 8
 # define LOG_COPY_CAR 16
 # define LOG_PC 32
-# define LOG_FAIL_OPS 64
-# define LOG_CAR_CNT 128
+# define LOG_CAR_CNT 64
+# define LOG_BUF 256
 
 /*
 ** VFX settings
@@ -46,7 +46,9 @@
 # define VFX_INIT_SPEED 5000
 # define VFX_ANIM_SPEED 50000
 # define VFX_INFO_STD 30
+# define VFX_INFO_H 23
 # define VFX_LEGEND_STD 3
+# define VFX_LOG_START 25
 
 /*
 ** FLAGS Preset
@@ -90,6 +92,7 @@ typedef struct	s_visual_settings
 {
 	t_win		*arena;
 	t_win		*info;
+	t_win		*log;
 	t_win		*legend;
 	int			play;
 	int			key;
@@ -191,6 +194,8 @@ int				check_carriage(t_car *head, ssize_t pos);
 void			players_info(t_vm *core, int *x, int *y);
 void			vfx_cycle(t_vm *core);
 void			carriage_map(t_vm *core);
+void			draw_log(t_vm *core);
+void			vfx_write_log(t_vm *core, char *str);
 
 /*
 ** VM utilities

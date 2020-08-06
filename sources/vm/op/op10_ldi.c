@@ -6,11 +6,28 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:12:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:57:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+inline void	log_ldi(t_vm *core, size_t car_id, int val[3])
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s %d %d r%d\n", core->cycle,\
+			car_id, "ldi", val[0], val[1], val[2]);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d %d r%d\n", core->cycle,\
+			car_id, "ldi", val[0], val[1], val[2]);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 {
@@ -31,10 +48,7 @@ static void	do_ldi(t_vm *core, t_args *args, t_car *car)
 	car->reg[val[2] - 1] = read_arena(core->arena, car->pc, \
 							(val[0] + val[1]) % IDX_MOD, REG_SIZE);
 	if (core->flags->log & LOG_OPS)
-	{
-		ft_printf(OP_STR, core->cycle, car->id, "ldi");
-		ft_printf("%d %d r%d\n", val[0], val[1], val[2]);
-	}
+		log_ldi(core, car->id, val);
 }
 
 void		op_ldi(t_vm *core, t_car *car)

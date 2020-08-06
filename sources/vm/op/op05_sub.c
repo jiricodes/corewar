@@ -6,11 +6,28 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:11:48 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:45:22 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+inline void	log_sub(t_vm *core, size_t car_id, int arg[3])
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s r%d r%d r%d\n", core->cycle,\
+			car_id, "sub", arg[0], arg[1], arg[2]);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s r%d r%d r%d\n", core->cycle,\
+			car_id, "sub", arg[0], arg[1], arg[2]);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 static void	do_sub(t_vm *core, t_args *args, t_car *car)
 {
@@ -22,11 +39,7 @@ static void	do_sub(t_vm *core, t_args *args, t_car *car)
 	car->reg[val[2]] = val[0] - val[1];
 	car->carry = car->reg[val[2]] ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
-	{
-		ft_printf(OP_STR, core->cycle, car->id, "sub");
-		ft_printf("r%d r%d r%d\n", args->arg[0],\
-			args->arg[1], args->arg[2]);
-	}
+		log_sub(core, car->id, args->arg);
 }
 
 void		op_sub(t_vm *core, t_car *car)

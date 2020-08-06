@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 11:23:59 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:48:07 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void		draw_cycle(t_vm *core)
 
 	draw_legend(core);
 	draw_info(core);
+	draw_log(core);
 	carriage_map(core);
 	if (!core->cycle && !core->vfx->play)
 	{

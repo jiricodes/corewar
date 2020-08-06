@@ -6,11 +6,24 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:12:23 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:01:06 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+// inline void	log_lld(t_vm *core, size_t car_id, int val)
+// {
+// 	if (!core->flags->vfx)
+		
+// 	else
+// 	{
+// 		tmp = ft_strnew(LOG_BUF);
+// 		ft_sprintf(tmp, 
+// 		vfx_write_log(core, tmp);
+// 		free(tmp);
+// 	}
+// }
 
 static void	do_lld(t_vm *core, t_args *args, t_car *car)
 {
@@ -25,7 +38,7 @@ static void	do_lld(t_vm *core, t_args *args, t_car *car)
 	car->carry = (car->reg[val[1] - 1]) ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
 	{
-		ft_printf(OP_STR, core->cycle, car->id, "lld");
+		ft_printf("[%zu]\tP %4zu | %s ", core->cycle, car->id, "lld");
 		ft_printf("%d r%d\n", val[0], val[1]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 13:28:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:04:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	vfx_key(t_vm *core)
 			core->vfx->freq - VFX_SPEED_DELTA : 1;
 	else if (core->vfx->key == KEY_LEFT)
 		core->vfx->freq += VFX_SPEED_DELTA;
-	else if (core->vfx->key == KEY_UP)
+	else if (core->vfx->key == 's')
 	{
 		core->vfx->play = 0;
 		vfx_cycle(core);

@@ -6,11 +6,28 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 14:29:34 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:49:57 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
+
+inline void	log_st(t_vm *core, size_t car_id, int arg, int val)
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s r%d %d\n", core->cycle,\
+			car_id, "st", arg, val);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s r%d %d\n", core->cycle,\
+			car_id, "st", arg, val);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 static void	do_st(t_vm *core, t_args *args, t_car *car)
 {
@@ -28,10 +45,7 @@ static void	do_st(t_vm *core, t_args *args, t_car *car)
 		car->reg[val[1] - 1] = val[0];
 	}
 	if (core->flags->log & LOG_OPS)
-	{
-		ft_printf(OP_STR, core->cycle, car->id, "st");
-		ft_printf("r%d %d\n", args->arg[0], val[1]);
-	}
+		log_st(core, car->id, args->arg[0], val[1]);
 }
 
 void		op_st(t_vm *core, t_car *car)
@@ -44,16 +58,6 @@ void		op_st(t_vm *core, t_car *car)
 		index += ARG_SIZE;
 		if (read_args(core, car->args, index % MEM_SIZE))
 			do_st(core, car->args, car);
-		else if (core->flags->log & LOG_FAIL_OPS)
-		{
-			ft_printf(OP_STR, core->cycle, car->id, "st");
-			ft_printf("READ ARG FAIL\n");
-		}
-	}
-	else if (core->flags->log & LOG_FAIL_OPS)
-	{
-		ft_printf(OP_STR, core->cycle, car->id, "st");
-		ft_printf("READ TYPE FAIL\n");
 	}
 	get_step(car, car->args);
 }

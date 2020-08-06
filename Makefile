@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/08/04 17:18:35 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/08/06 16:56:41 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ VM_FILES =	arena.c \
 			process_carriage.c \
 			vfx_engine.c \
 			vfx_init.c \
+			vfx_log.c \
 			vfx_utils.c \
 			visual.c \
 			vm.c \
