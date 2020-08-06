@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 11:44:38 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:16:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ void	players_info(t_vm *core, int *x, int *y)
 		len = core->vfx->info->width - 15 - *x;
 		mvwprintw(core->vfx->info->win, *y, *x, "Player %3d: %-*s",\
 			core->champ[i]->id, len, core->champ[i]->header->prog_name);
+		wattroff(core->vfx->info->win, A_STANDOUT);
 		*y += 1;
 		buf = create_progress_bar(core->car_cnt, core->champ[i]->car_cnt,\
 			core->vfx->info->width - 2 - *x, NULL);
 		mvwprintw(core->vfx->info->win, *y, *x, buf);
 		free(buf);
 		wattroff(core->vfx->info->win, COLOR_PAIR(i + 1));
-		wattroff(core->vfx->info->win, A_STANDOUT);
 		*y += 2;
 		i++;
 	}
