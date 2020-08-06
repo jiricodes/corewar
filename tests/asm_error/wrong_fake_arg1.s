@@ -1,5 +1,5 @@
-.name "wrong op"
-.comment "sd command"
+.name "wrong"
+.comment "error"
 
 l2:		sti r1, fake, %1		#fake argument
 		and r1, %0, r1
