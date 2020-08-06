@@ -34,10 +34,10 @@ with open(file) as f:
 			result.append(new)
 		i += 1
 	for line in result:
-		tmp = line.split()
-		if tmp[-2] == 'live' and int(tmp[-1]) < 0:
-			l = len(tmp[-1])
-			new = f"{line[:-l]}{-1 * int(tmp[-1])}"
-			print(new)
-		else:
-			print(line)
+		# tmp = line.split()
+		# if tmp[-2] == 'live' and int(tmp[-1]) < 0:
+		# 	l = len(tmp[-1])
+		# 	new = f"{line[:-l]}{-1 * int(tmp[-1])}"
+		# 	print(new)
+		# else:
+		print(line)

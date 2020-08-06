@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 14:29:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 06:46:20 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 ** LOG Settings
 */
 
-# define OP_STR	"[%zu]\tP%5zu | %s "
-# define PC_STR	"[%zu]\tP%5zu | %zd -> %zd\n"
+# define OP_STR	"[%zu]\tP %4zu | %s "
+# define PC_STR	"[%zu]\tP %4zu | %zd -> %zd\n"
 
 typedef struct	s_champ
 {
