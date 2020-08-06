@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:55:39 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:23:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ inline void	log_zjmp(t_vm *core, size_t car_id, int val, char *stat)
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
-		ft_sprintf(tmp, "[%zu]\tP %4zu | %s %d %s\n", core->cycle,\
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d %s\n", core->cycle,\
 			car_id, "zjmp", val, stat);
 		vfx_write_log(core, tmp);
 		free(tmp);

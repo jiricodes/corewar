@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:51:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:32:10 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:39:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	vfx_write_log(t_vm *core, char *str)
 
 	getyx(core->vfx->log->win, y, x);
 	wmove(core->vfx->log->win, y, x + 1);
-	wrefresh(core->vfx->log->win);
+	// wrefresh(core->vfx->log->win);
 	wprintw(core->vfx->log->win, str);
 }
 

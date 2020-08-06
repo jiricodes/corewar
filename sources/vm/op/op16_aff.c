@@ -6,24 +6,27 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 19:01:21 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:37:42 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-// inline void	log_aff(t_vm *core, size_t car_id, int val)
-// {
-// 	if (!core->flags->vfx)
-		
-// 	else
-// 	{
-// 		tmp = ft_strnew(LOG_BUF);
-// 		ft_sprintf(tmp, 
-// 		vfx_write_log(core, tmp);
-// 		free(tmp);
-// 	}
-// }
+inline void	log_aff(t_vm *core, size_t car_id, int val)
+{
+	char *tmp;
+
+	if (!core->flags->vfx)
+		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car_id, "aff", val);
+	else
+	{
+		tmp = ft_strnew(LOG_BUF);
+		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d\n",\
+			core->cycle, car_id, "aff", val);
+		vfx_write_log(core, tmp);
+		free(tmp);
+	}
+}
 
 void	op_aff(t_vm *core, t_car *car)
 {
@@ -42,10 +45,7 @@ void	op_aff(t_vm *core, t_car *car)
 				ft_putchar(val);
 				ft_putchar('\n');
 				if (core->flags->log & LOG_OPS)
-				{
-					ft_printf("[%zu]\tP %4zu | %s ", core->cycle, car->id, "aff");
-					ft_printf("%d\n", val);
-				}
+					log_aff(core, car->id, val);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:04:28 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 19:29:12 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_vs			*init_visual_settings(void)
 		settings->legend = init_window(VFX_LEGEND_STD, width, 0,\
 			settings->arena->height - 1);
 	settings->log = init_window(settings->arena->height - VFX_INFO_H + 1, settings->info->width, settings->info->x, VFX_INFO_H - 1);
+	scrollok(settings->log->win, true);
 	refresh();
 	return (settings);
 }
