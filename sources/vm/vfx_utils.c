@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 13:20:41 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:44:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,17 @@ void	reset_window(WINDOW *win, int playback)
 	wattroff(win, COLOR_PAIR(1));
 }
 
-int		check_carriage(t_car *head, ssize_t pos)
+void	carriage_map(t_vm *core)
 {
-	while (head)
+	t_car *tmp;
+
+	ft_bzero(core->vfx->car_map, sizeof(uint8_t) * MEM_SIZE);
+	tmp = core->car_list;
+	while (tmp)
 	{
-		if (head->pc == pos)
-			return (1);
-		head = head->next;
+		core->vfx->car_map[tmp->pc] = (uint8_t)1;
+		tmp = tmp->next;
 	}
-	return (0);
 }
 
 void	vfx_key(t_vm *core)
@@ -80,7 +82,7 @@ void	vfx_key(t_vm *core)
 	}
 	else if (core->vfx->key == KEY_RIGHT)
 		core->vfx->freq = core->vfx->freq > VFX_SPEED_DELTA ?\
-			core->vfx->freq - VFX_SPEED_DELTA : VFX_SPEED_DELTA;
+			core->vfx->freq - VFX_SPEED_DELTA : 1;
 	else if (core->vfx->key == KEY_LEFT)
 		core->vfx->freq += VFX_SPEED_DELTA;
 	else if (core->vfx->key == KEY_UP)
@@ -100,6 +102,8 @@ void	players_info(t_vm *core, int *x, int *y)
 	while (i < core->n_players)
 	{
 		wattron(core->vfx->info->win, COLOR_PAIR(i + 1));
+		if (core->last_to_live->id == core->champ[i]->id)
+			wattron(core->vfx->info->win, A_STANDOUT);
 		len = core->vfx->info->width - 15 - *x;
 		mvwprintw(core->vfx->info->win, *y, *x, "Player %3d: %-*s",\
 			core->champ[i]->id, len, core->champ[i]->header->prog_name);
@@ -109,6 +113,7 @@ void	players_info(t_vm *core, int *x, int *y)
 		mvwprintw(core->vfx->info->win, *y, *x, buf);
 		free(buf);
 		wattroff(core->vfx->info->win, COLOR_PAIR(i + 1));
+		wattroff(core->vfx->info->win, A_STANDOUT);
 		*y += 2;
 		i++;
 	}

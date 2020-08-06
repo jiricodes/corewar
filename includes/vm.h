@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 06:46:20 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:39:08 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define LOG_COPY_CAR 16
 # define LOG_PC 32
 # define LOG_FAIL_OPS 64
+# define LOG_CAR_CNT 128
 
 /*
 ** VFX settings
@@ -93,6 +94,7 @@ typedef struct	s_visual_settings
 	int			play;
 	int			key;
 	size_t		freq;
+	uint8_t		*car_map;
 }				t_vs;
 
 typedef struct	s_args
@@ -188,6 +190,7 @@ void			reset_window(WINDOW *win, int playback);
 int				check_carriage(t_car *head, ssize_t pos);
 void			players_info(t_vm *core, int *x, int *y);
 void			vfx_cycle(t_vm *core);
+void			carriage_map(t_vm *core);
 
 /*
 ** VM utilities

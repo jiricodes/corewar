@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:24:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:18:20 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void		vfx_config(t_vs *settings)
 	curs_set(0);
 	cbreak();
 	noecho();
+	if (!(settings->car_map = (uint8_t *)ft_memalloc(sizeof(uint8_t) * MEM_SIZE)))
+		vm_error("Malloc at vfx_config [car_map]");
 }
 
 t_vs			*init_visual_settings(void)

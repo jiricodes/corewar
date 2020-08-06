@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/30 13:21:32 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:23:59 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void		draw_arena(t_vm *core, size_t limit)
 {
 	size_t	i;
-	int		hgl;
 	int		x;
 	int		y;
 
@@ -24,15 +23,14 @@ void		draw_arena(t_vm *core, size_t limit)
 	i = 0;
 	while (i < limit)
 	{
-		if ((hgl = check_carriage(core->car_list, i)))
+		if (core->vfx->car_map[i])
 			wattron(core->vfx->arena->win, A_STANDOUT);
 		wattron(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		x = ((i % (VFX_WIDTH)) * 2) + 1;
 		y = (i / (core->vfx->arena->height - 2)) + 1;
 		mvwprintw(core->vfx->arena->win, y, x, "%02x", core->arena[i]);
 		wattroff(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
-		if (hgl)
-			wattroff(core->vfx->arena->win, A_STANDOUT);
+		wattroff(core->vfx->arena->win, A_STANDOUT);
 		i++;
 	}
 	wrefresh(core->vfx->arena->win);
@@ -117,6 +115,7 @@ void		draw_cycle(t_vm *core)
 
 	draw_legend(core);
 	draw_info(core);
+	carriage_map(core);
 	if (!core->cycle && !core->vfx->play)
 	{
 		limit = 1;

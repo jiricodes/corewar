@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/05 11:17:00 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:42:47 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ inline t_car	*check_live_calls(t_vm *core, t_car *car, t_car **previous)
 void			do_cycle(t_vm *core)
 {
 	t_car	*current;
+	size_t	old_cnt;
 
 	current = core->car_list;
+	old_cnt = core->car_cnt;
 	reset_car_cnt(core);
 	while (current)
 	{
 		process_car(core, current);
 		current = current->next;
 	}
+	if ((core->flags->log & LOG_CAR_CNT) && old_cnt != core->car_cnt)
+		ft_printf("[%zu] Carriage Count:%20zu\n", core->cycle, core->car_cnt);
 }
 
 void			check_lives(t_vm *core)

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 15:18:23 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:09:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static void		do_vfx_dump(t_vm *core)
 
 void			vfx_cycle(t_vm *core)
 {
+	core->cycle++;
 	core->check_cd--;
 	do_cycle(core);
 	if (core->check_cd <= 0)
 		check_lives(core);
 	draw_cycle(core);
-	core->cycle++;
 }
 
 static void		free_vfx(t_vm *core)
