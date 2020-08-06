@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 14:57:21 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/07/26 20:09:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:28:19 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	vfx_colors(void)
 	init_pair(1, COLOR_RED, -1);
 	init_pair(2, COLOR_BLUE, -1);
 	init_pair(3, COLOR_GREEN, -1);
-	init_pair(4, COLOR_YELLOW, -1);
-	init_pair(5, COLOR_MAGENTA, -1);
+	init_pair(5, COLOR_YELLOW, -1);
+	init_pair(4, COLOR_MAGENTA, -1);
 	init_pair(6, COLOR_CYAN, -1);
 	init_pair(7, COLOR_WHITE, -1);
 	init_pair(8, 8, -1);

@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 13:16:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:28:27 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*create_progress_bar(size_t max_val, size_t cur_val,\
 		if (rat <= 0.45)
 			*color = 3;
 		else if (rat > 0.45 && rat <= 0.65)
-			*color = 4;
+			*color = 5;
 		else if (rat > 0.65 && rat <= 0.85)
 			*color = 10;
 		else
