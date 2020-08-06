@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   uox_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 18:52:22 by jmakela           #+#    #+#             */
-/*   Updated: 2020/06/24 13:09:26 by jmakela          ###   ########.fr       */
+/*   Updated: 2020/08/06 15:02:05 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ t_printf		*uox_op(t_printf *pf)
 		get_asterisk(pf);
 	if (pf->type == 'U' || pf->type == 'O')
 		pf->unbr = (unsigned long int)va_arg(pf->args, unsigned long int);
-	//else if (pf->length[0] == 'j')
-	//	pf->unbr = (uintmax_t)va_arg(pf->args, uintmax_t);
+	else if (pf->length[0] == 'j')
+		pf->unbr = (uintmax_t)va_arg(pf->args, uintmax_t);
 	else if (pf->length[0] == 'z')
 		pf->unbr = (size_t)va_arg(pf->args, size_t);
 	else if (ft_strcmp(pf->length, "h") == 0)

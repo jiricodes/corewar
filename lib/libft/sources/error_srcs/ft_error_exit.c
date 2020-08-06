@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 20:22:38 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/06/04 12:11:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/06 14:46:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_error_exit(char *user_msg, void *memory, void (*del)(void *))
 			del(memory);
 		else
 		{
-			ft_printf("%{RED}%{BOLD}MEMORY ERROR%{EOC}: Memory (%p) not cleaned.",\
+			ft_printf("%{RED}%{BOLD}MEM ERR%{EOC}: Memory (%p) not cleane.",\
 			memory);
 			ft_printf("Clearing function not found!\n");
 		}

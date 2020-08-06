@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   di_op.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmakela <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 18:06:17 by jmakela           #+#    #+#             */
-/*   Updated: 2020/06/24 13:28:23 by jmakela          ###   ########.fr       */
+/*   Updated: 2020/08/06 15:01:57 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ t_printf		*di_op(t_printf *pf)
 		get_asterisk(pf);
 	if (pf->type == 'D')
 		pf->nbr = (long int)va_arg(pf->args, long int);
-	//else if (pf->length[0] == 'j')
-	//	pf->nbr = (intmax_t)va_arg(pf->args, intmax_t);
+	else if (pf->length[0] == 'j')
+		pf->nbr = (intmax_t)va_arg(pf->args, intmax_t);
 	else if (pf->length[0] == 'z')
 		pf->nbr = (size_t)va_arg(pf->args, size_t);
 	else if (ft_strcmp(pf->length, "h") == 0)
