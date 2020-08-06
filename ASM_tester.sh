@@ -1,4 +1,4 @@
-TEST_DIR="resources/champs"
+TEST_DIR="tests/asmtests"
 rm $TEST_DIR/*.cor
 rm diff_log
 for f in $TEST_DIR/*.s ; do

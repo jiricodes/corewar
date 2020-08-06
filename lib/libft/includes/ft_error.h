@@ -18,5 +18,6 @@
 # include <stdio.h>
 
 void	ft_error_exit(char *user_msg, void *memory, void (*del)(void *));
+void	ft_error(char *user_msg);
 
 #endif

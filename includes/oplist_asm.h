@@ -159,7 +159,7 @@ static const	t_oplist	g_oplist[16] = {
 		.arg_cnt = 1,
 		.arg_type = {T_REG, 0, 0},
 		.t_dir_size = 4,
-		.arg_type_code = 0
+		.arg_type_code = 1
 	}
 };
 

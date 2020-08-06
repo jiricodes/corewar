@@ -107,7 +107,8 @@ LIB_FTS = ft_atoi.c \
 		ft_lftoa.c \
 		get_next_line.c
 
-ERROR_FTS =	ft_error_exit.c
+ERROR_FTS =	ft_error_exit.c \
+			ft_error.c
 
 # Folders
 SRC_DIR = sources/
