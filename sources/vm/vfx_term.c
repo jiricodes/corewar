@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:13:58 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 11:21:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 11:29:02 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ void		get_term_size(int *height, int *width)
 		vm_error("Failed to retrieve terminal size");
 	*height = ws.ws_row;
 	*width = ws.ws_col;
+}
+
+static void	place_the_legends(WINDOW *win, int x, int y, char *legends)
+{
+	wattron(win, A_BOLD);
+	if (legends)
+	{
+		mvwprintw(win, y, x, legends);
+		free(legends);
+	}
+	else
+		mvwprintw(win, y, x, "%s%s%s%s", L_CW_TITLE, L_ASOL, L_JM, L_JN);
+	wattroff(win, A_BOLD);
 }
 
 void		legend_authors(t_vm *core)
@@ -47,14 +60,5 @@ void		legend_authors(t_vm *core)
 	}
 	x = core->vfx->legend->width / 2 - len / 2;
 	y = core->vfx->legend->height - 2;
-	wattron(core->vfx->legend->win, A_BOLD);
-	if (legends)
-	{
-		mvwprintw(core->vfx->legend->win, y, x, legends);
-		free(legends);
-	}
-	else
-		mvwprintw(core->vfx->legend->win, y, x, "%s%s%s%s",\
-			L_CW_TITLE, L_ASOL, L_JM, L_JN);
-	wattroff(core->vfx->legend->win, A_BOLD);
+	place_the_legends(core->vfx->legend->win, x, y, legends);
 }
