@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:33:24 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:44:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void		free_vfx(t_vm *core)
 	free(core->vfx->arena);
 	free(core->vfx->info);
 	free(core->vfx->legend);
+	free(core->vfx->log);
 	free(core->vfx);
 }
 

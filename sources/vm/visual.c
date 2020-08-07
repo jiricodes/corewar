@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 08:09:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:49:07 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		draw_legend(t_vm *core)
 	mvwprintw(core->vfx->legend->win, y, x, L_PLAY);
 	x += ft_strlen(L_PLAY) + 4;
 	mvwprintw(core->vfx->legend->win, y, x, L_EXIT);
+	if (core->vfx->legend->height > 3)
+		legend_authors(core);
 	wrefresh(core->vfx->legend->win);
 }
 
