@@ -16,10 +16,10 @@ void	clear_t_asm(void *object)
 {
 	if (((t_asm*)object)->source_fd > 2)
 		if (close(((t_asm*)object)->source_fd) < 0)
-			ft_error_exit("Failed to close source file", NULL, NULL);
+			ft_error("Failed to close source file");
 	if (((t_asm*)object)->core_fd > 2)
 		if (close(((t_asm*)object)->core_fd) < 0)
-			ft_error_exit("Failed to close target file", NULL, NULL);
+			ft_error("Failed to close target file");
 	if (((t_asm*)object)->champ_name)
 		free(((t_asm*)object)->champ_name);
 	if (((t_asm*)object)->champ_comment)

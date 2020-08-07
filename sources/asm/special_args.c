@@ -125,7 +125,7 @@ void	match_labels(t_operation **head, int cnt, int pos, int test)
 					test = check_label(finder->arg[cnt] + pos + 1, head);
 			}
 			if (!test)
-				ft_error_exit("Argument error", 0, 0);
+				ft_error("Argument error");
 			cnt += 1;
 		}
 		finder = finder->next;

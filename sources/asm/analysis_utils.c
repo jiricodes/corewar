@@ -49,7 +49,7 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 			if (cnt > 2)
 			{
 				ft_dprintf(2, "Argument error on line %d\n", core->line_cnt);
-				ft_error_exit("Lexical error", 0, 0);
+				ft_error("Lexical error");
 			}
 			line[i] = '\0';
 			if (is_hex(line))
