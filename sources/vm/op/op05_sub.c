@@ -6,13 +6,13 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:22:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:38:41 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_sub(t_vm *core,t_car *car, int arg[3])
+inline void	log_sub(t_vm *core, t_car *car, int arg[3])
 {
 	char *tmp;
 

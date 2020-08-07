@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:51:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:28:11 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:39:08 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	vfx_write_log(t_vm *core, char *str, ssize_t pc)
 	wattron(core->vfx->log->win, COLOR_PAIR((int)(core->byte_owner[pc])));
 	wprintw(core->vfx->log->win, str);
 	wattroff(core->vfx->log->win, COLOR_PAIR((int)(core->byte_owner[pc])));
-	// wrefresh(core->vfx->log->win);
 }
 
 void	draw_log(t_vm *core)
