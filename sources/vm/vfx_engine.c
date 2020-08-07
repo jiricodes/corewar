@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 11:09:14 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 05:33:24 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@
 void			vfx_announce_winner(t_vm *core)
 {
 	core->vfx->play = 0;
-	wattron(core->vfx->info->win, A_STANDOUT);
-	wattron(core->vfx->info->win, COLOR_PAIR(3));
+	wattron(core->vfx->log->win, A_STANDOUT | COLOR_PAIR(3));
 	if (core->last_to_live)
-		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
-			"Player (%d) %s won", core->last_to_live->id,\
-				core->last_to_live->header->prog_name);
-	else
-		mvwprintw(core->vfx->info->win, core->vfx->info->height - 10, 2,\
-			"Everyone is dead, total clusterfuck");
-	wrefresh(core->vfx->info->win);
+		wprintw(core->vfx->log->win, "  Player (%d) %s won!!!\n", \
+			core->last_to_live->id, core->last_to_live->header->prog_name);
+	wattroff(core->vfx->log->win, A_STANDOUT | COLOR_PAIR(3));
+	wprintw(core->vfx->log->win, "\n  PRESS ANY KEY TO EXIT\n\n");
+	draw_log(core);
 	while (1)
 	{
 		if (getch() != ERR)
