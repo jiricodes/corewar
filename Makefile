@@ -6,7 +6,7 @@
 #    By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/04 16:41:34 by jnovotny          #+#    #+#              #
-#    Updated: 2020/08/06 16:56:41 by jnovotny         ###   ########.fr        #
+#    Updated: 2020/08/07 08:15:37 by jnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ VM_FILES =	arena.c \
 			vfx_engine.c \
 			vfx_init.c \
 			vfx_log.c \
+			vfx_term.c \
 			vfx_utils.c \
 			visual.c \
 			vm.c \
@@ -142,7 +143,7 @@ FIRST = yes
 
 .PHONY: all clean fclean re
 
-all: $(ASM_EXEC) $(VM_EXEC) $(DEASM_EXEC)
+all: $(ASM_EXEC) $(DEASM_EXEC) $(VM_EXEC)
 	@echo "\n$(C_GREEN)Finished compiling! Enjoy the bloodbath!$(C_EOC)"
 
 logo:

@@ -6,25 +6,11 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:09:13 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:19:53 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static void		get_term_size(int *height, int *width)
-{
-	struct winsize	ws;
-
-	ws.ws_col = 0;
-	ws.ws_row = 0;
-	ws.ws_xpixel = 0;
-	ws.ws_ypixel = 0;
-	if (ioctl(0, TIOCGWINSZ, &ws) < 0)
-		vm_error("Failed to retrieve terminal size");
-	*height = ws.ws_row;
-	*width = ws.ws_col;
-}
 
 static t_win	*init_window(int height, int width, int x, int y)
 {
@@ -55,6 +41,19 @@ static void		vfx_config(t_vs *settings)
 		vm_error("Malloc at vfx_config [car_map]");
 }
 
+static void		init_arena_win(t_vs *settings, int width)
+{
+	if (width < 3 * VFX_WIDTH + VFX_INFO_STD + 5)
+		settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\
+			VFX_WIDTH * 2 + 2, 0, 0);
+	else
+	{
+		settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\
+			VFX_WIDTH * 3 + 3, 0, 0);
+		settings->ext = 1;
+	}
+}
+
 static void		init_visual_settings(t_vs *settings)
 {
 	int		height;
@@ -62,8 +61,7 @@ static void		init_visual_settings(t_vs *settings)
 
 	get_term_size(&height, &width);
 	vfx_config(settings);
-	settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\
-		VFX_WIDTH * 2 + 2, 0, 0);
+	init_arena_win(settings, width);
 	if (width > settings->arena->width)
 		settings->info = init_window(VFX_INFO_H,\
 			width - settings->arena->width + 1, settings->arena->x +\

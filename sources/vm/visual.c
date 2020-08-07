@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 12:26:16 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 17:48:07 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:09:14 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void		draw_arena(t_vm *core, size_t limit)
 		if (core->vfx->car_map[i])
 			wattron(core->vfx->arena->win, A_STANDOUT);
 		wattron(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
-		x = ((i % (VFX_WIDTH)) * 2) + 1;
 		y = (i / (core->vfx->arena->height - 2)) + 1;
+		if (!core->vfx->ext)
+			x = ((i % (VFX_WIDTH)) * VFX_SHORT_STEP) + 1;
+		else
+			x = ((i % (VFX_WIDTH)) * VFX_LONG_STEP) + 2;
 		mvwprintw(core->vfx->arena->win, y, x, "%02x", core->arena[i]);
 		wattroff(core->vfx->arena->win, COLOR_PAIR((int)(core->byte_owner[i])));
 		wattroff(core->vfx->arena->win, A_STANDOUT);

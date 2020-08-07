@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:36:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:14:44 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define VFX_INFO_H 23
 # define VFX_LEGEND_STD 3
 # define VFX_LOG_START 25
+# define VFX_SHORT_STEP 2
+# define VFX_LONG_STEP 3
 
 /*
 ** FLAGS Preset
@@ -95,6 +97,7 @@ typedef struct	s_visual_settings
 	t_win		*info;
 	t_win		*log;
 	t_win		*legend;
+	int			ext;
 	int			play;
 	int			key;
 	size_t		freq;
@@ -197,6 +200,7 @@ void			vfx_cycle(t_vm *core);
 void			carriage_map(t_vm *core);
 void			draw_log(t_vm *core);
 void			vfx_write_log(t_vm *core, char *str, ssize_t pc);
+void			get_term_size(int *height, int *width);
 
 /*
 ** VM utilities
