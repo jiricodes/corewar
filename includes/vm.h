@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:47:47 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:36:57 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define LOG_COPY_CAR 16
 # define LOG_PC 32
 # define LOG_CAR_CNT 64
+
 # define LOG_BUF 256
 
 /*
@@ -184,6 +185,7 @@ void			delete_car_list(t_car *head);
 void			init_vfx_arena(t_vm *core);
 void			draw_arena(t_vm *core, size_t limit);
 void			draw_cycle(t_vm *core);
+void			draw_legend(t_vm *core);
 void			vfx_colors();
 void			vfx_key(t_vm *core);
 char			*create_progress_bar(size_t max_val, size_t cur_val,\
@@ -194,7 +196,7 @@ void			players_info(t_vm *core, int *x, int *y);
 void			vfx_cycle(t_vm *core);
 void			carriage_map(t_vm *core);
 void			draw_log(t_vm *core);
-void			vfx_write_log(t_vm *core, char *str);
+void			vfx_write_log(t_vm *core, char *str, ssize_t pc);
 
 /*
 ** VM utilities

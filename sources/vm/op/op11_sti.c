@@ -6,25 +6,25 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 19:22:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:21:38 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_sti(t_vm *core, size_t car_id, int arg, int val[3])
+inline void	log_sti(t_vm *core, t_car *car, int arg, int val[3])
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
 		ft_printf("[%zu]\tP %4zu | %s r%d %d %d\n", core->cycle,\
-			car_id, "sti", arg, val[1], val[2]);
+			car->id, "sti", arg, val[1], val[2]);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s r%d %d %d\n", core->cycle,\
-			car_id, "sti", arg, val[1], val[2]);
-		vfx_write_log(core, tmp);
+			car->id, "sti", arg, val[1], val[2]);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -47,7 +47,7 @@ static void	do_sti(t_vm *core, t_args *args, t_car *car)
 		val[2] = args->arg[2];
 	write_bytes(car->pc + (val[1] + val[2]) % IDX_MOD, val[0], car, core);
 	if (core->flags->log & LOG_OPS)
-		log_sti(core, car->id, args->arg[0], val);
+		log_sti(core, car, args->arg[0], val);
 }
 
 void		op_sti(t_vm *core, t_car *car)

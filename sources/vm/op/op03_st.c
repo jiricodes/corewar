@@ -6,25 +6,25 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:49:57 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:22:20 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_st(t_vm *core, size_t car_id, int arg, int val)
+inline void	log_st(t_vm *core, t_car *car, int arg, int val)
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
 		ft_printf("[%zu]\tP %4zu | %s r%d %d\n", core->cycle,\
-			car_id, "st", arg, val);
+			car->id, "st", arg, val);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s r%d %d\n", core->cycle,\
-			car_id, "st", arg, val);
-		vfx_write_log(core, tmp);
+			car->id, "st", arg, val);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -45,7 +45,7 @@ static void	do_st(t_vm *core, t_args *args, t_car *car)
 		car->reg[val[1] - 1] = val[0];
 	}
 	if (core->flags->log & LOG_OPS)
-		log_st(core, car->id, args->arg[0], val[1]);
+		log_st(core, car, args->arg[0], val[1]);
 }
 
 void		op_st(t_vm *core, t_car *car)

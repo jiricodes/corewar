@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:17:09 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:03:17 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		intro_champ(t_vm *core, size_t id)
 		core->champ[i]->header->prog_name, core->champ[i]->header->comment);
 	position = i * MEM_SIZE / core->n_players;
 	insert_champ_to_arena(core, core->champ[i], position);
-	if (core->flags->log & LOG_DETAILS)
+	if ((core->flags->log & LOG_DETAILS) && !core->flags->silent)
 		ft_printf("Champ [%zu] inserted to arena\n",\
 			core->champ[i]->id);
 	core->car_list = prepend_carriage(core->car_list,\

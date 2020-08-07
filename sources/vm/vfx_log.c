@@ -6,20 +6,23 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:51:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:40:16 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:28:11 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	vfx_write_log(t_vm *core, char *str)
+void	vfx_write_log(t_vm *core, char *str, ssize_t pc)
 {
 	int y;
 	int x;
 
 	getyx(core->vfx->log->win, y, x);
 	wmove(core->vfx->log->win, y, x + 1);
+	wattron(core->vfx->log->win, COLOR_PAIR((int)(core->byte_owner[pc])));
 	wprintw(core->vfx->log->win, str);
+	wattroff(core->vfx->log->win, COLOR_PAIR((int)(core->byte_owner[pc])));
+	// wrefresh(core->vfx->log->win);
 }
 
 void	draw_log(t_vm *core)

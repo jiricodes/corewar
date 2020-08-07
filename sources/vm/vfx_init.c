@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:51:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:09:13 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void		init_visual_settings(t_vs *settings)
 	settings->log = init_window(settings->arena->height - VFX_INFO_H + 1,\
 		settings->info->width, settings->info->x, VFX_INFO_H - 1);
 	scrollok(settings->log->win, true);
+	wprintw(settings->log->win, "\n");
 	refresh();
 }
 

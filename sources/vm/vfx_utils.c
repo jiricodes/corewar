@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:04:13 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:36:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,16 @@ void	vfx_key(t_vm *core)
 		exit(0);
 	}
 	else if (core->vfx->key == KEY_RIGHT)
+	{
 		core->vfx->freq = core->vfx->freq > VFX_SPEED_DELTA ?\
 			core->vfx->freq - VFX_SPEED_DELTA : 1;
+		draw_legend(core);
+	}
 	else if (core->vfx->key == KEY_LEFT)
+	{
 		core->vfx->freq += VFX_SPEED_DELTA;
+		draw_legend(core);
+	}
 	else if (core->vfx->key == 's')
 	{
 		core->vfx->play = 0;

@@ -6,25 +6,25 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:39:23 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:23:28 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_fork(t_vm *core, size_t car_id, int arg, int val)
+inline void	log_fork(t_vm *core, t_car *car, int arg, int val)
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
 		ft_printf("[%zu]\tP %4zu | %s %d (%d)\n", core->cycle,\
-			car_id, "fork", arg, val);
+			car->id, "fork", arg, val);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d (%d)\n", core->cycle,\
-			car_id, "fork", arg, val);
-		vfx_write_log(core, tmp);
+			car->id, "fork", arg, val);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -39,7 +39,7 @@ void		op_fork(t_vm *core, t_car *car)
 	{
 		val = (car->pc + car->args->arg[0] % IDX_MOD) % MEM_SIZE;
 		if (core->flags->log & LOG_OPS)
-			log_fork(core, car->id, car->args->arg[0], val);
+			log_fork(core, car, car->args->arg[0], val);
 		if (val < 0)
 			val += MEM_SIZE;
 		copy_carriage(core, car, val);

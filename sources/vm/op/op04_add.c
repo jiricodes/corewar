@@ -6,25 +6,25 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:42:27 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:22:33 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_add(t_vm *core, size_t car_id, int arg[3])
+inline void	log_add(t_vm *core, t_car *car, int arg[3])
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
-		ft_printf("[%zu]\tP %4zu | %s r%d r%d r%d\n", core->cycle, car_id,\
+		ft_printf("[%zu]\tP %4zu | %s r%d r%d r%d\n", core->cycle, car->id,\
 			"add", arg[0], arg[1], arg[2]);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s r%d r%d r%d\n", core->cycle,\
-			car_id, "add", arg[0], arg[1], arg[2]);
-		vfx_write_log(core, tmp);
+			car->id, "add", arg[0], arg[1], arg[2]);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -39,7 +39,7 @@ static void	do_add(t_vm *core, t_args *args, t_car *car)
 	car->reg[val[2]] = val[0] + val[1];
 	car->carry = car->reg[val[2]] ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
-		log_add(core, car->id, args->arg);
+		log_add(core, car, args->arg);
 }
 
 void		op_add(t_vm *core, t_car *car)

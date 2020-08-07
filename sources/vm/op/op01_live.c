@@ -6,24 +6,24 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:29:58 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:16:40 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_live(t_vm *core, size_t car_id, int val)
+inline void	log_live(t_vm *core, t_car *car, int val)
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
-		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car_id, "live", val);
+		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car->id, "live", val);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d\n", core->cycle,\
-			car_id, "live", val);
-		vfx_write_log(core, tmp);
+			car->id, "live", val);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -59,7 +59,7 @@ void		op_live(t_vm *core, t_car *car)
 	{
 		val = car->args->arg[0];
 		if (core->flags->log & LOG_OPS)
-			log_live(core, car->id, val);
+			log_live(core, car, val);
 		last_to_live(core, val);
 		car->last_live = core->cycle;
 		core->live_cnt++;

@@ -6,25 +6,25 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 19:33:31 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:23:52 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_lldi(t_vm *core, size_t car_id, int val[3])
+inline void	log_lldi(t_vm *core, t_car *car, int val[3])
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
 		ft_printf("[%zu]\tP %4zu | %s %d %d r%d\n", core->cycle,\
-			car_id, "lldi", val[0], val[1], val[2]);
+			car->id, "lldi", val[0], val[1], val[2]);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d %d r%d\n", core->cycle,\
-			car_id, "lldi", val[0], val[1], val[2]);
-		vfx_write_log(core, tmp);
+			car->id, "lldi", val[0], val[1], val[2]);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -49,7 +49,7 @@ static void	do_lldi(t_vm *core, t_args *args, t_car *car)
 		val[0] + val[1], REG_SIZE);
 	car->carry = (car->reg[val[2] - 1]) ? 0 : 1;
 	if (core->flags->log & LOG_OPS)
-		log_lldi(core, car->id, val);
+		log_lldi(core, car, val);
 }
 
 void		op_lldi(t_vm *core, t_car *car)

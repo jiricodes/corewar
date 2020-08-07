@@ -6,24 +6,24 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 05:39:29 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 07:24:09 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oplist_cw.h"
 
-inline void	log_aff(t_vm *core, size_t car_id, int val)
+inline void	log_aff(t_vm *core, t_car *car, int val)
 {
 	char *tmp;
 
 	if (!core->flags->vfx)
-		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car_id, "aff", val);
+		ft_printf("[%zu]\tP %4zu | %s %d\n", core->cycle, car->id, "aff", val);
 	else
 	{
 		tmp = ft_strnew(LOG_BUF);
 		ft_sprintf(tmp, " [%zu]\tP %4zu | %s %d\n",\
-			core->cycle, car_id, "aff", val);
-		vfx_write_log(core, tmp);
+			core->cycle, car->id, "aff", val);
+		vfx_write_log(core, tmp, car->pc);
 		free(tmp);
 	}
 }
@@ -45,7 +45,7 @@ void		op_aff(t_vm *core, t_car *car)
 				ft_putchar(val);
 				ft_putchar('\n');
 				if (core->flags->log & LOG_OPS)
-					log_aff(core, car->id, val);
+					log_aff(core, car, val);
 			}
 		}
 	}
