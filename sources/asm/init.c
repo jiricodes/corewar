@@ -18,7 +18,7 @@ t_asm			*intialize_asm(char *filename)
 
 	core = (t_asm *)ft_memalloc(sizeof(t_asm));
 	if (!core)
-		ft_error_exit("Malloc at initialize_asm", NULL, NULL);
+		ft_error("Malloc at initialize_asm");
 	core->target_file = filename_pars(filename, SRC_TYPE, TRGT_TYPE);
 	if (!core->target_file)
 		ft_error_exit("Incorrect file type", (void *)core, clear_t_asm);
@@ -43,7 +43,7 @@ t_operation		*newnode(void)
 
 	new = (t_operation*)ft_memalloc(sizeof(t_operation));
 	if (!new)
-		ft_error_exit("Malloc at newnode", NULL, NULL);
+		ft_error("Malloc at newnode");
 	new->label = NULL;
 	new->op_name = NULL;
 	new->arg[0] = NULL;

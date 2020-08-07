@@ -59,7 +59,7 @@ char		*final_reformat(char *reform, int *i, int *pos, int separator)
 	char	*final;
 
 	if (!(final = (char*)malloc(sizeof(char) * ft_strlen(reform) + 2)))
-		ft_error_exit("Malloc error", 0, 0);
+		ft_error("Malloc error");
 	while (reform[*pos])
 	{
 		if (reform[*pos] != ' ')
@@ -96,7 +96,7 @@ char		*reformat(char *line)
 	i = 0;
 	pos = 0;
 	if (!(reform = (char*)malloc(sizeof(char) * ft_strlen(line) + 2)))
-		ft_error_exit("Malloc error", 0, 0);
+		ft_error("Malloc error");
 	reform = reduce_whitespace(line, reform, &i, &pos);
 	reform[pos] = '\0';
 	pos = 0;
@@ -128,7 +128,7 @@ int			lex_parser(t_asm *core, t_operation **list, char *line)
 	if (!core->champ_name || !core->champ_comment)
 	{
 		ft_dprintf(2, "Issue on line %d\n", core->line_cnt);
-		ft_error_exit("Lexical error", 0, 0);
+		ft_error("Lexical error");
 	}
 	reform = reformat(line);
 	list_append(list);

@@ -99,7 +99,7 @@ char	*save_name_comment(int source_fd, char *line)
 	cnt = 0;
 	while (line[cnt] != '\"')
 	{
-		(line[cnt] == '\0') ? ft_error_exit("No name or comment", 0, 0) : 0;
+		(line[cnt] == '\0') ? ft_error("No name or comment") : 0;
 		cnt += 1;
 	}
 	pos_start = cnt + 1;
