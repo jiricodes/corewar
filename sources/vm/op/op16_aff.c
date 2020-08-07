@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 15:02:59 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 19:37:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 05:39:29 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ inline void	log_aff(t_vm *core, size_t car_id, int val)
 	}
 }
 
-void	op_aff(t_vm *core, t_car *car)
+void		op_aff(t_vm *core, t_car *car)
 {
 	ssize_t	index;
 	char	val;

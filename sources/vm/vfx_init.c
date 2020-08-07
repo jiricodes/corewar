@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:34:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 19:29:12 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 05:51:15 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ static void		vfx_config(t_vs *settings)
 		vm_error("Malloc at vfx_config [car_map]");
 }
 
-t_vs			*init_visual_settings(void)
+static void		init_visual_settings(t_vs *settings)
 {
-	t_vs	*settings;
 	int		height;
 	int		width;
 
-	if (!(settings = (t_vs *)ft_memalloc(sizeof(t_vs))))
-		vm_error("Malloc at init_visual_settings");
 	get_term_size(&height, &width);
 	vfx_config(settings);
 	settings->arena = init_window(MEM_SIZE / VFX_WIDTH + 2,\
@@ -80,14 +77,16 @@ t_vs			*init_visual_settings(void)
 	else
 		settings->legend = init_window(VFX_LEGEND_STD, width, 0,\
 			settings->arena->height - 1);
-	settings->log = init_window(settings->arena->height - VFX_INFO_H + 1, settings->info->width, settings->info->x, VFX_INFO_H - 1);
+	settings->log = init_window(settings->arena->height - VFX_INFO_H + 1,\
+		settings->info->width, settings->info->x, VFX_INFO_H - 1);
 	scrollok(settings->log->win, true);
 	refresh();
-	return (settings);
 }
 
 void			init_vfx_arena(t_vm *core)
 {
-	core->vfx = init_visual_settings();
+	if (!(core->vfx = (t_vs *)ft_memalloc(sizeof(t_vs))))
+		vm_error("Malloc at init_vfx_arena");
+	init_visual_settings(core->vfx);
 	vfx_colors();
 }

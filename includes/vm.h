@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:41:12 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/06 18:58:40 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/07 05:47:47 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ void			delete_car_list(t_car *head);
 ** Ncurses VFX
 */
 
-t_vs			*init_visual_settings(void);
 void			init_vfx_arena(t_vm *core);
 void			draw_arena(t_vm *core, size_t limit);
 void			draw_cycle(t_vm *core);
