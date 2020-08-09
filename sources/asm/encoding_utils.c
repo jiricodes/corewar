@@ -24,18 +24,6 @@ char	*strjoin_first(char *s1, char *s2)
 	return (ret);
 }
 
-void	check_name_cmt(t_asm *core)
-{
-	if (core->champ_name == NULL)
-		ft_error("Champ name is missing!");
-	if (core->champ_comment == NULL)
-		ft_error("Champ comment is missing!");
-	if (ft_strlen(core->champ_name) > PROG_NAME_LENGTH)
-		ft_error("Champ name is too long (128)");
-	if (ft_strlen(core->champ_comment) > COMMENT_LENGTH)
-		ft_error("Champ comment is too long (2048)");
-}
-
 void	check_label_chars(char *label)
 {
 	int i;
@@ -76,6 +64,19 @@ void	check_lastline(int source_fd)
 		last[i] != ALT_COMMENT_CHAR)
 		ft_error("File does not end with newline");
 	free(last);
+}
+
+void	check_name_cmt(t_asm *core)
+{
+	if (core->champ_name == NULL)
+		ft_error("Champ name is missing!");
+	if (core->champ_comment == NULL)
+		ft_error("Champ comment is missing!");
+	if (ft_strlen(core->champ_name) > PROG_NAME_LENGTH)
+		ft_error("Champ name is too long (128)");
+	if (ft_strlen(core->champ_comment) > COMMENT_LENGTH)
+		ft_error("Champ comment is too long (2048)");
+	check_lastline(core->source_fd);
 }
 
 char	*remove_trailing_spaces(char *src)

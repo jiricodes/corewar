@@ -133,16 +133,21 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 	{
 		core->line_cnt += 1;
 		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		{
+			(core->champ_name) ? ft_error("Multiple names!") : 0;
 			core->champ_name = save_name_comment(source_fd, line);
+		}
 		else if (ft_strnstr(line, COMMENT_CMD_STRING, \
 							ft_strlen(COMMENT_CMD_STRING)))
+		{
+			(core->champ_comment) ? ft_error("Multiple comments!") : 0;
 			core->champ_comment = save_name_comment(source_fd, line);
+		}
 		else
 			lex_parser(core, list, line);
 		free(line);
 	}
 	check_name_cmt(core);
-	check_lastline(source_fd);
 	match_labels(list, 0, 0, 1);
 	get_size_type(list, core);
 	find_labels(list);
