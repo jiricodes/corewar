@@ -64,6 +64,19 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 	}
 }
 
+void		check_dup_labels(t_operation **list, char *label)
+{
+	t_operation *temp;
+
+	temp = *list;
+	while (temp->next)
+	{
+		if (ft_strequ(temp->label, label))
+			ft_error("Duplicate label!");
+		temp = temp->next;
+	}
+}
+
 /*
 ** Function to save label or op once SEPARATOR_CHAR has been found.
 */
@@ -81,6 +94,7 @@ int			save_label_op(t_operation **list, t_operation *new, \
 		}
 		new->label = ft_strdup(line);
 		check_label_chars(new->label);
+		check_dup_labels(list, new->label);
 	}
 	else if (line[*i] == SEPARATOR_CHAR && line[*i - 1] != LABEL_CHAR)
 	{
