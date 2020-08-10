@@ -30,14 +30,14 @@ void	ft_error_exit(char *user_msg, void *memory, void (*del)(void *))
 			del(memory);
 		else
 		{
-			ft_printf("%{RED}%{BOLD}MEM ERR%{EOC}: Memory (%p) not cleane.",\
+			ft_dprintf(2, "%{RED}%{BOLD}MEM ERR%{EOC}: Memory (%p) not cleane.",\
 			memory);
-			ft_printf("Clearing function not found!\n");
+			ft_dprintf(2, "Clearing function not found!\n");
 		}
 	}
 	if (errno != 0)
 		perror("SYSTEM ERROR MESSAGE: ");
 	if (user_msg)
-		ft_printf("%{RED}%{BOLD}USER ERROR MESSAGE%{EOC}: %s\n", user_msg);
+		ft_dprintf(2, "%{RED}%{BOLD}USER ERROR MESSAGE%{EOC}: %s\n", user_msg);
 	exit(-1);
 }
