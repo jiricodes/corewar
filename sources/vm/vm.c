@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/10 14:45:33 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:27:30 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int			main(int argc, char **argv)
 	}
 	else
 		print_usage();
-	// while(1);
 	return (0);
 }
