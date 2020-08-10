@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/10 15:25:55 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:34:08 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			vfx_cycle(t_vm *core)
 	draw_cycle(core);
 }
 
-static void		free_vfx(t_vm *core)
+void			free_vfx(t_vm *core)
 {
 	free(core->vfx->arena);
 	free(core->vfx->info);

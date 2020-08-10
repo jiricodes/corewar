@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:55:22 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:36:29 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:36:46 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	vfx_key(t_vm *core)
 	else if (core->vfx->key == 27)
 	{
 		endwin();
+		free_vfx(core);
+		clear_vm(core);
 		exit(0);
 	}
 	else if (core->vfx->key == KEY_RIGHT)
