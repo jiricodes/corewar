@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 10:40:56 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 18:10:15 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:45:33 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_vm	*init_vm(void)
 	core->flags = (t_flg *)ft_memalloc(sizeof(t_flg));
 	if (!core->flags)
 		vm_error("Malloc at init_vm [flags]");
+	core->flags->large = CHAMP_MAX_SIZE;
 	core->cycles_to_die = CYCLE_TO_DIE;
 	core->check_cd = core->cycles_to_die;
 	core->flags->dump_cycle = -1;

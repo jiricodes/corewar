@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 15:30:23 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/03 14:19:51 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:53:10 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void		load_header(t_champ *champ)
 	free(tmp);
 	check_null_bytes(champ, 1);
 	champ->header->prog_size = decode_bytes(champ, 4);
-	if (champ->header->prog_size > CHAMP_MAX_SIZE ||\
-		champ->header->prog_size < 0)
+	if (champ->header->prog_size < 0)
 	{
-		ft_dprintf(2, "Player %zu - champ size must be 0 < size <= %zu\n",\
-			champ->id, CHAMP_MAX_SIZE);
+		ft_dprintf(2, "Player %zu - Champ size < 0\n", champ->id);
 		vm_error("Champion Size");
 	}
 	tmp = load_string(champ, COMMENT_LENGTH);

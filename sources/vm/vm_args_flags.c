@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 08:09:51 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/04 17:40:04 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:47:46 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	handle_pt2(t_vm *core, char **argv, int argc, int i)
 		core->flags->aff = 1;
 	else if (ft_strequ(argv[i], "-s"))
 		core->flags->silent = 1;
+	else if (ft_strequ(argv[i], "-l"))
+		core->flags->large = MEM_SIZE / MAX_PLAYERS;
 	else
 		process_player(core, NULL, argv[i]);
 	return (0);

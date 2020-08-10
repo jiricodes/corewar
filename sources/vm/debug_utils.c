@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:48:04 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/07 07:03:17 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:02:00 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,30 @@ static void		intro_champ(t_vm *core, size_t id)
 	core->last_to_live = core->champ[i];
 }
 
+static void		weight_in(t_vm *core)
+{
+	int i;
+
+	i = 0;
+	while (i < core->n_players)
+	{
+		if (core->champ[i]->header->prog_size > core->flags->large)
+		{
+			ft_dprintf(2, "Player %zu - Champ too heavy (%d). Max %d!\n",\
+				core->champ[i]->id, core->champ[i]->header->prog_size,\
+				core->flags->large);
+			vm_error("Champion Size");
+		}
+		i++;
+	}
+}
+
 void			introduce_champs(t_vm *core)
 {
 	size_t	*ids;
 	int		i;
 
+	weight_in(core);
 	ids = (size_t *)ft_memalloc(sizeof(size_t) * core->n_players);
 	if (!ids)
 		vm_error("Malloc at introduce_champs");
