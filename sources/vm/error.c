@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:17:47 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/10 10:36:03 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:09:35 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_usage(void)
 	ft_printf("Usage:\n\n");
 	ft_printf("./corewar -[flag] [-n [player_number] [player.cor]] ...\n");
 	ft_printf("\nFlags:\n");
-	ft_printf("-n [number] <player.cor>\tAssign the number to the player\n");
+	ft_printf("-n [number] <player.cor>\tAssign number n to the player\n");
 	ft_printf("-d [number]\t\t\tDumps memory after that cycle. 64 octets\n");
 	ft_printf("-dump [number]\t\t\tDumps memory after that cycle. 32 octets\n");
 	ft_printf("-v\t\t\t\ttoggle visualiser (supports -log 1 flag)\n");
@@ -40,4 +40,5 @@ void	print_usage(void)
 	ft_printf("\t\t\t\t%d - Carriage movement\n", LOG_PC);
 	ft_printf("\t\t\t\t%d - Carriage Count\n\n", LOG_CAR_CNT);
 	ft_printf("-s\t\t\t\tsilent run\n");
+	ft_printf("-l\t\t\t\tsets champs max size = MEM_SIZE / MAX_PLAYERS\n");
 }
