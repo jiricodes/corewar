@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 17:08:32 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/10 15:34:08 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/11 14:21:06 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			vfx_engine(t_vm *core)
 	loop = 0;
 	init_vfx_arena(core);
 	draw_cycle(core);
-	while (core->car_list && core->cycles_to_die >= 0)
+	while (core->car_list)
 	{
 		if ((core->vfx->key = getch()) != ERR)
 			vfx_key(core);
