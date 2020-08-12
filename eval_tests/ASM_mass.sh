@@ -6,5 +6,5 @@ fi
 TEST_DIR=$1
 
 for f in $TEST_DIR/*.s ; do
-	./asm "$f"
+	../asm "$f"
 done

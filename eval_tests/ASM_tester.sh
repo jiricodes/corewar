@@ -1,5 +1,10 @@
 ## DIRECTORY TO RUN TEST ON ##
-TEST_DIR="tests/asmtests"
+if [ $# -eq 0 ]
+  then
+    echo "No Folder supplied"
+	exit
+fi
+TEST_DIR=$1
 
 ## DIFF LOG FILE NAME ##
 
