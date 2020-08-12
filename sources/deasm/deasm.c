@@ -6,7 +6,7 @@
 /*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 12:42:40 by asolopov          #+#    #+#             */
-/*   Updated: 2020/07/30 10:33:42 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/12 21:01:03 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		main(int argc, char **argv)
 	{
 		core = initialize_deasm(argv[1]);
 		read_file(core, core->source_fd);
-		core->target_fd = open(core->target_file, O_RDWR | O_CREAT, 0600);
+		core->target_fd = open(core->target_file,\
+				O_RDWR | O_TRUNC | O_CREAT, 0600);
 		if (core->target_fd < 0)
 			ft_error_exit("Couldn't open target", (void *)core, clear_t_deasm);
 		decode_exec(core, core->raw_code);
