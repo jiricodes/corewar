@@ -87,7 +87,11 @@ int		special_arg_check(char *label, t_operation **head)
 		else if (!verify_digit(label, &i))
 			return (0);
 		if (label[i] == '-' || label[i] == '+')
+		{
 			i = i + 1;
+			if (label[i] == '\0')
+				ft_error("Extra +/- at the end");
+		}
 		else if (label[i] != '\0')
 			return (0);
 		if (label[i] == '-' || label[i] == '+')
