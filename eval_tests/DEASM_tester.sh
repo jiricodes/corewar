@@ -1,68 +1,29 @@
-## DIRECTORY TO RUN TEST ON ##
 if [ $# -eq 0 ]
   then
-    echo "No Folder supplied"
+    echo "No File supplied"
 	exit
 fi
-TEST_DIR=$1
+DEASM_TMP="deasm_tmp"
+rm -rf $DEASM_TMP deasm_diff
+mkdir $DEASM_TMP
 
-TEMP_DIR="deasm_temps"
-rm -rf $TEMP_DIR
-mkdir $TEMP_DIR
-## DIFF_LOG
-DIFF_LOG="deasm_diff_log"
+cp $1 $DEASM_TMP
+TMP=$(basename $1)
+TMP_S="$DEASM_TMP/$TMP"
+TMP_COR="${TMP_S%.s}.cor"
 
-## DEASM FILES
-DEASM_COR="deasm_test.cor"
-DEASM_S="deasm_test.s"
-
-## COLORS ##
-GREEN="\033[0;32m"
-RED="\033[0;31m"
-EOC="\033[0m"
-
-## SCRIPT ##
-rm $TEST_DIR/*.cor
-rm $DIFF_LOG
-./ASM_mass.sh $TEST_DIR
-mv $TEST_DIR/*.cor $TEMP_DIR
-for f in $TEMP_DIR/*.cor ; do
-	echo "DEASM: $f"
-	../deasm $f
-done
-# for f in $TEMP_DIR/*.s ; do
-# 	[ -f original_temp ] && rm original_temp
-# 	[ -f our_temp ] && rm our_temp
-# 	[[ -f "$f" ]] || continue
-# # 	STATUS=$(../asm "$f")
-# 	COR="${f%.s}.cor"
-# 	if [ ! -f "$COR" ]
-# 	then
-# 		echo "$RED ASM failed to create$EOC $COR\n$STATUS\n"
-# 		continue
-# 	else
-# 		hexdump $COR > original_temp
-# 	fi
-# 	mv $COR $DEASM_COR
-# 	../deasm $DEASM_COR
-# 	rm -f $DEASM_COR
-# 	STATUS=$(../asm "$DEASM_S")
-# 	if [ ! -f $DEASM_COR ]
-# 	then
-# 		echo "$RED Our ASM failed to re-create$EOC $DEASM_COR\n$STATUS\n"
-# 		continue
-# 	fi
-# 	hexdump $DEASM_COR > our_temp
-# 	DIFF=$(diff original_temp our_temp)
-# 	if [ "$DIFF" != "" ]
-# 	then
-# 		echo "Difference for $f /n" >> $DIFF_LOG
-# 		echo "$DIFF" >> $DIFF_LOG
-# 		echo "" >> $DIFF_LOG
-# 		echo "$RED Diff in hexdump$EOC"
-# 	fi
-# 	echo ""
-# done
-# [ -f original_temp ] && rm original_temp
-# [ -f our_temp ] && rm our_temp
-# rm $TEST_DIR/*.cor
+echo "Testing $TMP_S"
+../asm $TMP_S
+hexdump $TMP_COR > $DEASM_TMP/orig_dump
+../deasm $TMP_COR
+rm -f $TMP_COR
+../asm $TMP_S
+hexdump $TMP_COR > $DEASM_TMP/deasm_dump
+DIFF=$(diff $DEASM_TMP/orig_dump $DEASM_TMP/deasm_dump > deasm_diff)
+if [ "$DIFF" != "" ]
+then
+	echo "Diff found $TMP"
+	echo $DIFF >> deasm_diff
+else
+	echo "ALL GUCCI"
+fi
