@@ -128,16 +128,20 @@ char	*save_name_comment(int source_fd, char *line)
 void	read_file(t_asm *core, int source_fd, t_operation **list)
 {
 	char	*line;
+	char	*tmp;
 
 	while (get_next_line(source_fd, &line) > 0)
 	{
+		tmp = line;
 		core->line_cnt += 1;
-		if (ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		while ((*tmp == ' ' || *tmp == '\t') && *tmp != '\0') 
+			tmp++;
+		if (ft_strnstr(tmp, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		{
 			(core->champ_name) ? ft_error("Multiple names!") : 0;
 			core->champ_name = save_name_comment(source_fd, line);
 		}
-		else if (ft_strnstr(line, COMMENT_CMD_STRING, \
+		else if (ft_strnstr(tmp, COMMENT_CMD_STRING, \
 							ft_strlen(COMMENT_CMD_STRING)))
 		{
 			(core->champ_comment) ? ft_error("Multiple comments!") : 0;

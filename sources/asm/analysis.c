@@ -30,6 +30,11 @@ char		*reduce_whitespace(char *line, char *reform, int *i, int *pos)
 		}
 		if (line[*i] != ' ' && line[*i] != '\t')
 		{
+			if ((line[*i] == DIRECT_CHAR || line[*i] == '-') && line[*i - 1] != ' ' && line[*i - 1] != '\t' && line[*i - 1] != SEPARATOR_CHAR)
+			{
+				reform[*pos] = ' ';
+				*pos += 1;
+			}
 			reform[*pos] = line[*i];
 			*pos += 1;
 		}
@@ -123,9 +128,10 @@ int			lex_parser(t_asm *core, t_operation **list, char *line)
 		line = line + 1;
 	if (*line == '\0')
 		return (0);
-	if (*line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR || *line == '.')
+	if (*line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR)
 		return (1);
-	if (!core->champ_name || !core->champ_comment)
+	//ft_printf("name = %s, comment = %s\n", core->champ_name, core->champ_comment);
+	if (!core->champ_name || !core->champ_comment || *line == '.')
 	{
 		ft_dprintf(2, "Issue on line %d\n", core->line_cnt);
 		ft_error("Lexical error");
