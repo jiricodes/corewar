@@ -46,7 +46,7 @@ for f in $TEST_DIR/*.s ; do
 		echo "Difference for $f /n" >> $DIFF_LOG
 		echo "$DIFF" >> $DIFF_LOG
 		echo "" >> $DIFF_LOG
-		echo "$REDDiff in hexdump$EOC"
+		echo "$RED Diff in hexdump$EOC"
 	fi
 	echo ""
 done
