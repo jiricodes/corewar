@@ -13,8 +13,8 @@ erase:
 tower:
 		fork %:write
 		ld %-400, r11
-		ld %0x0C09FFBB, r4		#1409FFBB == 151650235 == (0E) zjmp %-69 (0E is extra byte we don't need)
-		ld %0x0C09FE67, r13		#1409FE67 == 352976487 == (0E) zjmp %-409 (14 == 0E is chosen because it is not dangerous)
+		ld %0x0C09FFBB, r4		#1409FFBB == 151650235 == (0C) zjmp %-69 (0E is extra byte we don't need)
+		ld %0x0C09FE67, r13		#1409FE67 == 352976487 == (0C) zjmp %-409 (12 == 0C is chosen because it is fork)
 		ld %-60, r5
 		st r13, -451
 		ld %0, r13
