@@ -12,6 +12,15 @@
 
 #include "asm.h"
 
+void	skip_space(char *line, char *reform, int *i, int *pos)
+{
+	reform[*pos] = ' ';
+	*pos += 1;
+	while (line[*i] == ' ' || line[*i] == '\t')
+		*i += 1;
+	*i -= 1;
+}
+
 /*
 ** Removes all whitespace and replaces it with separator chars as needed.
 ** Skips comments and copies all not space/tab chars while skipping spaces.
@@ -19,7 +28,7 @@
 ** and space after operation, which too is replaced by separator.
 */
 
-char		*reduce_whitespace(char *line, char *reform, int *i, int *pos)
+char	*reduce_whitespace(char *line, char *reform, int *i, int *pos)
 {
 	while (line[*i])
 	{
@@ -30,7 +39,9 @@ char		*reduce_whitespace(char *line, char *reform, int *i, int *pos)
 		}
 		if (line[*i] != ' ' && line[*i] != '\t')
 		{
-			if ((line[*i] == DIRECT_CHAR || line[*i] == '-') && line[*i - 1] != ' ' && line[*i - 1] != '\t' && line[*i - 1] != SEPARATOR_CHAR)
+			if ((line[*i] == DIRECT_CHAR || line[*i] == '-') && \
+				line[*i - 1] != ' ' && line[*i - 1] != '\t' && \
+				line[*i - 1] != SEPARATOR_CHAR)
 			{
 				reform[*pos] = ' ';
 				*pos += 1;
@@ -39,17 +50,10 @@ char		*reduce_whitespace(char *line, char *reform, int *i, int *pos)
 			*pos += 1;
 		}
 		else
-		{
-			reform[*pos] = ' ';
-			*pos += 1;
-			while (line[*i] == ' ' || line[*i] == '\t')
-				*i += 1;
-			*i -= 1;
-		}
+			skip_space(line, reform, i, pos);
 		*i += 1;
 	}
-	if (reform[*pos - 1] == ' ')
-		*pos -= 1;
+	(reform[*pos - 1] == ' ') ? *pos -= 1 : 0;
 	return (reform);
 }
 
@@ -59,7 +63,7 @@ char		*reduce_whitespace(char *line, char *reform, int *i, int *pos)
 ** it is copied to final string.
 */
 
-char		*final_reformat(char *reform, int *i, int *pos, int separator)
+char	*final_reformat(char *reform, int *i, int *pos, int separator)
 {
 	char	*final;
 
@@ -92,7 +96,7 @@ char		*final_reformat(char *reform, int *i, int *pos, int separator)
 ** Calls reformatting functions.
 */
 
-char		*reformat(char *line)
+char	*reformat(char *line)
 {
 	int		i;
 	int		pos;
@@ -118,20 +122,19 @@ char		*reformat(char *line)
 ** Calls reformat to alter the line, makes new link and gets labels and ops.
 */
 
-int			lex_parser(t_asm *core, t_operation **list, char *line)
+void	lex_parser(t_asm *core, t_operation **list, char *line)
 {
 	char	*reform;
 
 	if (!line || line[0] == '\0')
-		return (0);
+		return ;
 	while (*line == ' ' || *line == '\t')
 		line = line + 1;
 	if (*line == '\0')
-		return (0);
-	if (*line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR)
-		return (1);
-	//ft_printf("name = %s, comment = %s\n", core->champ_name, core->champ_comment);
-	if (!core->champ_name || !core->champ_comment || *line == '.')
+		return ;
+	else if (*line == COMMENT_CHAR || *line == ALT_COMMENT_CHAR)
+		return ;
+	else if (!core->champ_name || !core->champ_comment || *line == '.')
 	{
 		ft_dprintf(2, "Issue on line %d\n", core->line_cnt);
 		ft_error("Lexical error");
@@ -139,5 +142,4 @@ int			lex_parser(t_asm *core, t_operation **list, char *line)
 	reform = reformat(line);
 	list_append(list);
 	get_label_op(core, list, reform);
-	return (1);
 }

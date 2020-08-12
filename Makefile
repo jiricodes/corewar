@@ -38,6 +38,7 @@ ASM_FILES =	asm.c \
 			arg_math.c \
 			special_args.c \
 			analysis_utils.c \
+			analysis_utils2.c \
 			argument_checks.c \
 			encoding_utils.c \
 			special_arg_utils.c \

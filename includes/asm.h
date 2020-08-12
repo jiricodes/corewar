@@ -85,7 +85,7 @@ void					read_file(t_asm *core, int source_fd,\
 ** ASM Parsing
 */
 
-int						lex_parser(t_asm *core, t_operation **list, char *line);
+void					lex_parser(t_asm *core, t_operation **list, char *line);
 int						get_size_type(t_operation **list,\
 										t_asm *core);
 int						find_position(t_operation **list, t_operation *temp,\
@@ -97,6 +97,8 @@ void					get_label_op(t_asm *core, t_operation **list,\
 									char *line);
 char					*strjoin_first(char *s1, char *s2);
 char					*remove_trailing_spaces(char *src);
+void					find_labels(t_operation **list);
+void					get_hex(t_operation *new, char *line, int cnt);
 
 /*
 ** ASM Error checking
@@ -107,7 +109,7 @@ void					match_labels(t_operation **head, int cnt,\
 									int pos, int test);
 int						check_label(char *label, t_operation **head);
 int						check_argument(char *argum, t_asm *core);
-void					check_name_cmt(t_asm *core);
+void					do_checks(t_asm *core, t_operation **list);
 void					check_label_chars(char *label);
 void					check_lastline(int source_fd);
 int						special_arg_check(char *label, t_operation **head);

@@ -134,7 +134,7 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 	{
 		tmp = line;
 		core->line_cnt += 1;
-		while ((*tmp == ' ' || *tmp == '\t') && *tmp != '\0') 
+		while ((*tmp == ' ' || *tmp == '\t') && *tmp != '\0')
 			tmp++;
 		if (ft_strnstr(tmp, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		{
@@ -151,9 +151,5 @@ void	read_file(t_asm *core, int source_fd, t_operation **list)
 			lex_parser(core, list, line);
 		free(line);
 	}
-	check_name_cmt(core);
-	match_labels(list, 0, 0, 1);
-	get_size_type(list, core);
-	find_labels(list);
-	special_arg_finder(list);
+	do_checks(core, list);
 }
