@@ -90,6 +90,8 @@ int		special_arg_check(char *label, t_operation **head)
 			i = i + 1;
 		else if (label[i] != '\0')
 			return (0);
+		if (label[i] == '-' || label[i] == '+')
+			ft_error("Multiple -/+ in math arg");
 	}
 	return (1);
 }

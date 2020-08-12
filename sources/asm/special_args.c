@@ -100,7 +100,7 @@ void	special_arg_finder(t_operation **head)
 }
 
 /*
-** Attempts to find special args by finding - and = chars.
+** Attempts to find special args by finding - and + chars.
 ** Calls checking for special arg if one is identified.
 */
 
