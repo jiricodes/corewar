@@ -66,7 +66,7 @@ void	check_lastline(int source_fd)
 	free(last);
 }
 
-void	check_name_cmt(t_asm *core)
+void	do_checks(t_asm *core, t_operation **list)
 {
 	if (core->champ_name == NULL)
 		ft_error("Champ name is missing!");
@@ -77,6 +77,10 @@ void	check_name_cmt(t_asm *core)
 	if (ft_strlen(core->champ_comment) > COMMENT_LENGTH)
 		ft_error("Champ comment is too long (2048)");
 	check_lastline(core->source_fd);
+	match_labels(list, 0, 0, 1);
+	get_size_type(list, core);
+	find_labels(list);
+	special_arg_finder(list);
 }
 
 char	*remove_trailing_spaces(char *src)
