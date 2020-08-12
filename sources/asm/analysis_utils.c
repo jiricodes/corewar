@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analysis_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 15:48:17 by jmakela           #+#    #+#             */
-/*   Updated: 2020/07/29 14:29:23 by asolopov         ###   ########.fr       */
+/*   Updated: 2020/08/12 17:29:43 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,41 @@ void		check_dup_labels(t_operation **list, char *label)
 ** Function to save label or op once SEPARATOR_CHAR has been found.
 */
 
+static void	save_label(t_operation **list, t_operation *new, char *line)
+{
+	if (new->label != NULL)
+	{
+		list_append(list);
+		new = new->next;
+	}
+	new->label = ft_strdup(line);
+	check_label_chars(new->label);
+	check_dup_labels(list, new->label);
+}
+
 int			save_label_op(t_operation **list, t_operation *new, \
 			char *line, int *i)
 {
+	char	*tmp;
+
 	if (line[*i] == SEPARATOR_CHAR && line[*i - 1] == LABEL_CHAR)
 	{
 		line[*i - 1] = '\0';
-		if (new->label != NULL)
-		{
-			list_append(list);
-			new = new->next;
-		}
-		new->label = ft_strdup(line);
-		check_label_chars(new->label);
-		check_dup_labels(list, new->label);
+		save_label(list, new, line);
 	}
 	else if (line[*i] == SEPARATOR_CHAR && line[*i - 1] != LABEL_CHAR)
 	{
 		line[*i] = '\0';
-		new->op_name = ft_strdup(line);
+		tmp = ft_strchr(line, LABEL_CHAR);
+		if (tmp)
+		{
+			tmp[0] = '\0';
+			tmp++;
+			save_label(list, new, line);
+			new->op_name = ft_strdup(tmp);
+		}
+		else
+			new->op_name = ft_strdup(line);
 		return (0);
 	}
 	return (1);
