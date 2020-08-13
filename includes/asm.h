@@ -58,6 +58,7 @@ typedef struct			s_operation
 	int					arg_type_code;
 	int					position;
 	int					label_pos[3];
+	int					line;
 	struct s_operation	*next;
 }						t_operation;
 
@@ -107,12 +108,13 @@ void					get_hex(t_operation *new, char *line, int cnt);
 void					check_operation(t_operation *operation, t_asm *core);
 void					match_labels(t_operation **head, int cnt,\
 									int pos, int test);
-int						check_label(char *label, t_operation **head);
+int						check_label(char *label, t_operation **head, int line);
 int						check_argument(char *argum, t_asm *core);
 void					do_checks(t_asm *core, t_operation **list);
-void					check_label_chars(char *label);
+void					check_label_chars(char *label, int line);
 void					check_lastline(int source_fd);
-int						special_arg_check(char *label, t_operation **head);
+int						special_arg_check(char *label, t_operation **head, int line);
+void					label_error(t_operation *finder, int cnt);
 
 /*
 ** ASM List functions

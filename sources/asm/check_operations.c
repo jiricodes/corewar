@@ -25,14 +25,15 @@ void	check_further(t_operation *operation, t_oplist ref, t_asm *core)
 			operation->argtypes[cnt] = ret;
 		else
 		{
-			ft_dprintf(2, "Invalid argument: %s\n", operation->arg[cnt]);
+			ft_dprintf(2, "Invalid argument: \"%s\" on line %d\n", \
+						operation->arg[cnt], core->line_cnt);
 			ft_error("Wrong argument type!");
 		}
 		cnt += 1;
 	}
 	if (cnt < 3 && operation->arg[cnt])
 	{
-		ft_dprintf(2, "Invalid arguments on row: %d\n", core->line_cnt);
+		ft_dprintf(2, "Invalid arguments on line: %d\n", core->line_cnt);
 		ft_error("Wrong argument number!");
 	}
 	operation->arg_type_code = ref.arg_type_code;
@@ -55,7 +56,7 @@ void	check_operation(t_operation *operation, t_asm *core)
 	}
 	if (cnt == 16)
 	{
-		ft_dprintf(2, "Invalid instruction: %s, on row %d\n", \
+		ft_dprintf(2, "Invalid instruction: \"%s\" on line %d\n", \
 					operation->op_name, core->line_cnt);
 		ft_error("No operation found!");
 	}

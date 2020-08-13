@@ -24,7 +24,7 @@ char	*strjoin_first(char *s1, char *s2)
 	return (ret);
 }
 
-void	check_label_chars(char *label)
+void	check_label_chars(char *label, int line)
 {
 	int i;
 
@@ -32,7 +32,10 @@ void	check_label_chars(char *label)
 	while (label[i])
 	{
 		if (!ft_strchr(LABEL_CHARS, label[i]))
+		{
+			ft_dprintf(2, "Invalid label: \"%s\" on line %d\n", label, line);
 			ft_error("Wrong chars in label!");
+		}
 		i += 1;
 	}
 }
@@ -62,7 +65,7 @@ void	check_lastline(int source_fd)
 		i += 1;
 	if (last[i] != '\0' && last[i] != COMMENT_CHAR &&
 		last[i] != ALT_COMMENT_CHAR)
-		ft_error("File does not end with newline");
+		ft_error("File does not end with newline!");
 	free(last);
 }
 
@@ -103,7 +106,7 @@ char	*remove_trailing_spaces(char *src)
 			if (temp[cnt] == COMMENT_CHAR || temp[cnt] == ALT_COMMENT_CHAR)
 				break ;
 			else
-				ft_error("Invalid char following name/comment");
+				ft_error("Invalid char following name/comment!");
 		}
 		cnt += 1;
 	}

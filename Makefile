@@ -17,7 +17,7 @@ DEASM_EXEC = deasm
 
 # GCC Settings
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -O3
+CFLAGS = #-Wall -Werror -Wextra -O3
 LDFLAGS = $(LIBFT_FLAG)
 INCLUDES = -I includes/ $(LIBFT_INC)
 
@@ -38,11 +38,11 @@ ASM_FILES =	asm.c \
 			arg_math.c \
 			special_args.c \
 			analysis_utils.c \
-			analysis_utils2.c \
 			argument_checks.c \
 			encoding_utils.c \
 			special_arg_utils.c \
-			utils.c
+			utils.c \
+			utils2.c
 
 ASM_SRC = $(addprefix $(ASM_DIR), $(ASM_FILES))
 

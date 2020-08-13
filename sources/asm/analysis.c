@@ -136,8 +136,11 @@ void	lex_parser(t_asm *core, t_operation **list, char *line)
 		return ;
 	else if (!core->champ_name || !core->champ_comment || *line == '.')
 	{
-		ft_dprintf(2, "Issue on line %d\n", core->line_cnt);
-		ft_error("Lexical error");
+		if (*line == '.')
+			ft_dprintf(2, "Invalid command on line %d\n", core->line_cnt);
+		else
+			ft_dprintf(2, "Name or comment missing\n");
+		ft_error("Lexical error!");
 	}
 	reform = reformat(line);
 	list_append(list);

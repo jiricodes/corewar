@@ -16,12 +16,12 @@
 ** Checks the label by running through the list.
 */
 
-int		check_label(char *label, t_operation **head)
+int		check_label(char *label, t_operation **head, int line)
 {
 	t_operation *cpy;
 
 	cpy = *head;
-	check_label_chars(label);
+	check_label_chars(label, line);
 	while (cpy)
 	{
 		if (cpy->label)
@@ -118,14 +118,15 @@ void	match_labels(t_operation **head, int cnt, int pos, int test)
 			(pos = 0);
 			if (ft_chrpos(finder->arg[cnt], '+') > pos ||
 				ft_chrpos(finder->arg[cnt], '-') > pos)
-				test = special_arg_check(finder->arg[cnt], head);
+				test = special_arg_check(finder->arg[cnt], head, finder->line);
 			else
 			{
 				if (finder->arg[cnt][pos] == LABEL_CHAR)
-					test = check_label(finder->arg[cnt] + pos + 1, head);
+					test = check_label(finder->arg[cnt] + pos + 1, \
+										head, finder->line);
 			}
 			if (!test)
-				ft_error("Argument error");
+				label_error(finder, cnt);
 			cnt += 1;
 		}
 		finder = finder->next;

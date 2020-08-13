@@ -28,3 +28,10 @@ void		get_hex(t_operation *new, char *line, int cnt)
 	free(temp);
 	free(hex);
 }
+
+void		label_error(t_operation *finder, int cnt)
+{
+	ft_dprintf(2, "Invalid argument: \"%s\" on line %d\n", \
+				finder->arg[cnt], finder->line);
+	ft_error("Argument error!");
+}

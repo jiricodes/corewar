@@ -31,8 +31,8 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 		{
 			if (cnt > 2)
 			{
-				ft_dprintf(2, "Argument error on line %d\n", core->line_cnt);
-				ft_error("Lexical error");
+				ft_dprintf(2, "Too many arguments on line %d\n", new->line);
+				ft_error("Argument error!");
 			}
 			line[i] = '\0';
 			if (is_hex(line))
@@ -47,7 +47,7 @@ void		get_args(t_asm *core, t_operation *new, char *line)
 	}
 }
 
-void		check_dup_labels(t_operation **list, char *label)
+void		check_dup_labels(t_operation **list, char *label, int line)
 {
 	t_operation *temp;
 
@@ -55,7 +55,10 @@ void		check_dup_labels(t_operation **list, char *label)
 	while (temp->next)
 	{
 		if (ft_strequ(temp->label, label))
+		{
+			ft_dprintf(2, "Invalid label: \"%s\" on line %d\n", label, line);
 			ft_error("Duplicate label!");
+		}
 		temp = temp->next;
 	}
 }
@@ -66,14 +69,18 @@ void		check_dup_labels(t_operation **list, char *label)
 
 static void	save_label(t_operation **list, t_operation *new, char *line)
 {
+	int pos;
+
 	if (new->label != NULL)
 	{
+		pos = new->line;
 		list_append(list);
 		new = new->next;
+		new->line = pos;
 	}
 	new->label = ft_strdup(line);
-	check_label_chars(new->label);
-	check_dup_labels(list, new->label);
+	check_label_chars(new->label, new->line);
+	check_dup_labels(list, new->label, new->line);
 }
 
 int			save_label_op(t_operation **list, t_operation *new, \
@@ -120,6 +127,7 @@ void		get_label_op(t_asm *core, t_operation **list, char *line)
 	new = *list;
 	while (new->next)
 		new = new->next;
+	new->line = core->line_cnt;
 	while (line[i])
 	{
 		if (line[i] == SEPARATOR_CHAR)

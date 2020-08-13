@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int		verify_label(char *label, t_operation **head, int *i)
+int		verify_label(char *label, t_operation **head, int *i, int line)
 {
 	char	*temp;
 	int		start;
@@ -24,7 +24,7 @@ int		verify_label(char *label, t_operation **head, int *i)
 		while (label[*i] != '+' && label[*i] != '-' && label[*i])
 			*i = *i + 1;
 		temp = ft_strsub(label, start, *i - start);
-		if (!check_label(temp, head))
+		if (!check_label(temp, head, line))
 		{
 			free(temp);
 			return (0);
@@ -66,12 +66,33 @@ int		verify_digit(char *label, int *i)
 	return (1);
 }
 
+int		check_math_errors(char *label, t_operation **head, int line, int *i)
+{
+	if (label[*i] == '-' || label[*i] == '+')
+	{
+		*i = *i + 1;
+		if (label[*i] == '\0')
+		{
+			ft_dprintf(2, "Arg math error on line %d\n", line);
+			ft_error("Extra +/- at the end!");
+		}
+	}
+	else if (label[*i] != '\0')
+		return (0);
+	if (label[*i] == '-' || label[*i] == '+')
+	{
+		ft_dprintf(2, "Arg math error on line %d\n", line);
+		ft_error("Multiple -/+ in math arg!");
+	}
+	return (1);
+}
+
 /*
 ** Checks if argument has format such as: :live -:l1 + 5 - 0xff
 ** Splits the arg into chunks and calls checks.
 */
 
-int		special_arg_check(char *label, t_operation **head)
+int		special_arg_check(char *label, t_operation **head, int line)
 {
 	int i;
 
@@ -80,22 +101,14 @@ int		special_arg_check(char *label, t_operation **head)
 		i = 1;
 	while (label[i])
 	{
-		if (!verify_label(label, head, &i))
+		if (!verify_label(label, head, &i, line))
 			return (0);
 		else if (!verify_hex(label, &i))
 			return (0);
 		else if (!verify_digit(label, &i))
 			return (0);
-		if (label[i] == '-' || label[i] == '+')
-		{
-			i = i + 1;
-			if (label[i] == '\0')
-				ft_error("Extra +/- at the end");
-		}
-		else if (label[i] != '\0')
+		if (!check_math_errors(label, head, line, &i))
 			return (0);
-		if (label[i] == '-' || label[i] == '+')
-			ft_error("Multiple -/+ in math arg");
 	}
 	return (1);
 }

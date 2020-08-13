@@ -78,8 +78,8 @@ int		check_argument(char *argum, t_asm *core)
 {
 	if (!argum)
 	{
-		ft_dprintf(2, "Missing instruction on row %d\n", core->line_cnt);
-		ft_error("No argument provided");
+		ft_dprintf(2, "Missing instruction on line %d\n", core->line_cnt);
+		ft_error("No argument provided!");
 	}
 	if (check_t_reg(argum) == 1)
 		return (T_REG);
@@ -89,9 +89,9 @@ int		check_argument(char *argum, t_asm *core)
 		return (T_DIR);
 	else
 	{
-		ft_dprintf(2, "Invalid instruction: %s, on row %d\n", \
+		ft_dprintf(2, "Invalid instruction: \"%s\" on line %d\n", \
 					argum, core->line_cnt);
-		ft_error("Invalid argument provided");
+		ft_error("Invalid argument provided!");
 		return (0);
 	}
 }
