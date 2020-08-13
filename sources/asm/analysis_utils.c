@@ -18,7 +18,7 @@
 ** If hex is found, it is converted to decimal string.
 */
 
-void		get_args(t_asm *core, t_operation *new, char *line)
+void		get_args(t_operation *new, char *line)
 {
 	int		i;
 	int		cnt;
@@ -142,7 +142,7 @@ void		get_label_op(t_asm *core, t_operation **list, char *line)
 	}
 	if (new->op_name)
 	{
-		get_args(core, new, line);
+		get_args(new, line);
 		check_operation(new, core);
 	}
 }

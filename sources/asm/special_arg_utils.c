@@ -66,7 +66,7 @@ int		verify_digit(char *label, int *i)
 	return (1);
 }
 
-int		check_math_errors(char *label, t_operation **head, int line, int *i)
+int		check_math_errors(char *label, int line, int *i)
 {
 	if (label[*i] == '-' || label[*i] == '+')
 	{
@@ -107,7 +107,7 @@ int		special_arg_check(char *label, t_operation **head, int line)
 			return (0);
 		else if (!verify_digit(label, &i))
 			return (0);
-		if (!check_math_errors(label, head, line, &i))
+		if (!check_math_errors(label, line, &i))
 			return (0);
 	}
 	return (1);

@@ -17,7 +17,7 @@ DEASM_EXEC = deasm
 
 # GCC Settings
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra -O3
+CFLAGS = -Wall -Werror -Wextra -O3
 LDFLAGS = $(LIBFT_FLAG)
 INCLUDES = -I includes/ $(LIBFT_INC)
 
