@@ -1,2 +1,8 @@
 .vscode/
 .DS_Store
+asm
+corewar
+deasm
+lib/libft/libft.a
+lib/libft/object_files/
+objects/
