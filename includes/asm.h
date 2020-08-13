@@ -67,6 +67,7 @@ typedef struct			s_operation
 */
 
 void					clear_t_asm(void *object);
+void					free_list(t_operation *list);
 char					*filename_pars(const char *source,\
 						const char *src_type, const char *target_type);
 t_asm					*intialize_asm(char *filename);

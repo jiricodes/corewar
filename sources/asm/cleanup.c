@@ -28,3 +28,29 @@ void	clear_t_asm(void *object)
 		free(((t_asm*)object)->target_file);
 	free(object);
 }
+
+void	free_list(t_operation *list)
+{
+	t_operation *temp;
+	t_operation *temp2;
+	t_operation *temp3;
+
+	temp = list;
+	while (temp)
+	{
+		if (temp->label)
+			free(temp->label);
+		if (temp->op_name)
+			free(temp->op_name);
+		if (temp->arg[0])
+			free(temp->arg[0]);
+		if (temp->arg[1])
+			free(temp->arg[1]);
+		if (temp->arg[2])
+			free(temp->arg[2]);
+		temp2 = temp;
+		temp3 = temp->next;
+		free(temp2);
+		temp = temp3;
+	}
+}
