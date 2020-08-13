@@ -145,4 +145,5 @@ void	lex_parser(t_asm *core, t_operation **list, char *line)
 	reform = reformat(line);
 	list_append(list);
 	get_label_op(core, list, reform);
+	free(reform);
 }
