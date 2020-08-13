@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_asm		*core;
 	t_operation	*list;
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		list = NULL;
 		read_file(core, core->source_fd, &list);
 		write_champion(core, list);
+		free_list(list);
 		clear_t_asm((void *)core);
 	}
 	else
