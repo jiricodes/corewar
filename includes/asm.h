@@ -6,7 +6,7 @@
 /*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:48:02 by jnovotny          #+#    #+#             */
-/*   Updated: 2020/08/12 16:07:26 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:27:04 by jnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int						check_argument(char *argum, t_asm *core);
 void					do_checks(t_asm *core, t_operation **list);
 void					check_label_chars(char *label, int line);
 void					check_lastline(int source_fd);
-int						special_arg_check(char *label, t_operation **head, int line);
+int						special_arg_check(char *label, t_operation **head,\
+						int line);
 void					label_error(t_operation *finder, int cnt);
 
 /*
