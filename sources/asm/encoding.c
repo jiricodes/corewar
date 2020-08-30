@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encoding.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovotny <jnovotny@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: asolopov <asolopov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 16:10:02 by asolopov          #+#    #+#             */
-/*   Updated: 2020/08/12 16:05:42 by jnovotny         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:23:14 by asolopov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,15 @@ char	*continue_reading(int source_fd)
 {
 	char	*line;
 	char	*ret;
+	int		flag;
 
+	flag = 0;
 	ret = ft_strnew(10);
 	while (get_next_line(source_fd, &line) > 0)
 	{
 		if (ft_strchr(line, '\"'))
 		{
+			flag = 1;
 			ret = strjoin_first(ret, "\n");
 			ret = strjoin_first(ret, line);
 			free(line);
@@ -82,6 +85,8 @@ char	*continue_reading(int source_fd)
 		}
 		free(line);
 	}
+	if (!flag)
+		ft_error("Incorrect name/comment");
 	return (ret);
 }
 
