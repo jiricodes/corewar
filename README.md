@@ -1,5 +1,9 @@
 # CoreWar
 ![](corewar_preview.gif)
+
+This is our solution of the final algorithmic branch's project within Hive Helsinki 1st year curriculum.
+
+> Final Grade 125/100
 ## Installation
 ```
 git clone https://github.com/jiricodes/corewar.git; cd corewar; make
